@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ReactNode } from "react";
+import { TrendingUp, TrendingDown } from "lucide-react";
 
 interface MetricCardProps {
   title: string;
@@ -8,6 +9,7 @@ interface MetricCardProps {
   subtitle?: string;
   trend?: "up" | "down" | "neutral";
   trendValue?: string;
+  delay?: number;
 }
 
 export function MetricCard({
@@ -17,15 +19,25 @@ export function MetricCard({
   subtitle,
   trend,
   trendValue,
+  delay = 0,
 }: MetricCardProps) {
   return (
-    <Card className="border-t-4 border-t-primary hover:shadow-lg transition-shadow duration-200">
+    <Card
+      className="card-elevated metric-card border-0 hover-lift"
+      style={{
+        animation: `slideInUp 0.5s ease-out ${delay}s backwards`,
+      }}
+    >
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <CardTitle className="text-sm font-medium text-muted-foreground">
             {title}
           </CardTitle>
-          {icon && <div className="text-primary">{icon}</div>}
+          {icon && (
+            <div className="text-primary p-2 bg-primary/10 rounded-lg">
+              {icon}
+            </div>
+          )}
         </div>
       </CardHeader>
       <CardContent>
@@ -38,7 +50,7 @@ export function MetricCard({
           )}
           {trend && trendValue && (
             <div
-              className={`text-xs font-medium ${
+              className={`text-xs font-medium flex items-center gap-1 ${
                 trend === "up"
                   ? "text-green-600"
                   : trend === "down"
@@ -46,7 +58,12 @@ export function MetricCard({
                     : "text-gray-600"
               }`}
             >
-              {trend === "up" ? "↑" : trend === "down" ? "↓" : "→"} {trendValue}
+              {trend === "up" ? (
+                <TrendingUp className="w-3 h-3" />
+              ) : trend === "down" ? (
+                <TrendingDown className="w-3 h-3" />
+              ) : null}
+              {trendValue}
             </div>
           )}
         </div>

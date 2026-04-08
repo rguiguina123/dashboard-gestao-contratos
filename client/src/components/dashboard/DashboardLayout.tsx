@@ -8,6 +8,7 @@ import {
   DollarSign,
   Menu,
   X,
+  Home,
 } from "lucide-react";
 
 interface DashboardLayoutProps {
@@ -21,6 +22,11 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
+  {
+    label: "Dashboard",
+    href: "/dashboard",
+    icon: <BarChart3 className="w-5 h-5" />,
+  },
   {
     label: "Contratos",
     href: "/contratos",

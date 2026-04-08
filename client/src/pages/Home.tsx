@@ -8,6 +8,7 @@ import {
   DollarSign,
   ArrowRight,
   Building2,
+  TrendingUp,
 } from "lucide-react";
 import { metricas } from "@/lib/data";
 import { formatCurrency, formatNumber } from "@/lib/utils";
@@ -17,6 +18,14 @@ export default function Home() {
     "https://d2xsxph8kpxj0f.cloudfront.net/310419663029089241/WJWhmX29eSkoE3JJHDcEoo/hero-dashboard-bg-J6faU2HzY3D6GkKLLbXyx4.webp";
 
   const modules = [
+    {
+      title: "Dashboard Executivo",
+      description: "Visão geral dos principais indicadores",
+      href: "/dashboard",
+      icon: <BarChart3 className="w-8 h-8" />,
+      color: "text-emerald-600",
+      metric: "KPIs em tempo real",
+    },
     {
       title: "Contratos",
       description: "Gestão completa de contratos controlados",
