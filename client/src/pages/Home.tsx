@@ -1,25 +1,251 @@
+import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
-import { Streamdown } from 'streamdown';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  FileText,
+  Users,
+  BarChart3,
+  DollarSign,
+  ArrowRight,
+  Building2,
+} from "lucide-react";
+import { metricas } from "@/lib/data";
+import { formatCurrency, formatNumber } from "@/lib/utils";
 
-/**
- * All content in this page are only for example, replace with your own feature implementation
- * When building pages, remember your instructions in Frontend Best Practices, Design Guide and Common Pitfalls
- */
 export default function Home() {
-  // If theme is switchable in App.tsx, we can implement theme toggling like this:
-  // const { theme, toggleTheme } = useTheme();
+  const heroImageUrl =
+    "https://d2xsxph8kpxj0f.cloudfront.net/310419663029089241/WJWhmX29eSkoE3JJHDcEoo/hero-dashboard-bg-J6faU2HzY3D6GkKLLbXyx4.webp";
+
+  const modules = [
+    {
+      title: "Contratos",
+      description: "Gestão completa de contratos controlados",
+      href: "/contratos",
+      icon: <FileText className="w-8 h-8" />,
+      color: "text-primary",
+      metric: `${metricas.contratosControlados} contratos`,
+    },
+    {
+      title: "Colaboradores",
+      description: "Visualize todos os colaboradores por posto e SEC",
+      href: "/colaboradores",
+      icon: <Users className="w-8 h-8" />,
+      color: "text-blue-600",
+      metric: `${metricas.colaboradores} colaboradores`,
+    },
+    {
+      title: "Demonstrativo Total",
+      description: "Visão consolidada de todas as despesas",
+      href: "/demonstrativo",
+      icon: <BarChart3 className="w-8 h-8" />,
+      color: "text-emerald-600",
+      metric: formatCurrency(metricas.anual_geral),
+    },
+    {
+      title: "Despesas com Contrato",
+      description: "Análise de despesas controladas",
+      href: "/despesas-contrato",
+      icon: <DollarSign className="w-8 h-8" />,
+      color: "text-amber-600",
+      metric: formatCurrency(metricas.anual_com_contrato),
+    },
+    {
+      title: "Despesas sem Contrato",
+      description: "Análise de despesas não controladas",
+      href: "/despesas-sem-contrato",
+      icon: <Building2 className="w-8 h-8" />,
+      color: "text-orange-600",
+      metric: formatCurrency(metricas.anual_sem_contrato),
+    },
+  ];
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <main>
-        {/* Example: lucide-react for icons */}
-        <Loader2 className="animate-spin" />
-        Example Page
-        {/* Example: Streamdown for markdown rendering */}
-        <Streamdown>Any **markdown** content</Streamdown>
-        <Button variant="default">Example Button</Button>
-      </main>
+    <div className="min-h-screen bg-background">
+      {/* Hero Section */}
+      <section
+        className="relative h-96 bg-cover bg-center flex items-center justify-center text-center"
+        style={{
+          backgroundImage: `url('${heroImageUrl}')`,
+        }}
+      >
+        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="relative z-10 max-w-4xl mx-auto px-4">
+          <h1 className="text-5xl md:text-6xl font-bold text-white font-poppins mb-4">
+            Dashboard de Gestão
+          </h1>
+          <p className="text-xl md:text-2xl text-white/90 mb-8">
+            Contratos e Colaboradores
+          </p>
+          <p className="text-lg text-white/80 max-w-2xl mx-auto">
+            Visualize e gerencie todos os dados de contratos, colaboradores e
+            despesas em um único lugar
+          </p>
+        </div>
+      </section>
+
+      {/* Metrics Section */}
+      <section className="bg-secondary py-12">
+        <div className="container mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div className="text-center">
+              <p className="text-4xl font-bold text-primary font-poppins">
+                {metricas.colaboradores}
+              </p>
+              <p className="text-muted-foreground mt-2">Colaboradores</p>
+            </div>
+            <div className="text-center">
+              <p className="text-4xl font-bold text-primary font-poppins">
+                {metricas.contratosControlados}
+              </p>
+              <p className="text-muted-foreground mt-2">Contratos</p>
+            </div>
+            <div className="text-center">
+              <p className="text-4xl font-bold text-primary font-poppins">
+                {metricas.secsComColaboradores}
+              </p>
+              <p className="text-muted-foreground mt-2">SECs</p>
+            </div>
+            <div className="text-center">
+              <p className="text-2xl font-bold text-primary font-poppins">
+                {formatCurrency(metricas.mensal_geral)}
+              </p>
+              <p className="text-muted-foreground mt-2">Mensal</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Modules Section */}
+      <section className="py-16">
+        <div className="container mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-foreground font-poppins mb-4">
+              Módulos do Dashboard
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Acesse os diferentes módulos para gerenciar e analisar dados de
+              contratos, colaboradores e despesas
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {modules.map((module) => (
+              <Link key={module.href} href={module.href}>
+                <a>
+                  <Card className="h-full hover:shadow-lg transition-shadow duration-200 cursor-pointer border-t-4 border-t-primary">
+                    <CardHeader>
+                      <div className="flex items-start justify-between mb-4">
+                        <div className={`${module.color}`}>{module.icon}</div>
+                      </div>
+                      <CardTitle className="text-xl font-poppins">
+                        {module.title}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <p className="text-sm text-muted-foreground">
+                        {module.description}
+                      </p>
+                      <div className="flex items-center justify-between pt-4 border-t border-border">
+                        <span className="text-sm font-semibold text-primary">
+                          {module.metric}
+                        </span>
+                        <ArrowRight className="w-4 h-4 text-primary" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </a>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Info Section */}
+      <section className="bg-secondary py-16">
+        <div className="container mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div>
+              <h3 className="text-2xl font-bold text-foreground font-poppins mb-4">
+                Dados Consolidados
+              </h3>
+              <ul className="space-y-3 text-muted-foreground">
+                <li className="flex items-center gap-3">
+                  <span className="w-2 h-2 bg-primary rounded-full"></span>
+                  Mensal com contrato: {formatCurrency(metricas.mensal_com_contrato)}
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="w-2 h-2 bg-primary rounded-full"></span>
+                  Mensal sem contrato: {formatCurrency(metricas.mensal_sem_contrato)}
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="w-2 h-2 bg-primary rounded-full"></span>
+                  Anual com contrato: {formatCurrency(metricas.anual_com_contrato)}
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="w-2 h-2 bg-primary rounded-full"></span>
+                  Anual sem contrato: {formatCurrency(metricas.anual_sem_contrato)}
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-2xl font-bold text-foreground font-poppins mb-4">
+                Recursos Disponíveis
+              </h3>
+              <ul className="space-y-3 text-muted-foreground">
+                <li className="flex items-center gap-3">
+                  <span className="w-2 h-2 bg-primary rounded-full"></span>
+                  Filtros interativos por SEC/UF
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="w-2 h-2 bg-primary rounded-full"></span>
+                  Gráficos de análise em tempo real
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="w-2 h-2 bg-primary rounded-full"></span>
+                  Tabelas com busca e ordenação
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="w-2 h-2 bg-primary rounded-full"></span>
+                  Métricas consolidadas por categoria
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16">
+        <div className="container mx-auto text-center">
+          <h2 className="text-3xl font-bold text-foreground font-poppins mb-6">
+            Comece a Explorar os Dados
+          </h2>
+          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+            Navegue pelos módulos acima para visualizar e analisar os dados de
+            contratos, colaboradores e despesas
+          </p>
+          <Link href="/contratos">
+            <a>
+              <Button size="lg" className="bg-primary hover:bg-primary/90">
+                Acessar Contratos
+                <ArrowRight className="ml-2 w-4 h-4" />
+              </Button>
+            </a>
+          </Link>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-foreground text-white py-8 mt-16">
+        <div className="container mx-auto text-center">
+          <p className="text-sm">
+            Dashboard de Gestão de Contratos e Colaboradores v1.0
+          </p>
+          <p className="text-xs text-white/60 mt-2">
+            Tribunal de Contas da União - TCU
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }
