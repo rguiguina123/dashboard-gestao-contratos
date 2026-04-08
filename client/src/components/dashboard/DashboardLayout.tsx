@@ -86,19 +86,19 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           {navItems.map((item) => {
             const isActive = location === item.href;
             return (
-              <Link key={item.href} href={item.href}>
-                <a
-                  className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${
-                    isActive
-                      ? "bg-primary text-white shadow-md"
-                      : "text-foreground hover:bg-secondary"
-                  }`}
-                >
-                  <span className="flex-shrink-0">{item.icon}</span>
-                  {sidebarOpen && (
-                    <span className="text-sm font-medium">{item.label}</span>
-                  )}
-                </a>
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+                  isActive
+                    ? "bg-primary text-white shadow-md"
+                    : "text-foreground hover:bg-secondary"
+                }`}
+              >
+                <span className="flex-shrink-0">{item.icon}</span>
+                {sidebarOpen && (
+                  <span className="text-sm font-medium">{item.label}</span>
+                )}
               </Link>
             );
           })}
