@@ -131,29 +131,27 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {modules.map((module) => (
               <Link key={module.href} href={module.href}>
-                <a>
-                  <Card className="h-full hover:shadow-lg transition-shadow duration-200 cursor-pointer border-t-4 border-t-primary">
-                    <CardHeader>
-                      <div className="flex items-start justify-between mb-4">
-                        <div className={`${module.color}`}>{module.icon}</div>
-                      </div>
-                      <CardTitle className="text-xl font-poppins">
-                        {module.title}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                      <p className="text-sm text-muted-foreground">
-                        {module.description}
-                      </p>
-                      <div className="flex items-center justify-between pt-4 border-t border-border">
-                        <span className="text-sm font-semibold text-primary">
-                          {module.metric}
-                        </span>
-                        <ArrowRight className="w-4 h-4 text-primary" />
-                      </div>
-                    </CardContent>
-                  </Card>
-                </a>
+                <Card className="h-full hover:shadow-lg transition-shadow duration-200 cursor-pointer border-t-4 border-t-primary">
+                  <CardHeader>
+                    <div className="flex items-start justify-between mb-4">
+                      <div className={`${module.color}`}>{module.icon}</div>
+                    </div>
+                    <CardTitle className="text-xl font-poppins">
+                      {module.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <p className="text-sm text-muted-foreground">
+                      {module.description}
+                    </p>
+                    <div className="flex items-center justify-between pt-4 border-t border-border">
+                      <span className="text-sm font-semibold text-primary">
+                        {module.metric}
+                      </span>
+                      <ArrowRight className="w-4 h-4 text-primary" />
+                    </div>
+                  </CardContent>
+                </Card>
               </Link>
             ))}
           </div>
@@ -225,12 +223,10 @@ export default function Home() {
             contratos, colaboradores e despesas
           </p>
           <Link href="/contratos">
-            <a>
-              <Button size="lg" className="bg-primary hover:bg-primary/90">
-                Acessar Contratos
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </Button>
-            </a>
+            <Button size="lg" className="bg-primary hover:bg-primary/90">
+              Acessar Contratos
+              <ArrowRight className="ml-2 w-4 h-4" />
+            </Button>
           </Link>
         </div>
       </section>
