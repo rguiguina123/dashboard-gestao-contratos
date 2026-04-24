@@ -24,7 +24,7 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   {
-    label: "Dashboard",
+    label: "Relatório",
     href: "/dashboard",
     icon: <BarChart3 className="w-5 h-5" />,
   },
