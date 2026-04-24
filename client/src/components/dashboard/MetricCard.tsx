@@ -34,7 +34,7 @@ export function MetricCard({
             {title}
           </CardTitle>
           {icon && (
-            <div className="text-primary p-2 bg-primary/10 rounded-lg">
+            <div className="text-purple-700 p-2 bg-purple-100 rounded-lg">
               {icon}
             </div>
           )}
@@ -52,10 +52,10 @@ export function MetricCard({
             <div
               className={`text-xs font-medium flex items-center gap-1 ${
                 trend === "up"
-                  ? "text-green-600"
+                  ? "text-emerald-600"
                   : trend === "down"
                     ? "text-red-600"
-                    : "text-gray-600"
+                    : "text-slate-600"
               }`}
             >
               {trend === "up" ? (

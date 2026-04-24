@@ -43,16 +43,16 @@
 }
 
 :root {
-  /* Modernismo Corporativo Minimalista - Paleta Azul Profunda */
-  --primary: #1e40af; /* Azul profundo - confiança e corporativismo */
+  /* Identidade Visual TCU - Roxo Institucional + Azul Profundo */
+  --primary: #6b21a8; /* Roxo TCU - Autoridade Institucional */
   --primary-foreground: #ffffff;
-  --sidebar-primary: #1e40af;
+  --sidebar-primary: #6b21a8;
   --sidebar-primary-foreground: #ffffff;
-  --chart-1: #dbeafe; /* Azul muito claro */
-  --chart-2: #3b82f6; /* Azul médio */
-  --chart-3: #2563eb; /* Azul vibrante */
-  --chart-4: #1e40af; /* Azul profundo */
-  --chart-5: #1e3a8a; /* Azul muito escuro */
+  --chart-1: #ddd6fe; /* Roxo muito claro */
+  --chart-2: #a855f7; /* Roxo médio */
+  --chart-3: #9333ea; /* Roxo vibrante */
+  --chart-4: #7e22ce; /* Roxo escuro */
+  --chart-5: #6b21a8; /* Roxo muito escuro */
   --radius: 0.65rem;
   --background: #ffffff;
   --foreground: #0f172a; /* Cinza muito escuro */
@@ -64,19 +64,19 @@
   --secondary-foreground: #1e293b; /* Cinza escuro */
   --muted: #e2e8f0; /* Cinza claro */
   --muted-foreground: #64748b; /* Cinza médio */
-  --accent: #f59e0b; /* Âmbar para alertas */
+  --accent: #7e22ce; /* Roxo para destaque */
   --accent-foreground: #ffffff;
   --destructive: #dc2626; /* Vermelho para erros */
   --destructive-foreground: #ffffff;
   --border: #cbd5e1; /* Cinza para bordas */
   --input: #f1f5f9; /* Cinza muito claro para inputs */
-  --ring: #2563eb; /* Azul para focus rings */
+  --ring: #9333ea; /* Roxo para focus rings */
   --sidebar: #ffffff;
   --sidebar-foreground: #0f172a;
   --sidebar-accent: #f1f5f9;
-  --sidebar-accent-foreground: #1e40af;
+  --sidebar-accent-foreground: #6b21a8;
   --sidebar-border: #e2e8f0;
-  --sidebar-ring: #2563eb;
+  --sidebar-ring: #9333ea;
 }
 
 .dark {
@@ -184,12 +184,12 @@
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 32px 0 rgba(30, 64, 175, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(107, 33, 168, 0.1);
 }
 
 /* Gradient Text */
 .gradient-text {
-  background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+  background: linear-gradient(135deg, #6b21a8 0%, #9333ea 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -197,14 +197,14 @@
 
 /* Elevated Card with Premium Shadow */
 .card-elevated {
-  box-shadow: 0 10px 40px rgba(30, 64, 175, 0.15),
-              0 0 1px rgba(30, 64, 175, 0.1);
+  box-shadow: 0 10px 40px rgba(107, 33, 168, 0.15),
+              0 0 1px rgba(107, 33, 168, 0.1);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .card-elevated:hover {
-  box-shadow: 0 20px 60px rgba(30, 64, 175, 0.25),
-              0 0 1px rgba(30, 64, 175, 0.1);
+  box-shadow: 0 20px 60px rgba(107, 33, 168, 0.25),
+              0 0 1px rgba(107, 33, 168, 0.1);
   transform: translateY(-4px);
 }
 
@@ -253,10 +253,10 @@
 
 @keyframes pulse-glow {
   0%, 100% {
-    box-shadow: 0 0 0 0 rgba(30, 64, 175, 0.7);
+    box-shadow: 0 0 0 0 rgba(107, 33, 168, 0.7);
   }
   50% {
-    box-shadow: 0 0 0 10px rgba(30, 64, 175, 0);
+    box-shadow: 0 0 0 10px rgba(107, 33, 168, 0);
   }
 }
 
@@ -307,8 +307,8 @@
   border-radius: 9999px;
   font-size: 0.75rem;
   font-weight: 600;
-  background-color: rgba(30, 64, 175, 0.1);
-  color: #1e40af;
+  background-color: rgba(107, 33, 168, 0.1);
+  color: #6b21a8;
 }
 
 .badge-success {
@@ -357,7 +357,7 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #1e40af, #2563eb);
+  background: linear-gradient(90deg, #6b21a8, #9333ea);
 }
 
 /* Staggered Animation for List Items */
@@ -381,6 +381,6 @@
 button:focus-visible,
 a:focus-visible,
 input:focus-visible {
-  outline: 2px solid #2563eb;
+  outline: 2px solid #9333ea;
   outline-offset: 2px;
 }

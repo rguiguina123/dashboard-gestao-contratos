@@ -22,16 +22,16 @@ export function KPICard({
   delay = 0,
 }: KPICardProps) {
   const colorClasses = {
-    primary: "from-primary/10 to-primary/5 border-primary/20",
+    primary: "from-purple-100/50 to-purple-50/50 border-purple-200",
     success: "from-green-100/50 to-green-50/50 border-green-200",
     warning: "from-amber-100/50 to-amber-50/50 border-amber-200",
     danger: "from-red-100/50 to-red-50/50 border-red-200",
   };
 
   const trendColors = {
-    up: "text-green-600",
+    up: "text-emerald-600",
     down: "text-red-600",
-    neutral: "text-gray-600",
+    neutral: "text-slate-600",
   };
 
   return (
@@ -53,7 +53,7 @@ export function KPICard({
               </p>
             </div>
             {icon && (
-              <div className={`p-3 rounded-lg bg-${color}/10`}>{icon}</div>
+              <div className="p-3 rounded-lg bg-purple-100">{icon}</div>
             )}
           </div>
 

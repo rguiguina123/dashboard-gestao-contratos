@@ -100,14 +100,14 @@ export function DataTable<T extends Record<string, any>>({
       )}
       <div className="rounded-lg border border-border overflow-hidden card-elevated">
         <Table>
-          <TableHeader className="bg-gradient-to-r from-primary/5 to-primary/10 border-b border-border">
-            <TableRow className="hover:bg-primary/5">
+          <TableHeader className="bg-gradient-to-r from-purple-100/50 to-purple-50/50 border-b border-border">
+            <TableRow className="hover:bg-purple-50/50">
               {columns.map((column) => (
                 <TableHead
                   key={String(column.key)}
                   className={`text-foreground font-semibold ${
                     column.sortable !== false
-                      ? "cursor-pointer hover:bg-primary/10 transition-colors"
+                      ? "cursor-pointer hover:bg-purple-100 transition-colors"
                       : ""
                   }`}
                   style={{ width: column.width }}
@@ -118,7 +118,7 @@ export function DataTable<T extends Record<string, any>>({
                   <div className="flex items-center gap-2">
                     <span>{column.label}</span>
                     {sortKey === column.key && (
-                      <span className="text-primary animate-fade-in">
+                      <span className="text-purple-700 animate-fade-in">
                         {sortOrder === "asc" ? (
                           <ChevronUp className="w-4 h-4" />
                         ) : (
