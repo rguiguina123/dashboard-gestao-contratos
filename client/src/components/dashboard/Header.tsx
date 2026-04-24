@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { GlobalSearch } from "./GlobalSearch";
 
 interface HeaderProps {
   title?: string;
@@ -19,11 +20,14 @@ export function Header({ title, subtitle }: HeaderProps) {
                 Tribunal de Contas da União
               </p>
             </div>
-            <div className="hidden md:block border-l border-purple-400 pl-4">
+            <div className="hidden md:block border-l border-purple-400 pl-4 flex-1">
               <p className="text-lg font-semibold">{title || "Dashboard de Gestão"}</p>
               {subtitle && (
                 <p className="text-sm text-purple-100">{subtitle}</p>
               )}
+            </div>
+            <div className="flex-1 flex justify-center px-4">
+              <GlobalSearch />
             </div>
           </div>
           <div className="text-right text-sm text-purple-100">

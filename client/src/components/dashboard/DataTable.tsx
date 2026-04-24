@@ -24,14 +24,16 @@ interface DataTableProps<T> {
   searchable?: boolean;
   searchFields?: (keyof T)[];
   title?: string;
+  onRowClick?: (row: T) => void;
 }
 
 export function DataTable<T extends Record<string, any>>({
   columns,
   data,
-  searchable = true,
+  searchable = false,
   searchFields = [],
   title,
+  onRowClick,
 }: DataTableProps<T>) {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortKey, setSortKey] = useState<keyof T | null>(null);
@@ -136,8 +138,9 @@ export function DataTable<T extends Record<string, any>>({
               sortedData.map((row, idx) => (
                 <TableRow
                   key={idx}
-                  className="hover:bg-secondary/50 transition-colors animate-fade-in"
+                  className="hover:bg-purple-50 transition-colors animate-fade-in cursor-pointer"
                   style={{ animationDelay: `${idx * 0.05}s` }}
+                  onClick={() => onRowClick?.(row)}
                 >
                   {columns.map((column) => (
                     <TableCell

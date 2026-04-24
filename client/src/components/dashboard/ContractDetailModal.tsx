@@ -1,0 +1,129 @@
+import { useState } from "react";
+import { X, Download } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Contrato } from "@/lib/data";
+import { formatCurrency } from "@/lib/utils";
+
+interface ContractDetailModalProps {
+  contract: Contrato | null;
+  onClose: () => void;
+}
+
+export function ContractDetailModal({
+  contract,
+  onClose,
+}: ContractDetailModalProps) {
+  if (!contract) return null;
+
+  const handleExport = () => {
+    const data = `Contrato: ${contract.numero}
+Fornecedor: ${contract.fornecedor}
+Objeto: ${contract.objeto}
+SEC: ${contract.sec}
+Vigencia: ${contract.vigencia}
+Valor Mensal: ${formatCurrency(contract.valorMensal)}
+Valor Anual: ${formatCurrency(contract.valorAnual)}`;
+
+    const blob = new Blob([data], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `contrato-${contract.numero}.txt`;
+    a.click();
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4 animate-fade-in">
+      <div className="bg-white rounded-lg shadow-2xl max-w-2xl w-full max-h-96 overflow-y-auto animate-scale-in">
+        {/* Header */}
+        <div className="sticky top-0 bg-gradient-to-r from-purple-700 to-purple-600 text-white p-6 flex items-center justify-between">
+          <div>
+            <h2 className="text-2xl font-bold font-poppins">
+              Contrato {contract.numero}
+            </h2>
+            <p className="text-purple-100 text-sm mt-1">{contract.fornecedor}</p>
+          </div>
+          <button
+            onClick={onClose}
+            className="p-2 hover:bg-purple-500 rounded-lg transition-colors"
+          >
+            <X className="w-6 h-6" />
+          </button>
+        </div>
+
+        {/* Content */}
+        <div className="p-6 space-y-6">
+          {/* Informacoes Principais */}
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="text-sm font-semibold text-muted-foreground">
+                SEC
+              </label>
+              <p className="text-lg text-foreground mt-1">{contract.sec}</p>
+            </div>
+            <div>
+              <label className="text-sm font-semibold text-muted-foreground">
+                Vigencia
+              </label>
+              <p className="text-lg text-foreground mt-1">{contract.vigencia}</p>
+            </div>
+          </div>
+
+          {/* Objeto */}
+          <div>
+            <label className="text-sm font-semibold text-muted-foreground">
+              Objeto
+            </label>
+            <p className="text-foreground mt-2 leading-relaxed">
+              {contract.objeto}
+            </p>
+          </div>
+
+          {/* Valores */}
+          <div className="bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg p-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="text-sm font-semibold text-purple-900">
+                  Valor Mensal
+                </label>
+                <p className="text-2xl font-bold text-purple-700 mt-1">
+                  {formatCurrency(contract.valorMensal)}
+                </p>
+              </div>
+              <div>
+                <label className="text-sm font-semibold text-purple-900">
+                  Valor Anual
+                </label>
+                <p className="text-2xl font-bold text-purple-700 mt-1">
+                  {formatCurrency(contract.valorAnual)}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Tempo */}
+          <div>
+            <label className="text-sm font-semibold text-muted-foreground">
+              Duracao
+            </label>
+            <p className="text-lg text-foreground mt-1">{contract.tempo}</p>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="sticky bottom-0 bg-secondary p-6 flex gap-3 justify-end border-t border-border">
+          <Button variant="outline" onClick={onClose}>
+            Fechar
+          </Button>
+          <Button
+            onClick={handleExport}
+            className="bg-gradient-to-r from-purple-700 to-purple-600 hover:from-purple-800 hover:to-purple-700"
+          >
+            <Download className="w-4 h-4 mr-2" />
+            Exportar
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}

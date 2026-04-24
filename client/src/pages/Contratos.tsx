@@ -2,7 +2,8 @@ import { useState, useMemo } from "react";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { MetricCard } from "@/components/dashboard/MetricCard";
 import { DataTable } from "@/components/dashboard/DataTable";
-import { contratos, metricas } from "@/lib/data";
+import { ContractDetailModal } from "@/components/dashboard/ContractDetailModal";
+import { contratos, metricas, Contrato } from "@/lib/data";
 import {
   Select,
   SelectContent,
@@ -16,6 +17,7 @@ import { formatCurrency } from "@/lib/utils";
 
 export default function Contratos() {
   const [selectedSEC, setSelectedSEC] = useState<string>("all");
+  const [selectedContract, setSelectedContract] = useState<Contrato | null>(null);
 
   // Extrair SECs únicos
   const secs = useMemo(
@@ -42,6 +44,10 @@ export default function Contratos() {
 
   return (
     <DashboardLayout>
+      <ContractDetailModal
+        contract={selectedContract}
+        onClose={() => setSelectedContract(null)}
+      />
       <div className="space-y-8">
         {/* Header */}
         <div>
@@ -153,6 +159,7 @@ export default function Contratos() {
               data={filteredContratos}
               searchable={true}
               searchFields={["fornecedor", "objeto", "numero"]}
+              onRowClick={(row) => setSelectedContract(row)}
             />
           </CardContent>
         </Card>
