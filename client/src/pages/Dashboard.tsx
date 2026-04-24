@@ -52,7 +52,7 @@ export default function Dashboard() {
         {/* Header */}
         <div className="animate-slide-in-up">
           <h1 className="text-4xl font-bold text-foreground font-poppins mb-2">
-            Dashboard Executivo
+            Gestão de Contratos 2026
           </h1>
           <p className="text-muted-foreground">
             Visão geral dos principais indicadores de gestão
