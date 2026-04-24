@@ -70,16 +70,11 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         {/* Header */}
         <div className="h-20 border-b border-border flex items-center justify-between px-4 bg-gradient-to-r from-purple-800 to-purple-700">
           {sidebarOpen && (
-            <div className="flex items-center gap-2">
-              <img
-                src="https://d2xsxph8kpxj0f.cloudfront.net/310419663029089241/WJWhmX29eSkoE3JJHDcEoo/tcu-logo_60c1698f.png"
-                alt="TCU"
-                className="h-10 w-auto"
-              />
-              <h1 className="text-sm font-bold text-white font-poppins">
-                TCU
-              </h1>
-            </div>
+            <img
+              src="https://d2xsxph8kpxj0f.cloudfront.net/310419663029089241/WJWhmX29eSkoE3JJHDcEoo/tcu-logo_60c1698f.png"
+              alt="TCU"
+              className="h-12 w-auto"
+            />
           )}
           {!sidebarOpen && (
             <img

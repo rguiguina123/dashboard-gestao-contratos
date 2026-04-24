@@ -17,14 +17,6 @@ export function Header({ title, subtitle }: HeaderProps) {
               alt="TCU Logo"
               className="h-16 w-auto"
             />
-            <div className="flex flex-col">
-              <h1 className="text-3xl font-bold font-poppins text-white">
-                TCU
-              </h1>
-              <p className="text-sm text-purple-100">
-                Tribunal de Contas da União
-              </p>
-            </div>
             <div className="hidden md:block border-l border-purple-400 pl-4 flex-1">
               <p className="text-lg font-semibold">{title || "Dashboard de Gestão"}</p>
               {subtitle && (
