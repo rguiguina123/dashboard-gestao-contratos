@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Header } from "./Header";
-import { Footer } from "./Footer";
 import {
   FileText,
   Users,
@@ -61,9 +60,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   const [location] = useLocation();
 
   return (
-    <div className="flex flex-col min-h-screen bg-background">
-      <Header title="Gestão de Contratos e Colaboradores" />
-      <div className="flex flex-1">
+    <div className="flex h-screen bg-background">
       {/* Sidebar */}
       <aside
         className={`${
@@ -127,8 +124,6 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
       <main className="flex-1 overflow-auto">
         <div className="p-8">{children}</div>
       </main>
-      </div>
-      <Footer />
     </div>
   );
 }
