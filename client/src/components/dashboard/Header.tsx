@@ -12,8 +12,13 @@ export function Header({ title, subtitle }: HeaderProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
+            <img
+              src="https://d2xsxph8kpxj0f.cloudfront.net/310419663029089241/WJWhmX29eSkoE3JJHDcEoo/tcu-logo_60c1698f.png"
+              alt="TCU Logo"
+              className="h-16 w-auto"
+            />
             <div className="flex flex-col">
-              <h1 className="text-3xl font-bold font-poppins">
+              <h1 className="text-3xl font-bold font-poppins text-white">
                 TCU
               </h1>
               <p className="text-sm text-purple-100">
