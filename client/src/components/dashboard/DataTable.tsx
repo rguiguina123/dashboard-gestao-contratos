@@ -14,6 +14,7 @@ interface Column<T> {
   key: keyof T;
   label: string;
   render?: (value: any, row: T) => React.ReactNode;
+  format?: (value: any) => string;
   width?: string;
   sortable?: boolean;
 }
@@ -149,6 +150,8 @@ export function DataTable<T extends Record<string, any>>({
                     >
                       {column.render
                         ? column.render(row[column.key], row)
+                        : column.format
+                        ? column.format(row[column.key])
                         : row[column.key]}
                     </TableCell>
                   ))}

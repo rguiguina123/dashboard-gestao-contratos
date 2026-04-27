@@ -1,8 +1,8 @@
-import { useMemo, useState } from "react";
+import { useState, useMemo } from "react";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { MetricCard } from "@/components/dashboard/MetricCard";
 import { DataTable } from "@/components/dashboard/DataTable";
-import { contratos, metricas } from "@/lib/data";
+import { contratos, secs as allSecs } from "@/lib/data";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   BarChart,
@@ -27,14 +27,20 @@ import {
 import { DollarSign, TrendingUp, Award } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 
+interface ContratoDisplay {
+  id: string;
+  numero: string;
+  fornecedor: string;
+  objeto: string;
+  sec: string;
+  valor_mensal: number;
+  valor_anual: number;
+}
+
+const COLORS = ["#7c3aed", "#3b82f6", "#06b6d4", "#10b981", "#f59e0b", "#ef4444"];
+
 export default function DespesasContrato() {
   const [selectedSEC, setSelectedSEC] = useState<string>("all");
-
-  // Extrair SECs únicos
-  const secs = useMemo(
-    () => ["all", ...Array.from(new Set(contratos.map((c) => c.sec)))],
-    []
-  );
 
   // Filtrar contratos
   const filteredContratos = useMemo(() => {
@@ -46,303 +52,167 @@ export default function DespesasContrato() {
   const totais = useMemo(() => {
     return filteredContratos.reduce(
       (acc, c) => ({
-        mensal: acc.mensal + c.valorMensal,
-        anual: acc.anual + c.valorAnual,
+        mensal: acc.mensal + c.valor_mensal,
+        anual: acc.anual + c.valor_anual,
       }),
       { mensal: 0, anual: 0 }
     );
   }, [filteredContratos]);
 
-  // Top 5 fornecedores
-  const top5Fornecedores = useMemo(() => {
-    const grouped: Record<string, number> = {};
-    filteredContratos.forEach((c) => {
-      grouped[c.fornecedor] = (grouped[c.fornecedor] || 0) + c.valorAnual;
-    });
-    return Object.entries(grouped)
-      .map(([name, value]) => ({ name, value }))
-      .sort((a, b) => b.value - a.value)
-      .slice(0, 5);
-  }, [filteredContratos]);
-
-  // Distribuição por SEC
-  const distribuicaoSEC = useMemo(() => {
-    const grouped: Record<string, number> = {};
-    filteredContratos.forEach((c) => {
-      grouped[c.sec] = (grouped[c.sec] || 0) + c.valorAnual;
-    });
-    return Object.entries(grouped)
-      .map(([name, value]) => ({ name, value }))
-      .sort((a, b) => b.value - a.value);
-  }, [filteredContratos]);
-
-  // Maior e menor contrato
-  const maiorContrato = useMemo(() => {
-    return filteredContratos.reduce((prev, current) =>
-      prev.valorAnual > current.valorAnual ? prev : current
+  // Dados para gráfico de despesas por fornecedor
+  const despesasPorFornecedor = useMemo(() => {
+    const grouped = filteredContratos.reduce(
+      (acc, c) => {
+        const existing = acc.find((x) => x.fornecedor === c.fornecedor);
+        if (existing) {
+          existing.valor += c.valor_mensal;
+        } else {
+          acc.push({ fornecedor: c.fornecedor, valor: c.valor_mensal });
+        }
+        return acc;
+      },
+      [] as Array<{ fornecedor: string; valor: number }>
     );
+    return grouped.sort((a, b) => b.valor - a.valor).slice(0, 10);
   }, [filteredContratos]);
 
-  const menorContrato = useMemo(() => {
-    return filteredContratos.reduce((prev, current) =>
-      prev.valorAnual < current.valorAnual ? prev : current
+  // Dados para gráfico de despesas por SEC
+  const despesasPorSEC = useMemo(() => {
+    const grouped = filteredContratos.reduce(
+      (acc, c) => {
+        const existing = acc.find((x) => x.sec === c.sec);
+        if (existing) {
+          existing.valor += c.valor_mensal;
+        } else {
+          acc.push({ sec: c.sec, valor: c.valor_mensal });
+        }
+        return acc;
+      },
+      [] as Array<{ sec: string; valor: number }>
     );
+    return grouped.sort((a, b) => b.valor - a.valor).slice(0, 10);
   }, [filteredContratos]);
 
-  const COLORS = [
-    "#1e40af",
-    "#2563eb",
-    "#3b82f6",
-    "#60a5fa",
-    "#93c5fd",
+  const columns: Array<any> = [
+    { key: "numero", label: "Contrato", sortable: true },
+    { key: "fornecedor", label: "Fornecedor", sortable: true },
+    { key: "objeto", label: "Objeto", sortable: false },
+    { key: "sec", label: "SEC", sortable: true },
+    { key: "valor_mensal", label: "Valor Mensal", sortable: true, format: (v: number) => formatCurrency(v) },
+    { key: "valor_anual", label: "Valor Anual", sortable: true, format: (v: number) => formatCurrency(v) },
   ];
 
   return (
     <DashboardLayout>
-      <div className="space-y-8">
+      <div className="space-y-6 animate-fadeIn">
         {/* Header */}
         <div>
-          <h1 className="text-4xl font-bold text-foreground font-poppins mb-2">
-            Despesas com Contrato
-          </h1>
-          <p className="text-muted-foreground">
-            Análise detalhada de despesas controladas por contrato
-          </p>
-        </div>
-
-        {/* Métricas */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <MetricCard
-            title="Total de Contratos"
-            value={filteredContratos.length}
-            icon={<Award className="w-6 h-6" />}
-            subtitle="Contratos ativos"
-          />
-          <MetricCard
-            title="Valor Mensal"
-            value={formatCurrency(totais.mensal)}
-            icon={<DollarSign className="w-6 h-6" />}
-            subtitle="Despesa mensal"
-          />
-          <MetricCard
-            title="Valor Anual"
-            value={formatCurrency(totais.anual)}
-            icon={<TrendingUp className="w-6 h-6" />}
-            subtitle="Despesa anual"
-          />
+          <h1 className="text-4xl font-bold font-poppins text-gray-900">Despesas com Contrato</h1>
+          <p className="text-gray-600 mt-2">Análise de despesas controladas por contrato</p>
         </div>
 
         {/* Filtro */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg font-poppins">Filtros</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-end gap-4">
-              <div className="flex-1">
-                <label className="text-sm font-medium text-foreground mb-2 block">
-                  Secretaria (SEC)
-                </label>
-                <Select value={selectedSEC} onValueChange={setSelectedSEC}>
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">Todas as SECs</SelectItem>
-                    {secs
-                      .filter((s) => s !== "all")
-                      .sort()
-                      .map((sec) => (
-                        <SelectItem key={sec} value={sec}>
-                          {sec}
-                        </SelectItem>
-                      ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        <div className="flex gap-4 items-end">
+          <div className="flex-1 max-w-xs">
+            <label className="text-sm font-medium text-gray-700 mb-2 block">Filtrar por SEC</label>
+            <Select value={selectedSEC} onValueChange={setSelectedSEC}>
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Todas as SECs</SelectItem>
+                {allSecs.map((sec) => (
+                  <SelectItem key={sec} value={sec}>
+                    {sec}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+
+        {/* Métricas */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <MetricCard
+            title="Total de Contratos"
+            value={filteredContratos.length.toString()}
+            icon={Award as any}
+            trend="neutral"
+          />
+          <MetricCard
+            title="Despesa Mensal"
+            value={formatCurrency(totais.mensal)}
+            icon={DollarSign as any}
+            trend="up"
+          />
+          <MetricCard
+            title="Despesa Anual"
+            value={formatCurrency(totais.anual)}
+            icon={TrendingUp as any}
+            trend="up"
+          />
+        </div>
 
         {/* Gráficos */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Top 5 Fornecedores */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg font-poppins">
-                Top 5 Fornecedores (Anual)
-              </CardTitle>
+          {/* Gráfico de Despesas por Fornecedor */}
+          <Card className="border-0 shadow-lg">
+            <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b">
+              <CardTitle className="text-purple-900">Top 10 Fornecedores</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-6">
               <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={top5Fornecedores}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                  <XAxis
-                    dataKey="name"
-                    angle={-45}
-                    textAnchor="end"
-                    height={100}
-                    tick={{ fontSize: 12 }}
-                  />
+                <BarChart data={despesasPorFornecedor}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                  <XAxis dataKey="fornecedor" angle={-45} textAnchor="end" height={100} />
                   <YAxis />
-                  <Tooltip
-                    contentStyle={{
-                      backgroundColor: "#ffffff",
-                      border: "1px solid #cbd5e1",
-                      borderRadius: "0.5rem",
-                    }}
-                    formatter={(value) => formatCurrency(value as number)}
-                  />
-                  <Bar dataKey="value" fill="#1e40af" radius={[8, 8, 0, 0]} />
+                  <Tooltip formatter={(value) => formatCurrency(value as number)} />
+                  <Bar dataKey="valor" fill="#7c3aed" radius={[8, 8, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
           </Card>
 
-          {/* Distribuição por SEC */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg font-poppins">
-                Distribuição por SEC
-              </CardTitle>
+          {/* Gráfico de Despesas por SEC */}
+          <Card className="border-0 shadow-lg">
+            <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b">
+              <CardTitle className="text-purple-900">Top 10 SECs por Despesa</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-6">
               <ResponsiveContainer width="100%" height={300}>
                 <PieChart>
                   <Pie
-                    data={distribuicaoSEC.slice(0, 5)}
+                    data={despesasPorSEC}
+                    dataKey="valor"
+                    nameKey="sec"
                     cx="50%"
                     cy="50%"
-                    labelLine={false}
-                    label={({ name, value }) =>
-                      `${name}: ${formatCurrency(value)}`
-                    }
-                    outerRadius={80}
-                    fill="#8884d8"
-                    dataKey="value"
+                    outerRadius={100}
+                    label
                   >
-                    {distribuicaoSEC.slice(0, 5).map((_, index) => (
-                      <Cell
-                        key={`cell-${index}`}
-                        fill={COLORS[index % COLORS.length]}
-                      />
+                    {despesasPorSEC.map((_, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
-                  <Tooltip
-                    contentStyle={{
-                      backgroundColor: "#ffffff",
-                      border: "1px solid #cbd5e1",
-                      borderRadius: "0.5rem",
-                    }}
-                    formatter={(value) => formatCurrency(value as number)}
-                  />
+                  <Tooltip formatter={(value) => formatCurrency(value as number)} />
                 </PieChart>
               </ResponsiveContainer>
             </CardContent>
           </Card>
         </div>
 
-        {/* Cards de Destaque */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Card className="border-t-4 border-t-primary">
-            <CardHeader>
-              <CardTitle className="text-lg font-poppins">
-                Maior Contrato
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <div>
-                <p className="text-sm text-muted-foreground">Fornecedor</p>
-                <p className="text-lg font-semibold text-foreground">
-                  {maiorContrato.fornecedor}
-                </p>
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground">Objeto</p>
-                <p className="text-sm text-foreground">{maiorContrato.objeto}</p>
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground">Valor Anual</p>
-                <p className="text-2xl font-bold text-primary">
-                  {formatCurrency(maiorContrato.valorAnual)}
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-t-4 border-t-accent">
-            <CardHeader>
-              <CardTitle className="text-lg font-poppins">
-                Menor Contrato
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <div>
-                <p className="text-sm text-muted-foreground">Fornecedor</p>
-                <p className="text-lg font-semibold text-foreground">
-                  {menorContrato.fornecedor}
-                </p>
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground">Objeto</p>
-                <p className="text-sm text-foreground">{menorContrato.objeto}</p>
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground">Valor Anual</p>
-                <p className="text-2xl font-bold text-accent">
-                  {formatCurrency(menorContrato.valorAnual)}
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Tabela de Contratos */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg font-poppins">
-              Contratos ({filteredContratos.length})
-            </CardTitle>
+        {/* Tabela */}
+        <Card className="border-0 shadow-lg">
+          <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b">
+            <CardTitle className="text-purple-900">Detalhes dos Contratos</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-0">
             <DataTable
-              columns={[
-                {
-                  key: "numero",
-                  label: "Número",
-                  width: "15%",
-                },
-                {
-                  key: "fornecedor",
-                  label: "Fornecedor",
-                  width: "25%",
-                },
-                {
-                  key: "objeto",
-                  label: "Objeto",
-                  width: "25%",
-                },
-                {
-                  key: "sec",
-                  label: "SEC",
-                  width: "10%",
-                },
-                {
-                  key: "valorMensal",
-                  label: "Mensal",
-                  width: "12.5%",
-                  render: (value) => formatCurrency(value),
-                },
-                {
-                  key: "valorAnual",
-                  label: "Anual",
-                  width: "12.5%",
-                  render: (value) => formatCurrency(value),
-                },
-              ]}
-              data={filteredContratos}
-              searchable={true}
-              searchFields={["fornecedor", "objeto"]}
+              columns={columns}
+              data={filteredContratos.map((c, idx) => ({
+                id: `${idx}`,
+                ...c,
+              }))}
             />
           </CardContent>
         </Card>

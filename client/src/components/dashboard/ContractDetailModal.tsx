@@ -20,9 +20,8 @@ export function ContractDetailModal({
 Fornecedor: ${contract.fornecedor}
 Objeto: ${contract.objeto}
 SEC: ${contract.sec}
-Vigencia: ${contract.vigencia}
-Valor Mensal: ${formatCurrency(contract.valorMensal)}
-Valor Anual: ${formatCurrency(contract.valorAnual)}`;
+Valor Mensal: ${formatCurrency(contract.valor_mensal)}
+Valor Anual: ${formatCurrency(contract.valor_anual)}`
 
     const blob = new Blob([data], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
@@ -63,9 +62,9 @@ Valor Anual: ${formatCurrency(contract.valorAnual)}`;
             </div>
             <div>
               <label className="text-sm font-semibold text-muted-foreground">
-                Vigencia
+                Fornecedor
               </label>
-              <p className="text-lg text-foreground mt-1">{contract.vigencia}</p>
+              <p className="text-lg text-foreground mt-1">{contract.fornecedor}</p>
             </div>
           </div>
 
@@ -87,7 +86,7 @@ Valor Anual: ${formatCurrency(contract.valorAnual)}`;
                   Valor Mensal
                 </label>
                 <p className="text-2xl font-bold text-purple-700 mt-1">
-                  {formatCurrency(contract.valorMensal)}
+                  {formatCurrency(contract.valor_mensal)}
                 </p>
               </div>
               <div>
@@ -95,18 +94,18 @@ Valor Anual: ${formatCurrency(contract.valorAnual)}`;
                   Valor Anual
                 </label>
                 <p className="text-2xl font-bold text-purple-700 mt-1">
-                  {formatCurrency(contract.valorAnual)}
+                  {formatCurrency(contract.valor_anual)}
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Tempo */}
+          {/* Número */}
           <div>
             <label className="text-sm font-semibold text-muted-foreground">
-              Duracao
+              Número do Contrato
             </label>
-            <p className="text-lg text-foreground mt-1">{contract.tempo}</p>
+            <p className="text-lg text-foreground mt-1">{contract.numero}</p>
           </div>
         </div>
 

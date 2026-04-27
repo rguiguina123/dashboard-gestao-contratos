@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Search, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { contratos, colaboradores } from "@/lib/data";
+import { contratos } from "@/lib/data";
 
 interface SearchResult {
   type: "contrato" | "colaborador";
@@ -39,23 +39,7 @@ export function GlobalSearch() {
         href: "/contratos",
       }));
 
-    const collaboratorResults = colaboradores
-      .filter(
-        (col) =>
-          col.nome.toLowerCase().includes(q) ||
-          col.posto.toLowerCase().includes(q) ||
-          col.sec.toLowerCase().includes(q)
-      )
-      .slice(0, 3)
-      .map((col, idx) => ({
-        type: "colaborador" as const,
-        id: `col-${idx}`,
-        title: col.nome,
-        subtitle: `${col.posto} - ${col.sec}`,
-        href: "/colaboradores",
-      }));
-
-    setResults([...contractResults, ...collaboratorResults]);
+    setResults([...contractResults]);
   }, [query]);
 
   useEffect(() => {

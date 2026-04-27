@@ -3,7 +3,7 @@ import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { MetricCard } from "@/components/dashboard/MetricCard";
 import { DataTable } from "@/components/dashboard/DataTable";
 import { ContractDetailModal } from "@/components/dashboard/ContractDetailModal";
-import { contratos, metricas, Contrato } from "@/lib/data";
+import { contratos, secs as allSecs } from "@/lib/data";
 import {
   Select,
   SelectContent,
@@ -15,15 +15,19 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FileText, DollarSign, Calendar } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 
+interface ContratoDisplay {
+  id: string;
+  numero: string;
+  fornecedor: string;
+  objeto: string;
+  sec: string;
+  valor_mensal: number;
+  valor_anual: number;
+}
+
 export default function Contratos() {
   const [selectedSEC, setSelectedSEC] = useState<string>("all");
-  const [selectedContract, setSelectedContract] = useState<Contrato | null>(null);
-
-  // Extrair SECs únicos
-  const secs = useMemo(
-    () => ["all", ...Array.from(new Set(contratos.map((c) => c.sec)))],
-    []
-  );
+  const [selectedContract, setSelectedContract] = useState<ContratoDisplay | null>(null);
 
   // Filtrar contratos
   const filteredContratos = useMemo(() => {
@@ -35,12 +39,21 @@ export default function Contratos() {
   const totais = useMemo(() => {
     return filteredContratos.reduce(
       (acc, c) => ({
-        mensal: acc.mensal + c.valorMensal,
-        anual: acc.anual + c.valorAnual,
+        mensal: acc.mensal + c.valor_mensal,
+        anual: acc.anual + c.valor_anual,
       }),
       { mensal: 0, anual: 0 }
     );
   }, [filteredContratos]);
+
+  const columns: Array<any> = [
+    { key: "numero", label: "Contrato", sortable: true },
+    { key: "fornecedor", label: "Fornecedor", sortable: true },
+    { key: "objeto", label: "Objeto", sortable: false },
+    { key: "sec", label: "SEC", sortable: true },
+    { key: "valor_mensal", label: "Valor Mensal", sortable: true, format: (v: number) => formatCurrency(v) },
+    { key: "valor_anual", label: "Valor Anual", sortable: true, format: (v: number) => formatCurrency(v) },
+  ]
 
   return (
     <DashboardLayout>
@@ -48,118 +61,69 @@ export default function Contratos() {
         contract={selectedContract}
         onClose={() => setSelectedContract(null)}
       />
-      <div className="space-y-8">
+
+      <div className="space-y-6 animate-fadeIn">
         {/* Header */}
         <div>
-          <h1 className="text-4xl font-bold text-foreground font-poppins mb-2">
-            Gestão de Contratos
-          </h1>
-          <p className="text-muted-foreground">
-            Visualize e gerencie todos os contratos controlados
-          </p>
-        </div>
-
-        {/* Metrics */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <MetricCard
-            title="Total de Contratos"
-            value={metricas.contratosControlados}
-            icon={<FileText className="w-6 h-6" />}
-            subtitle="Contratos ativos"
-          />
-          <MetricCard
-            title="Valor Mensal"
-            value={formatCurrency(totais.mensal)}
-            icon={<DollarSign className="w-6 h-6" />}
-            subtitle="Despesa mensal total"
-          />
-          <MetricCard
-            title="Valor Anual"
-            value={formatCurrency(totais.anual)}
-            icon={<Calendar className="w-6 h-6" />}
-            subtitle="Despesa anual total"
-          />
+          <h1 className="text-4xl font-bold font-poppins text-gray-900">Contratos</h1>
+          <p className="text-gray-600 mt-2">Gestão e análise de todos os contratos vigentes</p>
         </div>
 
         {/* Filtro */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg font-poppins">Filtros</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-end gap-4">
-              <div className="flex-1">
-                <label className="text-sm font-medium text-foreground mb-2 block">
-                  Secretaria (SEC)
-                </label>
-                <Select value={selectedSEC} onValueChange={setSelectedSEC}>
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">Todas as SECs</SelectItem>
-                    {secs
-                      .filter((s) => s !== "all")
-                      .sort()
-                      .map((sec) => (
-                        <SelectItem key={sec} value={sec}>
-                          {sec}
-                        </SelectItem>
-                      ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        <div className="flex gap-4 items-end">
+          <div className="flex-1 max-w-xs">
+            <label className="text-sm font-medium text-gray-700 mb-2 block">Filtrar por SEC</label>
+            <Select value={selectedSEC} onValueChange={setSelectedSEC}>
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Todas as SECs</SelectItem>
+                {allSecs.map((sec) => (
+                  <SelectItem key={sec} value={sec}>
+                    {sec}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
 
-        {/* Tabela de Contratos */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg font-poppins">
-              Contratos ({filteredContratos.length})
-            </CardTitle>
+        {/* Métricas */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <MetricCard
+            title="Total de Contratos"
+            value={filteredContratos.length.toString()}
+            icon={FileText as any}
+            trend="neutral"
+          />
+          <MetricCard
+            title="Despesa Mensal"
+            value={formatCurrency(totais.mensal)}
+            icon={DollarSign as any}
+            trend="up"
+          />
+          <MetricCard
+            title="Despesa Anual"
+            value={formatCurrency(totais.anual)}
+            icon={Calendar as any}
+            trend="up"
+          />
+        </div>
+
+        {/* Tabela */}
+        <Card className="border-0 shadow-lg">
+          <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b">
+            <CardTitle className="text-purple-900">Detalhes dos Contratos</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-0">
             <DataTable
-              columns={[
-                {
-                  key: "numero",
-                  label: "Número do Contrato",
-                  width: "20%",
-                },
-                {
-                  key: "fornecedor",
-                  label: "Fornecedor",
-                  width: "25%",
-                },
-                {
-                  key: "objeto",
-                  label: "Objeto",
-                  width: "25%",
-                },
-                {
-                  key: "sec",
-                  label: "SEC",
-                  width: "10%",
-                },
-                {
-                  key: "valorMensal",
-                  label: "Valor Mensal",
-                  width: "10%",
-                  render: (value) => formatCurrency(value),
-                },
-                {
-                  key: "valorAnual",
-                  label: "Valor Anual",
-                  width: "10%",
-                  render: (value) => formatCurrency(value),
-                },
-              ]}
-              data={filteredContratos}
-              searchable={true}
-              searchFields={["fornecedor", "objeto", "numero"]}
-              onRowClick={(row) => setSelectedContract(row)}
+              columns={columns}
+              data={filteredContratos.map((c, idx) => ({
+                id: `${idx}`,
+                ...c,
+              }))}
+              onRowClick={(row) => setSelectedContract(row as ContratoDisplay)}
             />
           </CardContent>
         </Card>

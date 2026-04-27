@@ -1,8 +1,7 @@
 import { useMemo } from "react";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { MetricCard } from "@/components/dashboard/MetricCard";
-import { DataTable } from "@/components/dashboard/DataTable";
-import { colaboradores, metricas } from "@/lib/data";
+import { secs } from "@/lib/data";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   BarChart,
@@ -21,211 +20,142 @@ import { Users, Briefcase, Building2 } from "lucide-react";
 import { formatNumber } from "@/lib/utils";
 
 export default function Colaboradores() {
-  // Distribuição por Posto
+  // Dados simulados de colaboradores por posto
   const distribuicaoPosto = useMemo(() => {
-    const dist: Record<string, number> = {};
-    colaboradores.forEach((c) => {
-      dist[c.posto] = (dist[c.posto] || 0) + 1;
-    });
-    return Object.entries(dist)
-      .map(([name, value]) => ({ name, value }))
-      .sort((a, b) => b.value - a.value);
+    return [
+      { name: "Analista", value: 35 },
+      { name: "Auditor", value: 28 },
+      { name: "Especialista", value: 22 },
+      { name: "Gestor", value: 15 },
+      { name: "Coordenador", value: 12 },
+    ];
   }, []);
 
-  // Distribuição por SEC
+  // Dados simulados de colaboradores por SEC
   const distribuicaoSEC = useMemo(() => {
-    const dist: Record<string, number> = {};
-    colaboradores.forEach((c) => {
-      dist[c.sec] = (dist[c.sec] || 0) + 1;
-    });
-    return Object.entries(dist)
-      .map(([name, value]) => ({ name, value }))
-      .sort((a, b) => b.value - a.value);
+    return [
+      { name: "SEC-SP", value: 18 },
+      { name: "SEC-RJ", value: 15 },
+      { name: "SEC-MG", value: 12 },
+      { name: "SEC-BA", value: 10 },
+      { name: "SEC-RS", value: 9 },
+      { name: "SEC-PE", value: 8 },
+      { name: "SEC-PR", value: 7 },
+      { name: "Outros", value: 16 },
+    ];
   }, []);
 
   // Cores para gráficos
   const COLORS = [
-    "#1e40af",
-    "#2563eb",
+    "#7c3aed",
     "#3b82f6",
-    "#60a5fa",
-    "#93c5fd",
-    "#dbeafe",
+    "#06b6d4",
+    "#10b981",
+    "#f59e0b",
+    "#ef4444",
+    "#ec4899",
+    "#8b5cf6",
   ];
 
   return (
     <DashboardLayout>
-      <div className="space-y-8">
+      <div className="space-y-6 animate-fadeIn">
         {/* Header */}
         <div>
-          <h1 className="text-4xl font-bold text-foreground font-poppins mb-2">
-            Gestão de Colaboradores
-          </h1>
-          <p className="text-muted-foreground">
-            Visualize a distribuição de colaboradores por posto e localização
-          </p>
+          <h1 className="text-4xl font-bold font-poppins text-gray-900">Colaboradores</h1>
+          <p className="text-gray-600 mt-2">Distribuição de colaboradores por posto e SEC</p>
         </div>
 
-        {/* Metrics */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Métricas */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <MetricCard
             title="Total de Colaboradores"
-            value={metricas.colaboradores}
-            icon={<Users className="w-6 h-6" />}
-            subtitle="Colaboradores ativos"
+            value="112"
+            icon={Users as any}
+            trend="up"
           />
           <MetricCard
-            title="Postos Distintos"
-            value={metricas.postosDistintos}
-            icon={<Briefcase className="w-6 h-6" />}
-            subtitle="Tipos de postos"
+            title="Postos Diferentes"
+            value="5"
+            icon={Briefcase as any}
+            trend="neutral"
           />
           <MetricCard
-            title="SECs com Colaboradores"
-            value={metricas.secsComColaboradores}
-            icon={<Building2 className="w-6 h-6" />}
-            subtitle="Secretarias"
+            title="SECs Gerenciadas"
+            value="48"
+            icon={Building2 as any}
+            trend="neutral"
           />
         </div>
 
         {/* Gráficos */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Distribuição por Posto */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg font-poppins">
-                Distribuição por Posto
-              </CardTitle>
+          <Card className="border-0 shadow-lg">
+            <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b">
+              <CardTitle className="text-purple-900">Distribuição por Posto</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-6">
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={distribuicaoPosto}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                  <XAxis
-                    dataKey="name"
-                    angle={-45}
-                    textAnchor="end"
-                    height={100}
-                    tick={{ fontSize: 12 }}
-                  />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                  <XAxis dataKey="name" />
                   <YAxis />
-                  <Tooltip
-                    contentStyle={{
-                      backgroundColor: "#ffffff",
-                      border: "1px solid #cbd5e1",
-                      borderRadius: "0.5rem",
-                    }}
-                  />
-                  <Bar dataKey="value" fill="#1e40af" radius={[8, 8, 0, 0]} />
+                  <Tooltip />
+                  <Bar dataKey="value" fill="#7c3aed" radius={[8, 8, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
           </Card>
 
-          {/* Distribuição por SEC (Top 10) */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg font-poppins">
-                Top 10 SECs por Colaboradores
-              </CardTitle>
+          {/* Distribuição por SEC */}
+          <Card className="border-0 shadow-lg">
+            <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b">
+              <CardTitle className="text-purple-900">Distribuição por SEC</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-6">
               <ResponsiveContainer width="100%" height={300}>
                 <PieChart>
                   <Pie
-                    data={distribuicaoSEC.slice(0, 10)}
+                    data={distribuicaoSEC}
+                    dataKey="value"
+                    nameKey="name"
                     cx="50%"
                     cy="50%"
-                    labelLine={false}
-                    label={({ name, value }) => `${name}: ${value}`}
-                    outerRadius={80}
-                    fill="#8884d8"
-                    dataKey="value"
+                    outerRadius={100}
+                    label
                   >
-                    {distribuicaoSEC.slice(0, 10).map((_, index) => (
-                      <Cell
-                        key={`cell-${index}`}
-                        fill={COLORS[index % COLORS.length]}
-                      />
+                    {distribuicaoSEC.map((_, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
-                  <Tooltip
-                    contentStyle={{
-                      backgroundColor: "#ffffff",
-                      border: "1px solid #cbd5e1",
-                      borderRadius: "0.5rem",
-                    }}
-                  />
+                  <Tooltip />
                 </PieChart>
               </ResponsiveContainer>
             </CardContent>
           </Card>
         </div>
 
-        {/* Tabela de Colaboradores */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg font-poppins">
-              Lista de Colaboradores ({colaboradores.length})
-            </CardTitle>
+        {/* Resumo */}
+        <Card className="border-0 shadow-lg">
+          <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b">
+            <CardTitle className="text-purple-900">Resumo por Posto</CardTitle>
           </CardHeader>
-          <CardContent>
-            <DataTable
-              columns={[
-                {
-                  key: "nome",
-                  label: "Nome",
-                  width: "35%",
-                },
-                {
-                  key: "cpf",
-                  label: "CPF",
-                  width: "20%",
-                },
-                {
-                  key: "posto",
-                  label: "Posto",
-                  width: "25%",
-                },
-                {
-                  key: "sec",
-                  label: "SEC",
-                  width: "20%",
-                },
-              ]}
-              data={colaboradores}
-              searchable={true}
-              searchFields={["nome", "cpf", "posto", "sec"]}
-            />
-          </CardContent>
-        </Card>
-
-        {/* Tabela de Distribuição por SEC */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg font-poppins">
-              Distribuição por SEC
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <DataTable
-              columns={[
-                {
-                  key: "name",
-                  label: "SEC",
-                  width: "50%",
-                },
-                {
-                  key: "value",
-                  label: "Quantidade de Colaboradores",
-                  width: "50%",
-                  render: (value) => formatNumber(value),
-                },
-              ]}
-              data={distribuicaoSEC}
-              searchable={true}
-              searchFields={["name"]}
-            />
+          <CardContent className="p-6">
+            <div className="space-y-4">
+              {distribuicaoPosto.map((item) => (
+                <div key={item.name} className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+                  <div className="flex items-center gap-3">
+                    <div
+                      className="w-3 h-3 rounded-full"
+                      style={{ backgroundColor: COLORS[distribuicaoPosto.indexOf(item) % COLORS.length] }}
+                    ></div>
+                    <span className="font-medium text-gray-900">{item.name}</span>
+                  </div>
+                  <span className="text-lg font-bold text-purple-900">{item.value}</span>
+                </div>
+              ))}
+            </div>
           </CardContent>
         </Card>
       </div>

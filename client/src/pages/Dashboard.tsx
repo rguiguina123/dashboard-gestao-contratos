@@ -1,7 +1,7 @@
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { KPICard } from "@/components/dashboard/KPICard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { metricas, contratos, colaboradores } from "@/lib/data";
+import { contratos, despesasSemContrato, totalGeral, totaisContratos, totaisDespesasSem } from "@/lib/data";
 import {
   LineChart,
   Line,
@@ -34,16 +34,7 @@ export default function Dashboard() {
     { month: "Mar", com: 1280000, sem: 520000 },
     { month: "Abr", com: 1420000, sem: 510000 },
     { month: "Mai", com: 1550000, sem: 580000 },
-    { month: "Jun", com: 1674292, sem: 620000 },
-  ];
-
-  // Top SECs por gasto
-  const topSECs = [
-    { name: "SEC A", value: 2500000 },
-    { name: "SEC B", value: 2100000 },
-    { name: "SEC C", value: 1800000 },
-    { name: "SEC D", value: 1500000 },
-    { name: "SEC E", value: 1200000 },
+    { month: "Jun", com: totalGeral.mensal, sem: totaisDespesasSem.mensal },
   ];
 
   return (
@@ -63,7 +54,7 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 animate-stagger">
           <KPICard
             title="Despesa Mensal Total"
-            value={formatCurrency(metricas.mensal_geral)}
+            value={formatCurrency(totalGeral.mensal)}
             icon={<DollarSign className="w-5 h-5 text-primary" />}
             trend="up"
             trendValue="+12.5% vs mês anterior"
@@ -72,7 +63,7 @@ export default function Dashboard() {
           />
           <KPICard
             title="Contratos Ativos"
-            value={metricas.contratosControlados}
+            value={contratos.length.toString()}
             icon={<FileText className="w-5 h-5 text-blue-600" />}
             trend="neutral"
             trendValue="Sem alterações"
@@ -81,7 +72,7 @@ export default function Dashboard() {
           />
           <KPICard
             title="Colaboradores"
-            value={metricas.colaboradores}
+            value="112"
             icon={<Users className="w-5 h-5 text-emerald-600" />}
             trend="up"
             trendValue="+5 novos"
@@ -90,7 +81,7 @@ export default function Dashboard() {
           />
           <KPICard
             title="SECs Gerenciadas"
-            value={metricas.secsComColaboradores}
+            value="48"
             icon={<TrendingUp className="w-5 h-5 text-amber-600" />}
             trend="neutral"
             trendValue="Estável"
@@ -99,44 +90,35 @@ export default function Dashboard() {
           />
         </div>
 
-        {/* Main Charts */}
+        {/* Gráficos */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Tendência Mensal */}
-          <Card className="card-elevated animate-slide-in-up">
-            <CardHeader>
-              <CardTitle className="text-lg font-poppins">
-                Tendência de Despesas (6 meses)
-              </CardTitle>
+          {/* Gráfico de Tendência */}
+          <Card className="border-0 shadow-lg">
+            <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b">
+              <CardTitle className="text-purple-900">Tendência Mensal</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-6">
               <ResponsiveContainer width="100%" height={300}>
                 <AreaChart data={monthlyTrend}>
                   <defs>
                     <linearGradient id="colorCom" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#1e40af" stopOpacity={0.3} />
-                      <stop offset="95%" stopColor="#1e40af" stopOpacity={0} />
+                      <stop offset="5%" stopColor="#7c3aed" stopOpacity={0.8} />
+                      <stop offset="95%" stopColor="#7c3aed" stopOpacity={0} />
                     </linearGradient>
                     <linearGradient id="colorSem" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.3} />
-                      <stop offset="95%" stopColor="#f59e0b" stopOpacity={0} />
+                      <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.8} />
+                      <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
                   <XAxis dataKey="month" />
                   <YAxis />
-                  <Tooltip
-                    contentStyle={{
-                      backgroundColor: "#ffffff",
-                      border: "1px solid #cbd5e1",
-                      borderRadius: "0.5rem",
-                    }}
-                    formatter={(value) => formatCurrency(value as number)}
-                  />
+                  <Tooltip formatter={(value) => formatCurrency(value as number)} />
                   <Legend />
                   <Area
                     type="monotone"
                     dataKey="com"
-                    stroke="#1e40af"
+                    stroke="#7c3aed"
                     fillOpacity={1}
                     fill="url(#colorCom)"
                     name="Com Contrato"
@@ -144,7 +126,7 @@ export default function Dashboard() {
                   <Area
                     type="monotone"
                     dataKey="sem"
-                    stroke="#f59e0b"
+                    stroke="#3b82f6"
                     fillOpacity={1}
                     fill="url(#colorSem)"
                     name="Sem Contrato"
@@ -154,144 +136,46 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          {/* Top SECs */}
-          <Card className="card-elevated animate-slide-in-up">
-            <CardHeader>
-              <CardTitle className="text-lg font-poppins">
-                Top 5 SECs por Despesa
-              </CardTitle>
+          {/* Resumo Consolidado */}
+          <Card className="border-0 shadow-lg">
+            <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b">
+              <CardTitle className="text-purple-900">Resumo Consolidado</CardTitle>
             </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={topSECs}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip
-                    contentStyle={{
-                      backgroundColor: "#ffffff",
-                      border: "1px solid #cbd5e1",
-                      borderRadius: "0.5rem",
-                    }}
-                    formatter={(value) => formatCurrency(value as number)}
-                  />
-                  <Bar
-                    dataKey="value"
-                    fill="#1e40af"
-                    radius={[8, 8, 0, 0]}
-                    animationDuration={800}
-                  />
-                </BarChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Summary Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card className="border-l-4 border-l-primary card-elevated animate-slide-in-up">
-            <CardHeader>
-              <CardTitle className="text-lg font-poppins flex items-center gap-2">
-                <CheckCircle className="w-5 h-5 text-primary" />
-                Com Contrato
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <div>
-                <p className="text-sm text-muted-foreground mb-1">Mensal</p>
-                <p className="text-2xl font-bold text-primary font-poppins">
-                  {formatCurrency(metricas.mensal_com_contrato)}
-                </p>
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground mb-1">Anual</p>
-                <p className="text-lg font-semibold text-foreground">
-                  {formatCurrency(metricas.anual_com_contrato)}
-                </p>
-              </div>
-              <div className="pt-2 border-t border-border">
-                <p className="text-xs text-muted-foreground">
-                  {(
-                    (metricas.mensal_com_contrato / metricas.mensal_geral) *
-                    100
-                  ).toFixed(1)}
-                  % do total
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-l-4 border-l-amber-500 card-elevated animate-slide-in-up">
-            <CardHeader>
-              <CardTitle className="text-lg font-poppins flex items-center gap-2">
-                <AlertCircle className="w-5 h-5 text-amber-600" />
-                Sem Contrato
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <div>
-                <p className="text-sm text-muted-foreground mb-1">Mensal</p>
-                <p className="text-2xl font-bold text-amber-600 font-poppins">
-                  {formatCurrency(metricas.mensal_sem_contrato)}
-                </p>
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground mb-1">Anual</p>
-                <p className="text-lg font-semibold text-foreground">
-                  {formatCurrency(metricas.anual_sem_contrato)}
-                </p>
-              </div>
-              <div className="pt-2 border-t border-border">
-                <p className="text-xs text-muted-foreground">
-                  {(
-                    (metricas.mensal_sem_contrato / metricas.mensal_geral) *
-                    100
-                  ).toFixed(1)}
-                  % do total
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-l-4 border-l-emerald-500 card-elevated animate-slide-in-up">
-            <CardHeader>
-              <CardTitle className="text-lg font-poppins flex items-center gap-2">
-                <TrendingUp className="w-5 h-5 text-emerald-600" />
-                Economia Potencial
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <div>
-                <p className="text-sm text-muted-foreground mb-1">
-                  Itens sem contrato
-                </p>
-                <p className="text-2xl font-bold text-emerald-600 font-poppins">
-                  {metricas.mensal_sem_contrato > 0 ? "R$ 0" : "N/A"}
-                </p>
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground mb-1">
-                  Oportunidade de economia
-                </p>
-                <p className="text-lg font-semibold text-foreground">
-                  Analisar contratos
-                </p>
-              </div>
-              <div className="pt-2 border-t border-border">
-                <p className="text-xs text-muted-foreground">
-                  Potencial de otimização
-                </p>
+            <CardContent className="p-6">
+              <div className="space-y-6">
+                <div className="flex justify-between items-center p-4 bg-purple-50 rounded-lg border border-purple-100">
+                  <div>
+                    <p className="text-sm text-purple-600 font-medium">Com Contrato</p>
+                    <p className="text-2xl font-bold text-purple-900">{formatCurrency(totaisContratos.mensal)}</p>
+                    <p className="text-xs text-purple-600 mt-1">{formatCurrency(totaisContratos.anual)}/ano</p>
+                  </div>
+                  <CheckCircle className="w-8 h-8 text-purple-600" />
+                </div>
+                <div className="flex justify-between items-center p-4 bg-blue-50 rounded-lg border border-blue-100">
+                  <div>
+                    <p className="text-sm text-blue-600 font-medium">Sem Contrato</p>
+                    <p className="text-2xl font-bold text-blue-900">{formatCurrency(totaisDespesasSem.mensal)}</p>
+                    <p className="text-xs text-blue-600 mt-1">{formatCurrency(totaisDespesasSem.anual)}/ano</p>
+                  </div>
+                  <AlertCircle className="w-8 h-8 text-blue-600" />
+                </div>
+                <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg border border-gray-200">
+                  <div>
+                    <p className="text-sm text-gray-600 font-medium">Total Geral</p>
+                    <p className="text-2xl font-bold text-gray-900">{formatCurrency(totalGeral.mensal)}</p>
+                    <p className="text-xs text-gray-600 mt-1">{formatCurrency(totalGeral.anual)}/ano</p>
+                  </div>
+                  <TrendingUp className="w-8 h-8 text-gray-600" />
+                </div>
               </div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Quick Stats */}
-        <Card className="card-elevated animate-slide-in-up">
-          <CardHeader>
-            <CardTitle className="text-lg font-poppins">
-              Estatísticas Rápidas
-            </CardTitle>
+        {/* Indicadores */}
+        <Card className="border-0 shadow-lg">
+          <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b">
+            <CardTitle className="text-purple-900">Indicadores de Gestão</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -300,9 +184,7 @@ export default function Dashboard() {
                   Ticket Médio
                 </p>
                 <p className="text-xl font-bold text-foreground font-poppins">
-                  {formatCurrency(
-                    metricas.mensal_geral / metricas.contratosControlados
-                  )}
+                  {formatCurrency(totalGeral.mensal / contratos.length)}
                 </p>
               </div>
               <div className="p-4 bg-secondary rounded-lg hover-lift">
@@ -310,10 +192,7 @@ export default function Dashboard() {
                   Contratos/SEC
                 </p>
                 <p className="text-xl font-bold text-foreground font-poppins">
-                  {(
-                    metricas.contratosControlados /
-                    metricas.secsComColaboradores
-                  ).toFixed(1)}
+                  {(contratos.length / 48).toFixed(1)}
                 </p>
               </div>
               <div className="p-4 bg-secondary rounded-lg hover-lift">
@@ -321,10 +200,7 @@ export default function Dashboard() {
                   Colaboradores/SEC
                 </p>
                 <p className="text-xl font-bold text-foreground font-poppins">
-                  {(
-                    metricas.colaboradores /
-                    metricas.secsComColaboradores
-                  ).toFixed(1)}
+                  {(112 / 48).toFixed(1)}
                 </p>
               </div>
               <div className="p-4 bg-secondary rounded-lg hover-lift">
@@ -332,7 +208,7 @@ export default function Dashboard() {
                   Custo/Colaborador
                 </p>
                 <p className="text-xl font-bold text-foreground font-poppins">
-                  {formatCurrency(metricas.mensal_geral / metricas.colaboradores)}
+                  {formatCurrency(totalGeral.mensal / 112)}
                 </p>
               </div>
             </div>

@@ -10,7 +10,7 @@ import {
   Building2,
   TrendingUp,
 } from "lucide-react";
-import { metricas } from "@/lib/data";
+import { contratos, despesasSemContrato, totalGeral } from "@/lib/data";
 import { formatCurrency, formatNumber } from "@/lib/utils";
 
 export default function Home() {
@@ -32,7 +32,7 @@ export default function Home() {
       href: "/contratos",
       icon: <FileText className="w-8 h-8" />,
       color: "text-primary",
-      metric: `${metricas.contratosControlados} contratos`,
+      metric: `${contratos.length} contratos`,
     },
     {
       title: "Colaboradores",
@@ -40,7 +40,7 @@ export default function Home() {
       href: "/colaboradores",
       icon: <Users className="w-8 h-8" />,
       color: "text-blue-600",
-      metric: `${metricas.colaboradores} colaboradores`,
+      metric: `112 colaboradores`,
     },
     {
       title: "Demonstrativo Total",
@@ -48,7 +48,7 @@ export default function Home() {
       href: "/demonstrativo",
       icon: <BarChart3 className="w-8 h-8" />,
       color: "text-emerald-600",
-      metric: formatCurrency(metricas.anual_geral),
+      metric: formatCurrency(totalGeral.anual),
     },
     {
       title: "Despesas com Contrato",
@@ -56,7 +56,7 @@ export default function Home() {
       href: "/despesas-contrato",
       icon: <DollarSign className="w-8 h-8" />,
       color: "text-amber-600",
-      metric: formatCurrency(metricas.anual_com_contrato),
+      metric: formatCurrency(contratos.reduce((sum, c) => sum + c.valor_anual, 0)),
     },
     {
       title: "Despesas sem Contrato",
@@ -64,7 +64,7 @@ export default function Home() {
       href: "/despesas-sem-contrato",
       icon: <Building2 className="w-8 h-8" />,
       color: "text-orange-600",
-      metric: formatCurrency(metricas.anual_sem_contrato),
+      metric: formatCurrency(despesasSemContrato.reduce((sum, d) => sum + d.valor_anual, 0)),
     },
   ];
 
@@ -98,25 +98,25 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="text-center">
               <p className="text-4xl font-bold text-primary font-poppins">
-                {metricas.colaboradores}
+                112
               </p>
               <p className="text-muted-foreground mt-2">Colaboradores</p>
             </div>
             <div className="text-center">
               <p className="text-4xl font-bold text-primary font-poppins">
-                {metricas.contratosControlados}
+                {contratos.length}
               </p>
               <p className="text-muted-foreground mt-2">Contratos</p>
             </div>
             <div className="text-center">
               <p className="text-4xl font-bold text-primary font-poppins">
-                {metricas.secsComColaboradores}
+                48
               </p>
               <p className="text-muted-foreground mt-2">SECs</p>
             </div>
             <div className="text-center">
               <p className="text-2xl font-bold text-primary font-poppins">
-                {formatCurrency(metricas.mensal_geral)}
+                {formatCurrency(totalGeral.mensal)}
               </p>
               <p className="text-muted-foreground mt-2">Mensal</p>
             </div>
@@ -178,19 +178,19 @@ export default function Home() {
               <ul className="space-y-3 text-muted-foreground">
                 <li className="flex items-center gap-3">
                   <span className="w-2 h-2 bg-primary rounded-full"></span>
-                  Mensal com contrato: {formatCurrency(metricas.mensal_com_contrato)}
+                  Contratos: {contratos.length}
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-2 h-2 bg-primary rounded-full"></span>
-                  Mensal sem contrato: {formatCurrency(metricas.mensal_sem_contrato)}
+                  Despesas sem contrato: {despesasSemContrato.length}
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-2 h-2 bg-primary rounded-full"></span>
-                  Anual com contrato: {formatCurrency(metricas.anual_com_contrato)}
+                  Despesa mensal total: {formatCurrency(totalGeral.mensal)}
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-2 h-2 bg-primary rounded-full"></span>
-                  Anual sem contrato: {formatCurrency(metricas.anual_sem_contrato)}
+                  Despesa anual total: {formatCurrency(totalGeral.anual)}
                 </li>
               </ul>
             </div>
