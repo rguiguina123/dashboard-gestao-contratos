@@ -85,19 +85,19 @@ export default function Demonstrativo() {
           <MetricCard
             title="Despesa Mensal Total"
             value={formatCurrency(totalGeral.mensal)}
-            icon={DollarSign as any}
+            icon={<DollarSign className="w-5 h-5" />}
             trend="up"
           />
           <MetricCard
             title="Despesa Anual Total"
             value={formatCurrency(totalGeral.anual)}
-            icon={TrendingUp as any}
+            icon={<TrendingUp className="w-5 h-5" />}
             trend="up"
           />
           <MetricCard
             title="Contratos Ativos"
             value={contratos.length.toString()}
-            icon={AlertCircle as any}
+            icon={<AlertCircle className="w-5 h-5" />}
             trend="neutral"
           />
         </div>
