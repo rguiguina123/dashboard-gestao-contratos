@@ -1,11 +1,20 @@
 import { useState } from "react";
 import { X, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Contrato } from "@/lib/data";
 import { formatCurrency } from "@/lib/utils";
 
+interface ContratoDisplay {
+  id: string;
+  numero: string;
+  fornecedor: string;
+  objeto: string;
+  sec: string;
+  valor_mensal: number;
+  valor_anual: number;
+}
+
 interface ContractDetailModalProps {
-  contract: Contrato | null;
+  contract: ContratoDisplay | null;
   onClose: () => void;
 }
 
