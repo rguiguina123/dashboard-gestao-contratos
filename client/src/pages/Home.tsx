@@ -8,10 +8,18 @@ import {
   DollarSign,
   ArrowRight,
   Building2,
-  TrendingUp,
 } from "lucide-react";
 import { contratos, despesasSemContrato, totalGeral } from "@/lib/data";
-import { formatCurrency, formatNumber } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils";
+
+const moduleIcons = {
+  dashboard: BarChart3,
+  contratos: FileText,
+  colaboradores: Users,
+  demonstrativo: BarChart3,
+  despesasComContrato: DollarSign,
+  despesasSemContrato: Building2,
+};
 
 export default function Home() {
   const heroImageUrl =
@@ -22,7 +30,7 @@ export default function Home() {
       title: "Dashboard Executivo",
       description: "Visão geral dos principais indicadores",
       href: "/dashboard",
-      icon: <BarChart3 className="w-8 h-8" />,
+      icon: "dashboard",
       color: "text-emerald-600",
       metric: "KPIs em tempo real",
     },
@@ -30,7 +38,7 @@ export default function Home() {
       title: "Contratos",
       description: "Gestão completa de contratos controlados",
       href: "/contratos",
-      icon: <FileText className="w-8 h-8" />,
+      icon: "contratos",
       color: "text-primary",
       metric: `${contratos.length} contratos`,
     },
@@ -38,7 +46,7 @@ export default function Home() {
       title: "Colaboradores",
       description: "Visualize todos os colaboradores por posto e SEC",
       href: "/colaboradores",
-      icon: <Users className="w-8 h-8" />,
+      icon: "colaboradores",
       color: "text-blue-600",
       metric: `112 colaboradores`,
     },
@@ -46,7 +54,7 @@ export default function Home() {
       title: "Demonstrativo Total",
       description: "Visão consolidada de todas as despesas",
       href: "/demonstrativo",
-      icon: <BarChart3 className="w-8 h-8" />,
+      icon: "demonstrativo",
       color: "text-emerald-600",
       metric: formatCurrency(totalGeral.anual),
     },
@@ -54,7 +62,7 @@ export default function Home() {
       title: "Despesas com Contrato",
       description: "Análise de despesas controladas",
       href: "/despesas-contrato",
-      icon: <DollarSign className="w-8 h-8" />,
+      icon: "despesasComContrato",
       color: "text-amber-600",
       metric: formatCurrency(contratos.reduce((sum, c) => sum + c.valor_anual, 0)),
     },
@@ -62,7 +70,7 @@ export default function Home() {
       title: "Despesas sem Contrato",
       description: "Análise de despesas não controladas",
       href: "/despesas-sem-contrato",
-      icon: <Building2 className="w-8 h-8" />,
+      icon: "despesasSemContrato",
       color: "text-orange-600",
       metric: formatCurrency(despesasSemContrato.reduce((sum, d) => sum + d.valor_anual, 0)),
     },
@@ -138,31 +146,36 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {modules.map((module) => (
-              <Link key={module.href} href={module.href}>
-                <Card className="h-full hover:shadow-lg transition-shadow duration-200 cursor-pointer border-t-4 border-t-primary">
-                  <CardHeader>
-                    <div className="flex items-start justify-between mb-4">
-                      <div className={`${module.color}`}>{module.icon}</div>
-                    </div>
-                    <CardTitle className="text-xl font-poppins">
-                      {module.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <p className="text-sm text-muted-foreground">
-                      {module.description}
-                    </p>
-                    <div className="flex items-center justify-between pt-4 border-t border-border">
-                      <span className="text-sm font-semibold text-primary">
-                        {module.metric}
-                      </span>
-                      <ArrowRight className="w-4 h-4 text-primary" />
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
+            {modules.map((module) => {
+              const IconComponent = moduleIcons[module.icon as keyof typeof moduleIcons];
+              return (
+                <Link key={module.href} href={module.href}>
+                  <Card className="h-full hover:shadow-lg transition-shadow duration-200 cursor-pointer border-t-4 border-t-primary">
+                    <CardHeader>
+                      <div className="flex items-start justify-between mb-4">
+                        <div className={`${module.color}`}>
+                          <IconComponent className="w-8 h-8" />
+                        </div>
+                      </div>
+                      <CardTitle className="text-xl font-poppins">
+                        {module.title}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <p className="text-sm text-muted-foreground">
+                        {module.description}
+                      </p>
+                      <div className="flex items-center justify-between pt-4 border-t border-border">
+                        <span className="text-sm font-semibold text-primary">
+                          {module.metric}
+                        </span>
+                        <ArrowRight className="w-4 h-4 text-primary" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
