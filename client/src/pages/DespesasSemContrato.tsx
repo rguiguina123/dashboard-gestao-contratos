@@ -136,19 +136,19 @@ export default function DespesasSemContrato() {
           <MetricCard
             title="Total de Despesas"
             value={filteredDespesas.length.toString()}
-            icon={AlertTriangle as any}
+            icon={<AlertTriangle className="w-5 h-5" />}
             trend="neutral"
           />
           <MetricCard
             title="Despesa Mensal"
             value={formatCurrency(totais.mensal)}
-            icon={DollarSign as any}
+            icon={<DollarSign className="w-5 h-5" />}
             trend="up"
           />
           <MetricCard
             title="Despesa Anual"
             value={formatCurrency(totais.anual)}
-            icon={Zap as any}
+            icon={<Zap className="w-5 h-5" />}
             trend="up"
           />
         </div>

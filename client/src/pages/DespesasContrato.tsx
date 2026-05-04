@@ -136,19 +136,19 @@ export default function DespesasContrato() {
           <MetricCard
             title="Total de Contratos"
             value={filteredContratos.length.toString()}
-            icon={Award as any}
+            icon={<Award className="w-5 h-5" />}
             trend="neutral"
           />
           <MetricCard
             title="Despesa Mensal"
             value={formatCurrency(totais.mensal)}
-            icon={DollarSign as any}
+            icon={<DollarSign className="w-5 h-5" />}
             trend="up"
           />
           <MetricCard
             title="Despesa Anual"
             value={formatCurrency(totais.anual)}
-            icon={TrendingUp as any}
+            icon={<TrendingUp className="w-5 h-5" />}
             trend="up"
           />
         </div>
