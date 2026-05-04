@@ -71,19 +71,19 @@ export default function Colaboradores() {
           <MetricCard
             title="Total de Colaboradores"
             value="112"
-            icon={Users as any}
+            icon={<Users className="w-5 h-5" />}
             trend="up"
           />
           <MetricCard
             title="Postos Diferentes"
             value="5"
-            icon={Briefcase as any}
+            icon={<Briefcase className="w-5 h-5" />}
             trend="neutral"
           />
           <MetricCard
             title="SECs Gerenciadas"
             value="48"
-            icon={Building2 as any}
+            icon={<Building2 className="w-5 h-5" />}
             trend="neutral"
           />
         </div>
