@@ -30,6 +30,8 @@ import { formatCurrency } from "@/lib/utils";
 interface ContratoDisplay {
   id: string;
   sec: string;
+  fornecedor: string;
+  objeto: string;
   mensal: number;
   anual: number;
 }
@@ -92,6 +94,8 @@ export default function DespesasContrato() {
 
   const columns: Array<any> = [
     { key: "sec", label: "SEC", sortable: true },
+    { key: "fornecedor", label: "Fornecedor", sortable: true },
+    { key: "objeto", label: "Objeto", sortable: false },
     { key: "mensal", label: "Valor Mensal", sortable: true, format: (v: number) => formatCurrency(v) },
     { key: "anual", label: "Valor Anual", sortable: true, format: (v: number) => formatCurrency(v) },
   ];

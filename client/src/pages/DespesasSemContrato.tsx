@@ -30,6 +30,9 @@ import { formatCurrency } from "@/lib/utils";
 interface DespesaDisplay {
   id: string;
   sec: string;
+  servico: string;
+  fornecedor: string;
+  objeto: string;
   mensal: number;
   anual: number;
 }
