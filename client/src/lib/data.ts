@@ -1,832 +1,1105 @@
+// Dados importados do Excel - Gestão de Contratos 2026
+// Atualizado em: 06/05/2026 13:46:56
+
 export interface Contrato {
-  numero: string;
+  id: string;
+  contrato: string;
   fornecedor: string;
   objeto: string;
   sec: string;
-  valor_mensal: number;
-  valor_anual: number;
+  mensal: number;
+  anual: number;
 }
 
 export interface DespesaSemContrato {
+  id: string;
   sec: string;
   servico: string;
   fornecedor: string;
   objeto: string;
-  valor_mensal: number;
-  valor_anual: number;
+  unidade: string;
+  mensal: number;
+  anual: number;
 }
 
 export const contratos: Contrato[] = [
   {
-    "numero": "CONTRATO nº 1/2021 SEC-AL",
-    "fornecedor": "PREVELAR SOLUCOES EM ENGENHARIA LTDA",
-    "objeto": "Manutenção de Elevadores",
-    "sec": "SEC-AL",
-    "valor_mensal": 1232.35,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2020 SEC-RN",
-    "fornecedor": "AMERICA EMPREENDIMENTOS LTDA",
-    "objeto": "Locação de imóvel com adaptação no regime built to suit, para abrigar a sede da Sec-RN.",
-    "sec": "SEC-RN",
-    "valor_mensal": 21333.91,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 2/2025 SEC-RR",
-    "fornecedor": "FREITAS RODRIGUES CONSTRUÇÃO COMÉRCIO E SERVIÇO LTDA",
-    "objeto": "Substituição do sistema de climatização de ar",
-    "sec": "SEC-RR",
-    "valor_mensal": 0,
-    "valor_anual": 323000.0
-  },
-  {
-    "numero": "CONTRATO nº 1/2025 SEC-ES",
-    "fornecedor": "EDP ESPIRITO SANTO DISTRIBUICAO DE ENERGIA S.A",
-    "objeto": "Distribuição de energia elétrica ao CONSUMIDOR",
-    "sec": "SEC-ES",
-    "valor_mensal": 2197.58,
-    "valor_anual": 26370.96
-  },
-  {
-    "numero": "CONTRATO nº 1/2020 SEC-PI",
-    "fornecedor": "Equatorial Piauí Distribuidora de Energia S.A",
-    "objeto": "Distribuidora de Energia Elétrica",
-    "sec": "SEC-PI",
-    "valor_mensal": 3768.37,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2025 SEC-SP",
-    "fornecedor": "BIOLIMP LIMPEZA E CONSERVACAO LTDA",
-    "objeto": "Limpeza/Copeiragem/Recepção/Apoio Administrativo",
-    "sec": "SEC-SP",
-    "valor_mensal": 47602.62,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 2/2020 SEC-ES",
-    "fornecedor": "BELA CIDADE SPE -  LTDA",
-    "objeto": "Locação de Imóvel",
-    "sec": "SEC-ES",
-    "valor_mensal": 22352.76,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2021 SEC-PE",
-    "fornecedor": "BACELAR INVESTIMENTOS LTDA",
-    "objeto": "Locação de Imóvel",
-    "sec": "SEC-PE",
-    "valor_mensal": 9500.0,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2026 SEC-CE",
-    "fornecedor": "INFINITY SERVICOS E GESTAO EMPRESARIAL LTDA",
-    "objeto": "Apoio Administrativo",
-    "sec": "SEC-CE",
-    "valor_mensal": 18202.57,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 25/2023 SEC-RJ",
-    "fornecedor": "RIBAL LOCADORA DE VEICULOS LTDA",
-    "objeto": "Locação de Veículo",
-    "sec": "SEC-RJ",
-    "valor_mensal": 32280.6,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 42/2022 SEC-RJ",
-    "fornecedor": "Quality aluguel de veículos S/A",
-    "objeto": "Locação de Veículo",
-    "sec": "SEC-RJ",
-    "valor_mensal": 130675.22,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 42/2022 SEC-RJ",
-    "fornecedor": "Quality aluguel de veículos S/A",
-    "objeto": "Locação de Veículo",
-    "sec": "SEC-SP",
-    "valor_mensal": 3670.76,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2025 SEC-RN",
-    "fornecedor": "TERCEIRIZA SERVIÇOS DE MANUTENÇÃO E LIMPEZA LTDA",
-    "objeto": "Limpeza/Copeiragem/Apoio Administrativo",
-    "sec": "SEC-RN",
-    "valor_mensal": 19729.17,
-    "valor_anual": 0
+    id: "contrato-1",
+    contrato: "CONTRATO nº 1/2021 SEC-AL",
+    fornecedor: "PREVELAR SOLUCOES EM ENGENHARIA LTDA",
+    objeto: "Manutenção de Elevadores",
+    sec: "SEC-AL",
+    mensal: 1232.35,
+    anual: 14788.199999999999
+  },
+  {
+    id: "contrato-2",
+    contrato: "CONTRATO nº 1/2020 SEC-RN",
+    fornecedor: " AMERICA EMPREENDIMENTOS LTDA",
+    objeto: "Locação de imóvel com adaptação no regime built to suit, para abrigar a sede da Sec-RN.",
+    sec: "SEC-RN",
+    mensal: 21333.91,
+    anual: 256006.91999999998
+  },
+  {
+    id: "contrato-3",
+    contrato: "CONTRATO nº 2/2025 SEC-RR",
+    fornecedor: "FREITAS RODRIGUES CONSTRUÇÃO COMÉRCIO E SERVIÇO LTDA",
+    objeto: " Substituição do sistema de climatização de ar",
+    sec: "SEC-RR",
+    mensal: 0,
+    anual: 323000.0
+  },
+  {
+    id: "contrato-4",
+    contrato: "CONTRATO nº 1/2025 SEC-ES",
+    fornecedor: " EDP ESPIRITO SANTO DISTRIBUICAO DE ENERGIA S.A",
+    objeto: "Distribuição de energia elétrica ao CONSUMIDOR",
+    sec: "SEC-ES",
+    mensal: 2197.58,
+    anual: 26370.96
+  },
+  {
+    id: "contrato-5",
+    contrato: "CONTRATO nº 1/2020 SEC-PI",
+    fornecedor: "Equatorial Piauí Distribuidora de Energia S.A",
+    objeto: "Distribuidora de Energia Elétrica",
+    sec: "SEC-PI",
+    mensal: 3768.37,
+    anual: 45220.44
+  },
+  {
+    id: "contrato-6",
+    contrato: "CONTRATO nº 1/2025 SEC-SP",
+    fornecedor: "BIOLIMP LIMPEZA E CONSERVACAO LTDA",
+    objeto: "Limpeza/Copeiragem/Recepção/Apoio Administrativo",
+    sec: "SEC-SP",
+    mensal: 47602.62,
+    anual: 571231.4400000001
+  },
+  {
+    id: "contrato-7",
+    contrato: "CONTRATO nº 2/2020 SEC-ES",
+    fornecedor: "BELA CIDADE SPE -  LTDA",
+    objeto: "Locação de Imóvel",
+    sec: "SEC-ES",
+    mensal: 22352.76,
+    anual: 268233.12
+  },
+  {
+    id: "contrato-8",
+    contrato: "CONTRATO nº 1/2021 SEC-PE",
+    fornecedor: "BACELAR INVESTIMENTOS LTDA",
+    objeto: "Locação de Imóvel",
+    sec: "SEC-PE",
+    mensal: 9500.0,
+    anual: 114000.0
+  },
+  {
+    id: "contrato-9",
+    contrato: "CONTRATO nº 1/2026 SEC-CE",
+    fornecedor: "INFINITY SERVICOS E GESTAO EMPRESARIAL LTDA",
+    objeto: "Apoio Administrativo",
+    sec: "SEC-CE",
+    mensal: 18202.57,
+    anual: 218430.84
+  },
+  {
+    id: "contrato-10",
+    contrato: "CONTRATO nº 25/2023 SEC-RJ",
+    fornecedor: "RIBAL LOCADORA DE VEICULOS LTDA",
+    objeto: "Locação de Veículo",
+    sec: "SEC-RJ",
+    mensal: 32280.6,
+    anual: 387367.19999999995
+  },
+  {
+    id: "contrato-11",
+    contrato: "CONTRATO nº 42/2022 SEC-RJ",
+    fornecedor: "Quality aluguel de veículos S/A",
+    objeto: "Locação de Veículo",
+    sec: "SEC-RJ",
+    mensal: 130675.22,
+    anual: 1568102.6400000001
+  },
+  {
+    id: "contrato-12",
+    contrato: "CONTRATO nº 42/2022 SEC-RJ",
+    fornecedor: "Quality aluguel de veículos S/A",
+    objeto: "Locação de Veículo",
+    sec: "SEC-SP",
+    mensal: 3670.76,
+    anual: 44049.12
+  },
+  {
+    id: "contrato-13",
+    contrato: "CONTRATO nº 1/2025 SEC-RN",
+    fornecedor: "TERCEIRIZA SERVIÇOS DE MANUTENÇÃO E LIMPEZA LTDA",
+    objeto: "Limpeza/Copeiragem/Apoio Administrativo",
+    sec: "SEC-RN",
+    mensal: 19729.17,
+    anual: 236750.03999999998
+  },
+  {
+    id: "contrato-14",
+    contrato: "CONTRATO nº 1/2026 SEC-AP",
+    fornecedor: "PHOENIX SERVICOS DE HIGIENIZACAO E LIMPEZA LTDA",
+    objeto: "Apoio Administrativo",
+    sec: "SEC-AP",
+    mensal: 14870.61,
+    anual: 178447.32
+  },
+  {
+    id: "contrato-15",
+    contrato: "CONTRATO 49/2025 - SEGEDAM",
+    fornecedor: "GENTE SEGURADORA S.A.",
+    objeto: "Seguro Predial para as Secretarias nos Estados",
+    sec: "Diop-Estados",
+    mensal: 5774.62,
+    anual: 69295.44
+  },
+  {
+    id: "contrato-16",
+    contrato: "CONTRATO nº 25/2023 SEC-RJ",
+    fornecedor: "RIBAL LOCADORA DE VEÍCULOS LTDA",
+    objeto: "Locação de veículos",
+    sec: "SEC-SP",
+    mensal: 32280.6,
+    anual: 387367.19999999995
+  },
+  {
+    id: "contrato-17",
+    contrato: "CONTRATO nº 1/2025 SEC-MS",
+    fornecedor: "SERVPLAN - SERVIÇOS DE LIMPEZA AMBIENTAL LTDA",
+    objeto: "Limpeza/Copeiragem/Apoio Administrativo",
+    sec: "SEC-MS",
+    mensal: 21851.02,
+    anual: 262212.24
+  },
+  {
+    id: "contrato-18",
+    contrato: "CONTRATO nº 1/2025 SEC-RR",
+    fornecedor: "EMBRASG – EMPRESA BRASILEIRA DE SERVIÇOS GERAIS LTDA",
+    objeto: "Limpeza/Copeiragem/Apoio Administrativo",
+    sec: "SEC-RR",
+    mensal: 28688.67,
+    anual: 344264.04
+  },
+  {
+    id: "contrato-19",
+    contrato: "CONTRATO nº 1/2025 SEC-MT",
+    fornecedor: "ALPHA CLEAN BRASIL SERVICOS ESPECIALIZADOS LTDA",
+    objeto: "Limpeza/Copeiragem/Apoio Administrativo",
+    sec: "SEC-MT",
+    mensal: 24001.67,
+    anual: 288020.04
+  },
+  {
+    id: "contrato-20",
+    contrato: "CONTRATO nº 1/2025 SEC-AM",
+    fornecedor: "OFFICE SERVICE TERCEIRIZACAO DE MAO DE OBRA LTDA",
+    objeto: "Limpeza/Copeiragem/Apoio Administrativo",
+    sec: "SEC-AM",
+    mensal: 24333.53,
+    anual: 292002.36
+  },
+  {
+    id: "contrato-21",
+    contrato: "ACORDO DE COOPERAÇÃO N° 1/2023 SEC-MA",
+    fornecedor: "Tribunal Regional Eleitoral do Maranhão - TRE-MA",
+    objeto: "Acordo de cooperação para realização de perícias médicas",
+    sec: "SEC-MA",
+    mensal: 0,
+    anual: 0
+  },
+  {
+    id: "contrato-22",
+    contrato: "CONTRATO nº 2/2022 SEC-MA",
+    fornecedor: "JEOVA BARBOSA ENGENHARIA LTDA",
+    objeto: "Locação de Imóvel",
+    sec: "SEC-MA",
+    mensal: 22008.35,
+    anual: 264100.19999999995
+  },
+  {
+    id: "contrato-23",
+    contrato: "CONTRATO 49/2022 - SEC-RJ",
+    fornecedor: "AIR TIME RJ AR CONDICIONADO LTDA",
+    objeto: "Manutenção de Sistema de climatização",
+    sec: "SEC-RJ",
+    mensal: 16453.1,
+    anual: 197437.19999999998
+  },
+  {
+    id: "contrato-24",
+    contrato: "CONTRATO nº 1/2025 SEC-PE",
+    fornecedor: "FUNCIONAL TERCEIRIZACAO E PROMOCAO DE EVENTOS LTDA",
+    objeto: "Limpeza/Copeiragem/Apoio Administrativo",
+    sec: "SEC-PE",
+    mensal: 24094.37,
+    anual: 289132.44
+  },
+  {
+    id: "contrato-25",
+    contrato: "CONTRATO nº 1/2025 SEC-RO",
+    fornecedor: "A G C Prestação de Serviços LTDA",
+    objeto: "Limpeza/Copeiragem/Apoio Administrativo",
+    sec: "SEC-RO",
+    mensal: 17369.02,
+    anual: 208428.24
+  },
+  {
+    id: "contrato-26",
+    contrato: "ACORDO DE COOPERAÇÃO 18/2023",
+    fornecedor: "Tribunal Regional do Trabalho da 23ª Região ",
+    objeto: "Acordo de cooperação para realização de perícias médicas",
+    sec: "SEC-MT",
+    mensal: 0,
+    anual: 0
+  },
+  {
+    id: "contrato-27",
+    contrato: "ACORDO DE COOPERAÇÃO N° 2/2023 SEC-AL",
+    fornecedor: "Tribunal Regional do Trabalho da 19ª Região ",
+    objeto: "Acordo de cooperação para realização de perícias médicas",
+    sec: "SEC-AL",
+    mensal: 0,
+    anual: 0
+  },
+  {
+    id: "contrato-28",
+    contrato: "CONTRATO nº 1/2024 SEC-PB",
+    fornecedor: "INFINITY SERVICOS E GESTAO EMPRESARIAL LTDA",
+    objeto: "Limpeza/Copeiragem/Apoio Administrativo",
+    sec: "SEC-PB",
+    mensal: 24349.24,
+    anual: 292190.88
+  },
+  {
+    id: "contrato-29",
+    contrato: "CONTRATO nº 1/2023 SEC-TO",
+    fornecedor: "CARLOS TAMOTSU KOIKE",
+    objeto: "Locação de Imóvel",
+    sec: "SEC-TO",
+    mensal: 14588.46,
+    anual: 175061.52
+  },
+  {
+    id: "contrato-30",
+    contrato: "Termo de Compartilhamento Nº1/2023 SEC-TO",
+    fornecedor: "AGENCIA NACIONAL DE TELECOMUNICACOES",
+    objeto: "Compartilhamento e rateio de despesas de imóvel locado pelo TCU em Palmas/TO",
+    sec: "SEC-TO",
+    mensal: 16034.54,
+    anual: 192414.48
+  },
+  {
+    id: "contrato-31",
+    contrato: "CONTRATO nº 2/2025 SEC-AL",
+    fornecedor: "NOVO CONCEITO LOCACAO DE MAO DE OBRA LTDA",
+    objeto: "Limpeza/Copeiragem/Apoio administrativo",
+    sec: "SEC-AL",
+    mensal: 26217.34,
+    anual: 314608.08
+  },
+  {
+    id: "contrato-32",
+    contrato: "CONTRATO nº 1/2025 SEC-PI",
+    fornecedor: "FALLCON SERVICE LTDA",
+    objeto: "Limpeza/Copeiragem/Apoio Administrativo",
+    sec: "SEC-PI",
+    mensal: 25909.78,
+    anual: 310917.36
+  },
+  {
+    id: "contrato-33",
+    contrato: "CONTRATO n° 2/2018 SEC-PB",
+    fornecedor: "FCS HOLDING LTDA",
+    objeto: "Locação de Imóvel",
+    sec: "SEC-PB",
+    mensal: 31831.77,
+    anual: 381981.24
+  },
+  {
+    id: "contrato-34",
+    contrato: "ACORDO DE COOPERAÇÃO 1/2024 SEC-PA",
+    fornecedor: "Tribunal Regional do Trabalho da 8ª Região",
+    objeto: "Acordo de cooperação para realização de perícias médicas",
+    sec: "SEC-PA",
+    mensal: 0,
+    anual: 0
+  },
+  {
+    id: "contrato-35",
+    contrato: "ACORDO DE COOPERAÇÃO N° 1/2024 SEC-ES",
+    fornecedor: "TRIBUNAL DE CONTAS DA UNIÃO",
+    objeto: "Acordo de cooperação para realização de perícias médicas",
+    sec: "SEC-ES",
+    mensal: 0,
+    anual: 0
+  },
+  {
+    id: "contrato-36",
+    contrato: "ACORDO DE COOPERAÇÃO N° 1/2024 SEC-RJ",
+    fornecedor: "TRIBUNAL DE CONTAS DA UNIÃO",
+    objeto: "Acordo de cooperação para realização de perícias médicas",
+    sec: "SEC-RJ",
+    mensal: 0,
+    anual: 0
+  },
+  {
+    id: "contrato-37",
+    contrato: "ACORDO DE COOPERAÇÃO 1/2024 SEC-RN",
+    fornecedor: "TRIBUNAL REGIONAL ELEITORAL DO RIO GRANDE DO NORTE",
+    objeto: "Acordo de cooperação para realização de perícias médicas",
+    sec: "SEC-RN",
+    mensal: 0,
+    anual: 0
+  },
+  {
+    id: "contrato-38",
+    contrato: "CONTRATO nº 1/2025 SEC-PB",
+    fornecedor: "COMBATE SEGUNRAÇA DE VALORES LTDA",
+    objeto: "Segurança pessoal",
+    sec: "SEC-PB",
+    mensal: 69162.24,
+    anual: 829946.8800000001
+  },
+  {
+    id: "contrato-39",
+    contrato: "ACORDO DE COOPERAÇÃO 1/2024 SEC-PB",
+    fornecedor: "TRIBUNAL REGIONAL DO TRABALHO DA 13.ª REGIÃO",
+    objeto: "Acordo de cooperação para realização de perícias médicas",
+    sec: "SEC-PB",
+    mensal: 0,
+    anual: 0
+  },
+  {
+    id: "contrato-40",
+    contrato: "CONTRATO nº 1/2024 SEC-AC",
+    fornecedor: "CONSTROI BAHIA LOCACAO DE ESTRUTURAS E SERVICOS DA CONSTRUCAO LTDA",
+    objeto: "Apoio Administrativo",
+    sec: "SEC-AC",
+    mensal: 14366.09,
+    anual: 172393.08000000002
+  },
+  {
+    id: "contrato-41",
+    contrato: "CONTRATO n° 3/2024 SEC-PA",
+    fornecedor: "ELESUL ELEVADORES LTDA",
+    objeto: "Substituição de Elevador Hidráulico",
+    sec: " SEC-PA",
+    mensal: 23166.666666666668,
+    anual: 278000.0
+  },
+  {
+    id: "contrato-42",
+    contrato: "ACORDO DE COOPERAÇÃO 1/2021 SEC-SC",
+    fornecedor: "TRIBUNAL REGIONAL DO TRABALHO DA 12ª REGIAO",
+    objeto: "Acordo de cooperação para realização de perícias médicas",
+    sec: "SEC-SC",
+    mensal: 0,
+    anual: 0
+  },
+  {
+    id: "contrato-43",
+    contrato: "CONTRATO nº 2/2024 SEC-PA",
+    fornecedor: "LIMP CAR LOCAÇÃO E SERVIÇOS LTDA",
+    objeto: "Apoio Administrativo",
+    sec: "SEC-PA",
+    mensal: 15506.76,
+    anual: 186081.12
+  },
+  {
+    id: "contrato-44",
+    contrato: "CONTRATO nº 2/2025 SEC-RN",
+    fornecedor: "COMPANHIA ENERGETICA DO RIO GRANDE DO NORTE COSERN",
+    objeto: "Energia Elétrica",
+    sec: "SEC-RN",
+    mensal: 2645.33,
+    anual: 31743.96
+  },
+  {
+    id: "contrato-45",
+    contrato: "ACORDO DE COOPERAÇÃO 1/2024 SEC-TO",
+    fornecedor: "TRIBUNAL REGIONAL ELEITORAL DO TOCANTINS",
+    objeto: "Acordo de cooperação para realização de perícias médicas",
+    sec: "SEC-TO",
+    mensal: 0,
+    anual: 0
+  },
+  {
+    id: "contrato-46",
+    contrato: "CONTRATO nº 2/2025 SEC-RS",
+    fornecedor: "LG ADMINISTRADORA DE SERVIÇOS LTDA",
+    objeto: "Limpeza/Copeiragem/Apoio Administrativo",
+    sec: "SEC-RS",
+    mensal: 24749.99,
+    anual: 296999.88
+  },
+  {
+    id: "contrato-47",
+    contrato: "CONTRATO nº 1/2021 SEC-RO",
+    fornecedor: "MULTITEC ELEVADORES LTDA",
+    objeto: "Manutenção de Elevadores",
+    sec: "SEC-RO",
+    mensal: 1500.0,
+    anual: 18000.0
+  },
+  {
+    id: "contrato-48",
+    contrato: "CONTRATO nº 1/2024 SEC-PR",
+    fornecedor: "CONSTROI BAHIA LOCACAO DE ESTRUTURAS E SERVICOS DA CONSTRUCAO LTDA",
+    objeto: "Apoio Administrativo",
+    sec: "SEC-PR",
+    mensal: 13499.94,
+    anual: 161999.28
+  },
+  {
+    id: "contrato-49",
+    contrato: "CONTRATO nº 1/2025 SEC-GO",
+    fornecedor: "FALLCON SERVICE LTDA",
+    objeto: "Prestação de serviços contínuos de limpeza/copeiragem e apoio administrativo",
+    sec: "SEC-GO",
+    mensal: 36494.59,
+    anual: 437935.07999999996
+  },
+  {
+    id: "contrato-50",
+    contrato: "CONTRATO nº 1/2024 SEC-RJ",
+    fornecedor: "VIGFAT VIGILANCIA PATRIMONIAL LTDA",
+    objeto: "Segurança pessoal",
+    sec: "SEC-RJ",
+    mensal: 58662.74,
+    anual: 703952.88
+  },
+  {
+    id: "contrato-51",
+    contrato: "CONTRATO nº 2/2025 SEC-SP",
+    fornecedor: "TORQUATO FREIRE SEGURANCA E VIGILANCIA PRIVADA LTDA",
+    objeto: "Segurança pessoal",
+    sec: "SEC-SP",
+    mensal: 42916.07,
+    anual: 514992.83999999997
+  },
+  {
+    id: "contrato-52",
+    contrato: "CONTRATO nº 1/2025 SEC-BA",
+    fornecedor: "J & L MANUTENÇÕES E SERVICOS LTDA",
+    objeto: "Limpeza/Copeiragem/Apoio Administrativo",
+    sec: "SEC-BA",
+    mensal: 28282.95,
+    anual: 339395.4
+  },
+  {
+    id: "contrato-53",
+    contrato: "CONTRATO nº 1/2025 SEC-RJ",
+    fornecedor: "ORBENK ADMINISTRACAO E SERVICOS LTDA",
+    objeto: "Apoio Administrativo",
+    sec: "SEC-RJ",
+    mensal: 50953.86,
+    anual: 611446.3200000001
+  },
+  {
+    id: "contrato-54",
+    contrato: "CONTRATO nº 1/2025 SEC-AL",
+    fornecedor: "ALFORGE SEGURANCA PATRIMONIAL LTDA",
+    objeto: "Vigilância Armada",
+    sec: "SEC-AL",
+    mensal: 23332.64,
+    anual: 279991.68
+  },
+  {
+    id: "contrato-55",
+    contrato: "CONTRATO nº 2/2025 SEC-SE",
+    fornecedor: "FALLCON SERVICE LTDA",
+    objeto: "Limpeza/Copeiragem e apoio administrativo",
+    sec: "SEC-SE",
+    mensal: 24928.53,
+    anual: 299142.36
+  },
+  {
+    id: "contrato-56",
+    contrato: "CONTRATO nº 1/2023 SEC-MG",
+    fornecedor: "SAARA OBRAS E SERVICOS LTDA",
+    objeto: "Limpeza/Copeiragem/Apoio Administrativo",
+    sec: "SEC-MG",
+    mensal: 28725.44,
+    anual: 344705.27999999997
+  },
+  {
+    id: "contrato-57",
+    contrato: "CONTRATO nº 2/2025 SEC-GO",
+    fornecedor: "EMPRESA BRASILEIRA DE ELEVADORES LTDA",
+    objeto: "Manutenção preventiva e corretiva de elevadores",
+    sec: "SEC-GO",
+    mensal: 4715.0,
+    anual: 56580.0
+  },
+  {
+    id: "contrato-58",
+    contrato: "CONTRATO nº 1/2022 SEC-CE",
+    fornecedor: "MINISTERIO DA GESTÃO E INOVAÇÃO NOS SERVIÇOS PÚBLICOS NO CEARÁ",
+    objeto: "Utilização compartilhada de imóvel",
+    sec: "SEC-CE",
+    mensal: 20491.27,
+    anual: 245895.24
+  },
+  {
+    id: "contrato-59",
+    contrato: "CONTRATO nº 1/2026 SEC-PA",
+    fornecedor: "FALLCON SERVICE LTDA",
+    objeto: "Limpeza/Copeiragem",
+    sec: "SEC-PA",
+    mensal: 13947.13,
+    anual: 167365.56
+  },
+  {
+    id: "contrato-60",
+    contrato: "CONTRATO nº 1/2024 SEC-MA",
+    fornecedor: "OFFICE SERVICE TERCEIRIZACAO DE MAO DE OBRA LTDA",
+    objeto: "Limpeza/Copeiragem/Apoio Administrativo",
+    sec: "SEC-MA",
+    mensal: 21101.0,
+    anual: 253212.0
+  },
+  {
+    id: "contrato-61",
+    contrato: "CONTRATO nº 1/2024 SEC-TO",
+    fornecedor: "FENIX ASSESSORIA & GESTAO EMPRESARIAL LTDA",
+    objeto: "Apoio Administrativo",
+    sec: "SEC-TO",
+    mensal: 14689.15,
+    anual: 176269.8
+  },
+  {
+    id: "contrato-62",
+    contrato: "CONTRATO nº 1/2025 SEC-SC",
+    fornecedor: "BIOLIMP LIMPEZA E CONSERVAÇÃO LTDA",
+    objeto: "Limpeza/Copeiragem/Apoio Administrativo",
+    sec: "SEC-SC",
+    mensal: 21836.88,
+    anual: 262042.56
+  },
+  {
+    id: "contrato-63",
+    contrato: "CONTRATO nº 1/2024 SEC-ES",
+    fornecedor: "ADSERVICON - ADMINISTRACAO , SERVICOS & CONTABILIDADE LTDA",
+    objeto: "Limpeza/Copeiragem/Apoio Administrativo",
+    sec: "SEC-ES",
+    mensal: 24622.72,
+    anual: 295472.64
+  },
+  {
+    id: "contrato-64",
+    contrato: "CONTRATO nº 1/2024 SEC-PA",
+    fornecedor: "BELEM RIO SEGURANCA LTDA",
+    objeto: "Vigilância Armada",
+    sec: "SEC-PA",
+    mensal: 26187.29,
+    anual: 314247.48
+  },
+  {
+    id: "contrato-65",
+    contrato: "CESSÃO DE USO nº 1/2023 SEC-SC",
+    fornecedor: "TRIBUNAL REGIONAL ELEITORAL DE SANTA CATARINA",
+    objeto: "Utilização compartilhada de imóvel",
+    sec: "SEC-SC",
+    mensal: 9572.46,
+    anual: 114869.51999999999
+  },
+  {
+    id: "contrato-66",
+    contrato: "CONTRATO nº 1/2023 SEC-AC",
+    fornecedor: "EMBRASG - EMPRESA BRASILEIRA DE SERVICOS GERAIS LTDA",
+    objeto: "Limpeza/Copeiragem",
+    sec: "SEC-AC",
+    mensal: 5081.65,
+    anual: 60979.799999999996
+  },
+  {
+    id: "contrato-67",
+    contrato: "CONTRATO nº 2/2020 SEC-AM",
+    fornecedor: "EB THE OFFICE INCORPORACOES LTDA",
+    objeto: "Locação de Imóvel",
+    sec: "SEC-AM",
+    mensal: 24517.77,
+    anual: 294213.24
+  },
+  {
+    id: "contrato-68",
+    contrato: "CONTRATO nº 1/2023 SEC-AP",
+    fornecedor: "EMBRASG - EMPRESA BRASILEIRA DE SERVICOS GERAIS LTDA",
+    objeto: "Limpeza/Copeiragem",
+    sec: "SEC-AP",
+    mensal: 9438.71,
+    anual: 113264.51999999999
+  },
+  {
+    id: "contrato-69",
+    contrato: "TERMO DE COMPARTILHAMENTO 1/2023 SEC-RO",
+    fornecedor: "MINISTÉRIO PÚBLICO MILITAR",
+    objeto: "Utilização compartilhada de imóvel",
+    sec: "SEC-RO",
+    mensal: 29760.36,
+    anual: 357124.32
+  },
+  {
+    id: "contrato-70",
+    contrato: "CESSÃO DE USO nº 1/2024 SEC-PR",
+    fornecedor: "BANCO CENTRAL DO BRASIL",
+    objeto: "Utilização compartilhada de imóvel",
+    sec: "SEC-PR",
+    mensal: 13753.06,
+    anual: 165036.72
+  },
+  {
+    id: "contrato-71",
+    contrato: "CONTRATO nº 2/2025 SEC-CE",
+    fornecedor: "PLUS GESTAO DE ESTACIONAMENTO DE VEICULOS LTDA",
+    objeto: "Garagem",
+    sec: "SEC-CE",
+    mensal: 1520.0,
+    anual: 18240.0
+  },
+  {
+    id: "contrato-72",
+    contrato: "ACORDO DE COOPERAÇÃO 1/2025 SEC-RS",
+    fornecedor: "TRIBUNAL DE CONTAS DO ESTADO DO RIO GRANDE DO SUL",
+    objeto: "Acordo de cooperação para realização de perícias médicas",
+    sec: "SEC-RS",
+    mensal: 0,
+    anual: 0
+  },
+  {
+    id: "contrato-73",
+    contrato: "TERMO DE COMPARTILHAMENTO 1/2024 SEC-RR",
+    fornecedor: "TRIBUNAL REGIONAL ELEITORAL DO ESTADO DE RORAIMA",
+    objeto: "Utilização compartilhada de imóvel",
+    sec: "SEC-RR",
+    mensal: 20398.52,
+    anual: 244782.24
+  },
+  {
+    id: "contrato-74",
+    contrato: "CONTRATO nº  4/2024 - SEC-PA ",
+    fornecedor: "EQUATORIAL PARÁ DISTRIBUIDORA DE ENERGIA S.A",
+    objeto: "Fornecimento de Energia Elétrica",
+    sec: "SEC-PA",
+    mensal: 6017.63,
+    anual: 72211.56
+  },
+  {
+    id: "contrato-75",
+    contrato: "CONTRATO 1/2025- SEC-MG",
+    fornecedor: "CEMIG DISTRIBUIÇÃO S.A",
+    objeto: "Fornecimento de Energia Elétrica",
+    sec: "SEC-MG",
+    mensal: 5253.96,
+    anual: 63047.520000000004
+  },
+  {
+    id: "contrato-76",
+    contrato: "CONTRATO nº 1/2023 SEC-BA",
+    fornecedor: "COMPANHIA DE ELETRICIDADE DO ESTADO DA BAHIA COELBA",
+    objeto: "Energia Elétrica",
+    sec: "SEC-BA",
+    mensal: 6500.0,
+    anual: 78000.0
+  },
+  {
+    id: "contrato-77",
+    contrato: "CONTRATO nº 1/2022 SEC-RR",
+    fornecedor: "RORAIMA ENERGIA S.A",
+    objeto: "Energia Elétrica",
+    sec: "SEC-RR",
+    mensal: 7000.0,
+    anual: 84000.0
+  },
+  {
+    id: "contrato-78",
+    contrato: "CONTRATO nº 1/2025 SEC-RS",
+    fornecedor: "COMPANHIA ESTADUAL DE DISTRIBUICAO DE ENERGIA ELETRICA - CEEE-D",
+    objeto: "Distribuição de energia elétrica às instalações da SEC-RS",
+    sec: "SEC-RS",
+    mensal: 6785.6,
+    anual: 81427.20000000001
+  },
+  {
+    id: "contrato-79",
+    contrato: "CONTRATO nº 1/2025 SEC-AC",
+    fornecedor: "ENERGISA ACRE – DISTRIBUIDORA DE ENERGIA S.A",
+    objeto: "Fornecimento de Energia Elétrica",
+    sec: "SEC-AC",
+    mensal: 2951.39,
+    anual: 35416.68
+  },
+  {
+    id: "contrato-80",
+    contrato: "CONTRATO Nº 2/2025",
+    fornecedor: "ENERGISA MATO GROSSO DO SUL - DISTRIBUIDORA DE ENERGIA S.A",
+    objeto: "Fornecimento de Energia Elétrica",
+    sec: "SEC-MS",
+    mensal: 2570.92,
+    anual: 30851.04
+  },
+  {
+    id: "contrato-81",
+    contrato: "CONTRATO nº 1/2015 SEC-AC",
+    fornecedor: "FECOMERCIO-AC.",
+    objeto: "Locação de Imóvel",
+    sec: "SEC-AC",
+    mensal: 11225.7,
+    anual: 134708.40000000002
+  },
+  {
+    id: "contrato-82",
+    contrato: "CONTRATO nº 2/2024 SEC-AP",
+    fornecedor: "COMPANHIA DE ELETRICIDADE DO AMAPÁ",
+    objeto: "Fornecimento de energia elétrica",
+    sec: "SEC-AP",
+    mensal: 5403.52,
+    anual: 64842.240000000005
+  },
+  {
+    id: "contrato-83",
+    contrato: "CONTRATO nº 2/2024 SEC-AL",
+    fornecedor: "EQUATORIAL ALAGOAS DISTRIBUIDORA DE ENERGIA S.A.COMPANHIA DE ELETRICIDADE DO AMAPÁCOMPANHIA DE ELETRICIDADE DO AMAPÁ",
+    objeto: "Fornecimento de Energia Elétrica",
+    sec: "SEC-AL",
+    mensal: 7296.14,
+    anual: 87553.68000000001
+  },
+  {
+    id: "contrato-84",
+    contrato: "CONTRATO 1/2025- SE-MA",
+    fornecedor: "EQUATORIAL MARANHAO DISTRIBUIDORA DE ENERGIA S.A",
+    objeto: "Fornecimento de Energia Elétrica",
+    sec: "SEC-MA",
+    mensal: 2538.07,
+    anual: 30456.840000000004
+  },
+  {
+    id: "contrato-85",
+    contrato: "CONTRATO nº 1/2025 SEC-SE",
+    fornecedor: "ENERGISA SERGIPE - DISTRIBUIDORA DE ENERGIA S.A",
+    objeto: "Energia Elétrica",
+    sec: "SEC-SE",
+    mensal: 1850.0,
+    anual: 22200.0
   },
-  {
-    "numero": "CONTRATO nº 1/2026 SEC-AP",
-    "fornecedor": "PHOENIX SERVICOS DE HIGIENIZACAO E LIMPEZA LTDA",
-    "objeto": "Apoio Administrativo",
-    "sec": "SEC-AP",
-    "valor_mensal": 14870.61,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO 49/2025 - SEGEDAM",
-    "fornecedor": "GENTE SEGURADORA S.A.",
-    "objeto": "Seguro Predial para as Secretarias nos Estados",
-    "sec": "Diop-Estados",
-    "valor_mensal": 5774.62,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 25/2023 SEC-RJ",
-    "fornecedor": "RIBAL LOCADORA DE VEÍCULOS LTDA",
-    "objeto": "Locação de veículos",
-    "sec": "SEC-SP",
-    "valor_mensal": 32280.6,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2025 SEC-MS",
-    "fornecedor": "SERVPLAN - SERVIÇOS DE LIMPEZA AMBIENTAL LTDA",
-    "objeto": "Limpeza/Copeiragem/Apoio Administrativo",
-    "sec": "SEC-MS",
-    "valor_mensal": 21851.02,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2025 SEC-RR",
-    "fornecedor": "EMBRASG – EMPRESA BRASILEIRA DE SERVIÇOS GERAIS LTDA",
-    "objeto": "Limpeza/Copeiragem/Apoio Administrativo",
-    "sec": "SEC-RR",
-    "valor_mensal": 28688.67,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2025 SEC-MT",
-    "fornecedor": "ALPHA CLEAN BRASIL SERVICOS ESPECIALIZADOS LTDA",
-    "objeto": "Limpeza/Copeiragem/Apoio Administrativo",
-    "sec": "SEC-MT",
-    "valor_mensal": 24001.67,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2025 SEC-AM",
-    "fornecedor": "OFFICE SERVICE TERCEIRIZACAO DE MAO DE OBRA LTDA",
-    "objeto": "Limpeza/Copeiragem/Apoio Administrativo",
-    "sec": "SEC-AM",
-    "valor_mensal": 24333.53,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 2/2022 SEC-MA",
-    "fornecedor": "JEOVA BARBOSA ENGENHARIA LTDA",
-    "objeto": "Locação de Imóvel",
-    "sec": "SEC-MA",
-    "valor_mensal": 22008.35,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO 49/2022 - SEC-RJ",
-    "fornecedor": "AIR TIME RJ AR CONDICIONADO LTDA",
-    "objeto": "Manutenção de Sistema de climatização",
-    "sec": "SEC-RJ",
-    "valor_mensal": 16453.1,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2025 SEC-PE",
-    "fornecedor": "FUNCIONAL TERCEIRIZACAO E PROMOCAO DE EVENTOS LTDA",
-    "objeto": "Limpeza/Copeiragem/Apoio Administrativo",
-    "sec": "SEC-PE",
-    "valor_mensal": 24094.37,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2025 SEC-RO",
-    "fornecedor": "A G C Prestação de Serviços LTDA",
-    "objeto": "Limpeza/Copeiragem/Apoio Administrativo",
-    "sec": "SEC-RO",
-    "valor_mensal": 17369.02,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2024 SEC-PB",
-    "fornecedor": "INFINITY SERVICOS E GESTAO EMPRESARIAL LTDA",
-    "objeto": "Limpeza/Copeiragem/Apoio Administrativo",
-    "sec": "SEC-PB",
-    "valor_mensal": 24349.24,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2023 SEC-TO",
-    "fornecedor": "CARLOS TAMOTSU KOIKE",
-    "objeto": "Locação de Imóvel",
-    "sec": "SEC-TO",
-    "valor_mensal": 14588.46,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 2/2025 SEC-AL",
-    "fornecedor": "NOVO CONCEITO LOCACAO DE MAO DE OBRA LTDA",
-    "objeto": "Limpeza/Copeiragem/Apoio administrativo",
-    "sec": "SEC-AL",
-    "valor_mensal": 26217.34,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2025 SEC-PI",
-    "fornecedor": "FALLCON SERVICE LTDA",
-    "objeto": "Limpeza/Copeiragem/Apoio Administrativo",
-    "sec": "SEC-PI",
-    "valor_mensal": 25909.78,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO n° 2/2018 SEC-PB",
-    "fornecedor": "FCS HOLDING LTDA",
-    "objeto": "Locação de Imóvel",
-    "sec": "SEC-PB",
-    "valor_mensal": 31831.77,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2025 SEC-PB",
-    "fornecedor": "COMBATE SEGUNRAÇA DE VALORES LTDA",
-    "objeto": "Segurança pessoal",
-    "sec": "SEC-PB",
-    "valor_mensal": 69162.24,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2024 SEC-AC",
-    "fornecedor": "CONSTROI BAHIA LOCACAO DE ESTRUTURAS E SERVICOS DA CONSTRUCAO LTDA",
-    "objeto": "Apoio Administrativo",
-    "sec": "SEC-AC",
-    "valor_mensal": 14366.09,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO n° 3/2024 SEC-PA",
-    "fornecedor": "ELESUL ELEVADORES LTDA",
-    "objeto": "Substituição de Elevador Hidráulico",
-    "sec": "SEC-PA",
-    "valor_mensal": 0,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 2/2024 SEC-PA",
-    "fornecedor": "LIMP CAR LOCAÇÃO E SERVIÇOS LTDA",
-    "objeto": "Apoio Administrativo",
-    "sec": "SEC-PA",
-    "valor_mensal": 15506.76,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 2/2025 SEC-RN",
-    "fornecedor": "COMPANHIA ENERGETICA DO RIO GRANDE DO NORTE COSERN",
-    "objeto": "Energia Elétrica",
-    "sec": "SEC-RN",
-    "valor_mensal": 2645.33,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 2/2025 SEC-RS",
-    "fornecedor": "LG ADMINISTRADORA DE SERVIÇOS LTDA",
-    "objeto": "Limpeza/Copeiragem/Apoio Administrativo",
-    "sec": "SEC-RS",
-    "valor_mensal": 24749.99,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2021 SEC-RO",
-    "fornecedor": "MULTITEC ELEVADORES LTDA",
-    "objeto": "Manutenção de Elevadores",
-    "sec": "SEC-RO",
-    "valor_mensal": 1500.0,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2024 SEC-PR",
-    "fornecedor": "CONSTROI BAHIA LOCACAO DE ESTRUTURAS E SERVICOS DA CONSTRUCAO LTDA",
-    "objeto": "Apoio Administrativo",
-    "sec": "SEC-PR",
-    "valor_mensal": 13499.94,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2025 SEC-GO",
-    "fornecedor": "FALLCON SERVICE LTDA",
-    "objeto": "Prestação de serviços contínuos de limpeza/copeiragem e apoio administrativo",
-    "sec": "SEC-GO",
-    "valor_mensal": 36494.59,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2024 SEC-RJ",
-    "fornecedor": "VIGFAT VIGILANCIA PATRIMONIAL LTDA",
-    "objeto": "Segurança pessoal",
-    "sec": "SEC-RJ",
-    "valor_mensal": 58662.74,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 2/2025 SEC-SP",
-    "fornecedor": "TORQUATO FREIRE SEGURANCA E VIGILANCIA PRIVADA LTDA",
-    "objeto": "Segurança pessoal",
-    "sec": "SEC-SP",
-    "valor_mensal": 42916.07,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2025 SEC-BA",
-    "fornecedor": "J & L MANUTENÇÕES E SERVICOS LTDA",
-    "objeto": "Limpeza/Copeiragem/Apoio Administrativo",
-    "sec": "SEC-BA",
-    "valor_mensal": 28282.95,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2025 SEC-RJ",
-    "fornecedor": "ORBENK ADMINISTRACAO E SERVICOS LTDA",
-    "objeto": "Apoio Administrativo",
-    "sec": "SEC-RJ",
-    "valor_mensal": 50953.86,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2025 SEC-AL",
-    "fornecedor": "ALFORGE SEGURANCA PATRIMONIAL LTDA",
-    "objeto": "Vigilância Armada",
-    "sec": "SEC-AL",
-    "valor_mensal": 23332.64,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 2/2025 SEC-SE",
-    "fornecedor": "FALLCON SERVICE LTDA",
-    "objeto": "Limpeza/Copeiragem e apoio administrativo",
-    "sec": "SEC-SE",
-    "valor_mensal": 24928.53,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2023 SEC-MG",
-    "fornecedor": "SAARA OBRAS E SERVICOS LTDA",
-    "objeto": "Limpeza/Copeiragem/Apoio Administrativo",
-    "sec": "SEC-MG",
-    "valor_mensal": 28725.44,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 2/2025 SEC-GO",
-    "fornecedor": "EMPRESA BRASILEIRA DE ELEVADORES LTDA",
-    "objeto": "Manutenção preventiva e corretiva de elevadores",
-    "sec": "SEC-GO",
-    "valor_mensal": 4715.0,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2022 SEC-CE",
-    "fornecedor": "MINISTERIO DA GESTÃO E INOVAÇÃO NOS SERVIÇOS PÚBLICOS NO CEARÁ",
-    "objeto": "Utilização compartilhada de imóvel",
-    "sec": "SEC-CE",
-    "valor_mensal": 20491.27,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2026 SEC-PA",
-    "fornecedor": "FALLCON SERVICE LTDA",
-    "objeto": "Limpeza/Copeiragem",
-    "sec": "SEC-PA",
-    "valor_mensal": 13947.13,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2024 SEC-MA",
-    "fornecedor": "OFFICE SERVICE TERCEIRIZACAO DE MAO DE OBRA LTDA",
-    "objeto": "Limpeza/Copeiragem/Apoio Administrativo",
-    "sec": "SEC-MA",
-    "valor_mensal": 21101.0,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2024 SEC-TO",
-    "fornecedor": "FENIX ASSESSORIA & GESTAO EMPRESARIAL LTDA",
-    "objeto": "Apoio Administrativo",
-    "sec": "SEC-TO",
-    "valor_mensal": 14689.15,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2025 SEC-SC",
-    "fornecedor": "BIOLIMP LIMPEZA E CONSERVAÇÃO LTDA",
-    "objeto": "Limpeza/Copeiragem/Apoio Administrativo",
-    "sec": "SEC-SC",
-    "valor_mensal": 21836.88,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2024 SEC-ES",
-    "fornecedor": "ADSERVICON - ADMINISTRACAO , SERVICOS & CONTABILIDADE LTDA",
-    "objeto": "Limpeza/Copeiragem/Apoio Administrativo",
-    "sec": "SEC-ES",
-    "valor_mensal": 24622.72,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2024 SEC-PA",
-    "fornecedor": "BELEM RIO SEGURANCA LTDA",
-    "objeto": "Vigilância Armada",
-    "sec": "SEC-PA",
-    "valor_mensal": 26187.29,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2023 SEC-AC",
-    "fornecedor": "EMBRASG - EMPRESA BRASILEIRA DE SERVICOS GERAIS LTDA",
-    "objeto": "Limpeza/Copeiragem",
-    "sec": "SEC-AC",
-    "valor_mensal": 5081.65,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 2/2020 SEC-AM",
-    "fornecedor": "EB THE OFFICE INCORPORACOES LTDA",
-    "objeto": "Locação de Imóvel",
-    "sec": "SEC-AM",
-    "valor_mensal": 24517.77,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2023 SEC-AP",
-    "fornecedor": "EMBRASG - EMPRESA BRASILEIRA DE SERVICOS GERAIS LTDA",
-    "objeto": "Limpeza/Copeiragem",
-    "sec": "SEC-AP",
-    "valor_mensal": 9438.71,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 2/2025 SEC-CE",
-    "fornecedor": "PLUS GESTAO DE ESTACIONAMENTO DE VEICULOS LTDA",
-    "objeto": "Garagem",
-    "sec": "SEC-CE",
-    "valor_mensal": 1520.0,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº  4/2024 - SEC-PA",
-    "fornecedor": "EQUATORIAL PARÁ DISTRIBUIDORA DE ENERGIA S.A",
-    "objeto": "Fornecimento de Energia Elétrica",
-    "sec": "SEC-PA",
-    "valor_mensal": 6017.63,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO 1/2025- SEC-MG",
-    "fornecedor": "CEMIG DISTRIBUIÇÃO S.A",
-    "objeto": "Fornecimento de Energia Elétrica",
-    "sec": "SEC-MG",
-    "valor_mensal": 5253.96,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2023 SEC-BA",
-    "fornecedor": "COMPANHIA DE ELETRICIDADE DO ESTADO DA BAHIA COELBA",
-    "objeto": "Energia Elétrica",
-    "sec": "SEC-BA",
-    "valor_mensal": 0,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2022 SEC-RR",
-    "fornecedor": "RORAIMA ENERGIA S.A",
-    "objeto": "Energia Elétrica",
-    "sec": "SEC-RR",
-    "valor_mensal": 7000.0,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2025 SEC-RS",
-    "fornecedor": "COMPANHIA ESTADUAL DE DISTRIBUICAO DE ENERGIA ELETRICA - CEEE-D",
-    "objeto": "Distribuição de energia elétrica às instalações da SEC-RS",
-    "sec": "SEC-RS",
-    "valor_mensal": 6785.6,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2025 SEC-AC",
-    "fornecedor": "ENERGISA ACRE – DISTRIBUIDORA DE ENERGIA S.A",
-    "objeto": "Fornecimento de Energia Elétrica",
-    "sec": "SEC-AC",
-    "valor_mensal": 2951.39,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO Nº 2/2025",
-    "fornecedor": "ENERGISA MATO GROSSO DO SUL - DISTRIBUIDORA DE ENERGIA S.A",
-    "objeto": "Fornecimento de Energia Elétrica",
-    "sec": "SEC-MS",
-    "valor_mensal": 2570.92,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2015 SEC-AC",
-    "fornecedor": "FECOMERCIO-AC.",
-    "objeto": "Locação de Imóvel",
-    "sec": "SEC-AC",
-    "valor_mensal": 11225.7,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 2/2024 SEC-AP",
-    "fornecedor": "COMPANHIA DE ELETRICIDADE DO AMAPÁ",
-    "objeto": "Fornecimento de energia elétrica",
-    "sec": "SEC-AP",
-    "valor_mensal": 5403.52,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 2/2024 SEC-AL",
-    "fornecedor": "EQUATORIAL ALAGOAS DISTRIBUIDORA DE ENERGIA S.A.COMPANHIA DE ELETRICIDADE DO AMAPÁCOMPANHIA DE ELETRICIDADE DO AMAPÁ",
-    "objeto": "Fornecimento de Energia Elétrica",
-    "sec": "SEC-AL",
-    "valor_mensal": 7296.14,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO 1/2025- SE-MA",
-    "fornecedor": "EQUATORIAL MARANHAO DISTRIBUIDORA DE ENERGIA S.A",
-    "objeto": "Fornecimento de Energia Elétrica",
-    "sec": "SEC-MA",
-    "valor_mensal": 2538.07,
-    "valor_anual": 0
-  },
-  {
-    "numero": "CONTRATO nº 1/2025 SEC-SE",
-    "fornecedor": "ENERGISA SERGIPE - DISTRIBUIDORA DE ENERGIA S.A",
-    "objeto": "Energia Elétrica",
-    "sec": "SEC-SE",
-    "valor_mensal": 1850.0,
-    "valor_anual": 0
-  }
 ];
 
 export const despesasSemContrato: DespesaSemContrato[] = [
   {
-    "sec": "AM",
-    "servico": "Energia/Condominio/Água",
-    "fornecedor": "Edificio The Office",
-    "objeto": "Pagamento de Taxa de Condomínio (salas e vagas de garagem rotativas) do Edifício The Office - imóvel locado para abrigar a nova Sede da SEC-AM",
-    "valor_mensal": 8500.0,
-    "valor_anual": 0
+    id: "despesa-1",
+    sec: "AM",
+    servico: "Energia/Condominio/Água",
+    fornecedor: " Edificio The Office",
+    objeto: "Pagamento de Taxa de Condomínio (salas e vagas de garagem rotativas) do Edifício The Office - imóvel locado para abrigar a nova Sede da SEC-AM",
+    unidade: "SEC-AM",
+    mensal: 8500.0,
+    anual: 102000.0
   },
   {
-    "sec": "MS",
-    "servico": "Água",
-    "fornecedor": "Aguas Guariroba SA",
-    "objeto": "Águas Guariroba S.A. Abastecimento de água potável e captação de esgoto para a SEC-MS",
-    "valor_mensal": 800.0,
-    "valor_anual": 0
+    id: "despesa-2",
+    sec: "MS",
+    servico: "Água",
+    fornecedor: "Aguas Guariroba SA",
+    objeto: "Águas Guariroba S.A. Abastecimento de água potável e captação de esgoto para a SEC-MS",
+    unidade: "SEC-MS",
+    mensal: 800.0,
+    anual: 9600.0
   },
   {
-    "sec": "AL",
-    "servico": "Água",
-    "fornecedor": "BRK AMBIENTAL - REGIÃO METROPOLITANA DE MACEIÓ S.A",
-    "objeto": "Serviço de abastecimento de água potável e captação de esgoto prestados à SEC-AL",
-    "valor_mensal": 2000.0,
-    "valor_anual": 0
+    id: "despesa-3",
+    sec: "AL",
+    servico: "Água",
+    fornecedor: "BRK AMBIENTAL - REGIÃO METROPOLITANA DE MACEIÓ S.A",
+    objeto: "Serviço de abastecimento de água potável e captação de esgoto prestados à SEC-AL",
+    unidade: "SEC-AL",
+    mensal: 2000.0,
+    anual: 24000.0
   },
   {
-    "sec": "TO",
-    "servico": "Condomínio",
-    "fornecedor": "Carlos Tamotsu Koike",
-    "objeto": "Despesas condominiais do imóvel sede da Representação do TCU no Estado de Tocantins - SEC-TO",
-    "valor_mensal": 2800.0,
-    "valor_anual": 0
+    id: "despesa-4",
+    sec: "TO",
+    servico: "Condomínio",
+    fornecedor: "Carlos Tamotsu Koike",
+    objeto: "Despesas condominiais do imóvel sede da Representação do TCU no Estado de Tocantins - SEC-TO",
+    unidade: "SEC-TO",
+    mensal: 2800.0,
+    anual: 33600.0
   },
   {
-    "sec": "TO",
-    "servico": "Energia",
-    "fornecedor": "Cia. de EN.Elétrica do Estado do TO",
-    "objeto": "SERVIÇO DE FORNECIMENTO DE ENERGIA ELÉTRICA À SEC-TO",
-    "valor_mensal": 0,
-    "valor_anual": 0
+    id: "despesa-5",
+    sec: "TO",
+    servico: "Energia",
+    fornecedor: "Cia. de EN.Elétrica do Estado do TO",
+    objeto: "SERVIÇO DE FORNECIMENTO DE ENERGIA ELÉTRICA À SEC-TO",
+    unidade: "SEC-TO",
+    mensal: 8750.0,
+    anual: 105000.0
   },
   {
-    "sec": "RO",
-    "servico": "Água",
-    "fornecedor": "Companhia de Aguas e Esgotos de Rondonia Caerd",
-    "objeto": "Abastecimento de água potável e captação de esgoto, para a SEC-RO",
-    "valor_mensal": 1000.0,
-    "valor_anual": 0
+    id: "despesa-6",
+    sec: "RO",
+    servico: "Água",
+    fornecedor: "Companhia de Aguas e Esgotos de Rondonia Caerd",
+    objeto: "Abastecimento de água potável e captação de esgoto, para a SEC-RO",
+    unidade: "SEC-RO",
+    mensal: 1000.0,
+    anual: 12000.0
   },
   {
-    "sec": "RR",
-    "servico": "Água",
-    "fornecedor": "Companhia de Aguas e Esgotos de Roraima Caer",
-    "objeto": "Serviços de Águas e Esgotos prestados à SEC-RR",
-    "valor_mensal": 650.0,
-    "valor_anual": 0
+    id: "despesa-7",
+    sec: "RR",
+    servico: "Água",
+    fornecedor: "Companhia de Aguas e Esgotos de Roraima Caer",
+    objeto: "Serviços de Águas e Esgotos prestados à SEC-RR",
+    unidade: "SEC-RR",
+    mensal: 650.0,
+    anual: 7800.0
   },
   {
-    "sec": "PR",
-    "servico": "Locação",
-    "fornecedor": "Diamond Parking Ltda",
-    "objeto": "Locação mensal de vagas de garagem para a SEC-PR",
-    "valor_mensal": 2700.0,
-    "valor_anual": 32400.0
+    id: "despesa-8",
+    sec: "PR",
+    servico: "Locação",
+    fornecedor: "Diamond Parking Ltda",
+    objeto: "Locação mensal de vagas de garagem para a SEC-PR",
+    unidade: "SEC-PR",
+    mensal: 2700.0,
+    anual: 32400.0
   },
   {
-    "sec": "PA",
-    "servico": "Água",
-    "fornecedor": "Companhia de Saneamento do Pará",
-    "objeto": "Abastecimento de água potável e captação de esgoto para a Representação do TCU no Estado do Pará - SEC-PA",
-    "valor_mensal": 400.0,
-    "valor_anual": 0
+    id: "despesa-9",
+    sec: "PA",
+    servico: "Água",
+    fornecedor: "Companhia de Saneamento do Pará",
+    objeto: "Abastecimento de água potável e captação de esgoto para a Representação do TCU no Estado do Pará - SEC-PA",
+    unidade: "SEC-PA",
+    mensal: 400.0,
+    anual: 4800.0
   },
   {
-    "sec": "TO",
-    "servico": "Água",
-    "fornecedor": "COMPANHIA DE SANEAMENTO DO TOCANTINS - SANEATINS",
-    "objeto": "Fornecimento de água e captação de esgoto",
-    "valor_mensal": 2500.0,
-    "valor_anual": 30000.0
+    id: "despesa-10",
+    sec: "TO",
+    servico: "Água",
+    fornecedor: "COMPANHIA DE SANEAMENTO DO TOCANTINS - SANEATINS",
+    objeto: "Fornecimento de água e captação de esgoto",
+    unidade: "SEC-TO",
+    mensal: 2500.0,
+    anual: 30000.0
   },
   {
-    "sec": "SP",
-    "servico": "Condomínio/Energia",
-    "fornecedor": "Condomínio Cetenco Plaza Torre Norte",
-    "objeto": "Despesas com Condomínio e fundo de obras, com inclusão de rateio de energia e manutenção de ar condicionado",
-    "valor_mensal": 46000.0,
-    "valor_anual": 0
+    id: "despesa-11",
+    sec: "SP",
+    servico: "Condomínio/Energia",
+    fornecedor: "Condomínio Cetenco Plaza Torre Norte",
+    objeto: "Despesas com Condomínio e fundo de obras, com inclusão de rateio de energia e manutenção de ar condicionado",
+    unidade: "SEC-SP",
+    mensal: 46000.0,
+    anual: 552000.0
   },
   {
-    "sec": "MG",
-    "servico": "Condomínio/Água",
-    "fornecedor": "Condomínio do Edifício Soinco Business Center",
-    "objeto": "CONDOMINIO DO EDIFICIO SOINCO BUSINESS CENTER",
-    "valor_mensal": 12100.0,
-    "valor_anual": 0
+    id: "despesa-12",
+    sec: "MG",
+    servico: "Condomínio/Água",
+    fornecedor: "Condomínio do Edifício Soinco Business Center",
+    objeto: "CONDOMINIO DO EDIFICIO SOINCO BUSINESS CENTER",
+    unidade: "SEC-MG",
+    mensal: 12100.0,
+    anual: 145200.0
   },
   {
-    "sec": "PE",
-    "servico": "Condomínio/Água/Energia",
-    "fornecedor": "Condominio do Edificio The Plaza",
-    "objeto": "DESPESAS CONDOMINIAIS REFERENTES À NOVA SEDE DA REPRESENTAÇÃO DO TCU NO ESTADO DE PERNAMBUCO - SEC-PE",
-    "valor_mensal": 6363.42,
-    "valor_anual": 0
+    id: "despesa-13",
+    sec: "PE",
+    servico: "Condomínio/Água/Energia",
+    fornecedor: "Condominio do Edificio The Plaza",
+    objeto: "DESPESAS CONDOMINIAIS REFERENTES À NOVA SEDE DA REPRESENTAÇÃO DO TCU NO ESTADO DE PERNAMBUCO - SEC-PE",
+    unidade: "SEC-PE",
+    mensal: 6363.42,
+    anual: 76361.04000000001
   },
   {
-    "sec": "MT",
-    "servico": "Condomínio/Água",
-    "fornecedor": "Condomínio Edifício Xingu Business Center",
-    "objeto": "Despesa condominial, referente ao imóvel ocupado pela Representação do TCU no Estado do Mato Grosso - SEC-MT",
-    "valor_mensal": 8982.6,
-    "valor_anual": 0
+    id: "despesa-14",
+    sec: "MT",
+    servico: "Condomínio/Água",
+    fornecedor: "Condomínio Edifício Xingu Business Center",
+    objeto: "Despesa condominial, referente ao imóvel ocupado pela Representação do TCU no Estado do Mato Grosso - SEC-MT",
+    unidade: "SEC-MT",
+    mensal: 8982.6,
+    anual: 107791.20000000001
   },
   {
-    "sec": "PB",
-    "servico": "Condomínio/Água/Energia",
-    "fornecedor": "Condominio Empresarial Eco Business Center",
-    "objeto": "Despesa condominial referente a 7 (sete) salas e 7 (sete) vagas de garagem rotativas do imóvel no condomínio Empresarial ECO Business Center",
-    "valor_mensal": 8224.75,
-    "valor_anual": 0
+    id: "despesa-15",
+    sec: "PB",
+    servico: "Condomínio/Água/Energia",
+    fornecedor: "Condominio Empresarial Eco Business Center",
+    objeto: "Despesa condominial referente a 7 (sete) salas e 7 (sete) vagas de garagem rotativas do imóvel no condomínio Empresarial ECO Business Center",
+    unidade: "SEC-PB",
+    mensal: 8224.75,
+    anual: 98697.0
   },
   {
-    "sec": "BA",
-    "servico": "Condomínio/Água",
-    "fornecedor": "Condomínio Salvador Prime",
-    "objeto": "Despesas condominiais das salas onde funciona a sede da SEC-BA. Edifício Salvador Prime Work, 17º andar - Caminho das Árvores - Salvador-BA",
-    "valor_mensal": 11000.0,
-    "valor_anual": 0
+    id: "despesa-16",
+    sec: "BA",
+    servico: "Condomínio/Água",
+    fornecedor: "Condomínio Salvador Prime",
+    objeto: "Despesas condominiais das salas onde funciona a sede da SEC-BA. Edifício Salvador Prime Work, 17º andar - Caminho das Árvores - Salvador-BA",
+    unidade: "SEC-BA",
+    mensal: 11000.0,
+    anual: 132000.0
   },
   {
-    "sec": "ES",
-    "servico": "Condomínio/Água",
-    "fornecedor": "Condominio Vertice Empresarial Enseada",
-    "objeto": "Despesa condominial referente a salas e vagas de garagem do Edifício VÉRTICE EMPRESARIAL ENSEADA",
-    "valor_mensal": 2400.0,
-    "valor_anual": 0
+    id: "despesa-17",
+    sec: "ES",
+    servico: "Condomínio/Água",
+    fornecedor: "Condominio Vertice Empresarial Enseada",
+    objeto: "Despesa condominial referente a salas e vagas de garagem do Edifício VÉRTICE EMPRESARIAL ENSEADA",
+    unidade: "SEC-ES",
+    mensal: 2400.0,
+    anual: 28800.0
   },
   {
-    "sec": "MT",
-    "servico": "Energia",
-    "fornecedor": "Energisa Mato Grosso - Distribuidora de Energia S.A",
-    "objeto": "Fornecimento de Energia Elétrica à SEC-MT e Contribuição de Iluminação Pública (CIP)",
-    "valor_mensal": 0,
-    "valor_anual": 0
+    id: "despesa-18",
+    sec: "MT",
+    servico: "Energia",
+    fornecedor: "Energisa Mato Grosso - Distribuidora de Energia S.A",
+    objeto: "Fornecimento de Energia Elétrica à SEC-MT e Contribuição de Iluminação Pública (CIP)",
+    unidade: "SEC-MT",
+    mensal: 5250.0,
+    anual: 63000.0
   },
   {
-    "sec": "RO",
-    "servico": "Coleta de lixo",
-    "fornecedor": "Prefeitura Municipal de Porto Velho",
-    "objeto": "Taxa de Coleta de Lixo – TCL da SEC-RO",
-    "valor_mensal": 0,
-    "valor_anual": 1823.05
+    id: "despesa-19",
+    sec: "RO",
+    servico: "Coleta de lixo",
+    fornecedor: "Prefeitura Municipal de Porto Velho",
+    objeto: "Taxa de Coleta de Lixo – TCL da SEC-RO",
+    unidade: "SEC-RO",
+    mensal: 0,
+    anual: 1823.05
   },
   {
-    "sec": "RO",
-    "servico": "Energia",
-    "fornecedor": "Energisa Rondônia",
-    "objeto": "Fornecimento de energia elétrica e contribuição para iluminação pública à SEC-RO",
-    "valor_mensal": 7150.0,
-    "valor_anual": 0
+    id: "despesa-20",
+    sec: "RO",
+    servico: "Energia",
+    fornecedor: "Energisa Rondônia",
+    objeto: "Fornecimento de energia elétrica e contribuição para iluminação pública à SEC-RO",
+    unidade: "SEC-RO",
+    mensal: 7150.0,
+    anual: 85800.0
   },
   {
-    "sec": "RS",
-    "servico": "Condomínio",
-    "fornecedor": "Guarida Servicos Imobiliarios Ltda",
-    "objeto": "Despesa condominial, referente ao imóvel ocupado pela Representação do TCU no Estado do Rio Grande do Sul - SEC-RS",
-    "valor_mensal": 0,
-    "valor_anual": 0
+    id: "despesa-21",
+    sec: "RS",
+    servico: "Condomínio",
+    fornecedor: "Guarida Servicos Imobiliarios Ltda",
+    objeto: "Despesa condominial, referente ao imóvel ocupado pela Representação do TCU no Estado do Rio Grande do Sul - SEC-RS",
+    unidade: "SEC-RS",
+    mensal: 34417.2875,
+    anual: 413007.44999999995
   },
   {
-    "sec": "SE",
-    "servico": "Água",
-    "fornecedor": "Iguá Sergipe S.A",
-    "objeto": "Fornecimento de água e serviços de esgoto para a Representação do TCU no Estado de Sergipe",
-    "valor_mensal": 600.0,
-    "valor_anual": 0
+    id: "despesa-22",
+    sec: "SE",
+    servico: "Água",
+    fornecedor: "Iguá Sergipe S.A",
+    objeto: "Fornecimento de água e serviços de esgoto para a Representação do TCU no Estado de Sergipe",
+    unidade: "SEC-SE",
+    mensal: 600.0,
+    anual: 7200.0
   },
   {
-    "sec": "SE",
-    "servico": "Condomínio",
-    "fornecedor": "Jfc Trade Center",
-    "objeto": "Taxa de condomínio de salas e vagas de garagem do JFC Trade Center onde está instalada a Secretaria do TCU no Estado de Sergipe",
-    "valor_mensal": 14000.0,
-    "valor_anual": 0
+    id: "despesa-23",
+    sec: "SE",
+    servico: "Condomínio",
+    fornecedor: "Jfc Trade Center",
+    objeto: "Taxa de condomínio de salas e vagas de garagem do JFC Trade Center onde está instalada a Secretaria do TCU no Estado de Sergipe",
+    unidade: "SEC-SE",
+    mensal: 14000.0,
+    anual: 168000.0
   },
   {
-    "sec": "MA",
-    "servico": "Condomínio/Água",
-    "fornecedor": "Marcus Barbosa Intelligent Office",
-    "objeto": "Despesas condominiais referentes ao Edifício Comercial Marcus Barbosa Intelligent Office",
-    "valor_mensal": 3108.84,
-    "valor_anual": 37306.08
+    id: "despesa-24",
+    sec: "MA",
+    servico: "Condomínio/Água",
+    fornecedor: "Marcus Barbosa Intelligent Office ",
+    objeto: "Despesas condominiais referentes ao Edifício Comercial Marcus Barbosa Intelligent Office",
+    unidade: "SEC-MA",
+    mensal: 3108.84,
+    anual: 37306.08
   },
   {
-    "sec": "RN",
-    "servico": "Condomínio/Água",
-    "fornecedor": "Pjbank Pagamentos S.A",
-    "objeto": "Pagamento taxa condominial referente a 5 (cinco) salas comerciais e 7 (sete) vagas de garagem do condomínio Manhattan Business Office",
-    "valor_mensal": 3400.0,
-    "valor_anual": 0
+    id: "despesa-25",
+    sec: "MS",
+    servico: "MANUTENÇÃO PREVENTIVA E CORRETIVA ",
+    fornecedor: "TORO ELEVADORES LTDA",
+    objeto: "PRESTAÇÃO DE SERVIÇOS TERCEIRIZADOS, DE NATUREZA CONTINUADA, SEM DEDICAÇÃO EXCLUSIVA DE MÃO DE OBRA, PARA MANUTENÇÃO PREVENTIVA E CORRETIVA, ALÉM DE ADEQUAÇÃO ÀS NORMAS DE SEGURANÇA, DO ELEVADOR INSTALADO NA REP-MS.",
+    unidade: "SEC-MS",
+    mensal: 4825.0,
+    anual: 57900.0
   },
   {
-    "sec": "RJ",
-    "servico": "Seguro veicular",
-    "fornecedor": "PORTO SEGURO COMPANHIA DE SEGUROS GERAIS",
-    "objeto": "Seguro veicular para 01 veículo pertencente à secretaria do TCU no Estado do Rio de Janeiro (SEC-RJ)",
-    "valor_mensal": 1851.54,
-    "valor_anual": 1991.97
+    id: "despesa-26",
+    sec: "RN",
+    servico: "Condomínio/Água",
+    fornecedor: "Pjbank Pagamentos S.A",
+    objeto: "Pagamento taxa condominial referente a 5 (cinco) salas comerciais e 7 (sete) vagas de garagem do condomínio Manhattan Business Office",
+    unidade: "SEC-RN",
+    mensal: 3400.0,
+    anual: 40800.0
   },
   {
-    "sec": "SP",
-    "servico": "Seguro veicular",
-    "fornecedor": "PORTO SEGURO COMPANHIA DE SEGUROS GERAIS",
-    "objeto": "Seguro veicular para a viatura em uso na Sec-SP",
-    "valor_mensal": 1533.13,
-    "valor_anual": 1533.13
+    id: "despesa-27",
+    sec: "RJ",
+    servico: "Seguro veicular",
+    fornecedor: "PORTO SEGURO COMPANHIA DE SEGUROS GERAIS",
+    objeto: "Seguro veicular para 01 veículo pertencente à secretaria do TCU no Estado do Rio de Janeiro (SEC-RJ)",
+    unidade: "SEC-RJ",
+    mensal: 1851.54,
+    anual: 1991.97
   },
   {
-    "sec": "PI",
-    "servico": "Condomínio",
-    "fornecedor": "Predial Servicos de Cobranca Condominial Ltda",
-    "objeto": "TAXA CONDOMÍNIO MANHATTAN RIVER CENTER, 14 SALAS E 25 VAGAS DE GARAGEM - SEDE DA SEC-PI",
-    "valor_mensal": 11002.4,
-    "valor_anual": 0
+    id: "despesa-28",
+    sec: "SP",
+    servico: "Seguro veicular",
+    fornecedor: "PORTO SEGURO COMPANHIA DE SEGUROS GERAIS",
+    objeto: "Seguro veicular para a viatura em uso na Sec-SP",
+    unidade: "SEC-SP",
+    mensal: 1533.13,
+    anual: 1533.13
   },
   {
-    "sec": "PE",
-    "servico": "Motorista",
-    "fornecedor": "SERCOSERV SERVICOS TERCEIRIZADOS LTDA",
-    "objeto": "Serviço de motorista - SEC-PE",
-    "valor_mensal": 10419.49,
-    "valor_anual": 0
+    id: "despesa-29",
+    sec: "PI",
+    servico: "Condomínio",
+    fornecedor: "Predial Servicos de Cobranca Condominial Ltda",
+    objeto: "TAXA CONDOMÍNIO MANHATTAN RIVER CENTER, 14 SALAS E 25 VAGAS DE GARAGEM - SEDE DA SEC-PI",
+    unidade: "SEC-PI",
+    mensal: 11002.4,
+    anual: 132028.8
   },
   {
-    "sec": "MS",
-    "servico": "MANUTENÇÃO PREVENTIVA E CORRETIVA",
-    "fornecedor": "TORO ELEVADORES LTDA",
-    "objeto": "PRESTAÇÃO DE SERVIÇOS TERCEIRIZADOS, DE NATUREZA CONTINUADA, SEM DEDICAÇÃO EXCLUSIVA DE MÃO DE OBRA, PARA MANUTENÇÃO PREVENTIVA E CORRETIVA, ALÉM DE ADEQUAÇÃO ÀS NORMAS DE SEGURANÇA, DO ELEVADOR INSTALADO NA REP-MS.",
-    "valor_mensal": 4825.0,
-    "valor_anual": 57900.0
-  }
+    id: "despesa-30",
+    sec: "PE",
+    servico: "Motorista",
+    fornecedor: "SERCOSERV SERVICOS TERCEIRIZADOS LTDA",
+    objeto: "Serviço de motorista - SEC-PE",
+    unidade: "SEC-PE",
+    mensal: 10419.49,
+    anual: 62516.94
+  },
 ];
 
-export const secs = ["AL", "AM", "BA", "Diop-Estados", "ES", "MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SE", "SEC-AC", "SEC-AL", "SEC-AM", "SEC-AP", "SEC-BA", "SEC-CE", "SEC-ES", "SEC-GO", "SEC-MA", "SEC-MG", "SEC-MS", "SEC-MT", "SEC-PA", "SEC-PB", "SEC-PE", "SEC-PI", "SEC-PR", "SEC-RJ", "SEC-RN", "SEC-RO", "SEC-RR", "SEC-RS", "SEC-SC", "SEC-SE", "SEC-SP", "SEC-TO", "SP", "TO"];
+export const totalContratos = contratos.length;
+export const totalDespesasSemContrato = despesasSemContrato.length;
 
-export const totaisContratos = {
-  mensal: 1349936.7299999988,
-  anual: 349370.96,
-};
-
-export const totaisDespesasSem = {
-  mensal: 174311.17,
-  anual: 162954.23,
-};
-
-export const totalGeral = {
-  mensal: 1524247.8999999987,
-  anual: 512325.19000000006,
-};
+// Cálculos consolidados
+export const totalMensalComContrato = contratos.reduce((sum, c) => sum + c.mensal, 0);
+export const totalAnualComContrato = contratos.reduce((sum, c) => sum + c.anual, 0);
+export const totalMensalSemContrato = despesasSemContrato.reduce((sum, d) => sum + d.mensal, 0);
+export const totalAnualSemContrato = despesasSemContrato.reduce((sum, d) => sum + d.anual, 0);
+export const totalMensal = totalMensalComContrato + totalMensalSemContrato;
+export const totalAnual = totalAnualComContrato + totalAnualSemContrato;
