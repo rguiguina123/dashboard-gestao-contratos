@@ -1,7 +1,7 @@
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { KPICard } from "@/components/dashboard/KPICard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { contratos, despesasSemContrato, totalMensal, totalMensalComContrato, totalMensalSemContrato } from "@/lib/data";
+import { contratos, despesasSemContrato, totalMensal, totalMensalComContrato, totalMensalSemContrato, totalAnual, totalAnualComContrato, totalAnualSemContrato } from "@/lib/data";
 import {
   LineChart,
   Line,

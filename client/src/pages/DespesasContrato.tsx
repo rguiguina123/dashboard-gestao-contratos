@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { MetricCard } from "@/components/dashboard/MetricCard";
 import { DataTable } from "@/components/dashboard/DataTable";
-import { contratos, secs as allSecs } from "@/lib/data";
+import { contratos, secs as allSecs, totalAnualComContrato } from "@/lib/data";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   BarChart,
