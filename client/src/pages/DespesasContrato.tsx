@@ -29,6 +29,9 @@ import { formatCurrency } from "@/lib/utils";
 
 interface ContratoDisplay {
   id: string;
+  contrato: string;
+  fornecedor: string;
+  objeto: string;
   sec: string;
   mensal: number;
   anual: number;
@@ -56,15 +59,15 @@ export default function DespesasContrato() {
     );
   }, [filteredContratos]);
 
-  // Dados para gráfico de despesas por SEC
+  // Dados para gráfico de despesas por fornecedor
   const despesasPorFornecedor = useMemo(() => {
     const grouped = filteredContratos.reduce(
       (acc, c) => {
-        const existing = acc.find((x) => x.fornecedor === c.sec);
+        const existing = acc.find((x) => x.fornecedor === c.fornecedor);
         if (existing) {
           existing.valor += c.mensal;
         } else {
-          acc.push({ fornecedor: c.sec, valor: c.mensal });
+          acc.push({ fornecedor: c.fornecedor, valor: c.mensal });
         }
         return acc;
       },
@@ -91,6 +94,9 @@ export default function DespesasContrato() {
   }, [filteredContratos]);
 
   const columns: Array<any> = [
+    { key: "contrato", label: "Contrato", sortable: true },
+    { key: "fornecedor", label: "Fornecedor", sortable: true },
+    { key: "objeto", label: "Objeto", sortable: false },
     { key: "sec", label: "SEC", sortable: true },
     { key: "mensal", label: "Valor Mensal", sortable: true, format: (v: number) => formatCurrency(v) },
     { key: "anual", label: "Valor Anual", sortable: true, format: (v: number) => formatCurrency(v) },
@@ -167,10 +173,10 @@ export default function DespesasContrato() {
             </CardContent>
           </Card>
 
-          {/* Gráfico de Despesas por SEC */}
+          {/* Gráfico de Despesas por Fornecedor */}
           <Card className="border-0 shadow-lg">
             <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b">
-              <CardTitle className="text-purple-900">Top 10 SECs por Despesa</CardTitle>
+              <CardTitle className="text-purple-900">Top 10 Fornecedores</CardTitle>
             </CardHeader>
             <CardContent className="p-6">
               <ResponsiveContainer width="100%" height={300}>

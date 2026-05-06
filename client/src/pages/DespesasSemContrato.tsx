@@ -30,6 +30,10 @@ import { formatCurrency } from "@/lib/utils";
 interface DespesaDisplay {
   id: string;
   sec: string;
+  servico: string;
+  fornecedor: string;
+  objeto: string;
+  unidade: string;
   mensal: number;
   anual: number;
 }
@@ -56,15 +60,15 @@ export default function DespesasSemContrato() {
     );
   }, [filteredDespesas]);
 
-  // Dados para gráfico de despesas por SEC
+  // Dados para gráfico de despesas por serviço
   const despesasPorServico = useMemo(() => {
     const grouped = filteredDespesas.reduce(
       (acc, d) => {
-        const existing = acc.find((x) => x.servico === d.sec);
+        const existing = acc.find((x) => x.servico === d.servico);
         if (existing) {
           existing.valor += d.mensal;
         } else {
-          acc.push({ servico: d.sec, valor: d.mensal });
+          acc.push({ servico: d.servico, valor: d.mensal });
         }
         return acc;
       },
@@ -93,11 +97,14 @@ export default function DespesasSemContrato() {
   const columns: Array<any> = [
     { key: "sec", label: "SEC", sortable: true },
     { key: "servico", label: "Serviço", sortable: true },
+    { key: "sec", label: "SEC", sortable: true },
+    { key: "servico", label: "Serviço", sortable: true },
     { key: "fornecedor", label: "Fornecedor", sortable: true },
     { key: "objeto", label: "Objeto", sortable: false },
+    { key: "unidade", label: "Unidade", sortable: true },
     { key: "mensal", label: "Valor Mensal", sortable: true, format: (v: number) => formatCurrency(v) },
     { key: "anual", label: "Valor Anual", sortable: true, format: (v: number) => formatCurrency(v) },
-  ]
+  ];
 
   return (
     <DashboardLayout>
@@ -170,10 +177,10 @@ export default function DespesasSemContrato() {
             </CardContent>
           </Card>
 
-          {/* Gráfico de Despesas por SEC */}
+          {/* Gráfico de Despesas por Serviço */}
           <Card className="border-0 shadow-lg">
             <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b">
-              <CardTitle className="text-purple-900">Top 10 SECs por Despesa</CardTitle>
+              <CardTitle className="text-purple-900">Despesas por Serviço</CardTitle>
             </CardHeader>
             <CardContent className="p-6">
               <ResponsiveContainer width="100%" height={300}>
