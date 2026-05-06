@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { MetricCard } from "@/components/dashboard/MetricCard";
-import { contratos, despesasSemContrato, totalGeral, totaisContratos, totaisDespesasSem } from "@/lib/data";
+import { contratos, despesasSemContrato, totalMensal, totalMensalComContrato, totalMensalSemContrato } from "@/lib/data";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   BarChart,
@@ -24,13 +24,13 @@ export default function Demonstrativo() {
     return [
       {
         categoria: "Com Contrato",
-        Mensal: totaisContratos.mensal,
-        Anual: totaisContratos.anual,
+        Mensal: totalMensalComContrato,
+        Anual: totalMensalComContrato * 12,
       },
       {
         categoria: "Sem Contrato",
-        Mensal: totaisDespesasSem.mensal,
-        Anual: totaisDespesasSem.anual,
+        Mensal: totalMensalSemContrato,
+        Anual: totalMensalSemContrato * 12,
       },
     ];
   }, []);
@@ -40,15 +40,15 @@ export default function Demonstrativo() {
     return [
       {
         categoria: "Com Contrato",
-        mensal: totaisContratos.mensal,
-        anual: totaisContratos.anual,
-        percentual: ((totaisContratos.mensal / totalGeral.mensal) * 100).toFixed(1),
+        mensal: totalMensalComContrato,
+        anual: totalMensalComContrato * 12,
+        percentual: ((totalMensalComContrato / totalMensal) * 100).toFixed(1),
       },
       {
         categoria: "Sem Contrato",
-        mensal: totaisDespesasSem.mensal,
-        anual: totaisDespesasSem.anual,
-        percentual: ((totaisDespesasSem.mensal / totalGeral.mensal) * 100).toFixed(1),
+        mensal: totalMensalSemContrato,
+        anual: totalMensalSemContrato * 12,
+        percentual: ((totalMensalSemContrato / totalMensal) * 100).toFixed(1),
       },
     ];
   }, []);
@@ -58,11 +58,11 @@ export default function Demonstrativo() {
     const secMap = new Map<string, number>();
     
     contratos.forEach((c) => {
-      secMap.set(c.sec, (secMap.get(c.sec) || 0) + c.valor_mensal);
+      secMap.set(c.sec, (secMap.get(c.sec) || 0) + c.mensal);
     });
     
     despesasSemContrato.forEach((d) => {
-      secMap.set(d.sec, (secMap.get(d.sec) || 0) + d.valor_mensal);
+      secMap.set(d.sec, (secMap.get(d.sec) || 0) + d.mensal);
     });
 
     return Array.from(secMap.entries())
@@ -84,13 +84,13 @@ export default function Demonstrativo() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <MetricCard
             title="Despesa Mensal Total"
-            value={formatCurrency(totalGeral.mensal)}
+            value={formatCurrency(totalMensal)}
             icon={<DollarSign className="w-5 h-5" />}
             trend="up"
           />
           <MetricCard
             title="Despesa Anual Total"
-            value={formatCurrency(totalGeral.anual)}
+            value={formatCurrency(totalMensal * 12)}
             icon={<TrendingUp className="w-5 h-5" />}
             trend="up"
           />

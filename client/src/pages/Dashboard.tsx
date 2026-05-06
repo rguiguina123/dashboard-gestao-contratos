@@ -1,7 +1,7 @@
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { KPICard } from "@/components/dashboard/KPICard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { contratos, despesasSemContrato, totalGeral, totaisContratos, totaisDespesasSem } from "@/lib/data";
+import { contratos, despesasSemContrato, totalMensal, totalMensalComContrato, totalMensalSemContrato } from "@/lib/data";
 import {
   LineChart,
   Line,
@@ -34,7 +34,7 @@ export default function Dashboard() {
     { month: "Mar", com: 1280000, sem: 520000 },
     { month: "Abr", com: 1420000, sem: 510000 },
     { month: "Mai", com: 1550000, sem: 580000 },
-    { month: "Jun", com: totalGeral.mensal, sem: totaisDespesasSem.mensal },
+    { month: "Jun", com: totalMensalComContrato, sem: totalMensalSemContrato },
   ];
 
   return (
@@ -54,7 +54,7 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 animate-stagger">
           <KPICard
             title="Despesa Mensal Total"
-            value={formatCurrency(totalGeral.mensal)}
+            value={formatCurrency(totalMensal)}
             icon={<DollarSign className="w-5 h-5 text-primary" />}
             trend="up"
             trendValue="+12.5% vs mês anterior"
@@ -146,24 +146,24 @@ export default function Dashboard() {
                 <div className="flex justify-between items-center p-4 bg-purple-50 rounded-lg border border-purple-100">
                   <div>
                     <p className="text-sm text-purple-600 font-medium">Com Contrato</p>
-                    <p className="text-2xl font-bold text-purple-900">{formatCurrency(totaisContratos.mensal)}</p>
-                    <p className="text-xs text-purple-600 mt-1">{formatCurrency(totaisContratos.anual)}/ano</p>
+                    <p className="text-2xl font-bold text-purple-900">{formatCurrency(totalMensalComContrato)}</p>
+                    <p className="text-xs text-purple-600 mt-1">{formatCurrency(totalMensalComContrato * 12)}/ano</p>
                   </div>
                   <CheckCircle className="w-8 h-8 text-purple-600" />
                 </div>
                 <div className="flex justify-between items-center p-4 bg-blue-50 rounded-lg border border-blue-100">
                   <div>
                     <p className="text-sm text-blue-600 font-medium">Sem Contrato</p>
-                    <p className="text-2xl font-bold text-blue-900">{formatCurrency(totaisDespesasSem.mensal)}</p>
-                    <p className="text-xs text-blue-600 mt-1">{formatCurrency(totaisDespesasSem.anual)}/ano</p>
+                    <p className="text-2xl font-bold text-blue-900">{formatCurrency(totalMensalSemContrato)}</p>
+                    <p className="text-xs text-blue-600 mt-1">{formatCurrency(totalMensalSemContrato * 12)}/ano</p>
                   </div>
                   <AlertCircle className="w-8 h-8 text-blue-600" />
                 </div>
                 <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg border border-gray-200">
                   <div>
                     <p className="text-sm text-gray-600 font-medium">Total Geral</p>
-                    <p className="text-2xl font-bold text-gray-900">{formatCurrency(totalGeral.mensal)}</p>
-                    <p className="text-xs text-gray-600 mt-1">{formatCurrency(totalGeral.anual)}/ano</p>
+                    <p className="text-2xl font-bold text-gray-900">{formatCurrency(totalMensal)}</p>
+                    <p className="text-xs text-gray-600 mt-1">{formatCurrency(totalMensal * 12)}/ano</p>
                   </div>
                   <TrendingUp className="w-8 h-8 text-gray-600" />
                 </div>
@@ -184,7 +184,7 @@ export default function Dashboard() {
                   Ticket Médio
                 </p>
                 <p className="text-xl font-bold text-foreground font-poppins">
-                  {formatCurrency(totalGeral.mensal / contratos.length)}
+                  {formatCurrency(totalMensal / contratos.length)}
                 </p>
               </div>
               <div className="p-4 bg-secondary rounded-lg hover-lift">
@@ -208,7 +208,7 @@ export default function Dashboard() {
                   Custo/Colaborador
                 </p>
                 <p className="text-xl font-bold text-foreground font-poppins">
-                  {formatCurrency(totalGeral.mensal / 112)}
+                  {formatCurrency(totalMensal / 112)}
                 </p>
               </div>
             </div>

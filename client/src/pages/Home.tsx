@@ -9,7 +9,7 @@ import {
   ArrowRight,
   Building2,
 } from "lucide-react";
-import { contratos, despesasSemContrato, totalGeral } from "@/lib/data";
+import { contratos, despesasSemContrato, totalMensal, totalAnual } from "@/lib/data";
 import { formatCurrency } from "@/lib/utils";
 
 const moduleIcons = {
@@ -56,7 +56,7 @@ export default function Home() {
       href: "/demonstrativo",
       icon: "demonstrativo",
       color: "text-emerald-600",
-      metric: formatCurrency(totalGeral.anual),
+      metric: formatCurrency(totalAnual),
     },
     {
       title: "Despesas com Contrato",
@@ -64,7 +64,7 @@ export default function Home() {
       href: "/despesas-contrato",
       icon: "despesasComContrato",
       color: "text-amber-600",
-      metric: formatCurrency(contratos.reduce((sum, c) => sum + c.valor_anual, 0)),
+      metric: formatCurrency(contratos.reduce((sum, c) => sum + c.anual, 0)),
     },
     {
       title: "Despesas sem Contrato",
@@ -72,7 +72,7 @@ export default function Home() {
       href: "/despesas-sem-contrato",
       icon: "despesasSemContrato",
       color: "text-orange-600",
-      metric: formatCurrency(despesasSemContrato.reduce((sum, d) => sum + d.valor_anual, 0)),
+      metric: formatCurrency(despesasSemContrato.reduce((sum, d) => sum + d.anual, 0)),
     },
   ];
 
@@ -124,7 +124,7 @@ export default function Home() {
             </div>
             <div className="text-center">
               <p className="text-2xl font-bold text-primary font-poppins">
-                {formatCurrency(totalGeral.mensal)}
+                {formatCurrency(totalMensal)}
               </p>
               <p className="text-muted-foreground mt-2">Mensal</p>
             </div>
@@ -199,11 +199,11 @@ export default function Home() {
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-2 h-2 bg-primary rounded-full"></span>
-                  Despesa mensal total: {formatCurrency(totalGeral.mensal)}
+                  Despesa mensal total: {formatCurrency(totalMensal)}
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-2 h-2 bg-primary rounded-full"></span>
-                  Despesa anual total: {formatCurrency(totalGeral.anual)}
+                  Despesa anual total: {formatCurrency(totalAnual)}
                 </li>
               </ul>
             </div>

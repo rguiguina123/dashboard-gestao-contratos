@@ -5,12 +5,12 @@ import { formatCurrency } from "@/lib/utils";
 
 interface ContratoDisplay {
   id: string;
-  numero: string;
+  contrato: string;
   fornecedor: string;
   objeto: string;
   sec: string;
-  valor_mensal: number;
-  valor_anual: number;
+  mensal: number;
+  anual: number;
 }
 
 interface ContractDetailModalProps {
@@ -25,18 +25,18 @@ export function ContractDetailModal({
   if (!contract) return null;
 
   const handleExport = () => {
-    const data = `Contrato: ${contract.numero}
+    const data = `Contrato: ${contract.contrato}
 Fornecedor: ${contract.fornecedor}
 Objeto: ${contract.objeto}
 SEC: ${contract.sec}
-Valor Mensal: ${formatCurrency(contract.valor_mensal)}
-Valor Anual: ${formatCurrency(contract.valor_anual)}`
+Valor Mensal: ${formatCurrency(contract.mensal)}
+Valor Anual: ${formatCurrency(contract.anual)}`
 
     const blob = new Blob([data], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `contrato-${contract.numero}.txt`;
+    a.download = `contrato-${contract.contrato}.txt`;
     a.click();
   };
 
@@ -47,7 +47,7 @@ Valor Anual: ${formatCurrency(contract.valor_anual)}`
         <div className="sticky top-0 bg-gradient-to-r from-purple-700 to-purple-600 text-white p-6 flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold font-poppins">
-              Contrato {contract.numero}
+              {contract.contrato}
             </h2>
             <p className="text-purple-100 text-sm mt-1">{contract.fornecedor}</p>
           </div>
@@ -95,7 +95,7 @@ Valor Anual: ${formatCurrency(contract.valor_anual)}`
                   Valor Mensal
                 </label>
                 <p className="text-2xl font-bold text-purple-700 mt-1">
-                  {formatCurrency(contract.valor_mensal)}
+                  {formatCurrency(contract.mensal)}
                 </p>
               </div>
               <div>
@@ -103,7 +103,7 @@ Valor Anual: ${formatCurrency(contract.valor_anual)}`
                   Valor Anual
                 </label>
                 <p className="text-2xl font-bold text-purple-700 mt-1">
-                  {formatCurrency(contract.valor_anual)}
+                  {formatCurrency(contract.anual)}
                 </p>
               </div>
             </div>
@@ -114,7 +114,7 @@ Valor Anual: ${formatCurrency(contract.valor_anual)}`
             <label className="text-sm font-semibold text-muted-foreground">
               Número do Contrato
             </label>
-            <p className="text-lg text-foreground mt-1">{contract.numero}</p>
+            <p className="text-lg text-foreground mt-1">{contract.contrato}</p>
           </div>
         </div>
 

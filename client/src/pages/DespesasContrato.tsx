@@ -29,12 +29,12 @@ import { formatCurrency } from "@/lib/utils";
 
 interface ContratoDisplay {
   id: string;
-  numero: string;
+  contrato: string;
   fornecedor: string;
   objeto: string;
   sec: string;
-  valor_mensal: number;
-  valor_anual: number;
+  mensal: number;
+  anual: number;
 }
 
 const COLORS = ["#7c3aed", "#3b82f6", "#06b6d4", "#10b981", "#f59e0b", "#ef4444"];
@@ -52,8 +52,8 @@ export default function DespesasContrato() {
   const totais = useMemo(() => {
     return filteredContratos.reduce(
       (acc, c) => ({
-        mensal: acc.mensal + c.valor_mensal,
-        anual: acc.anual + c.valor_anual,
+        mensal: acc.mensal + c.mensal,
+        anual: acc.anual + c.anual,
       }),
       { mensal: 0, anual: 0 }
     );
@@ -65,9 +65,9 @@ export default function DespesasContrato() {
       (acc, c) => {
         const existing = acc.find((x) => x.fornecedor === c.fornecedor);
         if (existing) {
-          existing.valor += c.valor_mensal;
+          existing.valor += c.mensal;
         } else {
-          acc.push({ fornecedor: c.fornecedor, valor: c.valor_mensal });
+          acc.push({ fornecedor: c.fornecedor, valor: c.mensal });
         }
         return acc;
       },
@@ -82,9 +82,9 @@ export default function DespesasContrato() {
       (acc, c) => {
         const existing = acc.find((x) => x.sec === c.sec);
         if (existing) {
-          existing.valor += c.valor_mensal;
+          existing.valor += c.mensal;
         } else {
-          acc.push({ sec: c.sec, valor: c.valor_mensal });
+          acc.push({ sec: c.sec, valor: c.mensal });
         }
         return acc;
       },
@@ -94,12 +94,12 @@ export default function DespesasContrato() {
   }, [filteredContratos]);
 
   const columns: Array<any> = [
-    { key: "numero", label: "Contrato", sortable: true },
+    { key: "contrato", label: "Contrato", sortable: true },
     { key: "fornecedor", label: "Fornecedor", sortable: true },
     { key: "objeto", label: "Objeto", sortable: false },
     { key: "sec", label: "SEC", sortable: true },
-    { key: "valor_mensal", label: "Valor Mensal", sortable: true, format: (v: number) => formatCurrency(v) },
-    { key: "valor_anual", label: "Valor Anual", sortable: true, format: (v: number) => formatCurrency(v) },
+    { key: "mensal", label: "Valor Mensal", sortable: true, format: (v: number) => formatCurrency(v) },
+    { key: "anual", label: "Valor Anual", sortable: true, format: (v: number) => formatCurrency(v) },
   ];
 
   return (
@@ -209,10 +209,7 @@ export default function DespesasContrato() {
           <CardContent className="p-0">
             <DataTable
               columns={columns}
-              data={filteredContratos.map((c, idx) => ({
-                id: `${idx}`,
-                ...c,
-              }))}
+              data={filteredContratos}
             />
           </CardContent>
         </Card>

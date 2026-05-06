@@ -17,12 +17,12 @@ import { formatCurrency } from "@/lib/utils";
 
 interface ContratoDisplay {
   id: string;
-  numero: string;
+  contrato: string;
   fornecedor: string;
   objeto: string;
   sec: string;
-  valor_mensal: number;
-  valor_anual: number;
+  mensal: number;
+  anual: number;
 }
 
 export default function Contratos() {
@@ -39,20 +39,20 @@ export default function Contratos() {
   const totais = useMemo(() => {
     return filteredContratos.reduce(
       (acc, c) => ({
-        mensal: acc.mensal + c.valor_mensal,
-        anual: acc.anual + c.valor_anual,
+        mensal: acc.mensal + c.mensal,
+        anual: acc.anual + c.anual,
       }),
       { mensal: 0, anual: 0 }
     );
   }, [filteredContratos]);
 
   const columns: Array<any> = [
-    { key: "numero", label: "Contrato", sortable: true },
+    { key: "contrato", label: "Contrato", sortable: true },
     { key: "fornecedor", label: "Fornecedor", sortable: true },
     { key: "objeto", label: "Objeto", sortable: false },
     { key: "sec", label: "SEC", sortable: true },
-    { key: "valor_mensal", label: "Valor Mensal", sortable: true, format: (v: number) => formatCurrency(v) },
-    { key: "valor_anual", label: "Valor Anual", sortable: true, format: (v: number) => formatCurrency(v) },
+    { key: "mensal", label: "Valor Mensal", sortable: true, format: (v: number) => formatCurrency(v) },
+    { key: "anual", label: "Valor Anual", sortable: true, format: (v: number) => formatCurrency(v) },
   ]
 
   return (
@@ -119,10 +119,7 @@ export default function Contratos() {
           <CardContent className="p-0">
             <DataTable
               columns={columns}
-              data={filteredContratos.map((c, idx) => ({
-                id: `${idx}`,
-                ...c,
-              }))}
+              data={filteredContratos}
               onRowClick={(row) => setSelectedContract(row as ContratoDisplay)}
             />
           </CardContent>

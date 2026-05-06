@@ -1103,3 +1103,10 @@ export const totalMensalSemContrato = despesasSemContrato.reduce((sum, d) => sum
 export const totalAnualSemContrato = despesasSemContrato.reduce((sum, d) => sum + d.anual, 0);
 export const totalMensal = totalMensalComContrato + totalMensalSemContrato;
 export const totalAnual = totalAnualComContrato + totalAnualSemContrato;
+// Extrair SECs únicos
+export const secs = Array.from(
+  new Set([
+    ...contratos.map((c) => c.sec),
+    ...despesasSemContrato.map((d) => d.sec),
+  ])
+).sort();
