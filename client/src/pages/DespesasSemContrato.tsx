@@ -59,15 +59,15 @@ export default function DespesasSemContrato() {
     );
   }, [filteredDespesas]);
 
-  // Dados para gráfico de despesas por SEC
+  // Dados para gráfico de despesas por serviço
   const despesasPorServico = useMemo(() => {
     const grouped = filteredDespesas.reduce(
       (acc, d) => {
-        const existing = acc.find((x) => x.servico === d.sec);
+        const existing = acc.find((x) => x.servico === d.servico);
         if (existing) {
           existing.valor += d.mensal;
         } else {
-          acc.push({ servico: d.sec, valor: d.mensal });
+          acc.push({ servico: d.servico, valor: d.mensal });
         }
         return acc;
       },
@@ -100,7 +100,7 @@ export default function DespesasSemContrato() {
     { key: "objeto", label: "Objeto", sortable: false },
     { key: "mensal", label: "Valor Mensal", sortable: true, format: (v: number) => formatCurrency(v) },
     { key: "anual", label: "Valor Anual", sortable: true, format: (v: number) => formatCurrency(v) },
-  ]
+  ];
 
   return (
     <DashboardLayout>

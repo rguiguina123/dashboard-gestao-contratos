@@ -29,9 +29,10 @@ import { formatCurrency } from "@/lib/utils";
 
 interface ContratoDisplay {
   id: string;
-  sec: string;
+  contrato: string;
   fornecedor: string;
   objeto: string;
+  sec: string;
   mensal: number;
   anual: number;
 }
@@ -93,9 +94,10 @@ export default function DespesasContrato() {
   }, [filteredContratos]);
 
   const columns: Array<any> = [
-    { key: "sec", label: "SEC", sortable: true },
+    { key: "contrato", label: "Contrato", sortable: true },
     { key: "fornecedor", label: "Fornecedor", sortable: true },
     { key: "objeto", label: "Objeto", sortable: false },
+    { key: "sec", label: "SEC", sortable: true },
     { key: "mensal", label: "Valor Mensal", sortable: true, format: (v: number) => formatCurrency(v) },
     { key: "anual", label: "Valor Anual", sortable: true, format: (v: number) => formatCurrency(v) },
   ];
