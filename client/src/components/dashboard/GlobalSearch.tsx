@@ -26,16 +26,14 @@ export function GlobalSearch() {
     const contractResults = contratos
       .filter(
         (c) =>
-          c.contrato.toLowerCase().includes(q) ||
-          c.fornecedor.toLowerCase().includes(q) ||
           c.sec.toLowerCase().includes(q)
       )
       .slice(0, 3)
       .map((c, idx) => ({
         type: "contrato" as const,
         id: `c-${idx}`,
-        title: `Contrato ${c.contrato}`,
-        subtitle: `${c.fornecedor} - ${c.sec}`,
+        title: `SEC ${c.sec}`,
+        subtitle: `Mensal: R$ ${c.mensal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`,
         href: "/contratos",
       }));
 

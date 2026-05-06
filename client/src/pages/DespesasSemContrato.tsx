@@ -30,10 +30,6 @@ import { formatCurrency } from "@/lib/utils";
 interface DespesaDisplay {
   id: string;
   sec: string;
-  servico: string;
-  fornecedor: string;
-  objeto: string;
-  unidade: string;
   mensal: number;
   anual: number;
 }
@@ -60,15 +56,15 @@ export default function DespesasSemContrato() {
     );
   }, [filteredDespesas]);
 
-  // Dados para gráfico de despesas por serviço
+  // Dados para gráfico de despesas por SEC
   const despesasPorServico = useMemo(() => {
     const grouped = filteredDespesas.reduce(
       (acc, d) => {
-        const existing = acc.find((x) => x.servico === d.servico);
+        const existing = acc.find((x) => x.servico === d.sec);
         if (existing) {
           existing.valor += d.mensal;
         } else {
-          acc.push({ servico: d.servico, valor: d.mensal });
+          acc.push({ servico: d.sec, valor: d.mensal });
         }
         return acc;
       },

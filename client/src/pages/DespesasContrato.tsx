@@ -29,9 +29,6 @@ import { formatCurrency } from "@/lib/utils";
 
 interface ContratoDisplay {
   id: string;
-  contrato: string;
-  fornecedor: string;
-  objeto: string;
   sec: string;
   mensal: number;
   anual: number;
@@ -59,15 +56,15 @@ export default function DespesasContrato() {
     );
   }, [filteredContratos]);
 
-  // Dados para gráfico de despesas por fornecedor
+  // Dados para gráfico de despesas por SEC
   const despesasPorFornecedor = useMemo(() => {
     const grouped = filteredContratos.reduce(
       (acc, c) => {
-        const existing = acc.find((x) => x.fornecedor === c.fornecedor);
+        const existing = acc.find((x) => x.fornecedor === c.sec);
         if (existing) {
           existing.valor += c.mensal;
         } else {
-          acc.push({ fornecedor: c.fornecedor, valor: c.mensal });
+          acc.push({ fornecedor: c.sec, valor: c.mensal });
         }
         return acc;
       },
@@ -94,9 +91,6 @@ export default function DespesasContrato() {
   }, [filteredContratos]);
 
   const columns: Array<any> = [
-    { key: "contrato", label: "Contrato", sortable: true },
-    { key: "fornecedor", label: "Fornecedor", sortable: true },
-    { key: "objeto", label: "Objeto", sortable: false },
     { key: "sec", label: "SEC", sortable: true },
     { key: "mensal", label: "Valor Mensal", sortable: true, format: (v: number) => formatCurrency(v) },
     { key: "anual", label: "Valor Anual", sortable: true, format: (v: number) => formatCurrency(v) },
