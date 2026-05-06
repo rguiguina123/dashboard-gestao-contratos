@@ -1,4 +1,4 @@
-// Dados do Demonstrativo do Excel - CONSOLIDADOS POR SEC
+// Dados do Demonstrativo do Excel - COM MÁXIMA PRECISÃO
 // Atualizado em: 06/05/2026
 // Total Mensal: R$ 1.679.117,18
 // Total Anual: R$ 20.494.606,21
@@ -180,8 +180,8 @@ export const despesasSemContrato: DespesaSemContrato[] = [
   {
     id: "despesa-0",
     sec: "SEC -  AC",
-    mensal: 0.0,
-    anual: 0.0,
+    mensal: 0,
+    anual: 0,
   },
   {
     id: "despesa-1",
@@ -192,8 +192,8 @@ export const despesasSemContrato: DespesaSemContrato[] = [
   {
     id: "despesa-2",
     sec: "SEC -  AP",
-    mensal: 0.0,
-    anual: 0.0,
+    mensal: 0,
+    anual: 0,
   },
   {
     id: "despesa-3",
@@ -210,8 +210,8 @@ export const despesasSemContrato: DespesaSemContrato[] = [
   {
     id: "despesa-5",
     sec: "SEC -  CE",
-    mensal: 0.0,
-    anual: 0.0,
+    mensal: 0,
+    anual: 0,
   },
   {
     id: "despesa-6",
@@ -222,8 +222,8 @@ export const despesasSemContrato: DespesaSemContrato[] = [
   {
     id: "despesa-7",
     sec: "SEC -  GO",
-    mensal: 0.0,
-    anual: 0.0,
+    mensal: 0,
+    anual: 0,
   },
   {
     id: "despesa-8",
@@ -312,8 +312,8 @@ export const despesasSemContrato: DespesaSemContrato[] = [
   {
     id: "despesa-22",
     sec: "SEC -  SC",
-    mensal: 0.0,
-    anual: 0.0,
+    mensal: 0,
+    anual: 0,
   },
   {
     id: "despesa-23",
