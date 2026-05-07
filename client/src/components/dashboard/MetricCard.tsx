@@ -23,7 +23,7 @@ export function MetricCard({
 }: MetricCardProps) {
   return (
     <Card
-      className="card-elevated metric-card border-0 hover-lift"
+      className="card-elevated metric-card border-0 hover-lift transition-all duration-300 hover:shadow-xl hover:scale-105 cursor-pointer"
       style={{
         animation: `slideInUp 0.5s ease-out ${delay}s backwards`,
       }}

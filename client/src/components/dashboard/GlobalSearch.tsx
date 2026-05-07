@@ -26,14 +26,17 @@ export function GlobalSearch() {
     const contractResults = contratos
       .filter(
         (c) =>
-          c.sec.toLowerCase().includes(q)
+          c.sec.toLowerCase().includes(q) ||
+          c.contrato.toLowerCase().includes(q) ||
+          c.fornecedor.toLowerCase().includes(q) ||
+          c.objeto.toLowerCase().includes(q)
       )
-      .slice(0, 3)
+      .slice(0, 5)
       .map((c, idx) => ({
         type: "contrato" as const,
         id: `c-${idx}`,
-        title: `SEC ${c.sec}`,
-        subtitle: `Mensal: R$ ${c.mensal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`,
+        title: `${c.contrato} (${c.sec})`,
+        subtitle: `${c.fornecedor} - Mensal: R$ ${c.mensal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`,
         href: "/contratos",
       }));
 
@@ -104,7 +107,7 @@ export function GlobalSearch() {
                       key={`${result.type}-${result.id}`}
                       href={result.href}
                       onClick={() => setOpen(false)}
-                      className="block p-3 rounded-lg hover:bg-secondary transition-colors"
+                      className="block p-3 rounded-lg hover:bg-purple-100 transition-all duration-200 hover:scale-x-105 hover:shadow-md cursor-pointer"
                     >
                       <div className="font-medium text-foreground">
                         {result.title}

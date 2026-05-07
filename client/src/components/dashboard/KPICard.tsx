@@ -36,7 +36,7 @@ export function KPICard({
 
   return (
     <Card
-      className={`bg-gradient-to-br ${colorClasses[color]} border card-elevated hover-lift`}
+      className={`bg-gradient-to-br ${colorClasses[color]} border card-elevated hover-lift transition-all duration-300 hover:shadow-xl hover:scale-105 cursor-pointer`}
       style={{
         animation: `slideInUp 0.5s ease-out ${delay}s backwards`,
       }}

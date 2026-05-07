@@ -187,8 +187,11 @@ export default function DespesasSemContrato() {
                     nameKey="sec"
                     cx="50%"
                     cy="50%"
-                    outerRadius={100}
-                    label
+                    outerRadius={120}
+                    innerRadius={40}
+                    paddingAngle={2}
+                    label={({ sec, valor }) => `${sec}: ${formatCurrency(valor as number)}`}
+                    labelLine={false}
                   >
                     {despesasPorSEC.map((_, index) => (
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />

@@ -139,7 +139,7 @@ export function DataTable<T extends Record<string, any>>({
               sortedData.map((row, idx) => (
                 <TableRow
                   key={idx}
-                  className="hover:bg-purple-50 transition-colors animate-fade-in cursor-pointer"
+                  className="hover:bg-purple-100 transition-all duration-200 animate-fade-in cursor-pointer hover:shadow-md hover:scale-x-100"
                   style={{ animationDelay: `${idx * 0.05}s` }}
                   onClick={() => onRowClick?.(row)}
                 >
