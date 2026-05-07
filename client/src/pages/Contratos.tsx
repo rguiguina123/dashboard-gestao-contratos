@@ -3,6 +3,8 @@ import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { MetricCard } from "@/components/dashboard/MetricCard";
 import { DataTable } from "@/components/dashboard/DataTable";
 import { ContractDetailModal } from "@/components/dashboard/ContractDetailModal";
+import { ExportPDF } from "@/components/dashboard/ExportPDF";
+import { VencimentoAlerts } from "@/components/dashboard/VencimentoAlerts";
 import { contratos, secs as allSecs } from "@/lib/data";
 import {
   Select,
@@ -111,10 +113,25 @@ export default function Contratos() {
           />
         </div>
 
+        {/* Alertas de Vencimento */}
+        <VencimentoAlerts contratos={filteredContratos} diasAlerta={30} />
+
         {/* Tabela */}
         <Card className="border-0 shadow-lg">
-          <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b">
+          <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b flex items-center justify-between">
             <CardTitle className="text-purple-900">Detalhes dos Contratos</CardTitle>
+            <ExportPDF
+              title="Contratos"
+              data={filteredContratos}
+              columns={[
+                { key: "contrato", label: "Contrato" },
+                { key: "fornecedor", label: "Fornecedor" },
+                { key: "sec", label: "SEC" },
+                { key: "mensal", label: "Mensal", format: (v) => `R$ ${v.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}` },
+                { key: "anual", label: "Anual", format: (v) => `R$ ${v.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}` },
+              ]}
+              totals={totais}
+            />
           </CardHeader>
           <CardContent className="p-0">
             <DataTable

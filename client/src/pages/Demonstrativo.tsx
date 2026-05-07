@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { MetricCard } from "@/components/dashboard/MetricCard";
+import { ExportPDF } from "@/components/dashboard/ExportPDF";
 import { contratos, despesasSemContrato, totalMensal, totalMensalComContrato, totalMensalSemContrato } from "@/lib/data";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -150,8 +151,18 @@ export default function Demonstrativo() {
 
         {/* Top 5 SECs */}
         <Card className="border-0 shadow-lg">
-          <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b">
+          <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b flex items-center justify-between">
             <CardTitle className="text-purple-900">Top 5 SECs por Despesa Mensal</CardTitle>
+            <ExportPDF
+              title="Demonstrativo"
+              data={consolidado}
+              columns={[
+                { key: "categoria", label: "Categoria" },
+                { key: "mensal", label: "Mensal", format: (v) => `R$ ${v.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}` },
+                { key: "anual", label: "Anual", format: (v) => `R$ ${v.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}` },
+              ]}
+              totals={{ mensal: totalMensal, anual: totalMensal * 12 }}
+            />
           </CardHeader>
           <CardContent className="p-6">
             <ResponsiveContainer width="100%" height={300}>
