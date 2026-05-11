@@ -123,7 +123,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         {/* Footer */}
         {sidebarOpen && (
           <div className="border-t border-border p-4 text-xs text-muted-foreground">
-            <p className="font-semibold mb-2">Dashboard v1.0</p>
+            <p className="font-semibold mb-2">Gestão de Contrato v1.0</p>
             <p>Gestão de Contratos e Colaboradores</p>
           </div>
         )}

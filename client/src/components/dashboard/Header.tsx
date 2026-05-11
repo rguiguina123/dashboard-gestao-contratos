@@ -18,7 +18,7 @@ export function Header({ title, subtitle }: HeaderProps) {
               className="h-16 w-auto"
             />
             <div className="hidden md:block border-l border-purple-400 pl-4 flex-1">
-              <p className="text-lg font-semibold">{title || "Dashboard de Gestão"}</p>
+              <p className="text-lg font-semibold">{title || "Gestão de Contrato"}</p>
               {subtitle && (
                 <p className="text-sm text-purple-100">{subtitle}</p>
               )}

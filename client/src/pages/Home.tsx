@@ -88,7 +88,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-black/40"></div>
         <div className="relative z-10 max-w-4xl mx-auto px-4">
           <h1 className="text-5xl md:text-6xl font-bold text-white font-poppins mb-4">
-            Dashboard de Gestão
+            Gestão de Contrato
           </h1>
           <p className="text-xl md:text-2xl text-white/90 mb-8">
             Contratos e Colaboradores
