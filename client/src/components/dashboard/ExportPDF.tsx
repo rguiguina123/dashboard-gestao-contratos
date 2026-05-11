@@ -1,5 +1,4 @@
 import { jsPDF } from "jspdf";
-import "jspdf-autotable";
 import { FileDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { formatCurrency } from "@/lib/utils";
@@ -20,74 +19,100 @@ interface ExportPDFProps {
 
 export function ExportPDF({ title, data, columns, totals }: ExportPDFProps) {
   const handleExport = () => {
-    const doc = new jsPDF();
-    const pageWidth = doc.internal.pageSize.getWidth();
-    
-    // Header
-    doc.setFontSize(16);
-    doc.text(title, pageWidth / 2, 20, { align: "center" });
-    
-    // Data
-    doc.setFontSize(10);
-    doc.text(`Gerado em: ${new Date().toLocaleDateString("pt-BR")}`, 20, 30);
-    
-    // Table
-    const tableData = data.map((row) =>
-      columns.map((col) => {
-        const value = row[col.key];
-        return col.format ? col.format(value) : String(value);
-      })
-    );
-    
-    const tableHeaders = columns.map((col) => col.label);
-    
-    (doc as any).autoTable({
-      head: [tableHeaders],
-      body: tableData,
-      startY: 40,
-      margin: { left: 20, right: 20 },
-      styles: {
-        fontSize: 9,
-        cellPadding: 5,
-        overflow: "linebreak",
-      },
-      headStyles: {
-        fillColor: [124, 58, 237],
-        textColor: [255, 255, 255],
-        fontStyle: "bold",
-      },
-      alternateRowStyles: {
-        fillColor: [245, 245, 245],
-      },
-    });
-    
-    // Totals
-    if (totals) {
-      const finalY = (doc as any).lastAutoTable.finalY + 10;
-      doc.setFontSize(11);
+    try {
+      const doc = new jsPDF();
+      const pageWidth = doc.internal.pageSize.getWidth();
+      
+      // Header
+      doc.setFontSize(16);
+      doc.text(title, pageWidth / 2, 20, { align: "center" });
+      
+      // Data
+      doc.setFontSize(10);
+      doc.text(`Gerado em: ${new Date().toLocaleDateString("pt-BR")}`, 20, 30);
+      
+      // Table usando HTML
+      const tableHTML = `
+        <table border="1" cellpadding="5" style="width: 100%; border-collapse: collapse;">
+          <thead style="background-color: #7c3aed; color: white;">
+            <tr>
+              ${columns.map((col) => `<th>${col.label}</th>`).join("")}
+            </tr>
+          </thead>
+          <tbody>
+            ${data.map((row) => `
+              <tr>
+                ${columns.map((col) => {
+                  const value = row[col.key];
+                  const formatted = col.format ? col.format(value) : String(value);
+                  return `<td>${formatted}</td>`;
+                }).join("")}
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      `;
+      
+      // Usar HTML2PDF se disponível, senão usar método simples
+      const element = document.createElement("div");
+      element.innerHTML = tableHTML;
+      
+      // Método simples: adicionar linhas de texto
+      let yPosition = 40;
+      const pageHeight = doc.internal.pageSize.getHeight();
+      const margin = 20;
+      
+      // Headers
+      doc.setFontSize(9);
       doc.setFont("", "bold");
+      const columnWidth = (pageWidth - 2 * margin) / columns.length;
       
-      if (totals.mensal) {
-        doc.text(
-          `Total Mensal: ${formatCurrency(totals.mensal)}`,
-          20,
-          finalY
-        );
+      columns.forEach((col, idx) => {
+        doc.text(col.label, margin + idx * columnWidth, yPosition);
+      });
+      
+      yPosition += 7;
+      doc.setFont("", "normal");
+      
+      // Data
+      data.forEach((row) => {
+        if (yPosition > pageHeight - 20) {
+          doc.addPage();
+          yPosition = 20;
+        }
+        
+        columns.forEach((col, idx) => {
+          const value = row[col.key];
+          const formatted = col.format ? col.format(value) : String(value);
+          doc.text(formatted, margin + idx * columnWidth, yPosition);
+        });
+        
+        yPosition += 7;
+      });
+      
+      // Totals
+      if (totals) {
+        yPosition += 5;
+        doc.setFont("", "bold");
+        
+        if (totals.mensal) {
+          doc.text(`Total Mensal: ${formatCurrency(totals.mensal)}`, margin, yPosition);
+          yPosition += 7;
+        }
+        
+        if (totals.anual) {
+          doc.text(`Total Anual: ${formatCurrency(totals.anual)}`, margin, yPosition);
+        }
       }
       
-      if (totals.anual) {
-        doc.text(
-          `Total Anual: ${formatCurrency(totals.anual)}`,
-          20,
-          finalY + 8
-        );
-      }
+      // Save
+      const dateStr = new Date().toISOString().split("T")[0] || "export";
+      const fileName = `${title.replace(/\s+/g, "_")}_${dateStr}.pdf`;
+      doc.save(fileName);
+    } catch (error) {
+      console.error("Erro ao exportar PDF:", error);
+      alert("Erro ao exportar PDF. Tente novamente.");
     }
-    
-    // Save
-    const dateStr = new Date().toISOString().split("T")[0] || "export";
-    const fileName = `${title.replace(/\s+/g, "_")}_${dateStr}.pdf`;
-    doc.save(fileName);
   };
   
   return (

@@ -965,26 +965,6 @@ export const despesasSemContrato: DespesaSemContrato[] = [
 ];
 
 export const secs = [
-  "AL",
-  "AM",
-  "BA",
-  "Diop-Estados",
-  "ES",
-  "MA",
-  "MG",
-  "MS",
-  "MT",
-  "PA",
-  "PB",
-  "PE",
-  "PI",
-  "PR",
-  "RJ",
-  "RN",
-  "RO",
-  "RR",
-  "RS",
-  "SE",
   "SEC-AC",
   "SEC-AL",
   "SEC-AM",
@@ -1011,8 +991,6 @@ export const secs = [
   "SEC-SE",
   "SEC-SP",
   "SEC-TO",
-  "SP",
-  "TO",
 ];
 
 // Calcular totais
