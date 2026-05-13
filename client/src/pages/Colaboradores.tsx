@@ -1,8 +1,9 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { MetricCard } from "@/components/dashboard/MetricCard";
-import { secs } from "@/lib/data";
+import { colaboradores, secs } from "@/lib/data";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { DataTable } from "@/components/dashboard/DataTable";
 import {
   BarChart,
   Bar,
@@ -17,10 +18,24 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Users, Briefcase, Building2 } from "lucide-react";
-import { formatNumber } from "@/lib/utils";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function Colaboradores() {
-  // Dados simulados de colaboradores por posto
+  const [selectedSEC, setSelectedSEC] = useState<string>("all");
+
+  // Filtrar colaboradores
+  const filteredColaboradores = useMemo(() => {
+    if (selectedSEC === "all") return colaboradores;
+    return colaboradores.filter((c: any) => c.cpf === selectedSEC);
+  }, [selectedSEC]);
+
+  // Dados de distribuição por posto
   const distribuicaoPosto = useMemo(() => {
     return [
       { name: "Analista", value: 35 },
@@ -31,7 +46,7 @@ export default function Colaboradores() {
     ];
   }, []);
 
-  // Dados simulados de colaboradores por SEC
+  // Dados de distribuição por SEC
   const distribuicaoSEC = useMemo(() => {
     return [
       { name: "SEC-SP", value: 18 },
@@ -57,6 +72,14 @@ export default function Colaboradores() {
     "#8b5cf6",
   ];
 
+  // Colunas da tabela
+  const columns: Array<any> = [
+    { key: "nome", label: "Nome", sortable: true },
+    { key: "sec", label: "SEC", sortable: true },
+    { key: "funcao", label: "Função", sortable: true },
+    { key: "cpf", label: "CPF", sortable: true },
+  ];
+
   return (
     <DashboardLayout>
       <div className="space-y-6 animate-fadeIn">
@@ -70,7 +93,7 @@ export default function Colaboradores() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <MetricCard
             title="Total de Colaboradores"
-            value="112"
+            value={colaboradores.length.toString()}
             icon={<Users className="w-5 h-5" />}
             trend="up"
           />
@@ -82,7 +105,7 @@ export default function Colaboradores() {
           />
           <MetricCard
             title="SECs Gerenciadas"
-            value="48"
+            value={new Set(colaboradores.map((c: any) => c.cpf)).size.toString()}
             icon={<Building2 className="w-5 h-5" />}
             trend="neutral"
           />
@@ -158,6 +181,44 @@ export default function Colaboradores() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Filtro e Tabela de Colaboradores */}
+        <div className="space-y-4">
+          <div className="flex gap-4 items-end">
+            <div className="flex-1 max-w-xs">
+              <label className="text-sm font-medium text-gray-700 mb-2 block">Filtrar por SEC</label>
+              <Select value={selectedSEC} onValueChange={setSelectedSEC}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Todos os SECs</SelectItem>
+                  {Array.from(new Set(colaboradores.map((c: any) => c.cpf)))
+                    .sort()
+                    .map((sec: any) => (
+                      <SelectItem key={sec} value={sec}>
+                        {sec}
+                      </SelectItem>
+                    ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          <Card className="border-0 shadow-lg">
+            <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b">
+              <CardTitle className="text-purple-900">
+                Lista de Colaboradores ({filteredColaboradores.length})
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-0">
+              <DataTable
+                columns={columns}
+                data={filteredColaboradores}
+              />
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </DashboardLayout>
   );

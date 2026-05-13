@@ -20,7 +20,7 @@ function Router() {
       <Route path="/contratos" component={Contratos} />
       <Route path="/colaboradores" component={Colaboradores} />
       <Route path="/demonstrativo" component={Demonstrativo} />
-      <Route path="/despesas-contrato" component={DespesasContrato} />
+      <Route path="/despesas-com-contrato" component={DespesasContrato} />
       <Route path="/despesas-sem-contrato" component={DespesasSemContrato} />
       <Route path="/404" component={NotFound} />
       {/* Final fallback route */}
