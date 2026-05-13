@@ -38,11 +38,12 @@ export default function Colaboradores() {
   // Dados de distribuição por posto
   const distribuicaoPosto = useMemo(() => {
     return [
-      { name: "Analista", value: 35 },
-      { name: "Auditor", value: 28 },
-      { name: "Especialista", value: 22 },
-      { name: "Gestor", value: 15 },
-      { name: "Coordenador", value: 12 },
+      { name: "Apoio Administrativo", value: 56 },
+      { name: "Limpeza/Copeiragem", value: 39 },
+      { name: "Segurança Pessoal Privada", value: 7 },
+      { name: "Vigilante Diurno 12 x 36h", value: 4 },
+      { name: "Vigilante Noturno 12 x 36h", value: 4 },
+      { name: "Recepção", value: 2 },
     ];
   }, []);
 
@@ -99,7 +100,7 @@ export default function Colaboradores() {
           />
           <MetricCard
             title="Postos Diferentes"
-            value="5"
+            value="6"
             icon={<Briefcase className="w-5 h-5" />}
             trend="neutral"
           />
