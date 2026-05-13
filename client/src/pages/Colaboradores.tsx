@@ -159,29 +159,6 @@ export default function Colaboradores() {
           </Card>
         </div>
 
-        {/* Resumo */}
-        <Card className="border-0 shadow-lg">
-          <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b">
-            <CardTitle className="text-purple-900">Resumo por Posto</CardTitle>
-          </CardHeader>
-          <CardContent className="p-6">
-            <div className="space-y-4">
-              {distribuicaoPosto.map((item) => (
-                <div key={item.name} className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <div
-                      className="w-3 h-3 rounded-full"
-                      style={{ backgroundColor: COLORS[distribuicaoPosto.indexOf(item) % COLORS.length] }}
-                    ></div>
-                    <span className="font-medium text-gray-900">{item.name}</span>
-                  </div>
-                  <span className="text-lg font-bold text-purple-900">{item.value}</span>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
         {/* Filtro e Tabela de Colaboradores */}
         <div className="space-y-4">
           <div className="flex gap-4 items-end">
