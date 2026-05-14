@@ -77,10 +77,12 @@ export default function Contratos() {
 
   // Adicionar coluna de dias para vencimento aos contratos
   const contratosComDias = useMemo(() => {
-    return filteredContratos.map((c) => ({
+    const comDias = filteredContratos.map((c) => ({
       ...c,
       diasParaVencimento: calcularDiasParaVencimento(c.dataVencimento),
     }));
+    // Ordenar por dias para vencimento (crescente: 1 dia primeiro, depois 2, 3, etc)
+    return comDias.sort((a, b) => a.diasParaVencimento - b.diasParaVencimento);
   }, [filteredContratos]);
 
   const columns: Array<any> = [
