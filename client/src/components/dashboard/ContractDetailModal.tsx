@@ -11,6 +11,8 @@ interface ContratoDisplay {
   sec: string;
   mensal: number;
   anual: number;
+  dataVencimento?: string;
+  diasParaVencimento?: number;
 }
 
 interface ContractDetailModalProps {
@@ -116,6 +118,44 @@ Valor Anual: ${formatCurrency(contract.anual)}`
             </label>
             <p className="text-lg text-foreground mt-1">{contract.contrato}</p>
           </div>
+
+          {/* Vencimento */}
+          {contract.dataVencimento && (
+            <div className="bg-gradient-to-r from-orange-50 to-orange-100 rounded-lg p-4 border-l-4 border-orange-500">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="text-sm font-semibold text-orange-900">
+                    Data de Vencimento
+                  </label>
+                  <p className="text-lg font-bold text-orange-700 mt-1">
+                    {contract.dataVencimento}
+                  </p>
+                </div>
+                <div>
+                  <label className="text-sm font-semibold text-orange-900">
+                    Dias para Vencer
+                  </label>
+                  <p className={`text-lg font-bold mt-1 ${
+                    contract.diasParaVencimento !== undefined && contract.diasParaVencimento < 0
+                      ? 'text-red-700'
+                      : contract.diasParaVencimento !== undefined && contract.diasParaVencimento <= 30
+                      ? 'text-orange-700'
+                      : 'text-green-700'
+                  }`}>
+                    {contract.diasParaVencimento !== undefined
+                      ? contract.diasParaVencimento < 0
+                        ? `Vencido há ${Math.abs(contract.diasParaVencimento)} dias`
+                        : contract.diasParaVencimento === 0
+                        ? 'Vence hoje'
+                        : contract.diasParaVencimento === 1
+                        ? 'Vence amanhã'
+                        : `Vence em ${contract.diasParaVencimento} dias`
+                      : 'N/A'}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Footer */}
