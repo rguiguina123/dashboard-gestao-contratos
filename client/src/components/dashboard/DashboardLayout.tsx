@@ -45,7 +45,7 @@ const navItems: NavItem[] = [
   },
   {
     label: "Despesas com Contrato",
-    href: "/despesas-contrato",
+    href: "/despesas-com-contrato",
     icon: <DollarSign className="w-5 h-5" />,
   },
   {

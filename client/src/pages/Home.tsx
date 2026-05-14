@@ -61,7 +61,7 @@ export default function Home() {
     {
       title: "Despesas com Contrato",
       description: "Análise de despesas controladas",
-      href: "/despesas-contrato",
+      href: "/despesas-com-contrato",
       icon: "despesasComContrato",
       color: "text-amber-600",
       metric: formatCurrency(contratos.reduce((sum, c) => sum + c.anual, 0)),

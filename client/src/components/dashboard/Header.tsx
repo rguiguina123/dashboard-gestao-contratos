@@ -1,4 +1,3 @@
-import { Link } from "wouter";
 import { GlobalSearch } from "./GlobalSearch";
 
 interface HeaderProps {
