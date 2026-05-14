@@ -25,16 +25,24 @@ interface ContratoDisplay {
   sec: string;
   mensal: number;
   anual: number;
+  dataVencimento: string;
 }
 
 export default function Contratos() {
   const [selectedSEC, setSelectedSEC] = useState<string>("all");
   const [selectedContract, setSelectedContract] = useState<ContratoDisplay | null>(null);
 
-  // Filtrar contratos
+  // Função para converter data DD/MM/YYYY em Date
+  const parseDate = (dateStr: string): Date => {
+    const [day, month, year] = dateStr.split("/").map(Number);
+    return new Date(year, month - 1, day);
+  };
+
+  // Filtrar e ordenar contratos por data de vencimento
   const filteredContratos = useMemo(() => {
-    if (selectedSEC === "all") return contratos;
-    return contratos.filter((c) => c.sec === selectedSEC);
+    let filtered = selectedSEC === "all" ? contratos : contratos.filter((c) => c.sec === selectedSEC);
+    // Ordenar por data de vencimento (mais próximas primeiro)
+    return filtered.sort((a, b) => parseDate(a.dataVencimento).getTime() - parseDate(b.dataVencimento).getTime());
   }, [selectedSEC]);
 
   // Calcular totais
@@ -53,6 +61,7 @@ export default function Contratos() {
     { key: "fornecedor", label: "Fornecedor", sortable: true },
     { key: "objeto", label: "Objeto", sortable: false },
     { key: "sec", label: "SEC", sortable: true },
+    { key: "dataVencimento", label: "Vencimento", sortable: true },
     { key: "mensal", label: "Valor Mensal", sortable: true, format: (v: number) => formatCurrency(v) },
     { key: "anual", label: "Valor Anual", sortable: true, format: (v: number) => formatCurrency(v) },
   ]

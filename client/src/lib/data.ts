@@ -10,6 +10,7 @@ export interface Contrato {
   sec: string;
   mensal: number;
   anual: number;
+  dataVencimento: string; // DD/MM/YYYY
 }
 
 export interface DespesaSemContrato {
@@ -31,6 +32,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-AL",
     mensal: 1221.6686129624134,
     anual: 14680.61657400416,
+    dataVencimento: "01/02/2026",
   },
   {
     id: "contrato-1",
@@ -40,6 +42,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-RN",
     mensal: 21148.998449113453,
     anual: 254144.4822772046,
+    dataVencimento: "18/03/2026",
   },
   {
     id: "contrato-2",
@@ -49,6 +52,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-RR",
     mensal: 0.0,
     anual: 320650.1909227184,
+    dataVencimento: "03/03/2026",
   },
   {
     id: "contrato-3",
@@ -58,6 +62,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-ES",
     mensal: 2178.5324870969616,
     anual: 26179.112565991858,
+    dataVencimento: "31/12/3000",
   },
   {
     id: "contrato-4",
@@ -67,6 +72,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-PI",
     mensal: 3735.707673168475,
     anual: 44891.463528202265,
+    dataVencimento: "06/11/3000",
   },
   {
     id: "contrato-5",
@@ -76,6 +82,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-SP",
     mensal: 47190.02454560543,
     anual: 567075.7594336204,
+    dataVencimento: "01/05/2026",
   },
   {
     id: "contrato-6",
@@ -85,6 +92,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-ES",
     mensal: 22159.017572184617,
     anual: 266281.73727491155,
+    dataVencimento: "03/03/2027",
   },
   {
     id: "contrato-7",
@@ -94,6 +102,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-PE",
     mensal: 9417.658800781375,
     anual: 113170.65561978296,
+    dataVencimento: "26/06/2027",
   },
   {
     id: "contrato-8",
@@ -103,6 +112,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-CE",
     mensal: 18044.79932182516,
     anual: 216841.76640684134,
+    dataVencimento: "11/05/2026",
   },
   {
     id: "contrato-9",
@@ -112,6 +122,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-RJ",
     mensal: 32000.808072052976,
     anual: 384549.1227157858,
+    dataVencimento: "08/11/2027",
   },
   {
     id: "contrato-10",
@@ -121,6 +132,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-RJ",
     mensal: 129542.59322916236,
     anual: 1556694.7705957238,
+    dataVencimento: "07/11/2027",
   },
   {
     id: "contrato-11",
@@ -130,6 +142,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-SP",
     mensal: 3638.94370732171,
     anual: 43728.66482346047,
+    dataVencimento: "07/11/2027",
   },
   {
     id: "contrato-12",
@@ -139,6 +152,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-RN",
     mensal: 19558.16752448546,
     anual: 235027.69512991086,
+    dataVencimento: "18/05/2026",
   },
   {
     id: "contrato-13",
@@ -148,6 +162,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-AP",
     mensal: 14741.719067314478,
     anual: 177149.12454380008,
+    dataVencimento: "01/06/2026",
   },
   {
     id: "contrato-14",
@@ -157,6 +172,7 @@ export const contratos: Contrato[] = [
     sec: "Diop-Estados",
     mensal: 5724.5685120176995,
     anual: 68791.31909001169,
+    dataVencimento: "05/12/2026",
   },
   {
     id: "contrato-15",
@@ -166,6 +182,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-SP",
     mensal: 32000.808072052976,
     anual: 384549.1227157858,
+    dataVencimento: "08/11/2027",
   },
   {
     id: "contrato-16",
@@ -175,6 +192,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-MS",
     mensal: 21661.626400952617,
     anual: 260304.6588801042,
+    dataVencimento: "01/06/2026",
   },
   {
     id: "contrato-17",
@@ -184,6 +202,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-RR",
     mensal: 28440.011106127644,
     anual: 341759.53607995773,
+    dataVencimento: "02/06/2026",
   },
   {
     id: "contrato-18",
@@ -193,6 +212,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-MT",
     mensal: 23793.635653573718,
     anual: 285924.70840733434,
+    dataVencimento: "16/06/2026",
   },
   {
     id: "contrato-19",
@@ -202,6 +222,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-AM",
     mensal: 24122.619258797644,
     anual: 289878.05722564814,
+    dataVencimento: "16/06/2026",
   },
   {
     id: "contrato-21",
@@ -211,6 +232,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-MA",
     mensal: 21817.59274401861,
     anual: 262178.8840641737,
+    dataVencimento: "14/02/2028",
   },
   {
     id: "contrato-22",
@@ -220,6 +242,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-RJ",
     mensal: 16310.49284369853,
     anual: 196000.85410293168,
+    dataVencimento: "20/06/2026",
   },
   {
     id: "contrato-23",
@@ -229,6 +252,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-PE",
     mensal: 23885.532176819237,
     anual: 287029.0157521716,
+    dataVencimento: "24/06/2026",
   },
   {
     id: "contrato-24",
@@ -238,6 +262,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-RO",
     mensal: 17218.4741119945,
     anual: 206911.93482874974,
+    dataVencimento: "30/06/2026",
   },
   {
     id: "contrato-27",
@@ -247,6 +272,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-PB",
     mensal: 24138.193092456622,
     anual: 290065.2057519415,
+    dataVencimento: "30/06/2026",
   },
   {
     id: "contrato-28",
@@ -256,6 +282,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-TO",
     mensal: 14462.014600931268,
     anual: 173787.9560718925,
+    dataVencimento: "10/10/2028",
   },
   {
     id: "contrato-29",
@@ -265,6 +292,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-TO",
     mensal: 15895.56071026116,
     anual: 191014.67414332996,
+    dataVencimento: "10/10/2028",
   },
   {
     id: "contrato-30",
@@ -274,6 +302,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-AL",
     mensal: 25990.10134569238,
     anual: 312319.3217270275,
+    dataVencimento: "30/06/2026",
   },
   {
     id: "contrato-31",
@@ -283,6 +312,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-PI",
     mensal: 25685.207120348347,
     anual: 308655.4515330884,
+    dataVencimento: "02/07/2026",
   },
   {
     id: "contrato-32",
@@ -292,6 +322,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-PB",
     mensal: 31555.8683036788,
     anual: 379202.34530927776,
+    dataVencimento: "19/05/2029",
   },
   {
     id: "contrato-37",
@@ -301,6 +332,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-PB",
     mensal: 68562.7766545004,
     anual: 823909.0573613452,
+    dataVencimento: "06/07/2026",
   },
   {
     id: "contrato-39",
@@ -310,6 +342,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-AC",
     mensal: 14241.571991717612,
     anual: 171138.9288413482,
+    dataVencimento: "14/07/2026",
   },
   {
     id: "contrato-40",
@@ -319,6 +352,7 @@ export const contratos: Contrato[] = [
     sec: " SEC-PA",
     mensal: 22965.86970716862,
     anual: 275977.563704383,
+    dataVencimento: "25/07/2026",
   },
   {
     id: "contrato-42",
@@ -328,6 +362,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-PA",
     mensal: 15372.355240589959,
     anual: 184727.38902511846,
+    dataVencimento: "31/07/2026",
   },
   {
     id: "contrato-43",
@@ -337,6 +372,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-RN",
     mensal: 2622.4016163653678,
     anual: 31513.0242558611,
+    dataVencimento: "22/07/2030",
   },
   {
     id: "contrato-45",
@@ -346,6 +382,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-RS",
     mensal: 24535.469593973798,
     anual: 294839.2205140076,
+    dataVencimento: "31/07/2026",
   },
   {
     id: "contrato-46",
@@ -355,6 +392,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-RO",
     mensal: 1486.9987580181119,
     anual: 17869.050887334153,
+    dataVencimento: "15/08/2026",
   },
   {
     id: "contrato-47",
@@ -364,6 +402,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-PR",
     mensal: 13382.929342212688,
     anual: 160820.74322397186,
+    dataVencimento: "01/09/2026",
   },
   {
     id: "contrato-48",
@@ -373,6 +412,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-GO",
     mensal: 36178.27333625347,
     anual: 434749.1238815973,
+    dataVencimento: "01/09/2026",
   },
   {
     id: "contrato-49",
@@ -382,6 +422,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-RJ",
     mensal: 58154.28101462628,
     anual: 698831.6575003017,
+    dataVencimento: "01/09/2026",
   },
   {
     id: "contrato-50",
@@ -391,6 +432,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-SP",
     mensal: 42544.095192678906,
     anual: 511246.29247626296,
+    dataVencimento: "01/09/2026",
   },
   {
     id: "contrato-51",
@@ -400,6 +442,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-BA",
     mensal: 28037.807682058905,
     anual: 336926.31519595167,
+    dataVencimento: "21/09/2026",
   },
   {
     id: "contrato-52",
@@ -409,6 +452,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-RJ",
     mensal: 50512.21769081917,
     anual: 606998.0781640669,
+    dataVencimento: "30/09/2026",
   },
   {
     id: "contrato-53",
@@ -418,6 +462,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-AL",
     mensal: 23130.404467522476,
     anual: 277954.7543305655,
+    dataVencimento: "23/10/2026",
   },
   {
     id: "contrato-54",
@@ -427,6 +472,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-SE",
     mensal: 24712.46209947816,
     anual: 296966.114077624,
+    dataVencimento: "30/11/2026",
   },
   {
     id: "contrato-55",
@@ -436,6 +482,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-MG",
     mensal: 28476.462402349196,
     anual: 342197.5660807092,
+    dataVencimento: "04/12/2026",
   },
   {
     id: "contrato-56",
@@ -445,6 +492,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-GO",
     mensal: 4674.132762703598,
     anual: 56168.38328918701,
+    dataVencimento: "11/12/2026",
   },
   {
     id: "contrato-57",
@@ -454,6 +502,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-CE",
     mensal: 20313.662026809197,
     anual: 244106.3642507358,
+    dataVencimento: "16/01/2027",
   },
   {
     id: "contrato-58",
@@ -463,6 +512,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-PA",
     mensal: 13826.243325278097,
     anual: 166147.98380150984,
+    dataVencimento: "18/01/2027",
   },
   {
     id: "contrato-59",
@@ -472,6 +522,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-MA",
     mensal: 20918.107195293454,
     anual: 251369.8951824253,
+    dataVencimento: "28/01/2027",
   },
   {
     id: "contrato-60",
@@ -481,6 +532,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-TO",
     mensal: 14561.831870894499,
     anual: 174987.4458944563,
+    dataVencimento: "18/02/2027",
   },
   {
     id: "contrato-61",
@@ -490,6 +542,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-SC",
     mensal: 21647.608959327034,
     anual: 260136.2132937396,
+    dataVencimento: "31/03/2027",
   },
   {
     id: "contrato-62",
@@ -499,6 +552,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-ES",
     mensal: 24409.302706018487,
     anual: 293323.09110972023,
+    dataVencimento: "21/07/2027",
   },
   {
     id: "contrato-63",
@@ -508,6 +562,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-PA",
     mensal: 25960.31180390675,
     anual: 311961.3450742511,
+    dataVencimento: "26/07/2027",
   },
   {
     id: "contrato-64",
@@ -517,6 +572,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-SC",
     mensal: 9489.490754118702,
     anual: 114033.84990464711,
+    dataVencimento: "04/05/2028",
   },
   {
     id: "contrato-65",
@@ -526,6 +582,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-AC",
     mensal: 5037.604825788492,
     anual: 60536.17496108105,
+    dataVencimento: "02/07/2028",
   },
   {
     id: "contrato-66",
@@ -535,6 +592,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-AM",
     mensal: 24305.262359582484,
     anual: 292072.85318263643,
+    dataVencimento: "08/09/2026",
   },
   {
     id: "contrato-67",
@@ -544,6 +602,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-AP",
     mensal: 9356.900031528754,
     anual: 112440.52620052647,
+    dataVencimento: "17/09/2028",
   },
   {
     id: "contrato-68",
@@ -553,6 +612,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-RO",
     mensal: 29502.412238781264,
     anual: 354526.2581769225,
+    dataVencimento: "19/10/2028",
   },
   {
     id: "contrato-69",
@@ -562,6 +622,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-PR",
     mensal: 13633.855425965716,
     anual: 163836.08599770654,
+    dataVencimento: "31/01/2029",
   },
   {
     id: "contrato-70",
@@ -571,6 +632,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-CE",
     mensal: 1506.8254081250202,
     anual: 18107.304899165272,
+    dataVencimento: "13/10/2026",
   },
   {
     id: "contrato-72",
@@ -580,6 +642,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-RR",
     mensal: 20221.715936938414,
     anual: 243001.46127086895,
+    dataVencimento: "13/10/2029",
   },
   {
     id: "contrato-73",
@@ -589,6 +652,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-PA",
     mensal: 5965.472224141688,
     anual: 71686.22446076573,
+    dataVencimento: "31/12/3000",
   },
   {
     id: "contrato-74",
@@ -598,6 +662,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-MG",
     mensal: 5208.421329784559,
     anual: 62588.852400012096,
+    dataVencimento: "11/09/3000",
   },
   {
     id: "contrato-75",
@@ -607,6 +672,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-BA",
     mensal: 6443.6612847451515,
     anual: 77432.55384511466,
+    dataVencimento: "02/10/3000",
   },
   {
     id: "contrato-76",
@@ -616,6 +682,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-RR",
     mensal: 6939.327537417856,
     anual: 83388.90414089272,
+    dataVencimento: "31/12/3000",
   },
   {
     id: "contrato-77",
@@ -625,6 +692,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-RS",
     mensal: 6726.7858482718,
     anual: 80834.82113406308,
+    dataVencimento: "31/12/3000",
   },
   {
     id: "contrato-78",
@@ -634,6 +702,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-AC",
     mensal: 2925.8088429513837,
     anual: 35159.02539891276,
+    dataVencimento: "31/12/3000",
   },
   {
     id: "contrato-79",
@@ -643,6 +712,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-MS",
     mensal: 2548.6365646426166,
     anual: 30626.600204843413,
+    dataVencimento: "31/12/3000",
   },
   {
     id: "contrato-80",
@@ -652,6 +722,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-AC",
     mensal: 11128.401305255948,
     anual: 133728.40303063134,
+    dataVencimento: "11/03/2027",
   },
   {
     id: "contrato-81",
@@ -661,6 +732,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-AP",
     mensal: 5356.685019284019,
     anual: 64370.51590048523,
+    dataVencimento: "31/12/3000",
   },
   {
     id: "contrato-82",
@@ -670,6 +742,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-AL",
     mensal: 7232.900745550845,
     anual: 86916.73129407613,
+    dataVencimento: "31/12/3000",
   },
   {
     id: "contrato-83",
@@ -679,6 +752,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-MA",
     mensal: 2516.07129184202,
     anual: 30235.267990410797,
+    dataVencimento: "31/12/3000",
   },
   {
     id: "contrato-84",
@@ -688,6 +762,7 @@ export const contratos: Contrato[] = [
     sec: "SEC-SE",
     mensal: 1833.9651348890047,
     anual: 22038.496094378785,
+    dataVencimento: "31/12/3000",
   },
 ];
 
