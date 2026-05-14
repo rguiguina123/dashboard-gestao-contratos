@@ -38,6 +38,25 @@ export default function Contratos() {
     return new Date(year, month - 1, day);
   };
 
+  // Função para calcular dias até vencimento usando horário de Brasília
+  const calcularDiasParaVencimento = (dataVencimentoStr: string): number => {
+    // Criar data de vencimento
+    const vencimento = parseDate(dataVencimentoStr);
+    vencimento.setHours(0, 0, 0, 0);
+
+    // Obter data atual em Brasília (GMT-3)
+    const agora = new Date();
+    const utcTime = agora.getTime() + agora.getTimezoneOffset() * 60000;
+    const brasiliaTime = new Date(utcTime - 3 * 60 * 60 * 1000);
+    brasiliaTime.setHours(0, 0, 0, 0);
+
+    // Calcular diferença em dias
+    const diffTime = vencimento.getTime() - brasiliaTime.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    return diffDays;
+  };
+
   // Filtrar e ordenar contratos por data de vencimento
   const filteredContratos = useMemo(() => {
     let filtered = selectedSEC === "all" ? contratos : contratos.filter((c) => c.sec === selectedSEC);
@@ -56,12 +75,31 @@ export default function Contratos() {
     );
   }, [filteredContratos]);
 
+  // Adicionar coluna de dias para vencimento aos contratos
+  const contratosComDias = useMemo(() => {
+    return filteredContratos.map((c) => ({
+      ...c,
+      diasParaVencimento: calcularDiasParaVencimento(c.dataVencimento),
+    }));
+  }, [filteredContratos]);
+
   const columns: Array<any> = [
     { key: "contrato", label: "Contrato", sortable: true },
     { key: "fornecedor", label: "Fornecedor", sortable: true },
     { key: "objeto", label: "Objeto", sortable: false },
     { key: "sec", label: "SEC", sortable: true },
     { key: "dataVencimento", label: "Vencimento", sortable: true },
+    {
+      key: "diasParaVencimento",
+      label: "Dias para Vencer",
+      sortable: true,
+      format: (v: number) => {
+        if (v < 0) return `Vencido há ${Math.abs(v)} dias`;
+        if (v === 0) return "Vence hoje";
+        if (v === 1) return "Vence amanhã";
+        return `Vence em ${v} dias`;
+      },
+    },
     { key: "mensal", label: "Valor Mensal", sortable: true, format: (v: number) => formatCurrency(v) },
     { key: "anual", label: "Valor Anual", sortable: true, format: (v: number) => formatCurrency(v) },
   ]
@@ -123,7 +161,7 @@ export default function Contratos() {
         </div>
 
         {/* Alertas de Vencimento */}
-        <VencimentoAlerts contratos={filteredContratos} diasAlerta={30} />
+        <VencimentoAlerts contratos={contratosComDias} diasAlerta={30} />
 
         {/* Tabela */}
         <Card className="border-0 shadow-lg">
@@ -131,7 +169,7 @@ export default function Contratos() {
             <CardTitle className="text-purple-900">Detalhes dos Contratos</CardTitle>
             <ExportPDF
               title="Contratos"
-              data={filteredContratos}
+              data={contratosComDias}
               columns={[
                 { key: "contrato", label: "Contrato" },
                 { key: "fornecedor", label: "Fornecedor" },
@@ -145,7 +183,7 @@ export default function Contratos() {
           <CardContent className="p-0">
             <DataTable
               columns={columns}
-              data={filteredContratos}
+              data={contratosComDias}
               onRowClick={(row) => setSelectedContract(row as ContratoDisplay)}
             />
           </CardContent>
