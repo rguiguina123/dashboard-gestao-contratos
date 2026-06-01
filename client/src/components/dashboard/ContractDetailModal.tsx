@@ -1,7 +1,7 @@
-import { useState } from "react";
 import { X, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { formatCurrency } from "@/lib/utils";
+import { generateContractPDF } from "@/lib/generateContractPDF";
 
 interface ContratoDisplay {
   id: string;
@@ -27,19 +27,16 @@ export function ContractDetailModal({
   if (!contract) return null;
 
   const handleExport = () => {
-    const data = `Contrato: ${contract.contrato}
-Fornecedor: ${contract.fornecedor}
-Objeto: ${contract.objeto}
-SEC: ${contract.sec}
-Valor Mensal: ${formatCurrency(contract.mensal)}
-Valor Anual: ${formatCurrency(contract.anual)}`
-
-    const blob = new Blob([data], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `contrato-${contract.contrato}.txt`;
-    a.click();
+    generateContractPDF({
+      numero: contract.contrato,
+      fornecedor: contract.fornecedor,
+      objeto: contract.objeto,
+      sec: contract.sec,
+      dataVencimento: contract.dataVencimento || 'N/A',
+      diasParaVencer: contract.diasParaVencimento || 0,
+      valorMensal: contract.mensal,
+      valorAnual: contract.anual,
+    });
   };
 
   return (

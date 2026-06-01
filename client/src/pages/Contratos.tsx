@@ -6,6 +6,7 @@ import { ContractDetailModal } from "@/components/dashboard/ContractDetailModal"
 import { ProfessionalReportPDF } from "@/components/dashboard/ProfessionalReportPDF";
 import { VencimentoAlerts } from "@/components/dashboard/VencimentoAlerts";
 import { contratos, secs as allSecs } from "@/lib/data";
+import { generateContractPDF } from "@/lib/generateContractPDF";
 import {
   Select,
   SelectContent,

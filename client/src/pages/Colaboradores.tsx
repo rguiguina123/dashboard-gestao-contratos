@@ -1,7 +1,9 @@
-import { useMemo, useState } from "react";
+import { useState, useMemo } from "react";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { MetricCard } from "@/components/dashboard/MetricCard";
 import { colaboradores, secs } from "@/lib/data";
+import { generateColaboradoresPDF } from "@/lib/generateColaboradoresPDF";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataTable } from "@/components/dashboard/DataTable";
 import {
@@ -17,7 +19,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import { Users, Briefcase, Building2 } from "lucide-react";
+import { Users, Briefcase, Building2, FileDown } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -184,10 +186,17 @@ export default function Colaboradores() {
           </div>
 
           <Card className="border-0 shadow-lg">
-            <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b">
+            <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b flex items-center justify-between">
               <CardTitle className="text-purple-900">
                 Lista de Colaboradores ({filteredColaboradores.length})
               </CardTitle>
+              <Button
+                onClick={() => generateColaboradoresPDF(colaboradores)}
+                className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 text-white"
+              >
+                <FileDown className="w-4 h-4" />
+                Exportar Relatório
+              </Button>
             </CardHeader>
             <CardContent className="p-0">
               <DataTable
