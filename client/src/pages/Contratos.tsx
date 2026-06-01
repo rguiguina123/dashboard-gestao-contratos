@@ -7,6 +7,7 @@ import { ProfessionalReportPDF } from "@/components/dashboard/ProfessionalReport
 import { VencimentoAlerts } from "@/components/dashboard/VencimentoAlerts";
 import { contratos, secs as allSecs } from "@/lib/data";
 import { generateContractPDF } from "@/lib/generateContractPDF";
+import { generateContractsPDF } from "@/lib/generateHTMLPDF";
 import {
   Select,
   SelectContent,
@@ -170,32 +171,22 @@ export default function Contratos() {
         <Card className="border-0 shadow-lg">
           <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b flex items-center justify-between">
             <CardTitle className="text-purple-900">Detalhes dos Contratos</CardTitle>
-            <ProfessionalReportPDF
-              title="Relatório de Contratos"
-              subtitle="Análise Detalhada de Contratos Vigentes"
-              data={contratosComDias}
-              columns={[
-                { key: "contrato", label: "Contrato" },
-                { key: "fornecedor", label: "Fornecedor" },
-                { key: "objeto", label: "Objeto" },
-                { key: "sec", label: "SEC" },
-                { key: "dataVencimento", label: "Vencimento" },
-                { key: "diasParaVencimento", label: "Status", format: (v: number) => v < 0 ? `Vencido há ${Math.abs(v)} dias` : v === 0 ? "Vence hoje" : v === 1 ? "Vence amanhã" : `Vence em ${v} dias` },
-                { key: "mensal", label: "Mensal", format: (v: any) => formatCurrency(v) },
-                { key: "anual", label: "Anual", format: (v: any) => formatCurrency(v) },
-              ]}
-              summary={[
-                { label: "Total de Contratos", value: filteredContratos.length },
-                { label: "Despesa Mensal", value: formatCurrency(totais.mensal) },
-                { label: "Despesa Anual", value: formatCurrency(totais.anual) },
-              ]}
-              details={[
-                { label: "Contratos Vencidos", value: contratosComDias.filter((c) => c.diasParaVencimento < 0).length },
-                { label: "Contratos Vencendo em Breve", value: contratosComDias.filter((c) => c.diasParaVencimento >= 0 && c.diasParaVencimento <= 30).length },
-                { label: "Contratos Ativos", value: contratosComDias.filter((c) => c.diasParaVencimento > 30).length },
-              ]}
-              totals={totais}
-            />
+            <button
+              onClick={() => {
+                const metricas = {
+                  total: filteredContratos.length,
+                  mensal: totais.mensal,
+                  anual: totais.anual,
+                  vencidos: contratosComDias.filter((c) => c.diasParaVencimento < 0).length,
+                  breve: contratosComDias.filter((c) => c.diasParaVencimento >= 0 && c.diasParaVencimento <= 30).length,
+                  ativos: contratosComDias.filter((c) => c.diasParaVencimento > 30).length,
+                };
+                generateContractsPDF(contratosComDias, metricas);
+              }}
+              className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all"
+            >
+              Exportar Relatório
+            </button>
           </CardHeader>
           <CardContent className="p-0">
             <DataTable

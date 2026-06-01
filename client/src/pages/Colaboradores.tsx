@@ -2,7 +2,8 @@ import { useState, useMemo } from "react";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { MetricCard } from "@/components/dashboard/MetricCard";
 import { colaboradores, secs } from "@/lib/data";
-import { generateColaboradoresPDF } from "@/lib/generateColaboradoresPDF";
+import { generateColaboradoresPDF as generateColaboradoresPDFOld } from "@/lib/generateColaboradoresPDF";
+import { generateColaboradoresPDF } from "@/lib/generateHTMLPDF";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataTable } from "@/components/dashboard/DataTable";
@@ -191,7 +192,15 @@ export default function Colaboradores() {
                 Lista de Colaboradores ({filteredColaboradores.length})
               </CardTitle>
               <Button
-                onClick={() => generateColaboradoresPDF(colaboradores)}
+                onClick={() => {
+                  const metricas = {
+                    total: colaboradores.length,
+                    funcoes: 6,
+                    secs: new Set(colaboradores.map((c: any) => c.sec)).size,
+                    postos: 6,
+                  };
+                  generateColaboradoresPDF(colaboradores, metricas);
+                }}
                 className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 text-white"
               >
                 <FileDown className="w-4 h-4" />
