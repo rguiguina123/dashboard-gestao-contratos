@@ -271,8 +271,8 @@ function drawContractsTable(
   let yPosition = yStart;
 
   // Cabeçalho da tabela
-  const columns = ['Contrato', 'Fornecedor', 'SEC', 'Vencimento', 'Status', 'Valor Mensal'];
-  const columnWidths = [25, 35, 15, 18, 18, 25];
+  const columns = ['Contrato', 'Fornecedor', 'SEC', 'Vencimento', 'Status', 'Valor Mensal', 'Valor Anual'];
+  const columnWidths = [22, 32, 13, 16, 15, 22, 22];
 
   // Fundo do cabeçalho com gradiente (simulado com cor sólida)
   doc.setFillColor(124, 58, 237); // Roxo
@@ -306,7 +306,7 @@ function drawContractsTable(
 
     // Contrato
     xPos = xStart;
-    doc.text(contract.numero?.substring(0, 12) || '', xPos + 1, yPosition + 3.5);
+    doc.text(contract.contrato?.substring(0, 12) || '', xPos + 1, yPosition + 3.5);
     xPos += columnWidths[0];
 
     // Fornecedor
@@ -322,12 +322,12 @@ function drawContractsTable(
     xPos += columnWidths[3];
 
     // Status
-    if (contract.diasParaVencer < 0) {
+    if (contract.diasParaVencimento < 0) {
       doc.setTextColor(220, 38, 38); // Vermelho
       doc.text('Vencido', xPos + 1, yPosition + 3.5);
-    } else if (contract.diasParaVencer <= 30) {
+    } else if (contract.diasParaVencimento <= 30) {
       doc.setTextColor(249, 115, 22); // Laranja
-      doc.text(`${contract.diasParaVencer}d`, xPos + 1, yPosition + 3.5);
+      doc.text(`${contract.diasParaVencimento}d`, xPos + 1, yPosition + 3.5);
     } else {
       doc.setTextColor(22, 163, 74); // Verde
       doc.text('Ativo', xPos + 1, yPosition + 3.5);
@@ -337,7 +337,15 @@ function drawContractsTable(
     // Valor Mensal
     doc.setTextColor(COLORS.text);
     doc.text(
-      `R$ ${(contract.valorMensal || 0).toLocaleString('pt-BR', { maximumFractionDigits: 0 })}`,
+      `R$ ${(contract.mensal || 0).toLocaleString('pt-BR', { maximumFractionDigits: 0 })}`,
+      xPos + 1,
+      yPosition + 3.5
+    );
+    xPos += columnWidths[5];
+
+    // Valor Anual
+    doc.text(
+      `R$ ${(contract.anual || 0).toLocaleString('pt-BR', { maximumFractionDigits: 0 })}`,
       xPos + 1,
       yPosition + 3.5
     );
