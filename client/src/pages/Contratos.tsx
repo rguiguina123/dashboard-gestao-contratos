@@ -6,8 +6,7 @@ import { ContractDetailModal } from "@/components/dashboard/ContractDetailModal"
 import { ProfessionalReportPDF } from "@/components/dashboard/ProfessionalReportPDF";
 import { VencimentoAlerts } from "@/components/dashboard/VencimentoAlerts";
 import { contratos, secs as allSecs } from "@/lib/data";
-import { generateContractPDF } from "@/lib/generateContractPDF";
-import { generateContractsPDF } from "@/lib/generateHTMLPDF";
+import { generateContractsPDFProfessional } from "@/lib/generateProfessionalPDF";
 import {
   Select,
   SelectContent,
@@ -181,7 +180,7 @@ export default function Contratos() {
                   breve: contratosComDias.filter((c) => c.diasParaVencimento >= 0 && c.diasParaVencimento <= 30).length,
                   ativos: contratosComDias.filter((c) => c.diasParaVencimento > 30).length,
                 };
-                generateContractsPDF(contratosComDias, metricas);
+                generateContractsPDFProfessional(contratosComDias, metricas);
               }}
               className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all"
             >
