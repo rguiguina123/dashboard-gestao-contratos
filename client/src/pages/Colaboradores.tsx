@@ -34,7 +34,7 @@ export default function Colaboradores() {
   // Filtrar colaboradores
   const filteredColaboradores = useMemo(() => {
     if (selectedSEC === "all") return colaboradores;
-    return colaboradores.filter((c: any) => c.cpf === selectedSEC);
+    return colaboradores.filter((c: any) => c.sec === selectedSEC);
   }, [selectedSEC]);
 
   // Dados de distribuição por posto
@@ -173,7 +173,7 @@ export default function Colaboradores() {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">Todos os SECs</SelectItem>
-                  {Array.from(new Set(colaboradores.map((c: any) => c.cpf)))
+                  {Array.from(new Set(colaboradores.map((c: any) => c.sec).filter((s: any) => s)))
                     .sort()
                     .map((sec: any) => (
                       <SelectItem key={sec} value={sec}>
