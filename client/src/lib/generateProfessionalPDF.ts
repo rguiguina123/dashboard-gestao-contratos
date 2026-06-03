@@ -369,38 +369,38 @@ export const generateEmployeesPDFProfessional = async (
   metrics: EmployeeMetrics
 ) => {
   const doc = new jsPDF({
-    orientation: 'portrait',
+    orientation: 'landscape',
     unit: 'mm',
     format: 'a4',
   });
 
   const pageWidth = (doc as any).internal.pageSize.getWidth();
   const pageHeight = (doc as any).internal.pageSize.getHeight();
-  const margin = 15;
+  const margin = 12;
   const contentWidth = pageWidth - 2 * margin;
   let yPosition = margin;
 
   // Cabeçalho com gradiente
   doc.setFillColor(107, 33, 168); // Roxo
-  doc.rect(0, 0, pageWidth, 50, 'F');
+  doc.rect(0, 0, pageWidth, 45, 'F');
 
   // Título
   doc.setTextColor(255, 255, 255);
-  doc.setFontSize(28);
+  doc.setFontSize(26);
   doc.setFont('helvetica', 'bold');
-  doc.text('RELATÓRIO DE COLABORADORES', pageWidth / 2, 20, { align: 'center' });
+  doc.text('RELATÓRIO DE COLABORADORES', pageWidth / 2, 18, { align: 'center' });
 
   // Subtítulo
-  doc.setFontSize(12);
+  doc.setFontSize(11);
   doc.setFont('helvetica', 'normal');
-  doc.text('Lista Completa de Colaboradores', pageWidth / 2, 35, { align: 'center' });
+  doc.text('Lista Completa de Colaboradores', pageWidth / 2, 32, { align: 'center' });
 
-  yPosition = 65;
+  yPosition = 55;
 
   // Métricas em cards
   doc.setTextColor(COLORS.text);
   const metricBoxWidth = (contentWidth - 9) / 4;
-  const metricBoxHeight = 28;
+  const metricBoxHeight = 24;
   const metricsData = [
     { label: 'Total de Colaboradores', value: metrics.total.toString(), icon: '👥' },
     { label: 'Funções', value: metrics.funcoes.toString(), icon: '💼' },
@@ -421,27 +421,27 @@ export const generateEmployeesPDFProfessional = async (
     doc.line(xPos, yPosition, xPos, yPosition + metricBoxHeight);
 
     // Label
-    doc.setFontSize(8);
+    doc.setFontSize(7);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(102, 102, 102);
-    doc.text(metric.label, xPos + 2, yPosition + 7);
+    doc.text(metric.label, xPos + 2, yPosition + 6);
 
     // Valor
-    doc.setFontSize(11);
+    doc.setFontSize(10);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(124, 58, 237); // Roxo
-    doc.text(metric.value, xPos + 2, yPosition + 18);
+    doc.text(metric.value, xPos + 2, yPosition + 16);
   });
 
-  yPosition += metricBoxHeight + 12;
+  yPosition += metricBoxHeight + 10;
 
   // Título da tabela
-  doc.setFontSize(12);
+  doc.setFontSize(11);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(124, 58, 237);
   doc.text('Colaboradores', margin, yPosition);
 
-  yPosition += 8;
+  yPosition += 7;
 
   // Tabela de colaboradores
   drawEmployeesTable(doc, employees, margin, yPosition, contentWidth, pageHeight - margin - 10);
@@ -452,7 +452,7 @@ export const generateEmployeesPDFProfessional = async (
   doc.text(
     `Relatório gerado em ${new Date().toLocaleDateString('pt-BR')} às ${new Date().toLocaleTimeString('pt-BR')}`,
     pageWidth / 2,
-    pageHeight - 8,
+    pageHeight - 6,
     { align: 'center' }
   );
 
@@ -469,34 +469,34 @@ function drawEmployeesTable(
   maxHeight: number
 ) {
   const pageHeight = (doc as any).internal.pageSize.getHeight();
-  const rowHeight = 5;
-  const headerHeight = 7;
+  const rowHeight = 6.5;
+  const headerHeight = 8;
 
   let yPosition = yStart;
 
   // Cabeçalho da tabela
   const columns = ['Nome', 'SEC', 'Função', 'CPF'];
-  const columnWidths = [40, 20, 35, 30];
+  const columnWidths = [65, 22, 45, 40];
 
   // Fundo do cabeçalho
   doc.setFillColor(124, 58, 237); // Roxo
   doc.rect(xStart, yPosition, width, headerHeight, 'F');
 
   // Texto do cabeçalho
-  doc.setFontSize(8);
+  doc.setFontSize(9);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(255, 255, 255);
 
   let xPos = xStart;
   columns.forEach((col, index) => {
-    doc.text(col, xPos + 1, yPosition + 5);
+    doc.text(col, xPos + 2, yPosition + 5.5);
     xPos += columnWidths[index];
   });
 
-  yPosition += headerHeight + 1;
+  yPosition += headerHeight + 0.5;
 
   // Linhas da tabela
-  doc.setFontSize(7);
+  doc.setFontSize(8);
   doc.setFont('helvetica', 'normal');
 
   employees.forEach((employee, rowIndex) => {
@@ -506,47 +506,52 @@ function drawEmployeesTable(
       doc.rect(xStart, yPosition, width, rowHeight, 'F');
     }
 
+    // Borda inferior
+    doc.setDrawColor(230, 230, 230);
+    doc.setLineWidth(0.3);
+    doc.line(xStart, yPosition + rowHeight, xStart + width, yPosition + rowHeight);
+
     doc.setTextColor(COLORS.text);
 
     // Nome
     xPos = xStart;
-    doc.text(employee.nome?.substring(0, 30) || '', xPos + 1, yPosition + 3.5);
+    doc.text(employee.nome?.substring(0, 40) || '', xPos + 2, yPosition + 4);
     xPos += columnWidths[0];
 
     // SEC
-    doc.text(employee.sec || '', xPos + 1, yPosition + 3.5);
+    doc.text(employee.sec || '', xPos + 2, yPosition + 4);
     xPos += columnWidths[1];
 
     // Função
-    doc.text(employee.funcao?.substring(0, 25) || '', xPos + 1, yPosition + 3.5);
+    doc.text(employee.funcao?.substring(0, 28) || '', xPos + 2, yPosition + 4);
     xPos += columnWidths[2];
 
     // CPF
-    doc.text(employee.cpf || '', xPos + 1, yPosition + 3.5);
+    doc.text(employee.cpf || '', xPos + 2, yPosition + 4);
 
     yPosition += rowHeight;
 
     // Verificar se precisa de nova página
-    if (yPosition > pageHeight - 20) {
+    if (yPosition > pageHeight - 15) {
       doc.addPage();
-      yPosition = 15;
+      yPosition = 12;
 
       // Repetir cabeçalho em nova página
       doc.setFillColor(124, 58, 237);
       doc.rect(xStart, yPosition, width, headerHeight, 'F');
 
-      doc.setFontSize(8);
+      doc.setFontSize(9);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(255, 255, 255);
 
       xPos = xStart;
       columns.forEach((col) => {
-        doc.text(col, xPos + 1, yPosition + 5);
+        doc.text(col, xPos + 2, yPosition + 5.5);
         xPos += columnWidths[columns.indexOf(col)];
       });
 
-      yPosition += headerHeight + 1;
-      doc.setFontSize(7);
+      yPosition += headerHeight + 0.5;
+      doc.setFontSize(8);
       doc.setFont('helvetica', 'normal');
     }
   });
