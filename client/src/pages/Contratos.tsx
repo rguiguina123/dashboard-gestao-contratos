@@ -27,6 +27,7 @@ interface ContratoDisplay {
   mensal: number;
   anual: number;
   dataVencimento: string;
+  diasParaVencimento?: number;
 }
 
 export default function Contratos() {
@@ -191,7 +192,20 @@ export default function Contratos() {
             <DataTable
               columns={columns}
               data={contratosComDias}
-              onRowClick={(row) => setSelectedContract(row as ContratoDisplay)}
+              onRowClick={(row) => {
+                const contract = row as any;
+                setSelectedContract({
+                  id: contract.id,
+                  contrato: contract.contrato,
+                  fornecedor: contract.fornecedor,
+                  objeto: contract.objeto,
+                  sec: contract.sec,
+                  mensal: contract.mensal,
+                  anual: contract.anual,
+                  dataVencimento: contract.dataVencimento,
+                  diasParaVencimento: contract.diasParaVencimento,
+                });
+              }}
             />
           </CardContent>
         </Card>

@@ -1,4 +1,4 @@
-import { jsPDF } from "jspdf";
+import jsPDF from "jspdf";
 import { formatCurrency } from "./utils";
 
 interface ContractData {
@@ -16,277 +16,239 @@ interface ContractData {
 export function generateContractPDF(contract: ContractData) {
   try {
     const doc = new jsPDF("p", "mm", "a4");
-    const pageWidth = doc.internal.pageSize.getWidth();
-    const pageHeight = doc.internal.pageSize.getHeight();
-    const margin = 20;
+    const pageWidth = (doc as any).internal.pageSize.getWidth();
+    const pageHeight = (doc as any).internal.pageSize.getHeight();
+    const margin = 15;
     let yPosition = margin;
 
-    // Cores do modelo
-    const colorPrimary = [147, 51, 234]; // Purple
-    const colorSecondary = [236, 72, 153]; // Pink
-    const colorDark = [30, 30, 30];
-    const colorLight = [100, 100, 100];
+    // Cores do design
+    const COLORS = {
+      primary: [107, 33, 168], // Roxo
+      secondary: [236, 72, 153], // Rosa/Magenta
+      accent: [124, 58, 237], // Roxo para destaque
+      success: [22, 163, 74], // Verde
+      warning: [249, 115, 22], // Laranja
+      danger: [220, 38, 38], // Vermelho
+      text: [15, 23, 42], // Cinza muito escuro
+      lightText: [100, 116, 139], // Cinza médio
+      border: [203, 213, 225], // Cinza para bordas
+    };
 
-    // ===== CAPA =====
-    // Background gradiente
-    doc.setFillColor(147, 51, 234);
-    doc.rect(0, 0, pageWidth, pageHeight / 2, "F");
-
-    doc.setFillColor(236, 72, 153);
-    doc.rect(0, pageHeight / 2, pageWidth, pageHeight / 2, "F");
-
-    // Forma geométrica
-    doc.setFillColor(200, 100, 200);
-    doc.triangle(pageWidth * 0.7, 0, pageWidth, pageHeight * 0.3, pageWidth, 0);
+    // ===== CABEÇALHO COM GRADIENTE =====
+    doc.setFillColor(COLORS.primary[0], COLORS.primary[1], COLORS.primary[2]);
+    doc.rect(0, 0, pageWidth, 45, "F");
 
     // Título
     doc.setTextColor(255, 255, 255);
-    doc.setFontSize(28);
-    doc.setFont("", "bold");
-    doc.text("RELATÓRIO DE CONTRATO", margin, pageHeight / 2 - 40);
+    doc.setFontSize(24);
+    doc.setFont("helvetica", "bold");
+    doc.text("INFORMAÇÕES DO CONTRATO", margin, 18);
 
-    // Número do contrato
-    doc.setFontSize(16);
-    doc.setFont("", "normal");
-    doc.text(contract.numero, margin, pageHeight / 2 - 20);
-
-    // Data
+    // Subtítulo
     doc.setFontSize(10);
-    const dataGeracao = new Date().toLocaleDateString("pt-BR", {
-      day: "2-digit",
-      month: "long",
-      year: "numeric",
-    });
-    doc.text(`Relatório gerado em ${dataGeracao}`, margin, pageHeight - 30);
+    doc.setFont("helvetica", "normal");
+    doc.text(contract.numero, margin, 28);
 
-    // ===== PÁGINA 2: INFORMAÇÕES PRINCIPAIS =====
-    doc.addPage();
-    yPosition = margin;
+    // Data de geração
+    doc.setFontSize(8);
+    const dataGeracao = new Date().toLocaleDateString("pt-BR");
+    doc.text(`Gerado em ${dataGeracao}`, pageWidth - margin - 40, 28);
 
-    // Título da página
-    doc.setTextColor(colorPrimary[0], colorPrimary[1], colorPrimary[2]);
-    doc.setFontSize(18);
-    doc.setFont("", "bold");
-    doc.text("INFORMAÇÕES DO CONTRATO", margin, yPosition);
-    yPosition += 15;
+    yPosition = 55;
 
-    // Seção: Dados Gerais
-    doc.setFillColor(240, 230, 255);
-    doc.rect(margin, yPosition - 5, pageWidth - 2 * margin, 8, "F");
+    // ===== SEÇÃO 1: DADOS GERAIS =====
+    doc.setFillColor(243, 232, 255); // Roxo muito claro
+    doc.rect(margin, yPosition - 2, pageWidth - 2 * margin, 8, "F");
 
-    doc.setTextColor(colorPrimary[0], colorPrimary[1], colorPrimary[2]);
-    doc.setFontSize(11);
-    doc.setFont("", "bold");
-    doc.text("DADOS GERAIS", margin + 3, yPosition + 1);
+    doc.setTextColor(COLORS.primary[0], COLORS.primary[1], COLORS.primary[2]);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "bold");
+    doc.text("DADOS GERAIS", margin + 2, yPosition + 2);
+
     yPosition += 12;
 
-    // Campos de informação
-    const fields = [
-      { label: "Número do Contrato:", value: contract.numero },
-      { label: "Fornecedor/Prestador:", value: contract.fornecedor },
-      { label: "Objeto do Contrato:", value: contract.objeto },
-      { label: "SEC Responsável:", value: contract.sec },
-      { label: "Data de Vencimento:", value: contract.dataVencimento },
-      {
-        label: "Status de Vencimento:",
-        value:
-          contract.diasParaVencer < 0
-            ? `Vencido há ${Math.abs(contract.diasParaVencer)} dias`
-            : `Vence em ${contract.diasParaVencer} dias`,
-      },
-    ];
+    // Grid 2x2 para dados gerais
+    const gridWidth = (pageWidth - 2 * margin) / 2 - 2;
 
-    doc.setTextColor(colorDark[0], colorDark[1], colorDark[2]);
+    // Número do Contrato
+    doc.setFontSize(8);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(COLORS.lightText[0], COLORS.lightText[1], COLORS.lightText[2]);
+    doc.text("Número do Contrato:", margin, yPosition);
+
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(COLORS.text[0], COLORS.text[1], COLORS.text[2]);
     doc.setFontSize(9);
-    doc.setFont("", "normal");
+    doc.text(contract.numero, margin + 50, yPosition);
 
-    fields.forEach((field, idx) => {
-      if (yPosition > pageHeight - 30) {
-        doc.addPage();
-        yPosition = margin;
-      }
+    // SEC
+    doc.setFontSize(8);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(COLORS.lightText[0], COLORS.lightText[1], COLORS.lightText[2]);
+    doc.text("SEC Responsável:", margin + gridWidth + 4, yPosition);
 
-      // Label
-      doc.setFont("", "bold");
-      doc.text(`${field.label}`, margin + 3, yPosition);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(COLORS.text[0], COLORS.text[1], COLORS.text[2]);
+    doc.setFontSize(9);
+    doc.text(contract.sec, margin + gridWidth + 54, yPosition);
 
-      // Value
-      doc.setFont("", "normal");
-      doc.setTextColor(colorLight[0], colorLight[1], colorLight[2]);
-      const lines = doc.splitTextToSize(field.value, pageWidth - 2 * margin - 80);
-      doc.text(lines, margin + 80, yPosition);
+    yPosition += 8;
 
-      yPosition += 6;
-      doc.setTextColor(colorDark[0], colorDark[1], colorDark[2]);
-    });
+    // Fornecedor
+    doc.setFontSize(8);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(COLORS.lightText[0], COLORS.lightText[1], COLORS.lightText[2]);
+    doc.text("Fornecedor/Prestador:", margin, yPosition);
 
-    yPosition += 5;
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(COLORS.text[0], COLORS.text[1], COLORS.text[2]);
+    doc.setFontSize(9);
+    const fornecedorLines = doc.splitTextToSize(contract.fornecedor, 60);
+    doc.text(fornecedorLines, margin + 50, yPosition);
 
-    // Seção: Valores Financeiros
-    if (yPosition > pageHeight - 50) {
-      doc.addPage();
-      yPosition = margin;
-    }
+    // Data de Vencimento
+    doc.setFontSize(8);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(COLORS.lightText[0], COLORS.lightText[1], COLORS.lightText[2]);
+    doc.text("Data de Vencimento:", margin + gridWidth + 4, yPosition);
 
-    doc.setFillColor(255, 240, 245);
-    doc.rect(margin, yPosition - 5, pageWidth - 2 * margin, 8, "F");
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(COLORS.text[0], COLORS.text[1], COLORS.text[2]);
+    doc.setFontSize(9);
+    doc.text(contract.dataVencimento, margin + gridWidth + 54, yPosition);
 
-    doc.setTextColor(colorSecondary[0], colorSecondary[1], colorSecondary[2]);
-    doc.setFontSize(11);
-    doc.setFont("", "bold");
-    doc.text("VALORES FINANCEIROS", margin + 3, yPosition + 1);
+    yPosition += 10;
+
+    // Objeto
+    doc.setFontSize(8);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(COLORS.lightText[0], COLORS.lightText[1], COLORS.lightText[2]);
+    doc.text("Objeto do Contrato:", margin, yPosition);
+
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(COLORS.text[0], COLORS.text[1], COLORS.text[2]);
+    doc.setFontSize(8);
+    const objetoLines = doc.splitTextToSize(contract.objeto, pageWidth - 2 * margin - 50);
+    doc.text(objetoLines, margin + 50, yPosition);
+
     yPosition += 12;
 
-    // Valores em boxes
-    const values = [
-      { label: "Valor Mensal", value: formatCurrency(contract.valorMensal) },
-      { label: "Valor Anual", value: formatCurrency(contract.valorAnual) },
-    ];
+    // ===== SEÇÃO 2: VALORES FINANCEIROS =====
+    doc.setFillColor(255, 240, 245); // Rosa muito claro
+    doc.rect(margin, yPosition - 2, pageWidth - 2 * margin, 8, "F");
 
-    doc.setFontSize(9);
-    values.forEach((val, idx) => {
-      const x = margin + idx * (pageWidth - 2 * margin) / 2;
+    doc.setTextColor(COLORS.secondary[0], COLORS.secondary[1], COLORS.secondary[2]);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "bold");
+    doc.text("VALORES FINANCEIROS", margin + 2, yPosition + 2);
 
-      doc.setFillColor(236, 72, 153);
-      doc.rect(x, yPosition - 3, (pageWidth - 2 * margin) / 2 - 3, 15, "F");
+    yPosition += 12;
 
-      doc.setTextColor(255, 255, 255);
-      doc.setFont("", "normal");
-      doc.setFontSize(8);
-      doc.text(val.label, x + 3, yPosition + 1);
+    // Cards de valores lado a lado
+    const cardWidth = (pageWidth - 2 * margin - 4) / 2;
+    const cardHeight = 18;
 
-      doc.setFont("", "bold");
-      doc.setFontSize(10);
-      doc.text(val.value, x + 3, yPosition + 9);
-    });
-
-    yPosition += 20;
-
-    // Seção: Descrição
-    if (contract.descricao && contract.descricao.trim()) {
-      if (yPosition > pageHeight - 50) {
-        doc.addPage();
-        yPosition = margin;
-      }
-
-      doc.setFillColor(240, 240, 255);
-      doc.rect(margin, yPosition - 5, pageWidth - 2 * margin, 8, "F");
-
-      doc.setTextColor(colorPrimary[0], colorPrimary[1], colorPrimary[2]);
-      doc.setFontSize(11);
-      doc.setFont("", "bold");
-      doc.text("DESCRIÇÃO DETALHADA", margin + 3, yPosition + 1);
-      yPosition += 12;
-
-      doc.setTextColor(colorDark[0], colorDark[1], colorDark[2]);
-      doc.setFontSize(9);
-      doc.setFont("", "normal");
-
-      const descLines = doc.splitTextToSize(
-        contract.descricao,
-        pageWidth - 2 * margin - 6
-      );
-      descLines.forEach((line: string) => {
-        if (yPosition > pageHeight - 20) {
-          doc.addPage();
-          yPosition = margin;
-        }
-        doc.text(line, margin + 3, yPosition);
-        yPosition += 5;
-      });
-    }
-
-    // ===== PÁGINA 3: ANÁLISE E CONCLUSÃO =====
-    doc.addPage();
-    yPosition = margin;
-
-    doc.setTextColor(colorPrimary[0], colorPrimary[1], colorPrimary[2]);
-    doc.setFontSize(18);
-    doc.setFont("", "bold");
-    doc.text("ANÁLISE E CONCLUSÃO", margin, yPosition);
-    yPosition += 15;
-
-    // Status do contrato
-    const statusColor =
-      contract.diasParaVencer < 0
-        ? [220, 38, 38]
-        : contract.diasParaVencer < 30
-          ? [251, 146, 60]
-          : [34, 197, 94];
-
-    doc.setFillColor(statusColor[0], statusColor[1], statusColor[2]);
-    doc.rect(margin, yPosition - 5, pageWidth - 2 * margin, 15, "F");
+    // Card Valor Mensal
+    doc.setFillColor(COLORS.secondary[0], COLORS.secondary[1], COLORS.secondary[2]);
+    doc.rect(margin, yPosition, cardWidth, cardHeight, "F");
 
     doc.setTextColor(255, 255, 255);
-    doc.setFont("", "bold");
-    doc.setFontSize(12);
+    doc.setFontSize(8);
+    doc.setFont("helvetica", "normal");
+    doc.text("Valor Mensal", margin + 2, yPosition + 5);
+
+    doc.setFontSize(11);
+    doc.setFont("helvetica", "bold");
+    doc.text(formatCurrency(contract.valorMensal), margin + 2, yPosition + 13);
+
+    // Card Valor Anual
+    doc.setFillColor(COLORS.primary[0], COLORS.primary[1], COLORS.primary[2]);
+    doc.rect(margin + cardWidth + 4, yPosition, cardWidth, cardHeight, "F");
+
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(8);
+    doc.setFont("helvetica", "normal");
+    doc.text("Valor Anual", margin + cardWidth + 6, yPosition + 5);
+
+    doc.setFontSize(11);
+    doc.setFont("helvetica", "bold");
+    doc.text(formatCurrency(contract.valorAnual), margin + cardWidth + 6, yPosition + 13);
+
+    yPosition += 24;
+
+    // ===== SEÇÃO 3: STATUS =====
+    const statusColor =
+      contract.diasParaVencer < 0
+        ? COLORS.danger
+        : contract.diasParaVencer <= 30
+          ? COLORS.warning
+          : COLORS.success;
 
     const statusText =
       contract.diasParaVencer < 0
-        ? "⚠️ CONTRATO VENCIDO"
-        : contract.diasParaVencer < 30
-          ? "⏰ VENCIMENTO PRÓXIMO"
-          : "✓ CONTRATO ATIVO";
+        ? `Vencido há ${Math.abs(contract.diasParaVencer)} dias`
+        : contract.diasParaVencer === 0
+          ? "Vence hoje"
+          : contract.diasParaVencer === 1
+            ? "Vence amanhã"
+            : `Vence em ${contract.diasParaVencer} dias`;
 
-    doc.text(statusText, margin + 3, yPosition + 7);
+    doc.setFillColor(statusColor[0], statusColor[1], statusColor[2]);
+    doc.rect(margin, yPosition, pageWidth - 2 * margin, 12, "F");
 
-    yPosition += 20;
-
-    // Observações
-    doc.setTextColor(colorDark[0], colorDark[1], colorDark[2]);
+    doc.setTextColor(255, 255, 255);
     doc.setFontSize(9);
-    doc.setFont("", "normal");
+    doc.setFont("helvetica", "bold");
+    doc.text(statusText, margin + 2, yPosition + 7);
+
+    yPosition += 16;
+
+    // ===== SEÇÃO 4: OBSERVAÇÕES =====
+    doc.setFillColor(248, 250, 252); // Cinza muito claro
+    doc.rect(margin, yPosition - 2, pageWidth - 2 * margin, 8, "F");
+
+    doc.setTextColor(COLORS.primary[0], COLORS.primary[1], COLORS.primary[2]);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "bold");
+    doc.text("OBSERVAÇÕES", margin + 2, yPosition + 2);
+
+    yPosition += 10;
+
+    doc.setTextColor(COLORS.text[0], COLORS.text[1], COLORS.text[2]);
+    doc.setFontSize(8);
+    doc.setFont("helvetica", "normal");
 
     const observations = [
-      `Este contrato ${contract.numero} foi gerado em ${dataGeracao}.`,
-      `O contrato está registrado para a SEC ${contract.sec} e fornecedor ${contract.fornecedor}.`,
-      `Valor mensal: ${formatCurrency(contract.valorMensal)} | Valor anual: ${formatCurrency(contract.valorAnual)}`,
-      `Data de vencimento: ${contract.dataVencimento}`,
-      contract.diasParaVencer < 0
-        ? `⚠️ ATENÇÃO: Este contrato venceu há ${Math.abs(contract.diasParaVencer)} dias. Recomenda-se ação imediata.`
-        : contract.diasParaVencer < 30
-          ? `⏰ ATENÇÃO: Este contrato vence em ${contract.diasParaVencer} dias. Recomenda-se análise de renovação.`
-          : `✓ Este contrato está ativo e dentro do prazo de vigência.`,
+      `Este contrato está registrado para a SEC ${contract.sec}.`,
+      `Fornecedor: ${contract.fornecedor}`,
+      `Despesa mensal: ${formatCurrency(contract.valorMensal)} | Despesa anual: ${formatCurrency(contract.valorAnual)}`,
     ];
 
     observations.forEach((obs) => {
-      if (yPosition > pageHeight - 20) {
-        doc.addPage();
-        yPosition = margin;
-      }
-
-      const lines = doc.splitTextToSize(obs, pageWidth - 2 * margin - 6);
+      const lines = doc.splitTextToSize(obs, pageWidth - 2 * margin - 4);
       lines.forEach((line: string) => {
-        doc.text(`• ${line}`, margin + 3, yPosition);
-        yPosition += 5;
+        doc.text(`• ${line}`, margin + 2, yPosition);
+        yPosition += 4;
       });
-
-      yPosition += 2;
     });
 
     // ===== FOOTER =====
-    const pageCount = (doc as any).internal.pages.length - 1;
-    for (let i = 1; i <= pageCount; i++) {
-      doc.setPage(i);
+    doc.setDrawColor(COLORS.border[0], COLORS.border[1], COLORS.border[2]);
+    doc.setLineWidth(0.5);
+    doc.line(margin, pageHeight - 12, pageWidth - margin, pageHeight - 12);
 
-      doc.setDrawColor(colorPrimary[0], colorPrimary[1], colorPrimary[2]);
-      doc.setLineWidth(1);
-      doc.line(margin, pageHeight - 15, pageWidth - margin, pageHeight - 15);
+    doc.setFontSize(7);
+    doc.setTextColor(COLORS.lightText[0], COLORS.lightText[1], COLORS.lightText[2]);
+    doc.setFont("helvetica", "normal");
+    doc.text("Gestão de Contratos v1.0", margin, pageHeight - 6);
 
-      doc.setFontSize(8);
-      doc.setTextColor(colorLight[0], colorLight[1], colorLight[2]);
-      doc.text(
-        `Página ${i} de ${pageCount}`,
-        pageWidth / 2,
-        pageHeight - 8,
-        { align: "center" }
-      );
-
-      doc.setTextColor(colorPrimary[0], colorPrimary[1], colorPrimary[2]);
-      doc.setFont("", "bold");
-      doc.setFontSize(7);
-      doc.text("Gestão de Contratos", margin, pageHeight - 8);
-    }
+    doc.setTextColor(COLORS.lightText[0], COLORS.lightText[1], COLORS.lightText[2]);
+    doc.text(
+      `Página 1 de 1 | ${dataGeracao}`,
+      pageWidth / 2,
+      pageHeight - 6,
+      { align: "center" }
+    );
 
     // Save
     const fileName = `Contrato_${contract.numero.replace(/\//g, "_")}_${new Date().toISOString().split("T")[0]}.pdf`;
