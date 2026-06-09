@@ -28,14 +28,15 @@ export function ContractDetailModal({
 
   const handleExport = () => {
     generateContractPDF({
-      numero: contract.contrato,
+      id: contract.id,
+      contrato: contract.contrato,
       fornecedor: contract.fornecedor,
       objeto: contract.objeto,
       sec: contract.sec,
+      mensal: contract.mensal,
+      anual: contract.anual,
       dataVencimento: contract.dataVencimento || 'N/A',
-      diasParaVencer: contract.diasParaVencimento || 0,
-      valorMensal: contract.mensal,
-      valorAnual: contract.anual,
+      diasParaVencimento: contract.diasParaVencimento || 0,
     });
   };
 
