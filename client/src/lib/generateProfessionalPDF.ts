@@ -256,12 +256,12 @@ function drawContractsTable(
   const pageHeight = (doc as any).internal.pageSize.getHeight();
 
   const columns = [
-    { header: 'Contrato', width: 25 },
-    { header: 'Fornecedor', width: 48 },
-    { header: 'SEC', width: 12 },
-    { header: 'Vencimento', width: 18 },
-    { header: 'Valor Mensal', width: 20 },
-    { header: 'Valor Anual', width: 20 },
+    { header: 'Contrato', width: 22 },
+    { header: 'Fornecedor', width: 42 },
+    { header: 'SEC', width: 10 },
+    { header: 'Vencimento', width: 16 },
+    { header: 'V. Mensal', width: 18 },
+    { header: 'V. Anual', width: 18 },
   ];
 
   let yPosition = startY;
@@ -316,31 +316,33 @@ function drawContractsTable(
 
     xPos = margin + 1;
 
-    // Contrato
-    const contrato = (contract.contrato || '').substring(0, 18);
+    // Contrato (abreviado)
+    const contrato = (contract.contrato || '').substring(0, 16);
     doc.text(contrato, xPos + 1, yPosition + 4);
     xPos += columns[0].width;
 
-    // Fornecedor
-    const fornecedor = (contract.fornecedor || '').substring(0, 35);
+    // Fornecedor (abreviado)
+    const fornecedor = (contract.fornecedor || '').substring(0, 30);
     doc.text(fornecedor, xPos + 1, yPosition + 4);
     xPos += columns[1].width;
 
-    // SEC
-    doc.text(contract.sec || '', xPos + 1, yPosition + 4);
+    // SEC (sem espaços)
+    const sec = (contract.sec || '').replace('SEC-', '');
+    doc.text(sec, xPos + 1, yPosition + 4);
     xPos += columns[2].width;
 
-    // Vencimento
-    doc.text(contract.dataVencimento || '', xPos + 1, yPosition + 4);
+    // Vencimento (formato curto)
+    const vencData = contract.dataVencimento ? contract.dataVencimento.substring(0, 5) : '';
+    doc.text(vencData, xPos + 1, yPosition + 4);
     xPos += columns[3].width;
 
-    // Valor Mensal
-    const valorMensal = contract.mensal ? `R$ ${(contract.mensal / 1000).toFixed(1)}k` : 'R$ 0';
+    // Valor Mensal (formato compacto)
+    const valorMensal = contract.mensal ? `${(contract.mensal / 1000).toFixed(0)}k` : '-';
     doc.text(valorMensal, xPos + 1, yPosition + 4, { align: 'right' });
     xPos += columns[4].width;
 
-    // Valor Anual
-    const valorAnual = contract.anual ? `R$ ${(contract.anual / 1000).toFixed(0)}k` : 'R$ 0';
+    // Valor Anual (formato compacto)
+    const valorAnual = contract.anual ? `${(contract.anual / 1000).toFixed(0)}k` : '-';
     doc.text(valorAnual, xPos + 1, yPosition + 4, { align: 'right' });
 
     yPosition += rowHeight;
