@@ -3,6 +3,7 @@ import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, Responsive
 import { formatCurrency } from '@/lib/utils';
 import dadosCustos from '@/lib/dadosCustos.json';
 import { Activity, Zap } from 'lucide-react';
+import { DashboardLayout } from '@/components/dashboard/DashboardLayout';
 
 export default function EficienciaServidor() {
   const custoAreaServidor = dadosCustos.custo_area_servidor || [];
@@ -41,8 +42,8 @@ export default function EficienciaServidor() {
   }));
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6">
-      <div className="max-w-7xl mx-auto">
+    <DashboardLayout>
+      <div className="space-y-8">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-slate-900 mb-2">Eficiência por Servidor</h1>
@@ -254,6 +255,6 @@ export default function EficienciaServidor() {
           </div>
         </Card>
       </div>
-    </div>
+    </DashboardLayout>
   );
 }

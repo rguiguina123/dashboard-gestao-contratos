@@ -3,6 +3,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { formatCurrency } from '@/lib/utils';
 import dadosCustos from '@/lib/dadosCustos.json';
 import { TrendingUp, TrendingDown } from 'lucide-react';
+import { DashboardLayout } from '@/components/dashboard/DashboardLayout';
 
 export default function CustoServidor() {
   const custoServidor = dadosCustos.custo_servidor || [];
@@ -29,8 +30,8 @@ export default function CustoServidor() {
   }));
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6">
-      <div className="max-w-7xl mx-auto">
+    <DashboardLayout>
+      <div className="space-y-8">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-slate-900 mb-2">Custos por Servidor</h1>
@@ -225,6 +226,6 @@ export default function CustoServidor() {
           </div>
         </Card>
       </div>
-    </div>
+    </DashboardLayout>
   );
 }

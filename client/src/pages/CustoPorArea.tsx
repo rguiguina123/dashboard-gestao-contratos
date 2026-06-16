@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts';
 import { formatCurrency } from '@/lib/utils';
+import { DashboardLayout } from '@/components/dashboard/DashboardLayout';
 import dadosCustos from '@/lib/dadosCustos.json';
 import { TrendingDown } from 'lucide-react';
 
@@ -26,8 +27,8 @@ export default function CustoPorArea() {
   }));
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6">
-      <div className="max-w-7xl mx-auto">
+    <DashboardLayout>
+      <div className="space-y-8">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-slate-900 mb-2">Análise de Custo por Área</h1>
@@ -188,6 +189,6 @@ export default function CustoPorArea() {
           </div>
         </Card>
       </div>
-    </div>
+    </DashboardLayout>
   );
 }

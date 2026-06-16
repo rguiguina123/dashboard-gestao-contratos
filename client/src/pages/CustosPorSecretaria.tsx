@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { DollarSign, TrendingUp, Users, Zap } from 'lucide-react';
 import { formatCurrency } from '@/lib/utils';
+import { DashboardLayout } from '@/components/dashboard/DashboardLayout';
 import dadosCustos from '@/lib/dadosCustos.json';
 
 export default function CustosPorSecretaria() {
@@ -30,8 +31,8 @@ export default function CustosPorSecretaria() {
   const areaTotal = visaoGeral.reduce((sum, item) => sum + (item['Área da Sec (m2)'] || 0), 0);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6">
-      <div className="max-w-7xl mx-auto">
+    <DashboardLayout>
+      <div className="space-y-8">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-slate-900 mb-2">Custos por Secretaria</h1>
@@ -192,6 +193,6 @@ export default function CustosPorSecretaria() {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </DashboardLayout>
   );
 }
