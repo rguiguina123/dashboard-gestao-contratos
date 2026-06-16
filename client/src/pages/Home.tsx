@@ -8,6 +8,9 @@ import {
   DollarSign,
   ArrowRight,
   Building2,
+  TrendingUp,
+  Activity,
+  Zap,
 } from "lucide-react";
 import { contratos, despesasSemContrato, totalMensal, totalAnual } from "@/lib/data";
 import { formatCurrency } from "@/lib/utils";
@@ -19,6 +22,12 @@ const moduleIcons = {
   demonstrativo: BarChart3,
   despesasComContrato: DollarSign,
   despesasSemContrato: Building2,
+  custosPorSecretaria: TrendingUp,
+  custoPorArea: Activity,
+  custosTotal: DollarSign,
+  eficienciaServidor: Zap,
+  custoServidor: BarChart3,
+  quantidadeServidores: Users,
 };
 
 export default function Home() {
@@ -73,6 +82,54 @@ export default function Home() {
       icon: "despesasSemContrato",
       color: "text-orange-600",
       metric: formatCurrency(despesasSemContrato.reduce((sum, d) => sum + d.anual, 0)),
+    },
+    {
+      title: "Custos por Secretaria",
+      description: "Análise detalhada de custos por secretaria",
+      href: "/custos-por-secretaria",
+      icon: "custosPorSecretaria",
+      color: "text-purple-600",
+      metric: "27 SECs",
+    },
+    {
+      title: "Custo por Área",
+      description: "Custo por metro quadrado de cada secretaria",
+      href: "/custo-por-area",
+      icon: "custoPorArea",
+      color: "text-cyan-600",
+      metric: "R$/m²",
+    },
+    {
+      title: "Custos Totais",
+      description: "Ranking de custos totais por secretaria",
+      href: "/custos-total",
+      icon: "custosTotal",
+      color: "text-rose-600",
+      metric: "Análise completa",
+    },
+    {
+      title: "Eficiência por Servidor",
+      description: "Análise de custo e área por servidor",
+      href: "/eficiencia-servidor",
+      icon: "eficienciaServidor",
+      color: "text-indigo-600",
+      metric: "Correlação",
+    },
+    {
+      title: "Custo por Servidor",
+      description: "Ranking de custo por servidor domiciliado",
+      href: "/custo-servidor",
+      icon: "custoServidor",
+      color: "text-teal-600",
+      metric: "R$/servidor",
+    },
+    {
+      title: "Quantidade de Servidores",
+      description: "Distribuição de servidores por secretaria",
+      href: "/quantidade-servidores",
+      icon: "quantidadeServidores",
+      color: "text-lime-600",
+      metric: "27 SECs",
     },
   ];
 

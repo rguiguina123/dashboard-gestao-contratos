@@ -11,6 +11,12 @@ import Colaboradores from "./pages/Colaboradores";
 import Demonstrativo from "./pages/Demonstrativo";
 import DespesasContrato from "./pages/DespesasContrato";
 import DespesasSemContrato from "./pages/DespesasSemContrato";
+import CustosPorSecretaria from "./pages/CustosPorSecretaria";
+import CustoPorArea from "./pages/CustoPorArea";
+import CustosTotal from "./pages/CustosTotal";
+import EficienciaServidor from "./pages/EficienciaServidor";
+import CustoServidor from "./pages/CustoServidor";
+import QuantidadeServidores from "./pages/QuantidadeServidores";
 
 function Router() {
   return (
@@ -22,6 +28,12 @@ function Router() {
       <Route path="/demonstrativo" component={Demonstrativo} />
       <Route path="/despesas-com-contrato" component={DespesasContrato} />
       <Route path="/despesas-sem-contrato" component={DespesasSemContrato} />
+      <Route path="/custos-por-secretaria" component={CustosPorSecretaria} />
+      <Route path="/custo-por-area" component={CustoPorArea} />
+      <Route path="/custos-total" component={CustosTotal} />
+      <Route path="/eficiencia-servidor" component={EficienciaServidor} />
+      <Route path="/custo-servidor" component={CustoServidor} />
+      <Route path="/quantidade-servidores" component={QuantidadeServidores} />
       <Route path="/404" component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

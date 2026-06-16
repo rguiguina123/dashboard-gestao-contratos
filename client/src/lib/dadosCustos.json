@@ -1,0 +1,1101 @@
+{
+  "visao_geral": [
+    {
+      "SEC": "SEC-AC",
+      "Energia Elétrica": 38752.95,
+      "Água e Esgoto": 0,
+      "Condomínio": 0,
+      "Locação Imóvel": 134708.40000000002,
+      "Manutenção Predial": 34012.3,
+      "Motorista/Segurança pessoal de ministros": 0,
+      "Vigilância": 0,
+      "Apoio Adm + Copeiragem + Limpeza + Recepção (Mão de obra e materiais)": 306595.32,
+      "Rateio": 0,
+      "Taxa de lixo": null,
+      "Total": 514068.97000000003,
+      "Área da Sec (m2)": 254.84,
+      "Qtd de servidores": 4,
+      "Área/Servidor": 63.71,
+      "Custo/Servidor": 128517.24250000001,
+      "Custo/Área": 2017.222453304034,
+      "Observação": null
+    },
+    {
+      "SEC": "SEC-AL",
+      "Energia Elétrica": 89028.38,
+      "Água e Esgoto": 31400.4,
+      "Condomínio": 0,
+      "Locação Imóvel": 0,
+      "Manutenção Predial": 186055.49,
+      "Motorista/Segurança pessoal de ministros": 0,
+      "Vigilância": 279991.68,
+      "Apoio Adm + Copeiragem + Limpeza + Recepção (Mão de obra e materiais)": 314608.08,
+      "Rateio": 0,
+      "Taxa de lixo": null,
+      "Total": 901084.03,
+      "Área da Sec (m2)": 1285.2,
+      "Qtd de servidores": 11,
+      "Área/Servidor": 116.83636363636364,
+      "Custo/Servidor": 81916.73,
+      "Custo/Área": 701.1235838779957,
+      "Observação": "manutenção predial mais ampla para correção de problemas com infiltração"
+    },
+    {
+      "SEC": "SEC-AM",
+      "Energia Elétrica": 38700.48,
+      "Água e Esgoto": 0,
+      "Condomínio": 102000,
+      "Locação Imóvel": 294213.24,
+      "Manutenção Predial": 21918.59,
+      "Motorista/Segurança pessoal de ministros": 0,
+      "Vigilância": 0,
+      "Apoio Adm + Copeiragem + Limpeza + Recepção (Mão de obra e materiais)": 292002.36,
+      "Rateio": 0,
+      "Taxa de lixo": null,
+      "Total": 748834.6699999999,
+      "Área da Sec (m2)": 228.54,
+      "Qtd de servidores": 10,
+      "Área/Servidor": 22.854,
+      "Custo/Servidor": 74883.46699999999,
+      "Custo/Área": 3276.6022140544324,
+      "Observação": null
+    },
+    {
+      "SEC": "SEC-AP",
+      "Energia Elétrica": 80933.31,
+      "Água e Esgoto": 0,
+      "Condomínio": 0,
+      "Locação Imóvel": 0,
+      "Manutenção Predial": 233817.24,
+      "Motorista/Segurança pessoal de ministros": 0,
+      "Vigilância": 302400,
+      "Apoio Adm + Copeiragem + Limpeza + Recepção (Mão de obra e materiais)": 291711.83999999997,
+      "Rateio": 0,
+      "Taxa de lixo": null,
+      "Total": 908862.39,
+      "Área da Sec (m2)": 1406,
+      "Qtd de servidores": 6,
+      "Área/Servidor": 234.33333333333334,
+      "Custo/Servidor": 151477.065,
+      "Custo/Área": 646.4170625889047,
+      "Observação": null
+    },
+    {
+      "SEC": "SEC-BA",
+      "Energia Elétrica": 62399.3,
+      "Água e Esgoto": 0,
+      "Condomínio": 132000,
+      "Locação Imóvel": 0,
+      "Manutenção Predial": 187356.34999999998,
+      "Motorista/Segurança pessoal de ministros": 0,
+      "Vigilância": 0,
+      "Apoio Adm + Copeiragem + Limpeza + Recepção (Mão de obra e materiais)": 397327.55999999994,
+      "Rateio": 0,
+      "Taxa de lixo": null,
+      "Total": 779083.21,
+      "Área da Sec (m2)": 714,
+      "Qtd de servidores": 23,
+      "Área/Servidor": 31.043478260869566,
+      "Custo/Servidor": 33873.18304347826,
+      "Custo/Área": 1091.1529551820727,
+      "Observação": null
+    },
+    {
+      "SEC": "SEC-CE",
+      "Energia Elétrica": 54486.74,
+      "Água e Esgoto": 0,
+      "Condomínio": 0,
+      "Locação Imóvel": 0,
+      "Manutenção Predial": 139947.45,
+      "Motorista/Segurança pessoal de ministros": 0,
+      "Vigilância": 0,
+      "Apoio Adm + Copeiragem + Limpeza + Recepção (Mão de obra e materiais)": 218430.84,
+      "Rateio": 57.42,
+      "Taxa de lixo": null,
+      "Total": 412922.45,
+      "Área da Sec (m2)": 294.25,
+      "Qtd de servidores": 19,
+      "Área/Servidor": 15.486842105263158,
+      "Custo/Servidor": 21732.76052631579,
+      "Custo/Área": 1403.3048428207308,
+      "Observação": null
+    },
+    {
+      "SEC": "SEC-ES",
+      "Energia Elétrica": 21471.14,
+      "Água e Esgoto": 937.03,
+      "Condomínio": 28800,
+      "Locação Imóvel": 228000,
+      "Manutenção Predial": 35516.799999999996,
+      "Motorista/Segurança pessoal de ministros": 0,
+      "Vigilância": 0,
+      "Apoio Adm + Copeiragem + Limpeza + Recepção (Mão de obra e materiais)": 318258.48,
+      "Rateio": 0,
+      "Taxa de lixo": null,
+      "Total": 632983.45,
+      "Área da Sec (m2)": 252.26,
+      "Qtd de servidores": 15,
+      "Área/Servidor": 16.817333333333334,
+      "Custo/Servidor": 42198.89666666666,
+      "Custo/Área": 2509.250178387378,
+      "Observação": null
+    },
+    {
+      "SEC": "SEC-GO",
+      "Energia Elétrica": 93653.06,
+      "Água e Esgoto": 0,
+      "Condomínio": 0,
+      "Locação Imóvel": 0,
+      "Manutenção Predial": 172375.44,
+      "Motorista/Segurança pessoal de ministros": 0,
+      "Vigilância": 0,
+      "Apoio Adm + Copeiragem + Limpeza + Recepção (Mão de obra e materiais)": 512820.24,
+      "Rateio": 0,
+      "Taxa de lixo": null,
+      "Total": 778848.74,
+      "Área da Sec (m2)": 1355,
+      "Qtd de servidores": 24,
+      "Área/Servidor": 56.458333333333336,
+      "Custo/Servidor": 32452.030833333334,
+      "Custo/Área": 574.7961180811808,
+      "Observação": null
+    },
+    {
+      "SEC": "SEC-MA",
+      "Energia Elétrica": 37709.79,
+      "Água e Esgoto": 0,
+      "Condomínio": 36957.38,
+      "Locação Imóvel": 286096.08,
+      "Manutenção Predial": 33695.65,
+      "Motorista/Segurança pessoal de ministros": 640473.48,
+      "Vigilância": 0,
+      "Apoio Adm + Copeiragem + Limpeza + Recepção (Mão de obra e materiais)": 253212,
+      "Rateio": 0,
+      "Taxa de lixo": null,
+      "Total": 1288144.38,
+      "Área da Sec (m2)": 248.71,
+      "Qtd de servidores": 17,
+      "Área/Servidor": 14.63,
+      "Custo/Servidor": 75773.19882352941,
+      "Custo/Área": 5179.302722045755,
+      "Observação": null
+    },
+    {
+      "SEC": "SEC-MG",
+      "Energia Elétrica": 74269.27,
+      "Água e Esgoto": 0,
+      "Condomínio": 145200,
+      "Locação Imóvel": 0,
+      "Manutenção Predial": 22394.53,
+      "Motorista/Segurança pessoal de ministros": 0,
+      "Vigilância": 0,
+      "Apoio Adm + Copeiragem + Limpeza + Recepção (Mão de obra e materiais)": 380719.44,
+      "Rateio": 0,
+      "Taxa de lixo": 3406.16,
+      "Total": 625989.4,
+      "Área da Sec (m2)": 856.84,
+      "Qtd de servidores": 25,
+      "Área/Servidor": 34.2736,
+      "Custo/Servidor": 25039.576,
+      "Custo/Área": 730.5791046169646,
+      "Observação": null
+    },
+    {
+      "SEC": "SEC-MS",
+      "Energia Elétrica": 42674.05,
+      "Água e Esgoto": 5002.08,
+      "Condomínio": 0,
+      "Locação Imóvel": 0,
+      "Manutenção Predial": 116015.21,
+      "Motorista/Segurança pessoal de ministros": 0,
+      "Vigilância": 15000,
+      "Apoio Adm + Copeiragem + Limpeza + Recepção (Mão de obra e materiais)": 262212.24,
+      "Rateio": 0,
+      "Taxa de lixo": 3315.09,
+      "Total": 444218.67000000004,
+      "Área da Sec (m2)": 657,
+      "Qtd de servidores": 12,
+      "Área/Servidor": 54.75,
+      "Custo/Servidor": 37018.2225,
+      "Custo/Área": 676.1319178082192,
+      "Observação": null
+    },
+    {
+      "SEC": "SEC-MT",
+      "Energia Elétrica": 53385.58,
+      "Água e Esgoto": 0,
+      "Condomínio": 107791.2,
+      "Locação Imóvel": 0,
+      "Manutenção Predial": 12932.960000000001,
+      "Motorista/Segurança pessoal de ministros": 0,
+      "Vigilância": 0,
+      "Apoio Adm + Copeiragem + Limpeza + Recepção (Mão de obra e materiais)": 288020.04,
+      "Rateio": 0,
+      "Taxa de lixo": null,
+      "Total": 462129.77999999997,
+      "Área da Sec (m2)": 615.6,
+      "Qtd de servidores": 9,
+      "Área/Servidor": 68.4,
+      "Custo/Servidor": 51347.75333333333,
+      "Custo/Área": 750.6981481481481,
+      "Observação": null
+    },
+    {
+      "SEC": "SEC-PA",
+      "Energia Elétrica": 85704.87,
+      "Água e Esgoto": 2835.3,
+      "Condomínio": 0,
+      "Locação Imóvel": 0,
+      "Manutenção Predial": 501241.81,
+      "Motorista/Segurança pessoal de ministros": 0,
+      "Vigilância": 314247.48,
+      "Apoio Adm + Copeiragem + Limpeza + Recepção (Mão de obra e materiais)": 353446.68,
+      "Rateio": 0,
+      "Taxa de lixo": null,
+      "Total": 1257476.14,
+      "Área da Sec (m2)": 1759.4,
+      "Qtd de servidores": 11,
+      "Área/Servidor": 159.94545454545457,
+      "Custo/Servidor": 114316.01272727271,
+      "Custo/Área": 714.7187336592019,
+      "Observação": "Serviços realizados junto a SPU/PA relacionadas ao Termo de Compromisso assinado entre TCU e a SPU"
+    },
+    {
+      "SEC": "SEC-PB",
+      "Energia Elétrica": 21969.99,
+      "Água e Esgoto": 0,
+      "Condomínio": 98697,
+      "Locação Imóvel": 381981.24,
+      "Manutenção Predial": 13005.39,
+      "Motorista/Segurança pessoal de ministros": 829946.8800000001,
+      "Vigilância": 0,
+      "Apoio Adm + Copeiragem + Limpeza + Recepção (Mão de obra e materiais)": 292190.88,
+      "Rateio": 0,
+      "Taxa de lixo": null,
+      "Total": 1637791.38,
+      "Área da Sec (m2)": 367.53,
+      "Qtd de servidores": 22,
+      "Área/Servidor": 16.70590909090909,
+      "Custo/Servidor": 74445.06272727273,
+      "Custo/Área": 4456.211411313362,
+      "Observação": null
+    },
+    {
+      "SEC": "SEC-PE",
+      "Energia Elétrica": 21141.25,
+      "Água e Esgoto": 2384.77,
+      "Condomínio": 82753.56,
+      "Locação Imóvel": 114000,
+      "Manutenção Predial": 325094.89,
+      "Motorista/Segurança pessoal de ministros": 0,
+      "Vigilância": 0,
+      "Apoio Adm + Copeiragem + Limpeza + Recepção (Mão de obra e materiais)": 289132.44,
+      "Rateio": 0,
+      "Taxa de lixo": null,
+      "Total": 834506.9099999999,
+      "Área da Sec (m2)": 324.87,
+      "Qtd de servidores": 26,
+      "Área/Servidor": 12.495000000000001,
+      "Custo/Servidor": 32096.419615384613,
+      "Custo/Área": 2568.741065657032,
+      "Observação": "Adaptações das novas salas alugadas para ampliação do espaço aos usuários internos"
+    },
+    {
+      "SEC": "SEC-PI",
+      "Energia Elétrica": 79265.28,
+      "Água e Esgoto": 0,
+      "Condomínio": 132028.8,
+      "Locação Imóvel": 0,
+      "Manutenção Predial": 10065.86,
+      "Motorista/Segurança pessoal de ministros": 0,
+      "Vigilância": 0,
+      "Apoio Adm + Copeiragem + Limpeza + Recepção (Mão de obra e materiais)": 310917.36,
+      "Rateio": 0,
+      "Taxa de lixo": null,
+      "Total": 532277.3,
+      "Área da Sec (m2)": 580,
+      "Qtd de servidores": 15,
+      "Área/Servidor": 38.666666666666664,
+      "Custo/Servidor": 35485.153333333335,
+      "Custo/Área": 917.7194827586208,
+      "Observação": null
+    },
+    {
+      "SEC": "SEC-PR",
+      "Energia Elétrica": 21701.07,
+      "Água e Esgoto": 0,
+      "Condomínio": 0,
+      "Locação Imóvel": 0,
+      "Manutenção Predial": 0,
+      "Motorista/Segurança pessoal de ministros": 0,
+      "Vigilância": 0,
+      "Apoio Adm + Copeiragem + Limpeza + Recepção (Mão de obra e materiais)": 161999.28,
+      "Rateio": 1463.36,
+      "Taxa de lixo": null,
+      "Total": 185163.71,
+      "Área da Sec (m2)": 420.82,
+      "Qtd de servidores": 24,
+      "Área/Servidor": 17.534166666666668,
+      "Custo/Servidor": 7715.154583333333,
+      "Custo/Área": 440.0069150705765,
+      "Observação": null
+    },
+    {
+      "SEC": "SEC-RJ",
+      "Energia Elétrica": 119688.04,
+      "Água e Esgoto": 0,
+      "Condomínio": 0,
+      "Locação Imóvel": 0,
+      "Manutenção Predial": 312013.22,
+      "Motorista/Segurança pessoal de ministros": 703952.88,
+      "Vigilância": 0,
+      "Apoio Adm + Copeiragem + Limpeza + Recepção (Mão de obra e materiais)": 611446.3200000001,
+      "Rateio": 11545.83,
+      "Taxa de lixo": null,
+      "Total": 1758646.29,
+      "Área da Sec (m2)": 1079.02,
+      "Qtd de servidores": 59,
+      "Área/Servidor": 18.288474576271184,
+      "Custo/Servidor": 29807.564237288138,
+      "Custo/Área": 1629.8551370688217,
+      "Observação": "Adequações de acessibilidade recente na Secretaria"
+    },
+    {
+      "SEC": "SEC-RN",
+      "Energia Elétrica": 38334.43,
+      "Água e Esgoto": 0,
+      "Condomínio": 40800,
+      "Locação Imóvel": 344700,
+      "Manutenção Predial": 7755.99,
+      "Motorista/Segurança pessoal de ministros": 0,
+      "Vigilância": 0,
+      "Apoio Adm + Copeiragem + Limpeza + Recepção (Mão de obra e materiais)": 236750.03999999998,
+      "Rateio": 3783.7,
+      "Taxa de lixo": null,
+      "Total": 672124.1599999999,
+      "Área da Sec (m2)": 225.16,
+      "Qtd de servidores": 8,
+      "Área/Servidor": 28.145,
+      "Custo/Servidor": 84015.51999999999,
+      "Custo/Área": 2985.095754130396,
+      "Observação": null
+    },
+    {
+      "SEC": "SEC-RO",
+      "Energia Elétrica": 79819.13,
+      "Água e Esgoto": 12000,
+      "Condomínio": 0,
+      "Locação Imóvel": 0,
+      "Manutenção Predial": 466476.89999999997,
+      "Motorista/Segurança pessoal de ministros": 0,
+      "Vigilância": 0,
+      "Apoio Adm + Copeiragem + Limpeza + Recepção (Mão de obra e materiais)": 208428.24,
+      "Rateio": 923.11,
+      "Taxa de lixo": 1823.05,
+      "Total": 769470.43,
+      "Área da Sec (m2)": 1296.17,
+      "Qtd de servidores": 8,
+      "Área/Servidor": 162.02125,
+      "Custo/Servidor": 96183.80375,
+      "Custo/Área": 593.6493129759214,
+      "Observação": "Adequações predial relacionadas ao compartilhamento com o MPM."
+    },
+    {
+      "SEC": "SEC-RR",
+      "Energia Elétrica": 60165.86,
+      "Água e Esgoto": 3029.47,
+      "Condomínio": 0,
+      "Locação Imóvel": 0,
+      "Manutenção Predial": 532928.93,
+      "Motorista/Segurança pessoal de ministros": 0,
+      "Vigilância": 0,
+      "Apoio Adm + Copeiragem + Limpeza + Recepção (Mão de obra e materiais)": 216429.72000000003,
+      "Rateio": 0,
+      "Taxa de lixo": null,
+      "Total": 812553.98,
+      "Área da Sec (m2)": 514.76,
+      "Qtd de servidores": 5,
+      "Área/Servidor": 102.952,
+      "Custo/Servidor": 162510.796,
+      "Custo/Área": 1578.5103349133576,
+      "Observação": "Adaptações no espaço físico relacionadas ao compartilhamento com o TRE e aquisição e modernização do sistema de climatização"
+    },
+    {
+      "SEC": "SEC-RS",
+      "Energia Elétrica": 41539.75,
+      "Água e Esgoto": 0,
+      "Condomínio": 413007.45,
+      "Locação Imóvel": 0,
+      "Manutenção Predial": 36318.3,
+      "Motorista/Segurança pessoal de ministros": 0,
+      "Vigilância": 0,
+      "Apoio Adm + Copeiragem + Limpeza + Recepção (Mão de obra e materiais)": 333622.56,
+      "Rateio": 0,
+      "Taxa de lixo": null,
+      "Total": 824488.06,
+      "Área da Sec (m2)": 1915,
+      "Qtd de servidores": 24,
+      "Área/Servidor": 79.79166666666667,
+      "Custo/Servidor": 34353.66916666667,
+      "Custo/Área": 430.54206788511755,
+      "Observação": "Medição de energia prejudicada em razão das enchentes em 2024. Contabilizado somente os 11 últimos meses a partir de agosto de 24."
+    },
+    {
+      "SEC": "SEC-SC",
+      "Energia Elétrica": 25170.5,
+      "Água e Esgoto": 0,
+      "Condomínio": 0,
+      "Locação Imóvel": 0,
+      "Manutenção Predial": 15331.51,
+      "Motorista/Segurança pessoal de ministros": 0,
+      "Vigilância": 0,
+      "Apoio Adm + Copeiragem + Limpeza + Recepção (Mão de obra e materiais)": 281204.04,
+      "Rateio": 6608.28,
+      "Taxa de lixo": 28615.12,
+      "Total": 356929.45,
+      "Área da Sec (m2)": 609.15,
+      "Qtd de servidores": 24,
+      "Área/Servidor": 25.381249999999998,
+      "Custo/Servidor": 14872.060416666667,
+      "Custo/Área": 585.9467290486745,
+      "Observação": null
+    },
+    {
+      "SEC": "SEC-SE",
+      "Energia Elétrica": 15057.34,
+      "Água e Esgoto": 4574.2,
+      "Condomínio": 168000,
+      "Locação Imóvel": 0,
+      "Manutenção Predial": 62406.49,
+      "Motorista/Segurança pessoal de ministros": 0,
+      "Vigilância": 0,
+      "Apoio Adm + Copeiragem + Limpeza + Recepção (Mão de obra e materiais)": 299142.36,
+      "Rateio": 0,
+      "Taxa de lixo": null,
+      "Total": 549180.39,
+      "Área da Sec (m2)": 348.58,
+      "Qtd de servidores": 12,
+      "Área/Servidor": 29.048333333333332,
+      "Custo/Servidor": 45765.0325,
+      "Custo/Área": 1575.4787710138276,
+      "Observação": null
+    },
+    {
+      "SEC": "SEC-SP",
+      "Energia Elétrica": 26654.05,
+      "Água e Esgoto": 0,
+      "Condomínio": 552000,
+      "Locação Imóvel": 0,
+      "Manutenção Predial": 0,
+      "Motorista/Segurança pessoal de ministros": 514992.83999999997,
+      "Vigilância": 0,
+      "Apoio Adm + Copeiragem + Limpeza + Recepção (Mão de obra e materiais)": 0,
+      "Rateio": 0,
+      "Taxa de lixo": null,
+      "Total": 1093646.8900000001,
+      "Área da Sec (m2)": 1100,
+      "Qtd de servidores": 36,
+      "Área/Servidor": 30.555555555555557,
+      "Custo/Servidor": 30379.080277777783,
+      "Custo/Área": 994.2244454545456,
+      "Observação": null
+    },
+    {
+      "SEC": "SEC-TO",
+      "Energia Elétrica": 59498.13,
+      "Água e Esgoto": 0,
+      "Condomínio": 168077.04,
+      "Locação Imóvel": 175061.52,
+      "Manutenção Predial": 9576.46,
+      "Motorista/Segurança pessoal de ministros": 0,
+      "Vigilância": 0,
+      "Apoio Adm + Copeiragem + Limpeza + Recepção (Mão de obra e materiais)": 176269.8,
+      "Rateio": 0,
+      "Taxa de lixo": null,
+      "Total": 588482.95,
+      "Área da Sec (m2)": 1288,
+      "Qtd de servidores": 8,
+      "Área/Servidor": 161,
+      "Custo/Servidor": 73560.36875,
+      "Custo/Área": 456.89670031055897,
+      "Observação": null
+    }
+  ],
+  "custo_area": [
+    {
+      "SEC": "SEC-RS",
+      "Custo/Área": 430.54206788511755
+    },
+    {
+      "SEC": "SEC-PR",
+      "Custo/Área": 440.0069150705765
+    },
+    {
+      "SEC": "SEC-TO",
+      "Custo/Área": 456.89670031055897
+    },
+    {
+      "SEC": "SEC-GO",
+      "Custo/Área": 574.7961180811808
+    },
+    {
+      "SEC": "SEC-SC",
+      "Custo/Área": 585.9467290486745
+    },
+    {
+      "SEC": "SEC-RO",
+      "Custo/Área": 593.6493129759214
+    },
+    {
+      "SEC": "SEC-AP",
+      "Custo/Área": 646.4170625889047
+    },
+    {
+      "SEC": "SEC-MS",
+      "Custo/Área": 676.1319178082192
+    },
+    {
+      "SEC": "SEC-AL",
+      "Custo/Área": 701.1235838779957
+    },
+    {
+      "SEC": "SEC-PA",
+      "Custo/Área": 714.7187336592019
+    },
+    {
+      "SEC": "SEC-MG",
+      "Custo/Área": 730.5791046169646
+    },
+    {
+      "SEC": "SEC-MT",
+      "Custo/Área": 750.6981481481481
+    },
+    {
+      "SEC": "SEC-PI",
+      "Custo/Área": 917.7194827586208
+    },
+    {
+      "SEC": "SEC-SP",
+      "Custo/Área": 994.2244454545456
+    },
+    {
+      "SEC": "SEC-BA",
+      "Custo/Área": 1091.1529551820727
+    },
+    {
+      "SEC": "SEC-CE",
+      "Custo/Área": 1403.3048428207308
+    },
+    {
+      "SEC": "SEC-SE",
+      "Custo/Área": 1575.4787710138276
+    },
+    {
+      "SEC": "SEC-RR",
+      "Custo/Área": 1578.5103349133576
+    },
+    {
+      "SEC": "SEC-RJ",
+      "Custo/Área": 1629.8551370688217
+    },
+    {
+      "SEC": "SEC-AC",
+      "Custo/Área": 1751.9308193376237
+    },
+    {
+      "SEC": "SEC-ES",
+      "Custo/Área": 2509.250178387378
+    },
+    {
+      "SEC": "SEC-PE",
+      "Custo/Área": 2568.741065657032
+    },
+    {
+      "SEC": "SEC-RN",
+      "Custo/Área": 2985.095754130396
+    },
+    {
+      "SEC": "SEC-AM",
+      "Custo/Área": 3276.6022140544324
+    },
+    {
+      "SEC": "SEC-PB",
+      "Custo/Área": 4456.211411313362
+    },
+    {
+      "SEC": "SEC-MA",
+      "Custo/Área": 5179.302722045755
+    },
+    {
+      "SEC": "Total Geral",
+      "Custo/Área": 39218.886528209405
+    }
+  ],
+  "custo_total": [
+    {
+      "SEC": "SEC-PR",
+      "Total": 185163.71
+    },
+    {
+      "SEC": "SEC-SC",
+      "Total": 356929.45
+    },
+    {
+      "SEC": "SEC-CE",
+      "Total": 412922.45
+    },
+    {
+      "SEC": "SEC-MS",
+      "Total": 444218.67000000004
+    },
+    {
+      "SEC": "SEC-AC",
+      "Total": 446462.05000000005
+    },
+    {
+      "SEC": "SEC-MT",
+      "Total": 462129.77999999997
+    },
+    {
+      "SEC": "SEC-PI",
+      "Total": 532277.3
+    },
+    {
+      "SEC": "SEC-SE",
+      "Total": 549180.39
+    },
+    {
+      "SEC": "SEC-TO",
+      "Total": 588482.95
+    },
+    {
+      "SEC": "SEC-MG",
+      "Total": 625989.4
+    },
+    {
+      "SEC": "SEC-ES",
+      "Total": 632983.45
+    },
+    {
+      "SEC": "SEC-RN",
+      "Total": 672124.1599999999
+    },
+    {
+      "SEC": "SEC-AM",
+      "Total": 748834.6699999999
+    },
+    {
+      "SEC": "SEC-RO",
+      "Total": 769470.43
+    },
+    {
+      "SEC": "SEC-GO",
+      "Total": 778848.74
+    },
+    {
+      "SEC": "SEC-BA",
+      "Total": 779083.21
+    },
+    {
+      "SEC": "SEC-RR",
+      "Total": 812553.98
+    },
+    {
+      "SEC": "SEC-RS",
+      "Total": 824488.06
+    },
+    {
+      "SEC": "SEC-PE",
+      "Total": 834506.9099999999
+    },
+    {
+      "SEC": "SEC-AL",
+      "Total": 901084.03
+    },
+    {
+      "SEC": "SEC-AP",
+      "Total": 908862.39
+    },
+    {
+      "SEC": "SEC-SP",
+      "Total": 1093646.8900000001
+    },
+    {
+      "SEC": "SEC-PA",
+      "Total": 1257476.14
+    },
+    {
+      "SEC": "SEC-MA",
+      "Total": 1288144.38
+    },
+    {
+      "SEC": "SEC-PB",
+      "Total": 1637791.38
+    },
+    {
+      "SEC": "SEC-RJ",
+      "Total": 1758646.29
+    },
+    {
+      "SEC": "Total Geral",
+      "Total": 20302301.26
+    }
+  ],
+  "custo_area_servidor": [
+    {
+      "SEC": "SEC-AC",
+      "Área/Servidor": 63.71,
+      "Custo/Servidor": 111615.51250000001
+    },
+    {
+      "SEC": "SEC-AL",
+      "Área/Servidor": 116.83636363636364,
+      "Custo/Servidor": 81916.73
+    },
+    {
+      "SEC": "SEC-AM",
+      "Área/Servidor": 22.854,
+      "Custo/Servidor": 74883.46699999999
+    },
+    {
+      "SEC": "SEC-AP",
+      "Área/Servidor": 234.33333333333334,
+      "Custo/Servidor": 151477.065
+    },
+    {
+      "SEC": "SEC-BA",
+      "Área/Servidor": 31.043478260869566,
+      "Custo/Servidor": 33873.18304347826
+    },
+    {
+      "SEC": "SEC-CE",
+      "Área/Servidor": 15.486842105263158,
+      "Custo/Servidor": 21732.76052631579
+    },
+    {
+      "SEC": "SEC-ES",
+      "Área/Servidor": 16.817333333333334,
+      "Custo/Servidor": 42198.89666666666
+    },
+    {
+      "SEC": "SEC-GO",
+      "Área/Servidor": 56.458333333333336,
+      "Custo/Servidor": 32452.030833333334
+    },
+    {
+      "SEC": "SEC-MA",
+      "Área/Servidor": 14.63,
+      "Custo/Servidor": 75773.19882352941
+    },
+    {
+      "SEC": "SEC-MG",
+      "Área/Servidor": 34.2736,
+      "Custo/Servidor": 25039.576
+    },
+    {
+      "SEC": "SEC-MS",
+      "Área/Servidor": 54.75,
+      "Custo/Servidor": 37018.2225
+    },
+    {
+      "SEC": "SEC-MT",
+      "Área/Servidor": 68.4,
+      "Custo/Servidor": 51347.75333333333
+    },
+    {
+      "SEC": "SEC-PA",
+      "Área/Servidor": 159.94545454545457,
+      "Custo/Servidor": 114316.01272727271
+    },
+    {
+      "SEC": "SEC-PB",
+      "Área/Servidor": 16.70590909090909,
+      "Custo/Servidor": 74445.06272727273
+    },
+    {
+      "SEC": "SEC-PE",
+      "Área/Servidor": 12.495000000000001,
+      "Custo/Servidor": 32096.419615384613
+    },
+    {
+      "SEC": "SEC-PI",
+      "Área/Servidor": 38.666666666666664,
+      "Custo/Servidor": 35485.153333333335
+    },
+    {
+      "SEC": "SEC-PR",
+      "Área/Servidor": 17.534166666666668,
+      "Custo/Servidor": 7715.154583333333
+    },
+    {
+      "SEC": "SEC-RJ",
+      "Área/Servidor": 18.288474576271184,
+      "Custo/Servidor": 29807.564237288138
+    },
+    {
+      "SEC": "SEC-RN",
+      "Área/Servidor": 28.145,
+      "Custo/Servidor": 84015.51999999999
+    },
+    {
+      "SEC": "SEC-RO",
+      "Área/Servidor": 162.02125,
+      "Custo/Servidor": 96183.80375
+    },
+    {
+      "SEC": "SEC-RR",
+      "Área/Servidor": 102.952,
+      "Custo/Servidor": 162510.796
+    },
+    {
+      "SEC": "SEC-RS",
+      "Área/Servidor": 79.79166666666667,
+      "Custo/Servidor": 34353.66916666667
+    },
+    {
+      "SEC": "SEC-SC",
+      "Área/Servidor": 25.381249999999998,
+      "Custo/Servidor": 14872.060416666667
+    },
+    {
+      "SEC": "SEC-SE",
+      "Área/Servidor": 29.048333333333332,
+      "Custo/Servidor": 45765.0325
+    },
+    {
+      "SEC": "SEC-SP",
+      "Área/Servidor": 30.555555555555557,
+      "Custo/Servidor": 30379.080277777783
+    },
+    {
+      "SEC": "SEC-TO",
+      "Área/Servidor": 161,
+      "Custo/Servidor": 73560.36875
+    },
+    {
+      "SEC": "Total Geral",
+      "Área/Servidor": 1612.1240111040204,
+      "Custo/Servidor": 1574834.0943116525
+    }
+  ],
+  "custo_servidor": [
+    {
+      "SEC": "SEC-AC",
+      "Custo/Servidor": 111615.51250000001
+    },
+    {
+      "SEC": "SEC-AL",
+      "Custo/Servidor": 81916.73
+    },
+    {
+      "SEC": "SEC-AM",
+      "Custo/Servidor": 74883.46699999999
+    },
+    {
+      "SEC": "SEC-AP",
+      "Custo/Servidor": 151477.065
+    },
+    {
+      "SEC": "SEC-BA",
+      "Custo/Servidor": 33873.18304347826
+    },
+    {
+      "SEC": "SEC-CE",
+      "Custo/Servidor": 21732.76052631579
+    },
+    {
+      "SEC": "SEC-ES",
+      "Custo/Servidor": 42198.89666666666
+    },
+    {
+      "SEC": "SEC-GO",
+      "Custo/Servidor": 32452.030833333334
+    },
+    {
+      "SEC": "SEC-MA",
+      "Custo/Servidor": 75773.19882352941
+    },
+    {
+      "SEC": "SEC-MG",
+      "Custo/Servidor": 25039.576
+    },
+    {
+      "SEC": "SEC-MS",
+      "Custo/Servidor": 37018.2225
+    },
+    {
+      "SEC": "SEC-MT",
+      "Custo/Servidor": 51347.75333333333
+    },
+    {
+      "SEC": "SEC-PA",
+      "Custo/Servidor": 114316.01272727271
+    },
+    {
+      "SEC": "SEC-PB",
+      "Custo/Servidor": 74445.06272727273
+    },
+    {
+      "SEC": "SEC-PE",
+      "Custo/Servidor": 32096.419615384613
+    },
+    {
+      "SEC": "SEC-PI",
+      "Custo/Servidor": 35485.153333333335
+    },
+    {
+      "SEC": "SEC-PR",
+      "Custo/Servidor": 7715.154583333333
+    },
+    {
+      "SEC": "SEC-RJ",
+      "Custo/Servidor": 29807.564237288138
+    },
+    {
+      "SEC": "SEC-RN",
+      "Custo/Servidor": 84015.51999999999
+    },
+    {
+      "SEC": "SEC-RO",
+      "Custo/Servidor": 96183.80375
+    },
+    {
+      "SEC": "SEC-RR",
+      "Custo/Servidor": 162510.796
+    },
+    {
+      "SEC": "SEC-RS",
+      "Custo/Servidor": 34353.66916666667
+    },
+    {
+      "SEC": "SEC-SC",
+      "Custo/Servidor": 14872.060416666667
+    },
+    {
+      "SEC": "SEC-SE",
+      "Custo/Servidor": 45765.0325
+    },
+    {
+      "SEC": "SEC-SP",
+      "Custo/Servidor": 30379.080277777783
+    },
+    {
+      "SEC": "SEC-TO",
+      "Custo/Servidor": 73560.36875
+    },
+    {
+      "SEC": "Total Geral",
+      "Custo/Servidor": 1574834.0943116525
+    }
+  ],
+  "servidores": [
+    {
+      "SEC": "SEC-AC",
+      "Qtd Servidores": 4
+    },
+    {
+      "SEC": "SEC-RR",
+      "Qtd Servidores": 5
+    },
+    {
+      "SEC": "SEC-AP",
+      "Qtd Servidores": 6
+    },
+    {
+      "SEC": "SEC-TO",
+      "Qtd Servidores": 8
+    },
+    {
+      "SEC": "SEC-RN",
+      "Qtd Servidores": 8
+    },
+    {
+      "SEC": "SEC-RO",
+      "Qtd Servidores": 8
+    },
+    {
+      "SEC": "SEC-MT",
+      "Qtd Servidores": 9
+    },
+    {
+      "SEC": "SEC-AM",
+      "Qtd Servidores": 10
+    },
+    {
+      "SEC": "SEC-PA",
+      "Qtd Servidores": 11
+    },
+    {
+      "SEC": "SEC-AL",
+      "Qtd Servidores": 11
+    },
+    {
+      "SEC": "SEC-SE",
+      "Qtd Servidores": 12
+    },
+    {
+      "SEC": "SEC-MS",
+      "Qtd Servidores": 12
+    },
+    {
+      "SEC": "SEC-PI",
+      "Qtd Servidores": 15
+    },
+    {
+      "SEC": "SEC-ES",
+      "Qtd Servidores": 15
+    },
+    {
+      "SEC": "SEC-MA",
+      "Qtd Servidores": 17
+    },
+    {
+      "SEC": "SEC-CE",
+      "Qtd Servidores": 19
+    },
+    {
+      "SEC": "SEC-PB",
+      "Qtd Servidores": 22
+    },
+    {
+      "SEC": "SEC-BA",
+      "Qtd Servidores": 23
+    },
+    {
+      "SEC": "SEC-PR",
+      "Qtd Servidores": 24
+    },
+    {
+      "SEC": "SEC-RS",
+      "Qtd Servidores": 24
+    },
+    {
+      "SEC": "SEC-SC",
+      "Qtd Servidores": 24
+    },
+    {
+      "SEC": "SEC-GO",
+      "Qtd Servidores": 24
+    },
+    {
+      "SEC": "SEC-MG",
+      "Qtd Servidores": 25
+    },
+    {
+      "SEC": "SEC-PE",
+      "Qtd Servidores": 26
+    },
+    {
+      "SEC": "SEC-SP",
+      "Qtd Servidores": 36
+    },
+    {
+      "SEC": "SEC-RJ",
+      "Qtd Servidores": 59
+    },
+    {
+      "SEC": "Total Geral",
+      "Qtd Servidores": 457
+    }
+  ]
+}
