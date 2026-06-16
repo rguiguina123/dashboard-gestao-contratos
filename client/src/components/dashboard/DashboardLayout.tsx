@@ -10,6 +10,9 @@ import {
   Menu,
   X,
   Home,
+  TrendingUp,
+  Zap,
+  Server,
 } from "lucide-react";
 
 interface DashboardLayoutProps {
@@ -52,6 +55,36 @@ const navItems: NavItem[] = [
     label: "Despesas sem Contrato",
     href: "/despesas-sem-contrato",
     icon: <DollarSign className="w-5 h-5" />,
+  },
+  {
+    label: "Custos por Secretaria",
+    href: "/custos-por-secretaria",
+    icon: <BarChart3 className="w-5 h-5" />,
+  },
+  {
+    label: "Custo por Área",
+    href: "/custo-por-area",
+    icon: <TrendingUp className="w-5 h-5" />,
+  },
+  {
+    label: "Custos Totais",
+    href: "/custos-total",
+    icon: <DollarSign className="w-5 h-5" />,
+  },
+  {
+    label: "Eficiência por Servidor",
+    href: "/eficiencia-servidor",
+    icon: <Zap className="w-5 h-5" />,
+  },
+  {
+    label: "Custo por Servidor",
+    href: "/custo-servidor",
+    icon: <Server className="w-5 h-5" />,
+  },
+  {
+    label: "Quantidade de Servidores",
+    href: "/quantidade-servidores",
+    icon: <Server className="w-5 h-5" />,
   },
 ];
 
