@@ -138,7 +138,13 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative w-full min-h-screen md:h-screen overflow-hidden flex items-center justify-center">
         {/* Gradient Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-blue-800 to-teal-700"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-950 via-blue-900 to-teal-800"></div>
+        
+        {/* Blueprint Grid Pattern */}
+        <div className="absolute inset-0 opacity-15" style={{
+          backgroundImage: `linear-gradient(0deg, transparent 24%, rgba(255,255,255,0.08) 25%, rgba(255,255,255,0.08) 26%, transparent 27%, transparent 74%, rgba(255,255,255,0.08) 75%, rgba(255,255,255,0.08) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(255,255,255,0.08) 25%, rgba(255,255,255,0.08) 26%, transparent 27%, transparent 74%, rgba(255,255,255,0.08) 75%, rgba(255,255,255,0.08) 76%, transparent 77%, transparent)`,
+          backgroundSize: '60px 60px'
+        }}></div>
         
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
