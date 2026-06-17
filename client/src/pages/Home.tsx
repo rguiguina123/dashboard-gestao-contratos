@@ -136,15 +136,14 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative w-full min-h-screen md:h-screen overflow-hidden flex items-center justify-center">
-        {/* Gradient Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-950 via-blue-900 to-teal-800"></div>
-        
-        {/* Blueprint Grid Pattern */}
-        <div className="absolute inset-0 opacity-15" style={{
-          backgroundImage: `linear-gradient(0deg, transparent 24%, rgba(255,255,255,0.08) 25%, rgba(255,255,255,0.08) 26%, transparent 27%, transparent 74%, rgba(255,255,255,0.08) 75%, rgba(255,255,255,0.08) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(255,255,255,0.08) 25%, rgba(255,255,255,0.08) 26%, transparent 27%, transparent 74%, rgba(255,255,255,0.08) 75%, rgba(255,255,255,0.08) 76%, transparent 77%, transparent)`,
-          backgroundSize: '60px 60px'
-        }}></div>
+      <section className="relative w-full min-h-screen md:h-screen overflow-hidden flex items-center justify-center" style={{
+        backgroundImage: 'url(https://files.manuscdn.com/user_upload_by_module/session_file/310419663029089241/OBHmqftkZqjDccYq.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed'
+      }}>
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black/50"></div>
         
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
