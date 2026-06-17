@@ -32,7 +32,7 @@ const moduleIcons = {
 
 export default function Home() {
   const heroImageUrl =
-    "https://d2xsxph8kpxj0f.cloudfront.net/310419663029089241/WJWhmX29eSkoE3JJHDcEoo/hero-dashboard-bg-J6faU2HzY3D6GkKLLbXyx4.webp";
+    "https://files.manuscdn.com/user_upload_by_module/session_file/310419663029089241/ZLevtFeZdFxCuKLE.jpg";
 
   const modules = [
     {
@@ -145,10 +145,10 @@ export default function Home() {
         <div className="absolute inset-0 bg-black/40"></div>
         <div className="relative z-10 max-w-4xl mx-auto px-4">
           <h1 className="text-5xl md:text-6xl font-bold text-white font-poppins mb-4">
-            Gestão de Contrato
+            Relatório TCU
           </h1>
           <p className="text-xl md:text-2xl text-white/90 mb-8">
-            Contratos e Colaboradores
+            Gestão de Contratos e Colaboradores
           </p>
           <p className="text-lg text-white/80 max-w-2xl mx-auto">
             Visualize e gerencie todos os dados de contratos, colaboradores e
