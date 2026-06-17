@@ -625,10 +625,6 @@
     {
       "SEC": "SEC-MA",
       "Custo/Área": 5179.302722045755
-    },
-    {
-      "SEC": "Total Geral",
-      "Custo/Área": 39218.886528209405
     }
   ],
   "custo_total": [
@@ -735,10 +731,6 @@
     {
       "SEC": "SEC-RJ",
       "Total": 1758646.29
-    },
-    {
-      "SEC": "Total Geral",
-      "Total": 20302301.26
     }
   ],
   "custo_area_servidor": [
@@ -871,11 +863,6 @@
       "SEC": "SEC-TO",
       "Área/Servidor": 161,
       "Custo/Servidor": 73560.36875
-    },
-    {
-      "SEC": "Total Geral",
-      "Área/Servidor": 1612.1240111040204,
-      "Custo/Servidor": 1574834.0943116525
     }
   ],
   "custo_servidor": [
@@ -982,10 +969,6 @@
     {
       "SEC": "SEC-TO",
       "Custo/Servidor": 73560.36875
-    },
-    {
-      "SEC": "Total Geral",
-      "Custo/Servidor": 1574834.0943116525
     }
   ],
   "servidores": [
@@ -1092,10 +1075,6 @@
     {
       "SEC": "SEC-RJ",
       "Qtd Servidores": 59
-    },
-    {
-      "SEC": "Total Geral",
-      "Qtd Servidores": 457
     }
   ]
 }

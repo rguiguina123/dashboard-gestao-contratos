@@ -32,6 +32,7 @@ interface ContratoDisplay {
 
 export default function Contratos() {
   const [selectedSEC, setSelectedSEC] = useState<string>("all");
+  const [selectedObjeto, setSelectedObjeto] = useState<string>("all");
   const [selectedContract, setSelectedContract] = useState<ContratoDisplay | null>(null);
 
   // Função para converter data DD/MM/YYYY em Date
@@ -59,12 +60,29 @@ export default function Contratos() {
     return diffDays;
   };
 
+  // Extrair objetos únicos dos contratos
+  const objetosUnicos = useMemo(() => {
+    const objetos = new Set(contratos.map((c) => c.objeto).filter(Boolean));
+    return Array.from(objetos).sort();
+  }, []);
+
   // Filtrar e ordenar contratos por data de vencimento
   const filteredContratos = useMemo(() => {
-    let filtered = selectedSEC === "all" ? contratos : contratos.filter((c) => c.sec === selectedSEC);
+    let filtered = contratos;
+    
+    // Filtrar por SEC
+    if (selectedSEC !== "all") {
+      filtered = filtered.filter((c) => c.sec === selectedSEC);
+    }
+    
+    // Filtrar por Objeto
+    if (selectedObjeto !== "all") {
+      filtered = filtered.filter((c) => c.objeto === selectedObjeto);
+    }
+    
     // Ordenar por data de vencimento (mais próximas primeiro)
     return filtered.sort((a, b) => parseDate(a.dataVencimento).getTime() - parseDate(b.dataVencimento).getTime());
-  }, [selectedSEC]);
+  }, [selectedSEC, selectedObjeto]);
 
   // Calcular totais
   const totais = useMemo(() => {
@@ -122,9 +140,9 @@ export default function Contratos() {
           <p className="text-gray-600 mt-2">Gestão e análise de todos os contratos vigentes</p>
         </div>
 
-        {/* Filtro */}
-        <div className="flex gap-4 items-end">
-          <div className="flex-1 max-w-xs">
+        {/* Filtros */}
+        <div className="flex gap-4 items-end flex-wrap">
+          <div className="flex-1 min-w-xs">
             <label className="text-sm font-medium text-gray-700 mb-2 block">Filtrar por SEC</label>
             <Select value={selectedSEC} onValueChange={setSelectedSEC}>
               <SelectTrigger>
@@ -135,6 +153,23 @@ export default function Contratos() {
                 {allSecs.map((sec) => (
                   <SelectItem key={sec} value={sec}>
                     {sec}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          
+          <div className="flex-1 min-w-xs">
+            <label className="text-sm font-medium text-gray-700 mb-2 block">Filtrar por Objeto</label>
+            <Select value={selectedObjeto} onValueChange={setSelectedObjeto}>
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Todos os Objetos</SelectItem>
+                {objetosUnicos.map((objeto) => (
+                  <SelectItem key={objeto} value={objeto}>
+                    {objeto}
                   </SelectItem>
                 ))}
               </SelectContent>
