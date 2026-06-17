@@ -136,21 +136,58 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section
-        className="relative w-full min-h-screen md:h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center text-center"
-        style={{
-          backgroundImage: `url('${heroImageUrl}')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundAttachment: 'fixed',
-        }}
-      >
-        <div className="absolute inset-0 bg-black/40"></div>
-        <div className="relative z-10 max-w-4xl mx-auto px-4 flex flex-col items-center justify-center h-full">
-          <h1 className="text-7xl md:text-8xl font-bold text-white font-poppins tracking-tight drop-shadow-lg">
-            Relatório TCU
+      <section className="relative w-full min-h-screen md:h-screen overflow-hidden flex items-center justify-center">
+        {/* Gradient Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-blue-800 to-teal-700"></div>
+        
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          {/* Floating Circle 1 */}
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-400/10 rounded-full blur-3xl animate-pulse"></div>
+          {/* Floating Circle 2 */}
+          <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-teal-400/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 max-w-6xl mx-auto px-4 py-20 flex flex-col items-center justify-center text-center">
+          {/* Subtitle */}
+          <div className="mb-6 inline-block">
+            <span className="text-teal-200 text-sm font-semibold tracking-widest uppercase">Tribunal de Contas da Uniao</span>
+          </div>
+
+          {/* Main Title */}
+          <h1 className="text-6xl md:text-7xl lg:text-8xl font-black text-white font-poppins mb-6 leading-tight tracking-tight" style={{
+            textShadow: '0 20px 40px rgba(0,0,0,0.3)',
+            letterSpacing: '-0.02em'
+          }}>
+            Relatorio<br /><span className="bg-gradient-to-r from-teal-200 to-blue-200 bg-clip-text text-transparent">TCU</span>
           </h1>
-          <div className="mt-8 w-24 h-1 bg-white/60 rounded-full"></div>
+
+          {/* Description */}
+          <p className="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto mb-10 leading-relaxed">
+            Gestao inteligente de contratos e colaboradores em um unico lugar
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Link href="/dashboard">
+              <button className="px-8 py-4 bg-white text-blue-900 font-semibold rounded-lg hover:bg-blue-50 transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105">
+                Explorar Dashboard
+              </button>
+            </Link>
+            <Link href="/contratos">
+              <button className="px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-lg hover:bg-white/10 transition-all duration-300">
+                Ver Contratos
+              </button>
+            </Link>
+          </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
+          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
         </div>
       </section>
 
