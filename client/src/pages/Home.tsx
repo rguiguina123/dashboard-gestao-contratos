@@ -146,17 +146,11 @@ export default function Home() {
         }}
       >
         <div className="absolute inset-0 bg-black/40"></div>
-        <div className="relative z-10 max-w-4xl mx-auto px-4">
-          <h1 className="text-5xl md:text-6xl font-bold text-white font-poppins mb-4">
+        <div className="relative z-10 max-w-4xl mx-auto px-4 flex flex-col items-center justify-center h-full">
+          <h1 className="text-7xl md:text-8xl font-bold text-white font-poppins tracking-tight drop-shadow-lg">
             Relatório TCU
           </h1>
-          <p className="text-xl md:text-2xl text-white/90 mb-8">
-            Gestão de Contratos e Colaboradores
-          </p>
-          <p className="text-lg text-white/80 max-w-2xl mx-auto">
-            Visualize e gerencie todos os dados de contratos, colaboradores e
-            despesas em um único lugar
-          </p>
+          <div className="mt-8 w-24 h-1 bg-white/60 rounded-full"></div>
         </div>
       </section>
 
