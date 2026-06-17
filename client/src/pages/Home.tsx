@@ -137,9 +137,12 @@ export default function Home() {
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <section
-        className="relative h-96 bg-cover bg-center flex items-center justify-center text-center"
+        className="relative w-full min-h-screen md:h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center text-center"
         style={{
           backgroundImage: `url('${heroImageUrl}')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed',
         }}
       >
         <div className="absolute inset-0 bg-black/40"></div>
