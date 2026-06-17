@@ -32,7 +32,7 @@ const moduleIcons = {
 
 export default function Home() {
   const heroImageUrl =
-    "https://files.manuscdn.com/user_upload_by_module/session_file/310419663029089241/ZLevtFeZdFxCuKLE.jpg";
+    "https://files.manuscdn.com/user_upload_by_module/session_file/310419663029089241/rikWXQFjWRMxpsSx.jpg";
 
   const modules = [
     {
