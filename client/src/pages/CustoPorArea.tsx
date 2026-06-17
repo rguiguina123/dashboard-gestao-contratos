@@ -19,6 +19,9 @@ export default function CustoPorArea() {
   const media = custoArea.length > 0 
     ? custoArea.reduce((sum, item) => sum + (item['Custo/Área'] || 0), 0) / custoArea.length
     : 0;
+  
+  // Total Geral (soma de todos os custos por área)
+  const totalGeral = custoArea.reduce((sum, item) => sum + (item['Custo/Área'] || 0), 0);
 
   // Dados para gráfico
   const chartData = sortedData.map(item => ({
@@ -36,7 +39,16 @@ export default function CustoPorArea() {
         </div>
 
         {/* Métricas */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+          <Card className="border-0 shadow-sm">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-slate-600">Total Geral</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-slate-900">{formatCurrency(totalGeral)}</div>
+              <p className="text-xs text-slate-500 mt-1">Soma de todos os custos/m²</p>
+            </CardContent>
+          </Card>
           <Card className="border-0 shadow-sm">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-slate-600">Custo Médio por Área</CardTitle>

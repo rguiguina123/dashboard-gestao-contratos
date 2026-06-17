@@ -20,6 +20,7 @@ export default function CustoServidor() {
     ? custoServidor.reduce((sum, item) => sum + (item['Custo/Servidor'] || 0), 0) / custoServidor.length
     : 0;
   
+  const totalGeral = custoServidor.reduce((sum, item) => sum + (item['Custo/Servidor'] || 0), 0);
   const maiorCusto = sortedData[0]?.['Custo/Servidor'] || 0;
   const menorCusto = sortedData[sortedData.length - 1]?.['Custo/Servidor'] || 0;
 
@@ -40,6 +41,16 @@ export default function CustoServidor() {
 
         {/* Métricas */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <Card className="border-0 shadow-sm">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-slate-600">Total Geral</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-slate-900">{formatCurrency(totalGeral)}</div>
+              <p className="text-xs text-slate-500 mt-1">Soma de todos os custos/servidor</p>
+            </CardContent>
+          </Card>
+
           <Card className="border-0 shadow-sm">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-slate-600">Custo Médio/Servidor</CardTitle>

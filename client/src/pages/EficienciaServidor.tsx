@@ -13,12 +13,15 @@ export default function EficienciaServidor() {
   const sortedByArea = [...custoAreaServidor].sort((a, b) => (b['Área/Servidor'] || 0) - (a['Área/Servidor'] || 0));
   
   // Totalizadores
+  const custoTotalServidor = custoAreaServidor.reduce((sum, item) => sum + (item['Custo/Servidor'] || 0), 0);
+  const areaTotalServidor = custoAreaServidor.reduce((sum, item) => sum + (item['Área/Servidor'] || 0), 0);
+  
   const custoMedioServidor = custoAreaServidor.length > 0
-    ? custoAreaServidor.reduce((sum, item) => sum + (item['Custo/Servidor'] || 0), 0) / custoAreaServidor.length
+    ? custoTotalServidor / custoAreaServidor.length
     : 0;
   
   const areaMedioServidor = custoAreaServidor.length > 0
-    ? custoAreaServidor.reduce((sum, item) => sum + (item['Área/Servidor'] || 0), 0) / custoAreaServidor.length
+    ? areaTotalServidor / custoAreaServidor.length
     : 0;
 
   const maiorCustoServidor = sortedByCusto[0]?.['Custo/Servidor'] || 0;
@@ -52,6 +55,16 @@ export default function EficienciaServidor() {
 
         {/* Métricas */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <Card className="border-0 shadow-sm">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-slate-600">Total Geral</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-slate-900">{formatCurrency(custoTotalServidor)}</div>
+              <p className="text-xs text-slate-500 mt-1">Soma de todos os custos/servidor</p>
+            </CardContent>
+          </Card>
+
           <Card className="border-0 shadow-sm">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-slate-600 flex items-center gap-2">
