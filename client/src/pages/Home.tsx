@@ -137,7 +137,7 @@ export default function Home() {
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <section className="relative w-full min-h-screen md:h-screen overflow-hidden flex items-center justify-center" style={{
-        backgroundImage: 'url(https://files.manuscdn.com/user_upload_by_module/session_file/310419663029089241/nAliTtVNClOsBqQe.jpg)',
+        backgroundImage: 'url(https://files.manuscdn.com/user_upload_by_module/session_file/310419663029089241/EfhvJQgUIbupmRzf.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed'
