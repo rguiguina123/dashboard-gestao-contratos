@@ -143,7 +143,7 @@ export default function Home() {
         backgroundAttachment: 'fixed'
       }}>
         {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="absolute inset-0 bg-black/30"></div>
         
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
@@ -155,23 +155,13 @@ export default function Home() {
 
         {/* Content */}
         <div className="relative z-10 max-w-6xl mx-auto px-4 py-20 flex flex-col items-center justify-center text-center">
-          {/* Subtitle */}
-          <div className="mb-6 inline-block">
-            <span className="text-teal-200 text-sm font-semibold tracking-widest uppercase">Tribunal de Contas da Uniao</span>
-          </div>
-
-          {/* Main Title */}
-          <h1 className="text-6xl md:text-7xl lg:text-8xl font-black text-white font-poppins mb-6 leading-tight tracking-tight" style={{
-            textShadow: '0 20px 40px rgba(0,0,0,0.3)',
-            letterSpacing: '-0.02em'
+          {/* Main Title - Minimalista */}
+          <h1 className="text-9xl md:text-10xl lg:text-11xl font-black text-white font-poppins mb-12 leading-tight tracking-tight" style={{
+            textShadow: '0 10px 30px rgba(0,0,0,0.2)',
+            letterSpacing: '-0.03em'
           }}>
-            Relatorio<br /><span className="bg-gradient-to-r from-teal-200 to-blue-200 bg-clip-text text-transparent">TCU</span>
+            <span className="bg-gradient-to-r from-teal-200 to-blue-200 bg-clip-text text-transparent">TCU</span>
           </h1>
-
-          {/* Description */}
-          <p className="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto mb-10 leading-relaxed">
-            Gestao inteligente de contratos e colaboradores em um unico lugar
-          </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
