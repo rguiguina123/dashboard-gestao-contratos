@@ -153,10 +153,15 @@ export default function Home() {
           <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-teal-400/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
         </div>
 
+        {/* Logo Corner */}
+        <div className="absolute top-8 left-8 z-20">
+          <img src="https://d2xsxph8kpxj0f.cloudfront.net/310419663029089241/WJWhmX29eSkoE3JJHDcEoo/tcu-logo-icon-LMRiQTBgf8v9M4zNSa3vBo.webp" alt="TCU Logo" className="w-16 h-16 md:w-20 md:h-20 drop-shadow-lg" />
+        </div>
+
         {/* Content */}
         <div className="relative z-10 max-w-6xl mx-auto px-4 py-20 flex flex-col items-center justify-center text-center">
-          {/* Main Title - Minimalista */}
-          <h1 className="text-9xl md:text-10xl lg:text-11xl font-black text-white font-poppins mb-12 leading-tight tracking-tight" style={{
+          {/* Main Title - Minimalista (Reduzido) */}
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-white font-poppins mb-12 leading-tight tracking-tight" style={{
             textShadow: '0 10px 30px rgba(0,0,0,0.2)',
             letterSpacing: '-0.03em'
           }}>
