@@ -138,9 +138,11 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative w-full min-h-screen md:h-screen overflow-hidden flex items-center justify-center" style={{
         backgroundImage: 'url(https://files.manuscdn.com/user_upload_by_module/session_file/310419663029089241/EfhvJQgUIbupmRzf.jpg)',
-        backgroundSize: 'cover',
+        backgroundSize: 'contain',
         backgroundPosition: 'center',
-        backgroundAttachment: 'fixed'
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'fixed',
+        backgroundColor: '#e5e7eb'
       }}>
         {/* Dark Overlay */}
         <div className="absolute inset-0 bg-black/30"></div>
@@ -155,7 +157,7 @@ export default function Home() {
 
         {/* Logo Corner */}
         <div className="absolute top-8 left-8 z-20">
-          <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663029089241/KvtkkGAlZFOEuCdq.png" alt="TCU Logo" className="w-20 h-20 md:w-24 md:h-24 drop-shadow-lg" />
+          <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663029089241/ONstaIQTTddblJwz.png" alt="TCU Logo" className="w-20 h-20 md:w-28 md:h-28 drop-shadow-lg" />
         </div>
 
         {/* Content */}
