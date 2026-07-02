@@ -154,8 +154,15 @@ export default function Home() {
         </div>
 
         {/* Logo Corner */}
-        <div className="absolute top-8 left-8 z-20">
-          <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663029089241/LTyUcaUhtRQPiNxk.jpg" alt="TCU Logo" className="w-16 h-16 md:w-20 md:h-20 drop-shadow-lg" />
+        <div className="absolute top-8 left-8 z-20 w-16 h-16 md:w-20 md:h-20 rounded-lg overflow-hidden drop-shadow-lg" style={{
+          backgroundImage: 'url(https://files.manuscdn.com/user_upload_by_module/session_file/310419663029089241/EfhvJQgUIbupmRzf.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663029089241/LTyUcaUhtRQPiNxk.jpg" alt="TCU Logo" className="w-12 h-12 md:w-16 md:h-16" style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))' }} />
         </div>
 
         {/* Content */}
@@ -235,7 +242,7 @@ export default function Home() {
               const IconComponent = moduleIcons[module.icon as keyof typeof moduleIcons];
               return (
                 <Link key={module.href} href={module.href}>
-                  <Card className="h-full hover:shadow-lg transition-shadow duration-200 cursor-pointer border-t-4 border-t-primary">
+                  <Card className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer border-t-4 border-t-primary hover:scale-105 hover:border-t-8">
                     <CardHeader>
                       <div className="flex items-start justify-between mb-4">
                         <div className={`${module.color}`}>
