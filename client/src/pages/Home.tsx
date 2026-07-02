@@ -155,7 +155,7 @@ export default function Home() {
 
         {/* Logo Corner */}
         <div className="absolute top-8 left-8 z-20">
-          <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663029089241/BgpKvxcBlJJOqVpL.png" alt="TCU Logo" className="w-16 h-16 md:w-24 md:h-24 drop-shadow-lg" />
+          <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663029089241/LTyUcaUhtRQPiNxk.jpg" alt="TCU Logo" className="w-16 h-16 md:w-20 md:h-20 drop-shadow-lg" />
         </div>
 
         {/* Content */}
