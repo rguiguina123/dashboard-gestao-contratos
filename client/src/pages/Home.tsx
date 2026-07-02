@@ -155,18 +155,12 @@ export default function Home() {
 
         {/* Logo Corner */}
         <div className="absolute top-8 left-8 z-20">
-          <img src="https://d2xsxph8kpxj0f.cloudfront.net/310419663029089241/WJWhmX29eSkoE3JJHDcEoo/tcu-logo-icon-LMRiQTBgf8v9M4zNSa3vBo.webp" alt="TCU Logo" className="w-16 h-16 md:w-20 md:h-20 drop-shadow-lg" />
+          <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663029089241/KvtkkGAlZFOEuCdq.png" alt="TCU Logo" className="w-20 h-20 md:w-24 md:h-24 drop-shadow-lg" />
         </div>
 
         {/* Content */}
         <div className="relative z-10 max-w-6xl mx-auto px-4 py-20 flex flex-col items-center justify-center text-center">
-          {/* Main Title - Minimalista (Reduzido) */}
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-white font-poppins mb-12 leading-tight tracking-tight" style={{
-            textShadow: '0 10px 30px rgba(0,0,0,0.2)',
-            letterSpacing: '-0.03em'
-          }}>
-            <span className="bg-gradient-to-r from-teal-200 to-blue-200 bg-clip-text text-transparent">TCU</span>
-          </h1>
+          {/* Apenas espaço vazio - sem texto no meio */}
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
