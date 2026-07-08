@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { contratos, despesasSemContrato, totalMensal, totalAnual } from "@/lib/data";
 import { formatCurrency } from "@/lib/utils";
+import { NewsSection } from "@/components/NewsSection";
 
 const moduleIcons = {
   dashboard: BarChart3,
@@ -264,6 +265,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* News Section */}
+      <NewsSection />
 
       {/* Info Section */}
       <section className="bg-secondary py-16">
