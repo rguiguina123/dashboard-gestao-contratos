@@ -15,16 +15,41 @@ export function generateContractPDF(contract: Contrato & { diasParaVencimento: n
 
   let yPos = margin;
 
+  // Logo TCU no header
+  const logoUrl = 'https://d2xsxph8kpxj0f.cloudfront.net/310419663029089241/WJWhmX29eSkoE3JJHDcEoo/tcu-logo_60c1698f.png';
+  try {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        ctx.drawImage(img, 0, 0);
+        const imgData = canvas.toDataURL('image/png');
+        pdf.addImage(imgData, 'PNG', margin, yPos, 15, 15);
+      }
+    };
+    img.src = logoUrl;
+  } catch (e) {
+    // Logo não carregou, continuar sem
+  }
+
   // Header com linha sutil
   pdf.setDrawColor(200, 200, 200);
   pdf.setLineWidth(0.5);
   pdf.line(margin, yPos + 8, pageWidth - margin, yPos + 8);
 
-  // Título principal
+  // Título principal com logo
   pdf.setFont('Helvetica', 'bold');
   pdf.setFontSize(18);
   pdf.setTextColor(40, 40, 40);
-  pdf.text('INFORMAÇÕES DO CONTRATO', margin, yPos + 6);
+  pdf.text('TRIBUNAL DE CONTAS DA UNIÃO', margin + 18, yPos + 6);
+  
+  pdf.setFont('Helvetica', 'bold');
+  pdf.setFontSize(14);
+  pdf.setTextColor(60, 60, 60);
+  pdf.text('INFORMAÇÕES DO CONTRATO', margin + 18, yPos + 12);
 
   yPos += 15;
 
@@ -202,7 +227,7 @@ export function generateContractPDF(contract: Contrato & { diasParaVencimento: n
   const obsLines = pdf.splitTextToSize(observations.join('\n'), contentWidth - 6);
   pdf.text(obsLines, margin + 3, yPos);
 
-  // Footer
+  // Footer com branding TCU
   const footerY = pageHeight - 10;
   pdf.setDrawColor(200, 200, 200);
   pdf.setLineWidth(0.5);
@@ -211,8 +236,10 @@ export function generateContractPDF(contract: Contrato & { diasParaVencimento: n
   pdf.setFont('Helvetica', 'normal');
   pdf.setFontSize(8);
   pdf.setTextColor(150, 150, 150);
-  pdf.text(`Gerado em ${new Date().toLocaleDateString('pt-BR')} às ${new Date().toLocaleTimeString('pt-BR')}`, margin, footerY);
+  pdf.text('TRIBUNAL DE CONTAS DA UNIÃO - TCU', margin, footerY);
+  pdf.text(`Gerado em ${new Date().toLocaleDateString('pt-BR')} às ${new Date().toLocaleTimeString('pt-BR')}`, margin, footerY - 3);
   pdf.text(`Página 1 de 1`, pageWidth - margin - 20, footerY);
+  pdf.text('Relatório Confidencial', pageWidth - margin - 50, footerY - 3);
 
   // Download
   const fileName = `Contrato_${contract.contrato.replace(/\//g, '-')}_${new Date().toISOString().split('T')[0]}.pdf`;

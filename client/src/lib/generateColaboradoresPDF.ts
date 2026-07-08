@@ -23,16 +23,26 @@ export function generateColaboradoresPDF(colaboradores: ColaboradorData[]) {
     const colorBorder = [220, 220, 220];
 
     // ===== CAPA =====
-    // Background gradiente
-    doc.setFillColor(147, 51, 234);
+    // Background gradiente com cores TCU
+    doc.setFillColor(40, 20, 100); // Roxo escuro (cor TCU)
     doc.rect(0, 0, pageWidth, pageHeight / 2, "F");
 
-    doc.setFillColor(236, 72, 153);
+    doc.setFillColor(0, 120, 80); // Verde (cor TCU)
     doc.rect(0, pageHeight / 2, pageWidth, pageHeight / 2, "F");
 
-    // Forma geométrica
-    doc.setFillColor(200, 100, 200);
+    // Forma geométrica com cores TCU
+    doc.setFillColor(255, 200, 0); // Amarelo (cor TCU)
     doc.triangle(pageWidth * 0.7, 0, pageWidth, pageHeight * 0.3, pageWidth, 0);
+
+    // Branding TCU
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(12);
+    doc.setFont("", "bold");
+    doc.text("TRIBUNAL DE CONTAS DA UNIÃO", margin, margin + 5);
+    
+    doc.setFontSize(10);
+    doc.setFont("", "normal");
+    doc.text("Relatório Institucional", margin, margin + 12);
 
     // Título
     doc.setTextColor(255, 255, 255);
@@ -244,7 +254,7 @@ export function generateColaboradoresPDF(colaboradores: ColaboradorData[]) {
       doc.setTextColor(colorPrimary[0], colorPrimary[1], colorPrimary[2]);
       doc.setFont("", "bold");
       doc.setFontSize(7);
-      doc.text("Gestão de Contratos", margin, pageHeight - 8);
+      doc.text("TRIBUNAL DE CONTAS DA UNIÃO - TCU | Relatório Confidencial", margin, pageHeight - 8);
     }
 
     // Save
