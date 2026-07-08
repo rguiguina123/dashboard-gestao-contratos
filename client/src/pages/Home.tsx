@@ -154,15 +154,8 @@ export default function Home() {
         </div>
 
         {/* Logo Corner */}
-        <div className="absolute top-8 left-8 z-20 w-16 h-16 md:w-20 md:h-20 rounded-lg overflow-hidden drop-shadow-lg" style={{
-          backgroundImage: 'url(https://files.manuscdn.com/user_upload_by_module/session_file/310419663029089241/EfhvJQgUIbupmRzf.jpg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
-          <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663029089241/LTyUcaUhtRQPiNxk.jpg" alt="TCU Logo" className="w-12 h-12 md:w-16 md:h-16" style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))' }} />
+        <div className="absolute top-8 left-8 z-20 w-20 h-20 md:w-24 md:h-24">
+          <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663029089241/mFnIBTOhrAWwXLqZ.png" alt="TCU Logo" className="w-full h-full object-contain" style={{ filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.4))' }} />
         </div>
 
         {/* Content */}
