@@ -329,12 +329,10 @@ export default function Home() {
             Navegue pelos módulos acima para visualizar e analisar os dados de
             contratos, colaboradores e despesas
           </p>
-          <a href="/contratos" className="inline-block">
-            <Button size="lg" className="bg-primary hover:bg-primary/90">
-              Acessar Contratos
-              <ArrowRight className="ml-2 w-4 h-4" />
-            </Button>
-          </a>
+          <Button size="lg" className="bg-primary hover:bg-primary/90" onClick={() => window.location.href = '/contratos'}>
+            Acessar Contratos
+            <ArrowRight className="ml-2 w-4 h-4" />
+          </Button>
         </div>
       </section>
 
