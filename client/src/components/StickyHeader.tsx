@@ -80,17 +80,13 @@ export function StickyHeader() {
           {navItems.map((item) => {
             const isActive = location === item.href;
             return (
-              <Link key={item.href} href={item.href}>
-                <a
-                  className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                    isActive
-                      ? "bg-white/20 text-white"
-                      : "text-white/80 hover:bg-white/10"
-                  }`}
-                >
-                  {item.icon}
-                  <span>{item.label}</span>
-                </a>
+              <Link key={item.href} href={item.href} className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                isActive
+                  ? "bg-white/20 text-white"
+                  : "text-white/80 hover:bg-white/10"
+              }`}>
+                {item.icon}
+                <span>{item.label}</span>
               </Link>
             );
           })}
@@ -118,18 +114,13 @@ export function StickyHeader() {
             {navItems.map((item) => {
               const isActive = location === item.href;
               return (
-                <Link key={item.href} href={item.href}>
-                  <a
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                      isActive
-                        ? "bg-white/20 text-white"
-                        : "text-white/80 hover:bg-white/10"
-                    }`}
-                  >
-                    {item.icon}
-                    <span>{item.label}</span>
-                  </a>
+                <Link key={item.href} href={item.href} onClick={() => setMobileMenuOpen(false)} className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  isActive
+                    ? "bg-white/20 text-white"
+                    : "text-white/80 hover:bg-white/10"
+                }`}>
+                  {item.icon}
+                  <span>{item.label}</span>
                 </Link>
               );
             })}
