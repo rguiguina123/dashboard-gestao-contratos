@@ -165,12 +165,12 @@ export default function Home() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a href="/dashboard" className="px-8 py-4 bg-white text-blue-900 font-semibold rounded-lg hover:bg-blue-50 transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 inline-block">
+            <button onClick={() => window.location.href = '/dashboard'} className="px-8 py-4 bg-white text-blue-900 font-semibold rounded-lg hover:bg-blue-50 transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 inline-block cursor-pointer">
               Explorar Dashboard
-            </a>
-            <a href="/contratos" className="px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-lg hover:bg-white/10 transition-all duration-300 inline-block">
+            </button>
+            <button onClick={() => window.location.href = '/contratos'} className="px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-lg hover:bg-white/10 transition-all duration-300 inline-block cursor-pointer">
               Ver Contratos
-            </a>
+            </button>
           </div>
         </div>
 
@@ -231,7 +231,7 @@ export default function Home() {
             {modules.map((module) => {
               const IconComponent = moduleIcons[module.icon as keyof typeof moduleIcons];
               return (
-                <a key={module.href} href={module.href} className="block">
+                <div key={module.href} onClick={() => window.location.href = module.href} className="block cursor-pointer">
                   <Card className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer border-t-4 border-t-primary hover:scale-105 hover:border-t-8">
                     <CardHeader>
                       <div className="flex items-start justify-between mb-4">
@@ -255,7 +255,7 @@ export default function Home() {
                       </div>
                     </CardContent>
                   </Card>
-                </a>
+                </div>
               );
             })}
           </div>
