@@ -66,14 +66,8 @@ export function StickyHeader() {
     >
       
       <div className="relative max-w-full px-4 md:px-8 py-3 flex items-center justify-between">
-        {/* Logo - Apenas ícone, sem texto duplicado */}
-        <a href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-          <img
-            src="https://d2xsxph8kpxj0f.cloudfront.net/310419663029089241/WJWhmX29eSkoE3JJHDcEoo/ChatGPTImage8dejul.de2026,10_06_22_60c1698f.png"
-            alt="TCU"
-            className="h-10 w-auto drop-shadow-lg"
-          />
-        </a>
+        {/* Logo - Vazio, apenas para espaçamento */}
+        <div className="w-10"></div>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-1">
