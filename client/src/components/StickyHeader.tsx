@@ -53,19 +53,27 @@ export function StickyHeader() {
   const [location] = useLocation();
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-border shadow-sm">
-      <div className="max-w-full px-4 md:px-8 py-3 flex items-center justify-between">
+    <header 
+      className="fixed top-0 left-0 right-0 z-50 border-b border-border shadow-md"
+      style={{
+        backgroundImage: 'url(https://d2xsxph8kpxj0f.cloudfront.net/310419663029089241/WJWhmX29eSkoE3JJHDcEoo/brasilia-blueprint_60c1698f.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
+      }}
+    >
+      {/* Overlay para melhor legibilidade */}
+      <div className="absolute inset-0 bg-black/40"></div>
+      
+      <div className="relative max-w-full px-4 md:px-8 py-3 flex items-center justify-between">
         {/* Logo */}
         <Link href="/">
           <a className="flex items-center gap-2 hover:opacity-80 transition-opacity">
             <img
               src="https://d2xsxph8kpxj0f.cloudfront.net/310419663029089241/WJWhmX29eSkoE3JJHDcEoo/ChatGPTImage8dejul.de2026,10_06_22_60c1698f.png"
               alt="TCU"
-              className="h-10 w-auto"
+              className="h-10 w-auto drop-shadow-lg"
             />
-            <span className="hidden md:inline text-sm font-semibold text-foreground">
-              TCU
-            </span>
           </a>
         </Link>
 
@@ -78,8 +86,8 @@ export function StickyHeader() {
                 <a
                   className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                     isActive
-                      ? "bg-purple-100 text-purple-700"
-                      : "text-foreground hover:bg-gray-100"
+                      ? "bg-white/20 text-white"
+                      : "text-white/80 hover:bg-white/10"
                   }`}
                 >
                   {item.icon}
@@ -95,7 +103,7 @@ export function StickyHeader() {
           variant="ghost"
           size="icon"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden"
+          className="md:hidden text-white hover:bg-white/10"
         >
           {mobileMenuOpen ? (
             <X className="w-5 h-5" />
@@ -107,7 +115,7 @@ export function StickyHeader() {
 
       {/* Mobile Navigation */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-border bg-white">
+        <div className="relative md:hidden border-t border-white/20 bg-black/60">
           <nav className="flex flex-col gap-1 p-4">
             {navItems.map((item) => {
               const isActive = location === item.href;
@@ -117,8 +125,8 @@ export function StickyHeader() {
                     onClick={() => setMobileMenuOpen(false)}
                     className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                       isActive
-                        ? "bg-purple-100 text-purple-700"
-                        : "text-foreground hover:bg-gray-100"
+                        ? "bg-white/20 text-white"
+                        : "text-white/80 hover:bg-white/10"
                     }`}
                   >
                     {item.icon}
