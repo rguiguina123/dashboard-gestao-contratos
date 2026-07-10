@@ -165,16 +165,12 @@ export default function Home() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link href="/dashboard">
-              <button className="px-8 py-4 bg-white text-blue-900 font-semibold rounded-lg hover:bg-blue-50 transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105">
-                Explorar Dashboard
-              </button>
-            </Link>
-            <Link href="/contratos">
-              <button className="px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-lg hover:bg-white/10 transition-all duration-300">
-                Ver Contratos
-              </button>
-            </Link>
+            <a href="/dashboard" className="px-8 py-4 bg-white text-blue-900 font-semibold rounded-lg hover:bg-blue-50 transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 inline-block">
+              Explorar Dashboard
+            </a>
+            <a href="/contratos" className="px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-lg hover:bg-white/10 transition-all duration-300 inline-block">
+              Ver Contratos
+            </a>
           </div>
         </div>
 
@@ -235,7 +231,7 @@ export default function Home() {
             {modules.map((module) => {
               const IconComponent = moduleIcons[module.icon as keyof typeof moduleIcons];
               return (
-                <Link key={module.href} href={module.href}>
+                <a key={module.href} href={module.href} className="block">
                   <Card className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer border-t-4 border-t-primary hover:scale-105 hover:border-t-8">
                     <CardHeader>
                       <div className="flex items-start justify-between mb-4">
@@ -259,7 +255,7 @@ export default function Home() {
                       </div>
                     </CardContent>
                   </Card>
-                </Link>
+                </a>
               );
             })}
           </div>
@@ -333,12 +329,12 @@ export default function Home() {
             Navegue pelos módulos acima para visualizar e analisar os dados de
             contratos, colaboradores e despesas
           </p>
-          <Link href="/contratos">
+          <a href="/contratos" className="inline-block">
             <Button size="lg" className="bg-primary hover:bg-primary/90">
               Acessar Contratos
               <ArrowRight className="ml-2 w-4 h-4" />
             </Button>
-          </Link>
+          </a>
         </div>
       </section>
 
