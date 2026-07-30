@@ -4,7 +4,7 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import { StickyHeader } from "./components/StickyHeader";
+import { FloatingNav } from "@/components/FloatingNav";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Contratos from "./pages/Contratos";
@@ -50,8 +50,8 @@ function App() {
         // switchable
       >
         <TooltipProvider>
-          <StickyHeader />
-          <div className="pt-16">
+          <FloatingNav />
+          <div>
             <Toaster />
             <Router />
           </div>
