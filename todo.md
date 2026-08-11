@@ -82,3 +82,10 @@
 - [x] Tornar funcional o filtro de período para vencimentos de contratos
 - [x] Corrigir indicadores que usavam o total antigo de 48 secretarias
 - [x] Validar novamente o projeto antes de retomar a automação
+
+# Revisão integral pós-atualização pública
+- [x] Executar diagnóstico completo de tipagem, build, testes e logs
+- [x] Revisar todas as rotas, navegação e carregamento no navegador
+- [x] Validar o fluxo público de atualização de planilhas e o histórico
+- [x] Corrigir quaisquer erros de interface, dados ou comportamento encontrados — nenhum novo erro reproduzível encontrado
+- [x] Revalidar o dashboard completo antes do checkpoint da revisão
