@@ -2,8 +2,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
 import { formatCurrency } from '@/lib/utils';
 import dadosCustos from '@/lib/dadosCustos.json';
-import { TrendingUp, TrendingDown } from 'lucide-react';
+import { TrendingUp, TrendingDown, FileText } from 'lucide-react';
 import { DashboardLayout } from '@/components/dashboard/DashboardLayout';
+import { generateGenericReportPDF } from '@/lib/generateProfessionalPDF';
+
+// Padrão PDF: relatório institucional conciso, com métricas, tabela ordenada e paginação.
 
 export default function CustoServidor() {
   const custoServidor = dadosCustos.custo_servidor || [];
@@ -190,8 +193,42 @@ export default function CustoServidor() {
 
         {/* Tabela Completa */}
         <Card className="mt-8 border-0 shadow-sm overflow-hidden">
-          <CardHeader>
+          <CardHeader className="flex items-center justify-between bg-gradient-to-r from-purple-50 to-blue-50 border-b">
             <CardTitle>Tabela Completa - Custos por Servidor</CardTitle>
+            <button
+              onClick={() => {
+                const metrics = [
+                  { label: 'Total Geral', value: `R$ ${formatCurrency(totalGeral)}` },
+                  { label: 'Custo Médio/Servidor', value: `R$ ${formatCurrency(media)}` },
+                  { label: 'Maior Custo/Servidor', value: `R$ ${formatCurrency(maiorCusto)}` },
+                  { label: 'Menor Custo/Servidor', value: `R$ ${formatCurrency(menorCusto)}` },
+                  { label: 'Diferença', value: `R$ ${formatCurrency(maiorCusto - menorCusto)}` },
+                ];
+                const tableData = sortedData.map((item, index) => {
+                  const valor = item['Custo/Servidor'] || 0;
+                  const diferenca = valor - media;
+                  const percentual = media > 0 ? (diferenca / media) * 100 : 0;
+                  return [
+                    index + 1,
+                    item.SEC,
+                    formatCurrency(valor),
+                    `${diferenca > 0 ? '+' : ''}${formatCurrency(diferenca)}`,
+                    `${percentual > 0 ? '+' : ''}${percentual.toFixed(1)}%`,
+                  ];
+                });
+                generateGenericReportPDF(
+                  'Relatório de Custos por Servidor',
+                  metrics,
+                  ['Posição', 'SEC', 'Custo/Servidor', 'Diferença da Média', '% da Média'],
+                  tableData,
+                  'Relatorio_Custos_por_Servidor'
+                );
+              }}
+              className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all flex items-center gap-2"
+            >
+              <FileText className="w-4 h-4" />
+              Exportar Relatório
+            </button>
           </CardHeader>
           <div className="overflow-x-auto">
             <table className="w-full">

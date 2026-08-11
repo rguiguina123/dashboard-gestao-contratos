@@ -2,8 +2,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Legend } from 'recharts';
 import { formatCurrency } from '@/lib/utils';
 import dadosCustos from '@/lib/dadosCustos.json';
-import { Activity, Zap } from 'lucide-react';
+import { Activity, Zap, FileText } from 'lucide-react';
 import { DashboardLayout } from '@/components/dashboard/DashboardLayout';
+import { generateGenericReportPDF } from '@/lib/generateProfessionalPDF';
+
+// Padrão PDF: relatório institucional conciso, com métricas, tabela ordenada e paginação.
 
 export default function EficienciaServidor() {
   const custoAreaServidor = dadosCustos.custo_area_servidor || [];
@@ -221,8 +224,43 @@ export default function EficienciaServidor() {
 
         {/* Tabela Completa */}
         <Card className="mt-8 border-0 shadow-sm overflow-hidden">
-          <CardHeader>
+          <CardHeader className="flex items-center justify-between bg-gradient-to-r from-purple-50 to-blue-50 border-b">
             <CardTitle>Tabela Completa - Eficiência por Servidor</CardTitle>
+            <button
+              onClick={() => {
+                const metrics = [
+                  { label: 'Total Geral de Custo/Servidor', value: `R$ ${formatCurrency(custoTotalServidor)}` },
+                  { label: 'Custo Médio/Servidor', value: `R$ ${formatCurrency(custoMedioServidor)}` },
+                  { label: 'Área Média/Servidor', value: `${areaMedioServidor.toFixed(2)} m²` },
+                  { label: 'Maior Custo/Servidor', value: `R$ ${formatCurrency(maiorCustoServidor)}` },
+                  { label: 'Menor Custo/Servidor', value: `R$ ${formatCurrency(menorCustoServidor)}` },
+                ];
+                const tableData = custoAreaServidor.map(item => {
+                  const custo = item['Custo/Servidor'] || 0;
+                  const area = item['Área/Servidor'] || 0;
+                  const diferencaCusto = custo - custoMedioServidor;
+                  const diferencaArea = area - areaMedioServidor;
+                  return [
+                    item.SEC,
+                    `${area.toFixed(2)} m²`,
+                    formatCurrency(custo),
+                    `${diferencaCusto > 0 ? '+' : ''}${formatCurrency(diferencaCusto)}`,
+                    `${diferencaArea > 0 ? '+' : ''}${diferencaArea.toFixed(2)} m²`,
+                  ];
+                });
+                generateGenericReportPDF(
+                  'Relatório de Eficiência por Servidor',
+                  metrics,
+                  ['SEC', 'Área/Servidor', 'Custo/Servidor', 'Diferença de Custo', 'Diferença de Área'],
+                  tableData,
+                  'Relatorio_Eficiencia_por_Servidor'
+                );
+              }}
+              className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all flex items-center gap-2"
+            >
+              <FileText className="w-4 h-4" />
+              Exportar Relatório
+            </button>
           </CardHeader>
           <div className="overflow-x-auto">
             <table className="w-full">

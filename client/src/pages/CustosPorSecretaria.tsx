@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { DollarSign, TrendingUp, Users, Zap } from 'lucide-react';
+import { DollarSign, TrendingUp, Users, Zap, FileText } from 'lucide-react';
 import { formatCurrency } from '@/lib/utils';
 import { DashboardLayout } from '@/components/dashboard/DashboardLayout';
 import dadosCustos from '@/lib/dadosCustos.json';
+import { generateGenericReportPDF } from '@/lib/generateProfessionalPDF';
 
 export default function CustosPorSecretaria() {
   const [sortBy, setSortBy] = useState<'sec' | 'total' | 'custo_servidor'>('total');
@@ -121,6 +122,37 @@ export default function CustosPorSecretaria() {
 
         {/* Tabela */}
         <Card className="border-0 shadow-sm overflow-hidden">
+          <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b flex items-center justify-between">
+            <CardTitle className="text-purple-900">Dados por Secretaria</CardTitle>
+            <button
+              onClick={() => {
+                const metrics = [
+                  { label: 'Custo Total', value: `R$ ${formatCurrency(totalGeral)}` },
+                  { label: 'Total de Servidores', value: totalServidores },
+                  { label: 'Custo Médio/Servidor', value: `R$ ${formatCurrency(custoMedioServidor)}` },
+                  { label: 'Área Total', value: `${areaTotal.toFixed(2)} m²` },
+                ];
+                const tableData = sortedData.map(item => [
+                  item.SEC,
+                  formatCurrency(item.Total || 0),
+                  item['Qtd de servidores'],
+                  formatCurrency(item['Custo/Servidor'] || 0),
+                  (item['Área da Sec (m2)'] || 0).toFixed(2),
+                ]);
+                generateGenericReportPDF(
+                  'Relatório de Custos por Secretaria',
+                  metrics,
+                  ['SEC', 'Custo Total', 'Servidores', 'Custo/Servidor', 'Área (m²)'],
+                  tableData,
+                  'Relatorio_Custos_Secretaria'
+                );
+              }}
+              className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all flex items-center gap-2"
+            >
+              <FileText className="w-4 h-4" />
+              Exportar Relatório
+            </button>
+          </CardHeader>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>

@@ -55,9 +55,14 @@ export const generateContractsPDFProfessional = async (
   doc.setFillColor(26, 54, 93); // Azul escuro
   doc.rect(0, 0, pageWidth, 40, 'F');
 
-  // Título
+  // Identificação institucional e título
+  doc.setTextColor(209, 213, 219);
+  doc.setFontSize(7);
+  doc.setFont('helvetica', 'bold');
+  doc.text('TRIBUNAL DE CONTAS DA UNIÃO', margin, 9);
+
   doc.setTextColor(255, 255, 255);
-  doc.setFontSize(24);
+  doc.setFontSize(18);
   doc.setFont('helvetica', 'bold');
   doc.text('RELATÓRIO DE CONTRATOS', margin, 18);
 
@@ -66,7 +71,7 @@ export const generateContractsPDFProfessional = async (
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(209, 213, 219);
   const dataAtual = new Date().toLocaleDateString('pt-BR');
-  doc.text(`Gerado em ${dataAtual}`, margin, 28);
+  doc.text(`Relatório gerencial • Gerado em ${dataAtual}`, margin, 28);
   doc.text(`Total de ${metrics.total} contratos analisados`, margin, 34);
 
   yPosition = 50;
@@ -247,16 +252,21 @@ export const generateEmployeesPDFProfessional = async (
   doc.setFillColor(26, 54, 93);
   doc.rect(0, 0, pageWidth, 35, 'F');
 
-  doc.setTextColor(255, 255, 255);
-  doc.setFontSize(22);
+  doc.setTextColor(209, 213, 219);
+  doc.setFontSize(7);
   doc.setFont('helvetica', 'bold');
-  doc.text('RELATÓRIO DE COLABORADORES', margin, 16);
+  doc.text('TRIBUNAL DE CONTAS DA UNIÃO', margin, 9);
+
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(18);
+  doc.setFont('helvetica', 'bold');
+  doc.text('RELATÓRIO DE COLABORADORES', margin, 18);
 
   doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(209, 213, 219);
   const dataAtual = new Date().toLocaleDateString('pt-BR');
-  doc.text(`Gerado em ${dataAtual}`, margin, 26);
+  doc.text(`Relatório gerencial • Gerado em ${dataAtual}`, margin, 27);
 
   yPosition = 45;
 
@@ -405,3 +415,125 @@ function hexToRgb(hex: string) {
     b: parseInt(result[3], 16),
   } : { r: 0, g: 0, b: 0 };
 }
+
+
+// ============ FUNÇÃO GENÉRICA PARA RELATÓRIOS ============
+
+export const generateGenericReportPDF = (
+  title: string,
+  metrics: Array<{ label: string; value: string | number }>,
+  tableHeaders: string[],
+  tableData: any[][],
+  fileName: string,
+  orientation: 'portrait' | 'landscape' = 'portrait'
+) => {
+  const doc = new jsPDF({
+    orientation,
+    unit: 'mm',
+    format: 'a4',
+  });
+
+  const pageWidth = (doc as any).internal.pageSize.getWidth();
+  const pageHeight = (doc as any).internal.pageSize.getHeight();
+  const margin = 12;
+  let yPosition = margin;
+
+  // ============ CABEÇALHO ============
+  doc.setFillColor(26, 54, 93);
+  doc.rect(0, 0, pageWidth, 35, 'F');
+
+  doc.setTextColor(209, 213, 219);
+  doc.setFontSize(7);
+  doc.setFont('helvetica', 'bold');
+  doc.text('TRIBUNAL DE CONTAS DA UNIÃO', margin, 9);
+
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(16);
+  doc.setFont('helvetica', 'bold');
+  doc.text(title.toUpperCase(), margin, 19);
+
+  doc.setFontSize(8);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(209, 213, 219);
+  const dataAtual = new Date().toLocaleDateString('pt-BR');
+  doc.text(`Relatório gerencial • Gerado em ${dataAtual}`, margin, 27);
+
+  yPosition = 45;
+
+  // ============ MÉTRICAS ============
+  if (metrics && metrics.length > 0) {
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(COLORS.textPrimary);
+    doc.text('MÉTRICAS PRINCIPAIS', margin, yPosition);
+    yPosition += 8;
+
+    const metricsData = metrics.map(m => [m.label, String(m.value)]);
+
+    (doc as any).autoTable({
+      body: metricsData,
+      startY: yPosition,
+      margin: margin,
+      theme: 'grid',
+      bodyStyles: {
+        fontSize: 9,
+        textColor: [31, 41, 55],
+        padding: 4,
+      },
+      columnStyles: {
+        0: { cellWidth: 80, fontStyle: 'bold', fillColor: [243, 244, 246] },
+        1: { cellWidth: orientation === 'portrait' ? 70 : 150, fontStyle: 'bold', textColor: [37, 99, 235] },
+      },
+    });
+
+    yPosition = (doc as any).lastAutoTable.finalY + 10;
+  }
+
+  // ============ TABELA DE DADOS ============
+  if (tableData && tableData.length > 0) {
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(COLORS.textPrimary);
+    doc.text('DETALHES', margin, yPosition);
+    yPosition += 8;
+
+    (doc as any).autoTable({
+      head: [tableHeaders],
+      body: tableData,
+      startY: yPosition,
+      margin: margin,
+      theme: 'grid',
+      headStyles: {
+        fillColor: [26, 54, 93],
+        textColor: [255, 255, 255],
+        fontStyle: 'bold',
+        fontSize: 9,
+        padding: 4,
+      },
+      bodyStyles: {
+        fontSize: 8,
+        textColor: [31, 41, 55],
+        padding: 3,
+      },
+      alternateRowStyles: {
+        fillColor: [243, 244, 246],
+      },
+    });
+  }
+
+  // ============ FOOTER ============
+  const totalPages = (doc as any).internal.pages.length - 1;
+  for (let i = 1; i <= totalPages; i++) {
+    doc.setPage(i);
+    doc.setFontSize(8);
+    doc.setTextColor(COLORS.textSecondary);
+    doc.text(
+      `TRIBUNAL DE CONTAS DA UNIÃO • Documento gerencial • Página ${i} de ${totalPages}`,
+      pageWidth / 2,
+      pageHeight - 8,
+      { align: 'center' }
+    );
+  }
+
+  doc.save(`${fileName}_${new Date().toISOString().split('T')[0]}.pdf`);
+};

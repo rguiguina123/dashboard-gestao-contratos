@@ -1,7 +1,7 @@
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { KPICard } from "@/components/dashboard/KPICard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { contratos, despesasSemContrato, totalMensal, totalMensalComContrato, totalMensalSemContrato, totalAnual, totalAnualComContrato, totalAnualSemContrato } from "@/lib/data";
+import { contratos, colaboradores, despesasSemContrato, totalMensal, totalMensalComContrato, totalMensalSemContrato, totalAnual, totalAnualComContrato, totalAnualSemContrato } from "@/lib/data";
 import {
   LineChart,
   Line,
@@ -25,6 +25,9 @@ import {
   CheckCircle,
 } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
+import { generateGenericReportPDF } from "@/lib/generateProfessionalPDF";
+
+// Padrão PDF: relatório institucional conciso, com resumo executivo e série mensal.
 
 export default function Dashboard() {
   // Dados de tendência mensal
@@ -41,13 +44,43 @@ export default function Dashboard() {
     <DashboardLayout>
       <div className="space-y-8">
         {/* Header */}
-        <div className="animate-slide-in-up">
-          <h1 className="text-4xl font-bold text-foreground font-poppins mb-2">
-            Gestão de Contratos 2026
-          </h1>
-          <p className="text-muted-foreground">
-            Visão geral dos principais indicadores de gestão
-          </p>
+        <div className="animate-slide-in-up flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <h1 className="text-4xl font-bold text-foreground font-poppins mb-2">
+              Gestão de Contratos 2026
+            </h1>
+            <p className="text-muted-foreground">
+              Visão geral dos principais indicadores de gestão
+            </p>
+          </div>
+          <button
+            onClick={() => {
+              const metrics = [
+                { label: 'Despesa Mensal Total', value: `R$ ${formatCurrency(totalMensal)}` },
+                { label: 'Despesa Anual Total', value: `R$ ${formatCurrency(totalAnual)}` },
+                { label: 'Contratos Ativos', value: contratos.length },
+                { label: 'Colaboradores', value: colaboradores.length },
+                { label: 'SECs Gerenciadas', value: 48 },
+              ];
+              const tableData = monthlyTrend.map(item => [
+                item.month,
+                formatCurrency(item.com),
+                formatCurrency(item.sem),
+                formatCurrency(item.com + item.sem),
+              ]);
+              generateGenericReportPDF(
+                'Relatório Executivo do Dashboard',
+                metrics,
+                ['Mês', 'Com Contrato', 'Sem Contrato', 'Total Mensal'],
+                tableData,
+                'Relatorio_Executivo_Dashboard'
+              );
+            }}
+            className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all flex items-center gap-2 shrink-0"
+          >
+            <FileText className="w-4 h-4" />
+            Exportar Relatório
+          </button>
         </div>
 
         {/* KPI Cards */}
@@ -72,7 +105,7 @@ export default function Dashboard() {
           />
           <KPICard
             title="Colaboradores"
-            value="112"
+            value={colaboradores.length.toString()}
             icon={<Users className="w-5 h-5 text-emerald-600" />}
             trend="up"
             trendValue="+5 novos"
@@ -200,7 +233,7 @@ export default function Dashboard() {
                   Colaboradores/SEC
                 </p>
                 <p className="text-xl font-bold text-foreground font-poppins">
-                  {(112 / 48).toFixed(1)}
+                  {(colaboradores.length / 48).toFixed(1)}
                 </p>
               </div>
               <div className="p-4 bg-secondary rounded-lg hover-lift">
@@ -208,7 +241,7 @@ export default function Dashboard() {
                   Custo/Colaborador
                 </p>
                 <p className="text-xl font-bold text-foreground font-poppins">
-                  {formatCurrency(totalMensal / 112)}
+                  {formatCurrency(totalMensal / colaboradores.length)}
                 </p>
               </div>
             </div>

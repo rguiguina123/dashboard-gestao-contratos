@@ -1,8 +1,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import dadosCustos from '@/lib/dadosCustos.json';
-import { Users, TrendingUp } from 'lucide-react';
+import { Users, TrendingUp, FileText } from 'lucide-react';
 import { DashboardLayout } from '@/components/dashboard/DashboardLayout';
+import { generateGenericReportPDF } from '@/lib/generateProfessionalPDF';
+
+// Padrão PDF: relatório institucional conciso, com métricas, tabela ordenada e paginação.
 
 const COLORS = ['#3b82f6', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899', '#14b8a6', '#f97316'];
 
@@ -210,8 +213,41 @@ export default function QuantidadeServidores() {
 
         {/* Tabela Completa */}
         <Card className="mt-8 border-0 shadow-sm overflow-hidden">
-          <CardHeader>
+          <CardHeader className="flex items-center justify-between bg-gradient-to-r from-purple-50 to-blue-50 border-b">
             <CardTitle>Tabela Completa - Quantidade de Servidores</CardTitle>
+            <button
+              onClick={() => {
+                const metrics = [
+                  { label: 'Total de Servidores', value: totalServidores },
+                  { label: 'Média por Secretaria', value: mediaServidores.toFixed(1) },
+                  { label: 'Maior Quantidade', value: maiorQtd },
+                  { label: 'Menor Quantidade', value: menorQtd },
+                ];
+                const tableData = sortedData.map((item, index) => {
+                  const quantidade = item['Qtd Servidores'] || 0;
+                  const percentualTotal = totalServidores > 0 ? (quantidade / totalServidores) * 100 : 0;
+                  const diferenca = quantidade - mediaServidores;
+                  return [
+                    index + 1,
+                    item.SEC,
+                    quantidade,
+                    `${percentualTotal.toFixed(2)}%`,
+                    `${diferenca > 0 ? '+' : ''}${diferenca.toFixed(1)}`,
+                  ];
+                });
+                generateGenericReportPDF(
+                  'Relatório de Quantidade de Servidores',
+                  metrics,
+                  ['Posição', 'SEC', 'Qtd. Servidores', '% do Total', 'Diferença da Média'],
+                  tableData,
+                  'Relatorio_Quantidade_de_Servidores'
+                );
+              }}
+              className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all flex items-center gap-2"
+            >
+              <FileText className="w-4 h-4" />
+              Exportar Relatório
+            </button>
           </CardHeader>
           <div className="overflow-x-auto">
             <table className="w-full">

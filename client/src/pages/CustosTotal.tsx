@@ -2,8 +2,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { formatCurrency } from '@/lib/utils';
 import dadosCustos from '@/lib/dadosCustos.json';
-import { TrendingUp, TrendingDown } from 'lucide-react';
+import { TrendingUp, TrendingDown, FileText } from 'lucide-react';
 import { DashboardLayout } from '@/components/dashboard/DashboardLayout';
+import { generateGenericReportPDF } from '@/lib/generateProfessionalPDF';
+
+// Padrão PDF: relatório institucional conciso, com métricas, tabela ordenada e paginação.
 
 const COLORS = ['#3b82f6', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899', '#14b8a6', '#f97316'];
 
@@ -212,8 +215,41 @@ export default function CustosTotal() {
 
         {/* Tabela Completa */}
         <Card className="mt-8 border-0 shadow-sm overflow-hidden">
-          <CardHeader>
+          <CardHeader className="flex items-center justify-between bg-gradient-to-r from-purple-50 to-blue-50 border-b">
             <CardTitle>Tabela Completa - Custos Totais</CardTitle>
+            <button
+              onClick={() => {
+                const metrics = [
+                  { label: 'Custo Total Geral', value: `R$ ${formatCurrency(totalGeral)}` },
+                  { label: 'Custo Médio', value: `R$ ${formatCurrency(media)}` },
+                  { label: 'Maior Custo', value: `R$ ${formatCurrency(maiorCusto)}` },
+                  { label: 'Menor Custo', value: `R$ ${formatCurrency(menorCusto)}` },
+                ];
+                const tableData = sortedData.map((item, index) => {
+                  const percentualTotal = totalGeral > 0 ? ((item.Total || 0) / totalGeral) * 100 : 0;
+                  const diferenca = (item.Total || 0) - media;
+                  const percentualDiferenca = media > 0 ? (diferenca / media) * 100 : 0;
+                  return [
+                    index + 1,
+                    item.SEC,
+                    formatCurrency(item.Total || 0),
+                    `${percentualTotal.toFixed(2)}%`,
+                    `${diferenca > 0 ? '+' : ''}${formatCurrency(diferenca)} (${percentualDiferenca.toFixed(1)}%)`,
+                  ];
+                });
+                generateGenericReportPDF(
+                  'Relatório de Custos Totais',
+                  metrics,
+                  ['Posição', 'SEC', 'Custo Total', '% do Total', 'Diferença da Média'],
+                  tableData,
+                  'Relatorio_Custos_Totais'
+                );
+              }}
+              className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all flex items-center gap-2"
+            >
+              <FileText className="w-4 h-4" />
+              Exportar Relatório
+            </button>
           </CardHeader>
           <div className="overflow-x-auto">
             <table className="w-full">

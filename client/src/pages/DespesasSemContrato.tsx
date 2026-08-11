@@ -24,8 +24,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { DollarSign, AlertTriangle, Zap } from "lucide-react";
+import { DollarSign, AlertTriangle, Zap, FileText } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
+import { generateGenericReportPDF } from "@/lib/generateProfessionalPDF";
 
 interface DespesaDisplay {
   id: string;
@@ -206,8 +207,35 @@ export default function DespesasSemContrato() {
 
         {/* Tabela */}
         <Card className="border-0 shadow-lg">
-          <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b">
+          <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b flex items-center justify-between">
             <CardTitle className="text-purple-900">Detalhes das Despesas</CardTitle>
+            <button
+              onClick={() => {
+                const metrics = [
+                  { label: 'Total de Despesas', value: filteredDespesas.length },
+                  { label: 'Despesa Mensal', value: `R$ ${formatCurrency(totais.mensal)}` },
+                  { label: 'Despesa Anual', value: `R$ ${formatCurrency(totais.anual)}` },
+                ];
+                const tableData = filteredDespesas.map(d => [
+                  d.sec,
+                  d.servico,
+                  d.fornecedor.substring(0, 30),
+                  formatCurrency(d.mensal),
+                  formatCurrency(d.anual),
+                ]);
+                generateGenericReportPDF(
+                  'Relatório de Despesas sem Contrato',
+                  metrics,
+                  ['SEC', 'Serviço', 'Fornecedor', 'Valor Mensal', 'Valor Anual'],
+                  tableData,
+                  'Relatorio_Despesas_Sem_Contrato'
+                );
+              }}
+              className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all flex items-center gap-2"
+            >
+              <FileText className="w-4 h-4" />
+              Exportar Relatório
+            </button>
           </CardHeader>
           <CardContent className="p-0">
             <DataTable

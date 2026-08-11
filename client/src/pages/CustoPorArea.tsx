@@ -3,7 +3,10 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 import { formatCurrency } from '@/lib/utils';
 import { DashboardLayout } from '@/components/dashboard/DashboardLayout';
 import dadosCustos from '@/lib/dadosCustos.json';
-import { TrendingDown } from 'lucide-react';
+import { TrendingDown, FileText } from 'lucide-react';
+import { generateGenericReportPDF } from '@/lib/generateProfessionalPDF';
+
+// Padrão PDF: relatório institucional conciso, com métricas, tabela ordenada e paginação.
 
 export default function CustoPorArea() {
   const custoArea = dadosCustos.custo_area || [];
@@ -160,8 +163,40 @@ export default function CustoPorArea() {
 
         {/* Tabela Completa */}
         <Card className="mt-8 border-0 shadow-sm overflow-hidden">
-          <CardHeader>
+          <CardHeader className="flex items-center justify-between bg-gradient-to-r from-purple-50 to-blue-50 border-b">
             <CardTitle>Tabela Completa - Custo por Área</CardTitle>
+            <button
+              onClick={() => {
+                const metrics = [
+                  { label: 'Total Geral', value: `R$ ${formatCurrency(totalGeral)}` },
+                  { label: 'Custo Médio por Área', value: `R$ ${formatCurrency(media)}/m²` },
+                  { label: 'Maior Custo/Área', value: `R$ ${formatCurrency(sortedData[0]?.['Custo/Área'] || 0)}/m²` },
+                  { label: 'Menor Custo/Área', value: `R$ ${formatCurrency(sortedData[sortedData.length - 1]?.['Custo/Área'] || 0)}/m²` },
+                ];
+                const tableData = sortedData.map((item, index) => {
+                  const valor = item['Custo/Área'] || 0;
+                  const diferenca = valor - media;
+                  const percentual = media > 0 ? (diferenca / media) * 100 : 0;
+                  return [
+                    index + 1,
+                    item.SEC,
+                    `${formatCurrency(valor)}/m²`,
+                    `${diferenca > 0 ? '+' : ''}${formatCurrency(diferenca)}/m² (${percentual.toFixed(1)}%)`,
+                  ];
+                });
+                generateGenericReportPDF(
+                  'Relatório de Custo por Área',
+                  metrics,
+                  ['Posição', 'SEC', 'Custo/Área', 'Diferença da Média'],
+                  tableData,
+                  'Relatorio_Custo_por_Area'
+                );
+              }}
+              className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all flex items-center gap-2"
+            >
+              <FileText className="w-4 h-4" />
+              Exportar Relatório
+            </button>
           </CardHeader>
           <div className="overflow-x-auto">
             <table className="w-full">
