@@ -18,8 +18,9 @@ export type ChangeCounts = {
   added: number;
   updated: number;
   unchanged: number;
-  samples: { added: string[]; updated: string[]; unchanged: string[] };
-  details: { added: ChangeDetail[]; updated: ChangeDetail[]; unchanged: ChangeDetail[] };
+  removed: number;
+  samples: { added: string[]; updated: string[]; unchanged: string[]; removed: string[] };
+  details: { added: ChangeDetail[]; updated: ChangeDetail[]; unchanged: ChangeDetail[]; removed: ChangeDetail[] };
 };
 export type ChangeDetail = { label: string; before?: Record<string, string>; after: Record<string, string> };
 export type ImportSummary = {
@@ -35,6 +36,7 @@ const defaultData = (): DashboardData => structuredClone({
   secs,
   custos: custosPadrao,
 });
+const OFFICIAL_COSTS_FILE = "CUSTOS COMPILADOS POR ESTADO2.XLSX";
 
 const clean = (value: unknown) => String(value ?? "").trim();
 const keyText = (value: unknown) => clean(value).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
@@ -147,32 +149,51 @@ function previewRecord(record: unknown): Record<string, string> {
   }, {});
 }
 
+function comparableRecord(record: unknown) {
+  const value = record as Record<string, unknown>;
+  return JSON.stringify(Object.fromEntries(
+    Object.entries(value)
+      .filter(([field]) => field !== "id")
+      .sort(([left], [right]) => left.localeCompare(right)),
+  ));
+}
+
 function diffRecords<T>(before: T[], incoming: T[], keyOf: (item: T) => string): ChangeCounts {
-  const previous = new Map(before.map(item => [keyOf(item), JSON.stringify(item)]));
-  return incoming.reduce<ChangeCounts>((counts, item) => {
+  const previous = new Map(before.map(item => [keyOf(item), { item, serialized: comparableRecord(item) }]));
+  const nextKeys = new Set(incoming.map(item => keyOf(item)));
+  const counts = incoming.reduce<ChangeCounts>((current, item) => {
     const previousValue = previous.get(keyOf(item));
     const label = recordLabel(item);
     if (!previousValue) {
-      counts.added += 1;
-      if (counts.samples.added.length < 5) counts.samples.added.push(label);
-      counts.details.added.push({ label, after: previewRecord(item) });
-    } else if (previousValue === JSON.stringify(item)) {
-      counts.unchanged += 1;
-      if (counts.samples.unchanged.length < 5) counts.samples.unchanged.push(label);
-      counts.details.unchanged.push({ label, after: previewRecord(item) });
+      current.added += 1;
+      if (current.samples.added.length < 5) current.samples.added.push(label);
+      current.details.added.push({ label, after: previewRecord(item) });
+    } else if (previousValue.serialized === comparableRecord(item)) {
+      current.unchanged += 1;
+      if (current.samples.unchanged.length < 5) current.samples.unchanged.push(label);
+      current.details.unchanged.push({ label, after: previewRecord(item) });
     } else {
-      counts.updated += 1;
-      if (counts.samples.updated.length < 5) counts.samples.updated.push(label);
-      counts.details.updated.push({ label, before: previewRecord(JSON.parse(previousValue)), after: previewRecord(item) });
+      current.updated += 1;
+      if (current.samples.updated.length < 5) current.samples.updated.push(label);
+      current.details.updated.push({ label, before: previewRecord(previousValue.item), after: previewRecord(item) });
     }
-    return counts;
+    return current;
   }, {
     added: 0,
     updated: 0,
     unchanged: 0,
-    samples: { added: [], updated: [], unchanged: [] },
-    details: { added: [], updated: [], unchanged: [] },
+    removed: 0,
+    samples: { added: [], updated: [], unchanged: [], removed: [] },
+    details: { added: [], updated: [], unchanged: [], removed: [] },
   });
+  previous.forEach(({ item }, key) => {
+    if (nextKeys.has(key)) return;
+    const label = recordLabel(item);
+    counts.removed += 1;
+    if (counts.samples.removed.length < 5) counts.samples.removed.push(label);
+    counts.details.removed.push({ label, after: previewRecord(item) });
+  });
+  return counts;
 }
 
 function mergeRecords<T>(before: T[], incoming: T[], keyOf: (item: T) => string) {
@@ -249,6 +270,9 @@ function parseWorkbook(buffer: Buffer, fileName: string): Partial<DashboardData>
   }
 
   if (name.includes("CUSTOS")) {
+    if (name !== OFFICIAL_COSTS_FILE) {
+      throw new Error("Para atualizar custos, envie exclusivamente o arquivo oficial “Custos compilados por estado2.xlsx”.");
+    }
     const mapping: Array<[keyof typeof custosPadrao, RegExp, string[]]> = [
       ["visao_geral", /VISAO\s*GERAL/, ["SEC", "Total", "Custo/Servidor", "Custo/Área"]],
       ["custo_area_servidor", /AREA.*SERVIDOR|SERVIDOR.*AREA/, ["SEC", "Área/Servidor", "Custo/Servidor"]],
@@ -290,27 +314,28 @@ export function buildCandidateData(baseline: DashboardData, buffer: Buffer, file
 
   if (patch.colaboradores) {
     summary.domains.colaboradores = diffRecords(baseline.colaboradores, patch.colaboradores, row => row.cpf.replace(/\D/g, ""));
-    candidate.colaboradores = mergeRecords(baseline.colaboradores, patch.colaboradores, row => row.cpf.replace(/\D/g, ""));
+    candidate.colaboradores = patch.colaboradores;
   }
   if (patch.contratos) {
     summary.domains.contratos = diffRecords(baseline.contratos, patch.contratos, row => row.id);
-    candidate.contratos = mergeRecords(baseline.contratos, patch.contratos, row => row.id);
+    candidate.contratos = patch.contratos;
   }
   if (patch.despesasSemContrato) {
     summary.domains.despesasSemContrato = diffRecords(baseline.despesasSemContrato, patch.despesasSemContrato, row => row.id);
-    candidate.despesasSemContrato = mergeRecords(baseline.despesasSemContrato, patch.despesasSemContrato, row => row.id);
+    candidate.despesasSemContrato = patch.despesasSemContrato;
   }
   if (patch.secs) {
     summary.domains.secs = diffRecords(baseline.secs, patch.secs, row => row);
-    candidate.secs = Array.from(new Set(baseline.secs.concat(patch.secs))).sort();
+    candidate.secs = patch.secs;
   }
   if (patch.custos) {
     summary.domains.custos = {
       added: 0,
       updated: 1,
       unchanged: 0,
-      samples: { added: [], updated: ["Planilha de custos consolidada"], unchanged: [] },
-      details: { added: [], updated: [{ label: "Planilha de custos consolidada", after: { "Dados identificados": "Custos por secretaria, área, total, eficiência e quantidade de servidores" } }], unchanged: [] },
+      removed: 0,
+      samples: { added: [], updated: ["Planilha de custos consolidada"], unchanged: [], removed: [] },
+      details: { added: [], updated: [{ label: "Planilha de custos consolidada", after: { "Dados identificados": "Custos por secretaria, área, total, eficiência e quantidade de servidores" } }], unchanged: [], removed: [] },
     };
     candidate.custos = patch.custos;
   }

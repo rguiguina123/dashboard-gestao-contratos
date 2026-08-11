@@ -2,27 +2,49 @@
 - [x] Padronizar páginas de custos restantes
 - [x] Validar compilação TypeScript
 - [x] Testar exportações PDF no navegador
-- [ ] Salvar checkpoint final
+- [x] Salvar checkpoint final
 
 # Automação de dados por planilha
-- [ ] Confirmar onde a planilha Excel ficará armazenada e quem a atualizará
-- [ ] Escolher o modo de sincronização automática e a frequência esperada
-- [ ] Configurar a integração segura da fonte de dados
-- [ ] Validar atualização, consistência e recuperação em caso de erro
+- [x] Confirmar onde a planilha Excel ficará armazenada e quem a atualizará
+- [x] Escolher o modo de sincronização automática e a frequência esperada — substituído por atualização sob demanda no dashboard
+- [x] Configurar a integração segura da fonte de dados — substituído por envio autenticado de arquivos Excel
+- [x] Validar atualização, consistência e recuperação em caso de erro
 
 # Implementação da sincronização automática
-- [ ] Definir a fonte oficial da planilha e o evento que dispara a atualização
-- [ ] Confirmar a alternativa de automação e as permissões de acesso necessárias
-- [ ] Implementar importação, validação e registro de alterações
-- [ ] Testar a atualização automática sem afetar dados válidos
+- [x] Definir a fonte oficial da planilha e o evento que dispara a atualização — substituído por envio manual com confirmação
+- [x] Confirmar a alternativa de automação e as permissões de acesso necessárias
+- [x] Implementar importação, validação e registro de alterações
+- [x] Testar a atualização automática sem afetar dados válidos — adaptado para atualização manual confirmada
 
 # Fontes SharePoint identificadas
 - [x] Mapear abas e colunas de Dados de Colaboradores.xlsx
 - [x] Mapear abas e colunas de Gestão de Contratos.xlsx
 - [x] Mapear abas e colunas de Siglas das Secretarias.xlsx
-- [ ] Confirmar qual dos dois arquivos de custos compilados é a versão oficial
-- [ ] Configurar notificações de alteração para a pasta de dados
-- [ ] Implementar leitura, validação e histórico para cada arquivo aprovado
+- [x] Confirmar qual dos dois arquivos de custos compilados é a versão oficial — Custos compilados por estado2.xlsx
+- [x] Exigir o arquivo oficial Custos compilados por estado2.xlsx nas atualizações de custos
+- [x] Testar o ciclo completo de importação, confirmação, histórico e preservação da última versão aprovada
+- [x] Validar na interface autenticada a prévia, confirmação, histórico e cancelamento sem alteração dos dados vigentes — substituído pelo fluxo direto validado em testes
+
+# Atualização direta para usuários do dashboard
+- [x] Permitir que usuários autenticados enviem planilhas validadas
+- [x] Aplicar automaticamente uma importação válida sem etapa de confirmação
+- [x] Manter o histórico e a última versão aprovada quando uma validação falhar
+- [x] Ajustar a interface para o fluxo direto de atualização
+- [x] Requisito de validação em interface autenticada descontinuado pelo usuário em favor de atualização pública sem login
+- [x] Requisito de bloqueio em interface autenticada descontinuado pelo usuário em favor de atualização pública sem login
+
+# Atualização pública com comparativo
+- [x] Remover a exigência de login da área de atualização de dados
+- [x] Mostrar registros incluídos, alterados e removidos antes de aplicar automaticamente a nova versão
+- [x] Aplicar as remoções previstas na planilha aprovada e preservar histórico para recuperação
+- [x] Testar atualização pública, comparativo e bloqueios de validação
+- [x] Cobrir com teste o acesso público ao procedimento de atualização sem sessão
+- [x] Registrar o requisito autenticado como substituído pelo fluxo público definido pelo usuário
+- [x] Evitar alterações falsas quando o identificador técnico do registro muda, mas os dados permanecem iguais
+- [x] Garantir a aplicação automática após o período de leitura do comparativo em importações consecutivas
+- [x] Executar teste real com duas importações válidas consecutivas e verificar os dois registros no histórico
+- [x] Configurar notificações de alteração para a pasta de dados — substituído por envio sob demanda no painel
+- [x] Implementar leitura, validação e histórico para cada arquivo aprovado
 - [x] Preparar backend e base de dados para a sincronização segura
 
 # Área de atualização de dados

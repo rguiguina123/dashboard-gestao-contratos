@@ -1,6 +1,59 @@
 import { describe, expect, it } from "vitest";
 import * as XLSX from "xlsx";
-import { buildCandidateData } from "./dataImports";
+import { vi } from "vitest";
+
+const lifecycleState = vi.hoisted(() => ({
+  current: null as any,
+  pending: null as any,
+  history: [] as any[],
+}));
+
+vi.mock("./storage", () => ({ storagePut: vi.fn(async () => ({ key: "imports/teste.xlsx" })) }));
+vi.mock("./db", () => ({
+  getDb: async () => ({
+    select: () => ({
+      from: () => ({
+        where: () => ({
+          orderBy: () => ({ limit: async () => lifecycleState.current ? [lifecycleState.current] : [] }),
+          limit: async () => lifecycleState.pending ? [lifecycleState.pending] : [],
+        }),
+        orderBy: () => ({ limit: async () => lifecycleState.history }),
+      }),
+    }),
+    insert: () => ({
+      values: async (values: any) => {
+        if (values.status === "pending") {
+          lifecycleState.pending = { ...values, id: 42, createdAt: new Date(), approvedAt: null };
+          lifecycleState.history = [lifecycleState.pending];
+          return [{ insertId: 42 }];
+        }
+        lifecycleState.current = { ...values, id: 101 };
+        return [{ insertId: 101 }];
+      },
+    }),
+    transaction: async (callback: (tx: any) => Promise<void>) => callback({
+      update: () => ({
+        set: (values: any) => ({
+          where: async () => {
+            if (values.isCurrent === false && lifecycleState.current) lifecycleState.current.isCurrent = false;
+            if (values.status === "approved" && lifecycleState.pending) {
+              lifecycleState.pending.status = "approved";
+              lifecycleState.pending.approvedAt = values.approvedAt;
+            }
+          },
+        }),
+      }),
+      insert: () => ({
+        values: async (values: any) => {
+          lifecycleState.current = { ...values, id: 101 };
+          return [{ insertId: 101 }];
+        },
+      }),
+    }),
+  }),
+}));
+
+import { approveImport, buildCandidateData, getCurrentDashboardData, listImportHistory, prepareImport } from "./dataImports";
 
 function workbookBuffer(sheetName: string, rows: Record<string, unknown>[]) {
   const workbook = XLSX.utils.book_new();
@@ -45,7 +98,7 @@ function costsWorkbookWithEmptyTotalSheet() {
 }
 
 describe("importação de dados", () => {
-  it("compara colaboradores pelo CPF e preserva registros ausentes do novo arquivo", () => {
+  it("compara colaboradores pelo CPF e indica os registros que saem da base", () => {
     const baseline = {
       colaboradores: [{ id: "cpf-12345678901", nome: "Pessoa Antiga", cpf: "123.456.789-01", funcao: "Apoio", sec: "DF" }],
       contratos: [], despesasSemContrato: [], secs: ["SEC-DF"], custos: {},
@@ -57,10 +110,39 @@ describe("importação de dados", () => {
 
     const { candidate, summary } = buildCandidateData(baseline, buffer, "Dados de Colaboradores.xlsx");
 
-    expect(summary.domains.colaboradores).toMatchObject({ added: 1, updated: 1, unchanged: 0 });
+    expect(summary.domains.colaboradores).toMatchObject({ added: 1, updated: 1, unchanged: 0, removed: 0 });
     expect(summary.domains.colaboradores?.samples.updated).toContain("Pessoa Atualizada");
     expect(candidate.colaboradores).toHaveLength(2);
     expect(candidate.colaboradores.find(item => item.cpf === "123.456.789-01")?.funcao).toBe("Analista");
+  });
+
+  it("remove da versão candidata o colaborador que não consta no novo arquivo", () => {
+    const baseline = {
+      colaboradores: [
+        { id: "cpf-12345678901", nome: "Pessoa Mantida", cpf: "123.456.789-01", funcao: "Apoio", sec: "DF" },
+        { id: "cpf-98765432100", nome: "Pessoa Saindo", cpf: "987.654.321-00", funcao: "Apoio", sec: "GO" },
+      ],
+      contratos: [], despesasSemContrato: [], secs: ["SEC-DF", "SEC-GO"], custos: {},
+    } as any;
+    const buffer = workbookBuffer("SECs - Colaboradores", [{ NOME: "Pessoa Mantida", CPF: "12345678901", POSTO: "Apoio", SEC: "SEC-DF" }]);
+
+    const { candidate, summary } = buildCandidateData(baseline, buffer, "Dados de Colaboradores.xlsx");
+
+    expect(summary.domains.colaboradores).toMatchObject({ added: 0, updated: 0, unchanged: 1, removed: 1 });
+    expect(summary.domains.colaboradores?.samples.removed).toContain("Pessoa Saindo");
+    expect(candidate.colaboradores.map(item => item.nome)).toEqual(["Pessoa Mantida"]);
+  });
+
+  it("mantém o registro quando apenas o identificador técnico diverge da planilha", () => {
+    const baseline = {
+      colaboradores: [{ id: "registro-legado-1", nome: "Pessoa Mantida", cpf: "123.456.789-01", funcao: "Apoio", sec: "DF" }],
+      contratos: [], despesasSemContrato: [], secs: ["SEC-DF"], custos: {},
+    } as any;
+    const buffer = workbookBuffer("SECs - Colaboradores", [{ NOME: "Pessoa Mantida", CPF: "12345678901", POSTO: "Apoio", SEC: "SEC-DF" }]);
+
+    const { summary } = buildCandidateData(baseline, buffer, "Dados de Colaboradores.xlsx");
+
+    expect(summary.domains.colaboradores).toMatchObject({ added: 0, updated: 0, unchanged: 1, removed: 0 });
   });
 
   it("rejeita planilha de colaboradores sem as colunas obrigatórias", () => {
@@ -95,19 +177,45 @@ describe("importação de dados", () => {
   it("acumula abas de custos ausentes no mesmo bloqueio", () => {
     const baseline = { colaboradores: [], contratos: [], despesasSemContrato: [], secs: [], custos: {} } as any;
     const buffer = workbookBuffer("Visão Geral", [{ SEC: "SEC-DF", Total: 10 }]);
-    expect(() => buildCandidateData(baseline, buffer, "Custos compilados por estado.xlsx"))
+    expect(() => buildCandidateData(baseline, buffer, "Custos compilados por estado2.xlsx"))
       .toThrow(/custo_area.*custo_servidor/s);
   });
 
   it("bloqueia uma aba de custos com coluna específica ausente", () => {
     const baseline = { colaboradores: [], contratos: [], despesasSemContrato: [], secs: [], custos: {} } as any;
-    expect(() => buildCandidateData(baseline, costsWorkbookWithInvalidAreaSheet(), "Custos compilados por estado.xlsx"))
+    expect(() => buildCandidateData(baseline, costsWorkbookWithInvalidAreaSheet(), "Custos compilados por estado2.xlsx"))
       .toThrow(/Custo por Área.*Custo\/Área/s);
   });
 
   it("bloqueia uma aba obrigatória de custos vazia", () => {
     const baseline = { colaboradores: [], contratos: [], despesasSemContrato: [], secs: [], custos: {} } as any;
-    expect(() => buildCandidateData(baseline, costsWorkbookWithEmptyTotalSheet(), "Custos compilados por estado.xlsx"))
+    expect(() => buildCandidateData(baseline, costsWorkbookWithEmptyTotalSheet(), "Custos compilados por estado2.xlsx"))
       .toThrow(/Custo Total.*não há registros válidos/s);
+  });
+
+  it("preserva a versão aprovada até a confirmação e registra o histórico ao concluir a importação", async () => {
+    const baseline = {
+      colaboradores: [{ id: "cpf-12345678901", nome: "Pessoa Antiga", cpf: "123.456.789-01", funcao: "Apoio", sec: "DF" }],
+      contratos: [], despesasSemContrato: [], secs: ["SEC-DF"], custos: {},
+    } as any;
+    lifecycleState.current = { id: 1, payload: JSON.stringify(baseline), isCurrent: true };
+    lifecycleState.pending = null;
+    lifecycleState.history = [];
+    const file = workbookBuffer("SECs - Colaboradores", [{ NOME: "Pessoa Atualizada", CPF: "12345678901", POSTO: "Analista", SEC: "SEC-DF" }]);
+
+    const prepared = await prepareImport("Dados de Colaboradores.xlsx", file, 9);
+    expect((await getCurrentDashboardData()).colaboradores[0]?.nome).toBe("Pessoa Antiga");
+    expect(prepared.summary.domains.colaboradores?.updated).toBe(1);
+    expect(lifecycleState.pending?.status).toBe("pending");
+
+    await approveImport(prepared.importId, 9);
+    expect((await getCurrentDashboardData()).colaboradores[0]?.nome).toBe("Pessoa Atualizada");
+    expect((await listImportHistory())[0]?.status).toBe("approved");
+  });
+
+  it("rejeita o arquivo de custos que não é a versão oficial", () => {
+    const baseline = { colaboradores: [], contratos: [], despesasSemContrato: [], secs: [], custos: {} } as any;
+    expect(() => buildCandidateData(baseline, costsWorkbookWithInvalidAreaSheet(), "Custos compilados por estado.xlsx"))
+      .toThrow("Custos compilados por estado2.xlsx");
   });
 });
