@@ -1094,7 +1094,7 @@ export const colaboradores: Colaborador[] = [
   { id: "colaborador-4", nome: "ALCIONE GLADY DUTRA DOS ANJOS", sec: "RO", funcao: "Apoio Administrativo", cpf: "528.768.022-87" },
   { id: "colaborador-5", nome: "ALESSANDRA DA COSTA PEREIRA", sec: "PE", funcao: "Apoio Administrativo", cpf: "093.948.644-07" },
   { id: "colaborador-6", nome: "ALEX MOREIRA TEIXEIRA", sec: "PA", funcao: "Vigilante Diurno 12 x 36h", cpf: "873.899.242-68" },
-  { id: "colaborador-7", nome: "ALEXANDRA DA SILVA LIMA", sec: "AL", funcao: "Apoio Administrativo", cpf: "133.801,014-00" },
+  { id: "colaborador-7", nome: "ALEXANDRA DA SILVA LIMA", sec: "AL", funcao: "Apoio Administrativo", cpf: "133.801.014-00" },
   { id: "colaborador-8", nome: "ALEXANDRE SERGIO SOARES", sec: "PE", funcao: "Limpeza/Copeiragem", cpf: "541.825.904-06" },
   { id: "colaborador-9", nome: "ALEXANDRO DA SILVA SANTOS", sec: "AL", funcao: "Vigilante Diurno 12 x 36h", cpf: "028.172.481-47" },
   { id: "colaborador-10", nome: "ALEXSANDRO DA SILVA NOGUEIRA", sec: "AL", funcao: "Vigilante Noturno 12 x 36h", cpf: "057.747.444-85" },

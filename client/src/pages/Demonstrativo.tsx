@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { MetricCard } from "@/components/dashboard/MetricCard";
 import { ExportPDF } from "@/components/dashboard/ExportPDF";
-import { contratos, despesasSemContrato, totalMensal, totalMensalComContrato, totalMensalSemContrato } from "@/lib/data";
+import { contratos, despesasSemContrato, totalMensal, totalMensalComContrato, totalMensalSemContrato, totalAnual, totalAnualComContrato, totalAnualSemContrato } from "@/lib/data";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   BarChart,
@@ -26,12 +26,12 @@ export default function Demonstrativo() {
       {
         categoria: "Com Contrato",
         Mensal: totalMensalComContrato,
-        Anual: totalMensalComContrato * 12,
+        Anual: totalAnualComContrato,
       },
       {
         categoria: "Sem Contrato",
         Mensal: totalMensalSemContrato,
-        Anual: totalMensalSemContrato * 12,
+        Anual: totalAnualSemContrato,
       },
     ];
   }, []);
@@ -42,13 +42,13 @@ export default function Demonstrativo() {
       {
         categoria: "Com Contrato",
         mensal: totalMensalComContrato,
-        anual: totalMensalComContrato * 12,
+        anual: totalAnualComContrato,
         percentual: ((totalMensalComContrato / totalMensal) * 100).toFixed(1),
       },
       {
         categoria: "Sem Contrato",
         mensal: totalMensalSemContrato,
-        anual: totalMensalSemContrato * 12,
+        anual: totalAnualSemContrato,
         percentual: ((totalMensalSemContrato / totalMensal) * 100).toFixed(1),
       },
     ];
@@ -91,7 +91,7 @@ export default function Demonstrativo() {
           />
           <MetricCard
             title="Despesa Anual Total"
-            value={formatCurrency(totalMensal * 12)}
+            value={formatCurrency(totalAnual)}
             icon={<TrendingUp className="w-5 h-5" />}
             trend="up"
           />
@@ -161,7 +161,7 @@ export default function Demonstrativo() {
                 { key: "mensal", label: "Mensal", format: (v) => `R$ ${v.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}` },
                 { key: "anual", label: "Anual", format: (v) => `R$ ${v.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}` },
               ]}
-              totals={{ mensal: totalMensal, anual: totalMensal * 12 }}
+              totals={{ mensal: totalMensal, anual: totalAnual }}
             />
           </CardHeader>
           <CardContent className="p-6">

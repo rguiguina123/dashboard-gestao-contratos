@@ -1,5 +1,5 @@
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 
 // Cores profissionais e elegantes
 const COLORS = {
@@ -131,7 +131,7 @@ export const generateContractsPDFProfessional = async (
     `R$ ${formatCurrency(contract.anual || 0)}`,
   ]);
 
-  (doc as any).autoTable({
+  autoTable(doc, {
     head: [['Contrato', 'Fornecedor', 'SEC', 'Vencimento', 'Dias', 'Mensal', 'Anual']],
     body: tableData,
     startY: yPosition,
@@ -142,12 +142,12 @@ export const generateContractsPDFProfessional = async (
       textColor: [255, 255, 255],
       fontStyle: 'bold',
       fontSize: 9,
-      padding: 4,
+      cellPadding: 4,
     },
     bodyStyles: {
       fontSize: 8,
       textColor: [31, 41, 55],
-      padding: 3,
+      cellPadding: 3,
     },
     alternateRowStyles: {
       fillColor: [243, 244, 246],
@@ -199,7 +199,7 @@ export const generateContractsPDFProfessional = async (
     ['Contratos Vencendo em Breve', metrics.breve.toString()],
   ];
 
-  (doc as any).autoTable({
+  autoTable(doc, {
     body: summaryData,
     startY: yPosition,
     margin: margin,
@@ -207,7 +207,7 @@ export const generateContractsPDFProfessional = async (
     bodyStyles: {
       fontSize: 10,
       textColor: [31, 41, 55],
-      padding: 5,
+      cellPadding: 5,
     },
     columnStyles: {
       0: { cellWidth: 80, fontStyle: 'bold', fillColor: [243, 244, 246] },
@@ -294,7 +294,7 @@ export const generateEmployeesPDFProfessional = async (
     emp.cpf || 'N/A',
   ]);
 
-  (doc as any).autoTable({
+  autoTable(doc, {
     head: [['Nome', 'SEC', 'Função', 'CPF']],
     body: tableData,
     startY: yPosition,
@@ -305,12 +305,12 @@ export const generateEmployeesPDFProfessional = async (
       textColor: [255, 255, 255],
       fontStyle: 'bold',
       fontSize: 9,
-      padding: 4,
+      cellPadding: 4,
     },
     bodyStyles: {
       fontSize: 8,
       textColor: [31, 41, 55],
-      padding: 3,
+      cellPadding: 3,
     },
     alternateRowStyles: {
       fillColor: [243, 244, 246],
@@ -470,7 +470,7 @@ export const generateGenericReportPDF = (
 
     const metricsData = metrics.map(m => [m.label, String(m.value)]);
 
-    (doc as any).autoTable({
+    autoTable(doc, {
       body: metricsData,
       startY: yPosition,
       margin: margin,
@@ -478,7 +478,7 @@ export const generateGenericReportPDF = (
       bodyStyles: {
         fontSize: 9,
         textColor: [31, 41, 55],
-        padding: 4,
+        cellPadding: 4,
       },
       columnStyles: {
         0: { cellWidth: 80, fontStyle: 'bold', fillColor: [243, 244, 246] },
@@ -497,7 +497,7 @@ export const generateGenericReportPDF = (
     doc.text('DETALHES', margin, yPosition);
     yPosition += 8;
 
-    (doc as any).autoTable({
+    autoTable(doc, {
       head: [tableHeaders],
       body: tableData,
       startY: yPosition,
@@ -508,12 +508,12 @@ export const generateGenericReportPDF = (
         textColor: [255, 255, 255],
         fontStyle: 'bold',
         fontSize: 9,
-        padding: 4,
+        cellPadding: 4,
       },
       bodyStyles: {
         fontSize: 8,
         textColor: [31, 41, 55],
-        padding: 3,
+        cellPadding: 3,
       },
       alternateRowStyles: {
         fillColor: [243, 244, 246],

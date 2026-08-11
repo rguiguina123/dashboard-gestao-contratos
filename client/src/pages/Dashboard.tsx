@@ -1,7 +1,7 @@
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { KPICard } from "@/components/dashboard/KPICard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { contratos, colaboradores, despesasSemContrato, totalMensal, totalMensalComContrato, totalMensalSemContrato, totalAnual, totalAnualComContrato, totalAnualSemContrato } from "@/lib/data";
+import { contratos, colaboradores, despesasSemContrato, secs, totalMensal, totalMensalComContrato, totalMensalSemContrato, totalAnual, totalAnualComContrato, totalAnualSemContrato } from "@/lib/data";
 import {
   LineChart,
   Line,
@@ -60,7 +60,7 @@ export default function Dashboard() {
                 { label: 'Despesa Anual Total', value: `R$ ${formatCurrency(totalAnual)}` },
                 { label: 'Contratos Ativos', value: contratos.length },
                 { label: 'Colaboradores', value: colaboradores.length },
-                { label: 'SECs Gerenciadas', value: 48 },
+                { label: 'SECs Gerenciadas', value: secs.length },
               ];
               const tableData = monthlyTrend.map(item => [
                 item.month,
@@ -114,7 +114,7 @@ export default function Dashboard() {
           />
           <KPICard
             title="SECs Gerenciadas"
-            value="48"
+            value={secs.length.toString()}
             icon={<TrendingUp className="w-5 h-5 text-amber-600" />}
             trend="neutral"
             trendValue="Estável"
@@ -180,7 +180,7 @@ export default function Dashboard() {
                   <div>
                     <p className="text-sm text-purple-600 font-medium">Com Contrato</p>
                     <p className="text-2xl font-bold text-purple-900">{formatCurrency(totalMensalComContrato)}</p>
-                    <p className="text-xs text-purple-600 mt-1">{formatCurrency(totalMensalComContrato * 12)}/ano</p>
+                    <p className="text-xs text-purple-600 mt-1">{formatCurrency(totalAnualComContrato)}/ano</p>
                   </div>
                   <CheckCircle className="w-8 h-8 text-purple-600" />
                 </div>
@@ -188,7 +188,7 @@ export default function Dashboard() {
                   <div>
                     <p className="text-sm text-blue-600 font-medium">Sem Contrato</p>
                     <p className="text-2xl font-bold text-blue-900">{formatCurrency(totalMensalSemContrato)}</p>
-                    <p className="text-xs text-blue-600 mt-1">{formatCurrency(totalMensalSemContrato * 12)}/ano</p>
+                    <p className="text-xs text-blue-600 mt-1">{formatCurrency(totalAnualSemContrato)}/ano</p>
                   </div>
                   <AlertCircle className="w-8 h-8 text-blue-600" />
                 </div>
@@ -196,7 +196,7 @@ export default function Dashboard() {
                   <div>
                     <p className="text-sm text-gray-600 font-medium">Total Geral</p>
                     <p className="text-2xl font-bold text-gray-900">{formatCurrency(totalMensal)}</p>
-                    <p className="text-xs text-gray-600 mt-1">{formatCurrency(totalMensal * 12)}/ano</p>
+                    <p className="text-xs text-gray-600 mt-1">{formatCurrency(totalAnual)}/ano</p>
                   </div>
                   <TrendingUp className="w-8 h-8 text-gray-600" />
                 </div>
@@ -225,7 +225,7 @@ export default function Dashboard() {
                   Contratos/SEC
                 </p>
                 <p className="text-xl font-bold text-foreground font-poppins">
-                  {(contratos.length / 48).toFixed(1)}
+                  {(contratos.length / secs.length).toFixed(1)}
                 </p>
               </div>
               <div className="p-4 bg-secondary rounded-lg hover-lift">
@@ -233,7 +233,7 @@ export default function Dashboard() {
                   Colaboradores/SEC
                 </p>
                 <p className="text-xl font-bold text-foreground font-poppins">
-                  {(colaboradores.length / 48).toFixed(1)}
+                  {(colaboradores.length / secs.length).toFixed(1)}
                 </p>
               </div>
               <div className="p-4 bg-secondary rounded-lg hover-lift">

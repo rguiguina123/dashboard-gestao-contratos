@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { MetricCard } from "@/components/dashboard/MetricCard";
-import { colaboradores, secs } from "@/lib/data";
+import { colaboradores } from "@/lib/data";
 import { generateEmployeesPDFProfessional } from "@/lib/generateProfessionalPDF";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -37,30 +37,29 @@ export default function Colaboradores() {
     return colaboradores.filter((c: any) => c.sec === selectedSEC);
   }, [selectedSEC]);
 
-  // Dados de distribuição por posto
+  // Dados de distribuição por posto, calculados a partir da base atual.
   const distribuicaoPosto = useMemo(() => {
-    return [
-      { name: "Apoio Administrativo", value: 56 },
-      { name: "Limpeza/Copeiragem", value: 39 },
-      { name: "Segurança Pessoal Privada", value: 7 },
-      { name: "Vigilante Diurno 12 x 36h", value: 4 },
-      { name: "Vigilante Noturno 12 x 36h", value: 4 },
-      { name: "Recepção", value: 2 },
-    ];
+    const postos = colaboradores.reduce((acc: Map<string, number>, colaborador: any) => {
+      const posto = colaborador.funcao || "Não informado";
+      acc.set(posto, (acc.get(posto) || 0) + 1);
+      return acc;
+    }, new Map<string, number>());
+
+    return Array.from(postos, ([name, value]) => ({ name, value })).sort((a, b) => b.value - a.value);
   }, []);
 
-  // Dados de distribuição por SEC
+  // Dados de distribuição por SEC, consolidados e limitados às principais SECs.
   const distribuicaoSEC = useMemo(() => {
-    return [
-      { name: "SEC-SP", value: 18 },
-      { name: "SEC-RJ", value: 15 },
-      { name: "SEC-MG", value: 12 },
-      { name: "SEC-BA", value: 10 },
-      { name: "SEC-RS", value: 9 },
-      { name: "SEC-PE", value: 8 },
-      { name: "SEC-PR", value: 7 },
-      { name: "Outros", value: 16 },
-    ];
+    const porSEC = colaboradores.reduce((acc: Map<string, number>, colaborador: any) => {
+      const sec = colaborador.sec || "Não informada";
+      acc.set(sec, (acc.get(sec) || 0) + 1);
+      return acc;
+    }, new Map<string, number>());
+    const dadosOrdenados = Array.from(porSEC, ([name, value]) => ({ name, value })).sort((a, b) => b.value - a.value);
+    const principais = dadosOrdenados.slice(0, 7);
+    const outros = dadosOrdenados.slice(7).reduce((total, item) => total + item.value, 0);
+
+    return outros > 0 ? [...principais, { name: "Outras SECs", value: outros }] : principais;
   }, []);
 
   // Cores para gráficos
@@ -102,13 +101,13 @@ export default function Colaboradores() {
           />
           <MetricCard
             title="Postos Diferentes"
-            value="6"
+            value={distribuicaoPosto.length.toString()}
             icon={<Briefcase className="w-5 h-5" />}
             trend="neutral"
           />
           <MetricCard
             title="SECs Gerenciadas"
-            value={new Set(colaboradores.map((c: any) => c.cpf)).size.toString()}
+            value={new Set(colaboradores.map((c: any) => c.sec).filter(Boolean)).size.toString()}
             icon={<Building2 className="w-5 h-5" />}
             trend="neutral"
           />
@@ -193,12 +192,12 @@ export default function Colaboradores() {
               <Button
                 onClick={() => {
                   const metricas = {
-                    total: colaboradores.length,
-                    funcoes: 6,
-                    secs: new Set(colaboradores.map((c: any) => c.sec)).size,
-                    postos: 6,
+                    total: filteredColaboradores.length,
+                    funcoes: new Set(filteredColaboradores.map((c: any) => c.funcao).filter(Boolean)).size,
+                    secs: new Set(filteredColaboradores.map((c: any) => c.sec).filter(Boolean)).size,
+                    postos: new Set(filteredColaboradores.map((c: any) => c.funcao).filter(Boolean)).size,
                   };
-                  generateEmployeesPDFProfessional(colaboradores, metricas);
+                  generateEmployeesPDFProfessional(filteredColaboradores, metricas);
                 }}
                 className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 text-white"
               >

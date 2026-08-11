@@ -17,6 +17,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FileText, DollarSign, Calendar } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
+import { DateRangeFilter } from "@/components/DateRangeFilter";
 
 interface ContratoDisplay {
   id: string;
@@ -34,6 +35,7 @@ export default function Contratos() {
   const [selectedSEC, setSelectedSEC] = useState<string>("all");
   const [selectedObjeto, setSelectedObjeto] = useState<string>("all");
   const [selectedContract, setSelectedContract] = useState<ContratoDisplay | null>(null);
+  const [dateRange, setDateRange] = useState<{ startDate: string; endDate: string } | null>(null);
 
   // Função para converter data DD/MM/YYYY em Date
   const parseDate = (dateStr: string): Date => {
@@ -79,10 +81,19 @@ export default function Contratos() {
     if (selectedObjeto !== "all") {
       filtered = filtered.filter((c) => c.objeto === selectedObjeto);
     }
+
+    if (dateRange) {
+      const start = new Date(`${dateRange.startDate}T00:00:00`);
+      const end = new Date(`${dateRange.endDate}T23:59:59`);
+      filtered = filtered.filter((c) => {
+        const vencimento = parseDate(c.dataVencimento);
+        return vencimento >= start && vencimento <= end;
+      });
+    }
     
     // Ordenar por data de vencimento (mais próximas primeiro)
     return filtered.sort((a, b) => parseDate(a.dataVencimento).getTime() - parseDate(b.dataVencimento).getTime());
-  }, [selectedSEC, selectedObjeto]);
+  }, [selectedSEC, selectedObjeto, dateRange]);
 
   // Calcular totais
   const totais = useMemo(() => {
@@ -142,6 +153,13 @@ export default function Contratos() {
 
         {/* Filtros */}
         <div className="flex gap-4 items-end flex-wrap">
+          <div className="min-w-64">
+            <label className="text-sm font-medium text-gray-700 mb-2 block">Filtrar por vencimento</label>
+            <DateRangeFilter
+              onDateRangeChange={(startDate, endDate) => setDateRange({ startDate, endDate })}
+              onReset={() => setDateRange(null)}
+            />
+          </div>
           <div className="flex-1 min-w-xs">
             <label className="text-sm font-medium text-gray-700 mb-2 block">Filtrar por SEC</label>
             <Select value={selectedSEC} onValueChange={setSelectedSEC}>

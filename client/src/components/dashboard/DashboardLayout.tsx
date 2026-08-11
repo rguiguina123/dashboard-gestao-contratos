@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Header } from "./Header";
-import { DateRangeFilter } from "../DateRangeFilter";
 import {
   FileText,
   Users,
@@ -166,9 +165,6 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
       {/* Main Content */}
       <main className="flex-1 overflow-auto">
         <div className="p-8">
-          <div className="mb-6 flex justify-end">
-            <DateRangeFilter />
-          </div>
           {children}
         </div>
       </main>

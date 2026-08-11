@@ -12,7 +12,7 @@ import {
   Activity,
   Zap,
 } from "lucide-react";
-import { contratos, despesasSemContrato, totalMensal, totalAnual } from "@/lib/data";
+import { colaboradores, contratos, despesasSemContrato, totalMensal, totalAnual } from "@/lib/data";
 import { formatCurrency } from "@/lib/utils";
 import { NewsSection } from "@/components/NewsSection";
 
@@ -32,6 +32,7 @@ const moduleIcons = {
 };
 
 export default function Home() {
+  const totalSECsComColaboradores = new Set(colaboradores.map((colaborador: any) => colaborador.sec).filter(Boolean)).size;
   const heroImageUrl =
     "https://files.manuscdn.com/user_upload_by_module/session_file/310419663029089241/zHHepfmHYTYxyROd.jpg";
 
@@ -58,7 +59,7 @@ export default function Home() {
       href: "/colaboradores",
       icon: "colaboradores",
       color: "text-blue-600",
-      metric: `112 colaboradores`,
+      metric: `${colaboradores.length} colaboradores`,
     },
     {
       title: "Demonstrativo Total",
@@ -90,7 +91,7 @@ export default function Home() {
       href: "/custos-por-secretaria",
       icon: "custosPorSecretaria",
       color: "text-purple-600",
-      metric: "27 SECs",
+      metric: `${totalSECsComColaboradores} SECs`,
     },
     {
       title: "Custo por Área",
@@ -130,7 +131,7 @@ export default function Home() {
       href: "/quantidade-servidores",
       icon: "quantidadeServidores",
       color: "text-lime-600",
-      metric: "27 SECs",
+      metric: `${totalSECsComColaboradores} SECs`,
     },
   ];
 
@@ -188,7 +189,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="text-center">
               <p className="text-4xl font-bold text-primary font-poppins">
-                112
+                {colaboradores.length}
               </p>
               <p className="text-muted-foreground mt-2">Colaboradores</p>
             </div>
@@ -200,7 +201,7 @@ export default function Home() {
             </div>
             <div className="text-center">
               <p className="text-4xl font-bold text-primary font-poppins">
-                48
+                {totalSECsComColaboradores}
               </p>
               <p className="text-muted-foreground mt-2">SECs</p>
             </div>
