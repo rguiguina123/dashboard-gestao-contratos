@@ -18,8 +18,10 @@ import CustosTotal from "./pages/CustosTotal";
 import EficienciaServidor from "./pages/EficienciaServidor";
 import CustoServidor from "./pages/CustoServidor";
 import QuantidadeServidores from "./pages/QuantidadeServidores";
-
+import AtualizarDados from "./pages/AtualizarDados";
+import { DashboardDataProvider } from "./contexts/DashboardDataContext";
 function Router() {
+  // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
       <Route path="/" component={Home} />
@@ -35,6 +37,7 @@ function Router() {
       <Route path="/eficiencia-servidor" component={EficienciaServidor} />
       <Route path="/custo-servidor" component={CustoServidor} />
       <Route path="/quantidade-servidores" component={QuantidadeServidores} />
+      <Route path="/atualizar-dados" component={AtualizarDados} />
       <Route path="/404" component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
@@ -49,13 +52,15 @@ function App() {
         defaultTheme="light"
         // switchable
       >
-        <TooltipProvider>
-          <FloatingNav />
-          <div>
-            <Toaster />
-            <Router />
-          </div>
-        </TooltipProvider>
+        <DashboardDataProvider>
+          <TooltipProvider>
+            <FloatingNav />
+            <div>
+              <Toaster />
+              <Router />
+            </div>
+          </TooltipProvider>
+        </DashboardDataProvider>
       </ThemeProvider>
     </ErrorBoundary>
   );

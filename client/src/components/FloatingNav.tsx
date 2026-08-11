@@ -5,6 +5,7 @@ import {
   BarChart3,
   DollarSign,
   Home,
+  Upload,
 } from "lucide-react";
 
 interface NavItem {
@@ -38,6 +39,11 @@ const navItems: NavItem[] = [
     label: "Custos",
     href: "/custos-total",
     icon: <DollarSign className="w-6 h-6" />,
+  },
+  {
+    label: "Atualizar dados",
+    href: "/atualizar-dados",
+    icon: <Upload className="w-6 h-6" />,
   },
 ];
 

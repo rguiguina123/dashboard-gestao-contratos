@@ -2,13 +2,14 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts';
 import { formatCurrency } from '@/lib/utils';
 import { DashboardLayout } from '@/components/dashboard/DashboardLayout';
-import dadosCustos from '@/lib/dadosCustos.json';
+import { useDashboardData } from '@/contexts/DashboardDataContext';
 import { TrendingDown, FileText } from 'lucide-react';
 import { generateGenericReportPDF } from '@/lib/generateProfessionalPDF';
 
 // Padrão PDF: relatório institucional conciso, com métricas, tabela ordenada e paginação.
 
 export default function CustoPorArea() {
+  const { custos: dadosCustos } = useDashboardData();
   const custoArea = dadosCustos.custo_area || [];
   
   // Ordenar do maior para o menor

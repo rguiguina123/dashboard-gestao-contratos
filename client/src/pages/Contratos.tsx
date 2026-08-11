@@ -5,7 +5,7 @@ import { DataTable } from "@/components/dashboard/DataTable";
 import { ContractDetailModal } from "@/components/dashboard/ContractDetailModal";
 import { ProfessionalReportPDF } from "@/components/dashboard/ProfessionalReportPDF";
 import { VencimentoAlerts } from "@/components/dashboard/VencimentoAlerts";
-import { contratos, secs as allSecs } from "@/lib/data";
+import { useDashboardData } from "@/contexts/DashboardDataContext";
 import { generateContractsPDFProfessional } from "@/lib/generateProfessionalPDF";
 import {
   Select,
@@ -32,6 +32,7 @@ interface ContratoDisplay {
 }
 
 export default function Contratos() {
+  const { contratos, secs: allSecs } = useDashboardData();
   const [selectedSEC, setSelectedSEC] = useState<string>("all");
   const [selectedObjeto, setSelectedObjeto] = useState<string>("all");
   const [selectedContract, setSelectedContract] = useState<ContratoDisplay | null>(null);
@@ -66,7 +67,7 @@ export default function Contratos() {
   const objetosUnicos = useMemo(() => {
     const objetos = new Set(contratos.map((c) => c.objeto).filter(Boolean));
     return Array.from(objetos).sort();
-  }, []);
+  }, [contratos]);
 
   // Filtrar e ordenar contratos por data de vencimento
   const filteredContratos = useMemo(() => {
@@ -93,7 +94,7 @@ export default function Contratos() {
     
     // Ordenar por data de vencimento (mais próximas primeiro)
     return filtered.sort((a, b) => parseDate(a.dataVencimento).getTime() - parseDate(b.dataVencimento).getTime());
-  }, [selectedSEC, selectedObjeto, dateRange]);
+  }, [selectedSEC, selectedObjeto, dateRange, contratos]);
 
   // Calcular totais
   const totais = useMemo(() => {

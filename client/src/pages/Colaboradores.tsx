@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { MetricCard } from "@/components/dashboard/MetricCard";
-import { colaboradores } from "@/lib/data";
+import { useDashboardData } from "@/contexts/DashboardDataContext";
 import { generateEmployeesPDFProfessional } from "@/lib/generateProfessionalPDF";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -29,13 +29,14 @@ import {
 } from "@/components/ui/select";
 
 export default function Colaboradores() {
+  const { colaboradores } = useDashboardData();
   const [selectedSEC, setSelectedSEC] = useState<string>("all");
 
   // Filtrar colaboradores
   const filteredColaboradores = useMemo(() => {
     if (selectedSEC === "all") return colaboradores;
     return colaboradores.filter((c: any) => c.sec === selectedSEC);
-  }, [selectedSEC]);
+  }, [selectedSEC, colaboradores]);
 
   // Dados de distribuição por posto, calculados a partir da base atual.
   const distribuicaoPosto = useMemo(() => {
@@ -46,7 +47,7 @@ export default function Colaboradores() {
     }, new Map<string, number>());
 
     return Array.from(postos, ([name, value]) => ({ name, value })).sort((a, b) => b.value - a.value);
-  }, []);
+  }, [colaboradores]);
 
   // Dados de distribuição por SEC, consolidados e limitados às principais SECs.
   const distribuicaoSEC = useMemo(() => {
@@ -60,7 +61,7 @@ export default function Colaboradores() {
     const outros = dadosOrdenados.slice(7).reduce((total, item) => total + item.value, 0);
 
     return outros > 0 ? [...principais, { name: "Outras SECs", value: outros }] : principais;
-  }, []);
+  }, [colaboradores]);
 
   // Cores para gráficos
   const COLORS = [

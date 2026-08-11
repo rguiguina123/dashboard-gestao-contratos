@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Legend } from 'recharts';
 import { formatCurrency } from '@/lib/utils';
-import dadosCustos from '@/lib/dadosCustos.json';
+import { useDashboardData } from '@/contexts/DashboardDataContext';
 import { Activity, Zap, FileText } from 'lucide-react';
 import { DashboardLayout } from '@/components/dashboard/DashboardLayout';
 import { generateGenericReportPDF } from '@/lib/generateProfessionalPDF';
@@ -9,6 +9,7 @@ import { generateGenericReportPDF } from '@/lib/generateProfessionalPDF';
 // Padrão PDF: relatório institucional conciso, com métricas, tabela ordenada e paginação.
 
 export default function EficienciaServidor() {
+  const { custos: dadosCustos } = useDashboardData();
   const custoAreaServidor = dadosCustos.custo_area_servidor || [];
   
   // Ordenar por custo/servidor

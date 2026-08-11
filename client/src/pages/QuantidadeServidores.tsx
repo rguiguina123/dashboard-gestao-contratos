@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
-import dadosCustos from '@/lib/dadosCustos.json';
+import { useDashboardData } from '@/contexts/DashboardDataContext';
 import { Users, TrendingUp, FileText } from 'lucide-react';
 import { DashboardLayout } from '@/components/dashboard/DashboardLayout';
 import { generateGenericReportPDF } from '@/lib/generateProfessionalPDF';
@@ -10,6 +10,7 @@ import { generateGenericReportPDF } from '@/lib/generateProfessionalPDF';
 const COLORS = ['#3b82f6', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899', '#14b8a6', '#f97316'];
 
 export default function QuantidadeServidores() {
+  const { custos: dadosCustos } = useDashboardData();
   const servidores = dadosCustos.servidores || [];
   
   // Ordenar do maior para o menor

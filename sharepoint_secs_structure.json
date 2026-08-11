@@ -1,0 +1,14 @@
+{
+  "file": "Siglas das Secretarias.xlsx",
+  "sheets": [
+    {
+      "sheet": "Plan1",
+      "rows": 27,
+      "columns": 1,
+      "detected_header_row": 1,
+      "detected_headers": [
+        "SEC"
+      ]
+    }
+  ]
+}

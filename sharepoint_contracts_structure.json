@@ -1,0 +1,86 @@
+{
+  "file": "Gestão de Contratos.xlsx",
+  "sheets": [
+    {
+      "sheet": "Planilha1",
+      "rows": 32,
+      "columns": 2,
+      "detected_header_row": 1,
+      "detected_headers": [
+        "REP",
+        "Estado"
+      ]
+    },
+    {
+      "sheet": "Gráficos - Contratos",
+      "rows": 57,
+      "columns": 2,
+      "detected_header_row": 1,
+      "detected_headers": [
+        "Custo por REP (Mensal)"
+      ]
+    },
+    {
+      "sheet": "Gráficos - Sem Contrato",
+      "rows": 28,
+      "columns": 2,
+      "detected_header_row": 1,
+      "detected_headers": [
+        "Custo por REP (Mensal)"
+      ]
+    },
+    {
+      "sheet": "Demonstrativo",
+      "rows": 33,
+      "columns": 7,
+      "detected_header_row": 2,
+      "detected_headers": [
+        "SEC",
+        "Mensal",
+        "Anual",
+        "SEC",
+        "Mensal",
+        "Anual"
+      ]
+    },
+    {
+      "sheet": "Despesas Vigência Controlada",
+      "rows": 107,
+      "columns": 15,
+      "detected_header_row": 2,
+      "detected_headers": [
+        "Vigência Máxima",
+        "Termo Contratual",
+        "Vigência",
+        "Dias",
+        "Anos",
+        "Anos_1",
+        "Meses",
+        "Meses_1",
+        "Tempo",
+        "Fornecedor",
+        "Objeto",
+        "Categoria",
+        "Sec",
+        "Valor mensal ",
+        "Valor Anual"
+      ]
+    },
+    {
+      "sheet": "Despesas Vigência NÃO Controlad",
+      "rows": 54,
+      "columns": 8,
+      "detected_header_row": 2,
+      "detected_headers": [
+        "Fim da vigência",
+        "SEC",
+        "Serviço",
+        "Fornecedor ",
+        "Objeto",
+        "Unidade Fizcalizadora",
+        "Valor Mensal",
+        "Valor Anual"
+      ]
+    }
+  ]
+}

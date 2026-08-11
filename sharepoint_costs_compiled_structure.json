@@ -1,0 +1,96 @@
+{
+  "file": "Custos compilados por estado.xlsx",
+  "sheets": [
+    {
+      "sheet": "Visão Geral",
+      "rows": 52,
+      "columns": 18,
+      "detected_header_row": 2,
+      "detected_headers": [
+        "SEC",
+        "Energia Elétrica",
+        "Água e Esgoto",
+        "Condomínio",
+        "Locação Imóvel",
+        "Manutenção Predial",
+        "Motorista/Segurança pessoal de ministros",
+        "Vigilância",
+        "Apoio Adm + Copeiragem + Limpeza + Recepção (Mão de obra e materiais)",
+        "Rateio",
+        "Taxa de lixo",
+        "Total",
+        "Área da Sec (m2)",
+        "Qtd de servidores",
+        "Área/Servidor",
+        "Custo/Servidor",
+        "Custo/Área",
+        "Observação"
+      ]
+    },
+    {
+      "sheet": "Custo por área",
+      "rows": 30,
+      "columns": 2,
+      "detected_header_row": 3,
+      "detected_headers": [
+        "Rótulos de Linha",
+        "Soma de Custo/Área"
+      ]
+    },
+    {
+      "sheet": "Custo total",
+      "rows": 28,
+      "columns": 2,
+      "detected_header_row": 1,
+      "detected_headers": [
+        "Rótulos de Linha",
+        "Soma de Total"
+      ]
+    },
+    {
+      "sheet": "Área total",
+      "rows": 1,
+      "columns": 1,
+      "detected_header_row": null,
+      "detected_headers": []
+    },
+    {
+      "sheet": "Custo por área por servidor",
+      "rows": 28,
+      "columns": 3,
+      "detected_header_row": 1,
+      "detected_headers": [
+        "Rótulos de Linha",
+        "Soma de Área/Servidor",
+        "Soma de Custo/Servidor"
+      ]
+    },
+    {
+      "sheet": "Custo por servidor",
+      "rows": 28,
+      "columns": 2,
+      "detected_header_row": 1,
+      "detected_headers": [
+        "Rótulos de Linha",
+        "Soma de Custo/Servidor"
+      ]
+    },
+    {
+      "sheet": "Área por servidor",
+      "rows": 1,
+      "columns": 1,
+      "detected_header_row": null,
+      "detected_headers": []
+    },
+    {
+      "sheet": "Servidores domiciliados",
+      "rows": 28,
+      "columns": 2,
+      "detected_header_row": 1,
+      "detected_headers": [
+        "Rótulos de Linha",
+        "Soma de Qtd de servidores"
+      ]
+    }
+  ]
+}

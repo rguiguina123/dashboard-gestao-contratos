@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { MetricCard } from "@/components/dashboard/MetricCard";
 import { DataTable } from "@/components/dashboard/DataTable";
-import { despesasSemContrato, secs as allSecs } from "@/lib/data";
+import { useDashboardData } from "@/contexts/DashboardDataContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   BarChart,
@@ -41,13 +41,14 @@ interface DespesaDisplay {
 const COLORS = ["#7c3aed", "#3b82f6", "#06b6d4", "#10b981", "#f59e0b", "#ef4444"];
 
 export default function DespesasSemContrato() {
+  const { despesasSemContrato, secs: allSecs } = useDashboardData();
   const [selectedSEC, setSelectedSEC] = useState<string>("all");
 
   // Filtrar despesas
   const filteredDespesas = useMemo(() => {
     if (selectedSEC === "all") return despesasSemContrato;
     return despesasSemContrato.filter((d) => d.sec === selectedSEC);
-  }, [selectedSEC]);
+  }, [selectedSEC, despesasSemContrato]);
 
   // Calcular totais
   const totais = useMemo(() => {

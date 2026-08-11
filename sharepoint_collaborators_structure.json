@@ -1,0 +1,17 @@
+{
+  "file": "Dados de Colaboradores.xlsx",
+  "sheets": [
+    {
+      "sheet": "SECs - Colaboradores",
+      "rows": 117,
+      "columns": 4,
+      "detected_header_row": 1,
+      "detected_headers": [
+        "NOME",
+        "CPF",
+        "POSTO",
+        "SEC"
+      ]
+    }
+  ]
+}

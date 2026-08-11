@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { MetricCard } from "@/components/dashboard/MetricCard";
 import { ExportPDF } from "@/components/dashboard/ExportPDF";
-import { contratos, despesasSemContrato, totalMensal, totalMensalComContrato, totalMensalSemContrato, totalAnual, totalAnualComContrato, totalAnualSemContrato } from "@/lib/data";
+import { useDashboardData } from "@/contexts/DashboardDataContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   BarChart,
@@ -20,6 +20,7 @@ import { DollarSign, TrendingUp, AlertCircle } from "lucide-react";
 import { formatCurrency, formatNumber } from "@/lib/utils";
 
 export default function Demonstrativo() {
+  const { contratos, despesasSemContrato, totalMensal, totalMensalComContrato, totalMensalSemContrato, totalAnual, totalAnualComContrato, totalAnualSemContrato } = useDashboardData();
   // Dados para gráfico de comparação
   const comparisonData = useMemo(() => {
     return [
@@ -34,7 +35,7 @@ export default function Demonstrativo() {
         Anual: totalAnualSemContrato,
       },
     ];
-  }, []);
+  }, [totalMensalComContrato, totalAnualComContrato, totalMensalSemContrato, totalAnualSemContrato]);
 
   // Dados consolidados
   const consolidado = useMemo(() => {
@@ -52,7 +53,7 @@ export default function Demonstrativo() {
         percentual: ((totalMensalSemContrato / totalMensal) * 100).toFixed(1),
       },
     ];
-  }, []);
+  }, [totalMensalComContrato, totalAnualComContrato, totalMensalSemContrato, totalAnualSemContrato, totalMensal]);
 
   // Top 5 SECs por gasto mensal
   const top5SECs = useMemo(() => {
@@ -70,7 +71,7 @@ export default function Demonstrativo() {
       .map(([sec, total]) => ({ sec, total_mensal: total }))
       .sort((a, b) => b.total_mensal - a.total_mensal)
       .slice(0, 5);
-  }, []);
+  }, [contratos, despesasSemContrato]);
 
   return (
     <DashboardLayout>

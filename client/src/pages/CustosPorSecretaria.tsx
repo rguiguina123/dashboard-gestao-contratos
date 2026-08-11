@@ -4,10 +4,11 @@ import { Button } from '@/components/ui/button';
 import { DollarSign, TrendingUp, Users, Zap, FileText } from 'lucide-react';
 import { formatCurrency } from '@/lib/utils';
 import { DashboardLayout } from '@/components/dashboard/DashboardLayout';
-import dadosCustos from '@/lib/dadosCustos.json';
+import { useDashboardData } from '@/contexts/DashboardDataContext';
 import { generateGenericReportPDF } from '@/lib/generateProfessionalPDF';
 
 export default function CustosPorSecretaria() {
+  const { custos: dadosCustos } = useDashboardData();
   const [sortBy, setSortBy] = useState<'sec' | 'total' | 'custo_servidor'>('total');
   
   const visaoGeral = dadosCustos.visao_geral || [];

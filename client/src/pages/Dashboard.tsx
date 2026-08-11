@@ -1,7 +1,7 @@
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { KPICard } from "@/components/dashboard/KPICard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { contratos, colaboradores, despesasSemContrato, secs, totalMensal, totalMensalComContrato, totalMensalSemContrato, totalAnual, totalAnualComContrato, totalAnualSemContrato } from "@/lib/data";
+import { useDashboardData } from "@/contexts/DashboardDataContext";
 import {
   LineChart,
   Line,
@@ -30,6 +30,7 @@ import { generateGenericReportPDF } from "@/lib/generateProfessionalPDF";
 // Padrão PDF: relatório institucional conciso, com resumo executivo e série mensal.
 
 export default function Dashboard() {
+  const { contratos, colaboradores, despesasSemContrato, secs, totalMensal, totalMensalComContrato, totalMensalSemContrato, totalAnual, totalAnualComContrato, totalAnualSemContrato } = useDashboardData();
   // Dados de tendência mensal
   const monthlyTrend = [
     { month: "Jan", com: 1200000, sem: 450000 },

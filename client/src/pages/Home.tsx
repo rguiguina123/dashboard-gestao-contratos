@@ -12,7 +12,7 @@ import {
   Activity,
   Zap,
 } from "lucide-react";
-import { colaboradores, contratos, despesasSemContrato, totalMensal, totalAnual } from "@/lib/data";
+import { useDashboardData } from "@/contexts/DashboardDataContext";
 import { formatCurrency } from "@/lib/utils";
 import { NewsSection } from "@/components/NewsSection";
 
@@ -32,6 +32,7 @@ const moduleIcons = {
 };
 
 export default function Home() {
+  const { colaboradores, contratos, despesasSemContrato, totalMensal, totalAnual } = useDashboardData();
   const totalSECsComColaboradores = new Set(colaboradores.map((colaborador: any) => colaborador.sec).filter(Boolean)).size;
   const heroImageUrl =
     "https://files.manuscdn.com/user_upload_by_module/session_file/310419663029089241/zHHepfmHYTYxyROd.jpg";
