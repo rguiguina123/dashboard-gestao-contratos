@@ -89,3 +89,10 @@
 - [x] Validar o fluxo público de atualização de planilhas e o histórico
 - [x] Corrigir quaisquer erros de interface, dados ou comportamento encontrados — nenhum novo erro reproduzível encontrado
 - [x] Revalidar o dashboard completo antes do checkpoint da revisão
+
+# Validação específica da atualização de dados
+- [x] Revisar o processamento de planilhas e as regras de comparação
+- [x] Testar na interface uma planilha válida, o comparativo e a atualização automática
+- [x] Testar na interface uma planilha inválida e confirmar a preservação da versão vigente
+- [x] Corrigir o registro histórico antigo que ainda exibe “Aguardando confirmação”
+- [x] Cobrir os rótulos de status do histórico com teste automatizado

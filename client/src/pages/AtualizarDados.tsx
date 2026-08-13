@@ -3,6 +3,7 @@ import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { trpc } from "@/lib/trpc";
+import { importStatusPresentation } from "@/lib/importStatus";
 import { toast } from "sonner";
 import { CheckCircle2, Database, FileSpreadsheet, History, RefreshCcw, ShieldCheck, UploadCloud, XCircle } from "lucide-react";
 
@@ -182,7 +183,10 @@ export default function AtualizarDados() {
           {prepared && <Card className="border-emerald-200 shadow-sm"><CardHeader><CardTitle className="flex items-center gap-2 text-slate-900"><CheckCircle2 className="h-5 w-5 text-emerald-600" /> {wasApplied ? "Atualização aplicada" : "Comparativo da atualização"}</CardTitle><CardDescription>{wasApplied ? `Arquivo: ${prepared.summary.fileName}. Confira abaixo o resumo da alteração realizada.` : "A atualização será aplicada automaticamente após a exibição deste comparativo."}</CardDescription></CardHeader><CardContent className="space-y-6"><Summary summary={prepared.summary} applied={wasApplied} />{isApplying && <div className="flex items-center gap-2 rounded-xl bg-violet-50 px-4 py-3 text-sm font-medium text-violet-800"><RefreshCcw className="h-4 w-4 animate-spin" /> Aplicando a atualização...</div>}<div className="flex justify-end"><Button variant="outline" disabled={isApplying} onClick={() => setPrepared(null)}>Fechar resumo</Button></div></CardContent></Card>}
 
           <Card className="border-slate-200 shadow-sm"><CardHeader><CardTitle className="flex items-center gap-2 text-slate-900"><History className="h-5 w-5 text-slate-500" /> Histórico recente</CardTitle><CardDescription>Versões aplicadas preservam a continuidade do dashboard.</CardDescription></CardHeader><CardContent>
-            {history.isLoading ? <p className="text-sm text-slate-500">Carregando histórico...</p> : (history.data?.length ?? 0) === 0 ? <p className="text-sm text-slate-500">Ainda não há importações registradas.</p> : <div className="space-y-3">{history.data?.map(item => <div key={item.id} className="flex flex-col gap-2 rounded-xl border border-slate-100 bg-slate-50 p-4 sm:flex-row sm:items-center sm:justify-between"><div><p className="font-medium text-slate-800">{item.fileName}</p><p className="mt-1 text-xs text-slate-500">{new Date(item.createdAt).toLocaleString("pt-BR")}</p></div><span className={item.status === "approved" ? "inline-flex w-fit rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700" : "inline-flex w-fit rounded-full bg-slate-200 px-3 py-1 text-xs font-semibold text-slate-600"}>{item.status === "approved" ? "Aplicada" : "Aguardando confirmação"}</span></div>)}</div>}
+            {history.isLoading ? <p className="text-sm text-slate-500">Carregando histórico...</p> : (history.data?.length ?? 0) === 0 ? <p className="text-sm text-slate-500">Ainda não há importações registradas.</p> : <div className="space-y-3">{history.data?.map(item => {
+              const status = importStatusPresentation(item.status);
+              return <div key={item.id} className="flex flex-col gap-2 rounded-xl border border-slate-100 bg-slate-50 p-4 sm:flex-row sm:items-center sm:justify-between"><div><p className="font-medium text-slate-800">{item.fileName}</p><p className="mt-1 text-xs text-slate-500">{new Date(item.createdAt).toLocaleString("pt-BR")}</p></div><span className={`inline-flex w-fit rounded-full px-3 py-1 text-xs font-semibold ${status.className}`}>{status.label}</span></div>;
+            })}</div>}
           </CardContent></Card>
         </>
       </div>
