@@ -31,6 +31,11 @@ export default function CustosPorSecretaria() {
   const totalServidores = visaoGeral.reduce((sum, item) => sum + (item['Qtd de servidores'] || 0), 0);
   const custoMedioServidor = totalServidores > 0 ? totalGeral / totalServidores : 0;
   const areaTotal = visaoGeral.reduce((sum, item) => sum + (item['Área da Sec (m2)'] || 0), 0);
+  const totalSecretarias = visaoGeral.length;
+  const custoMedioSecretaria = totalSecretarias > 0 ? totalGeral / totalSecretarias : 0;
+  const areaMediaSecretaria = totalSecretarias > 0 ? areaTotal / totalSecretarias : 0;
+  const custoPorMetroQuadrado = areaTotal > 0 ? totalGeral / areaTotal : 0;
+  const servidoresPorSecretaria = totalSecretarias > 0 ? totalServidores / totalSecretarias : 0;
 
   return (
     <DashboardLayout>
@@ -207,9 +212,9 @@ export default function CustosPorSecretaria() {
               <div>
                 <h3 className="font-semibold text-slate-900 mb-2">Informações Gerais</h3>
                 <ul className="space-y-2 text-sm text-slate-600">
-                  <li>Total de Secretarias: <span className="font-semibold text-slate-900">{visaoGeral.length}</span></li>
+                  <li>Total de Secretarias: <span className="font-semibold text-slate-900">{totalSecretarias}</span></li>
                   <li>Custo Total Anual: <span className="font-semibold text-slate-900">{formatCurrency(totalGeral)}</span></li>
-                  <li>Custo Médio por Secretaria: <span className="font-semibold text-slate-900">{formatCurrency(totalGeral / visaoGeral.length)}</span></li>
+                  <li>Custo Médio por Secretaria: <span className="font-semibold text-slate-900">{formatCurrency(custoMedioSecretaria)}</span></li>
                   <li>Custo Médio por Servidor: <span className="font-semibold text-slate-900">{formatCurrency(custoMedioServidor)}</span></li>
                 </ul>
               </div>
@@ -217,9 +222,9 @@ export default function CustosPorSecretaria() {
                 <h3 className="font-semibold text-slate-900 mb-2">Dados Espaciais</h3>
                 <ul className="space-y-2 text-sm text-slate-600">
                   <li>Área Total: <span className="font-semibold text-slate-900">{areaTotal.toFixed(2)} m²</span></li>
-                  <li>Área Média por Secretaria: <span className="font-semibold text-slate-900">{(areaTotal / visaoGeral.length).toFixed(2)} m²</span></li>
-                  <li>Custo por m²: <span className="font-semibold text-slate-900">{formatCurrency(totalGeral / areaTotal)}</span></li>
-                  <li>Servidores por Secretaria: <span className="font-semibold text-slate-900">{(totalServidores / visaoGeral.length).toFixed(1)}</span></li>
+                  <li>Área Média por Secretaria: <span className="font-semibold text-slate-900">{areaMediaSecretaria.toFixed(2)} m²</span></li>
+                  <li>Custo por m²: <span className="font-semibold text-slate-900">{formatCurrency(custoPorMetroQuadrado)}</span></li>
+                  <li>Servidores por Secretaria: <span className="font-semibold text-slate-900">{servidoresPorSecretaria.toFixed(1)}</span></li>
                 </ul>
               </div>
             </div>

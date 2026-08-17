@@ -96,3 +96,17 @@
 - [x] Testar na interface uma planilha inválida e confirmar a preservação da versão vigente
 - [x] Corrigir o registro histórico antigo que ainda exibe “Aguardando confirmação”
 - [x] Cobrir os rótulos de status do histórico com teste automatizado
+
+# Reformulação institucional e auditoria completa
+- [x] Mapear padrões visuais genéricos, inconsistências e componentes redundantes
+- [x] Definir uma direção visual institucional mais autoral para home e páginas internas
+- [x] Refinar navegação, tipografia, espaçamento, cores, estados e hierarquia de informação
+- [x] Reexecutar fluxos de filtros, tabelas, importação e histórico após a reformulação visual
+- [x] Testar interações críticas no navegador, incluindo navegação flutuante, filtros e tabelas
+- [x] Corrigir erros reproduzíveis e revalidar tipagem, testes e build
+- [x] Corrigir a leitura de datas em alertas de vencimento e eliminar métricas narrativas artificiais
+- [x] Remover a navegação duplicada e os efeitos visuais que enfraquecem a identidade institucional
+- [x] Testar as exportações em PDF nas páginas executiva e de contratos
+- [x] Validar novamente a comparação, aplicação, bloqueio e histórico em Atualizar Dados
+- [x] Resumir alertas extensos de vencimento para preservar a leitura da página de contratos
+- [x] Cobrir com teste o resumo de itens exibidos nos alertas de vencimento

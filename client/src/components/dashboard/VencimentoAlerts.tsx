@@ -1,6 +1,7 @@
 import { AlertCircle, Calendar, Clock } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { summarizeAlertItems } from "@/lib/alertSummary";
+import { daysUntilBrazilianDate, parseBrazilianDate } from "@/lib/contractDates";
 
 interface Contrato {
   id: string;
@@ -17,64 +18,25 @@ interface VencimentoAlertsProps {
 
 export function VencimentoAlerts({ contratos, diasAlerta = 30 }: VencimentoAlertsProps) {
   const hoje = new Date();
-  const dataLimite = new Date();
+  hoje.setHours(0, 0, 0, 0);
+  const dataLimite = new Date(hoje);
   dataLimite.setDate(dataLimite.getDate() + diasAlerta);
 
-  const contratosVencidos = contratos.filter((c) => {
-    if (!c.dataVencimento) return false;
-    const dataVenc = new Date(c.dataVencimento);
-    return dataVenc < hoje;
+  const contratosVencidos = contratos.filter(contrato => {
+    const data = contrato.dataVencimento ? parseBrazilianDate(contrato.dataVencimento) : null;
+    return data ? data < hoje : false;
   });
-
-  const contratosProximos = contratos.filter((c) => {
-    if (!c.dataVencimento) return false;
-    const dataVenc = new Date(c.dataVencimento);
-    return dataVenc >= hoje && dataVenc <= dataLimite;
+  const contratosProximos = contratos.filter(contrato => {
+    const data = contrato.dataVencimento ? parseBrazilianDate(contrato.dataVencimento) : null;
+    return data ? data >= hoje && data <= dataLimite : false;
   });
+  const vencidosResumo = summarizeAlertItems(contratosVencidos);
+  const proximosResumo = summarizeAlertItems(contratosProximos);
 
-  if (contratosVencidos.length === 0 && contratosProximos.length === 0) {
-    return null;
-  }
+  if (!contratosVencidos.length && !contratosProximos.length) return null;
 
-  return (
-    <div className="space-y-4">
-      {contratosVencidos.length > 0 && (
-        <Alert className="border-red-200 bg-red-50">
-          <AlertCircle className="h-4 w-4 text-red-600" />
-          <AlertDescription className="text-red-800">
-            <strong>{contratosVencidos.length} contrato(s) vencido(s)!</strong>
-            <div className="mt-2 space-y-1">
-              {contratosVencidos.map((c) => (
-                <div key={c.id} className="text-sm">
-                  • {c.contrato} ({c.sec})
-                </div>
-              ))}
-            </div>
-          </AlertDescription>
-        </Alert>
-      )}
-
-      {contratosProximos.length > 0 && (
-        <Alert className="border-amber-200 bg-amber-50">
-          <Clock className="h-4 w-4 text-amber-600" />
-          <AlertDescription className="text-amber-800">
-            <strong>{contratosProximos.length} contrato(s) vencendo em breve!</strong>
-            <div className="mt-2 space-y-1">
-              {contratosProximos.map((c) => (
-                <div key={c.id} className="text-sm flex items-center gap-2">
-                  <Calendar className="w-3 h-3" />
-                  {c.contrato} ({c.sec}) - Vence em{" "}
-                  {Math.ceil(
-                    (new Date(c.dataVencimento!).getTime() - hoje.getTime()) /
-                      (1000 * 60 * 60 * 24)
-                  )}{" "}
-                  dias
-                </div>
-              ))}
-            </div>
-          </AlertDescription>
-        </Alert>
-      )}
-    </div>
-  );
+  return <div className="space-y-3">
+    {contratosVencidos.length > 0 && <Alert className="border-red-200 bg-red-50/80"><AlertCircle className="h-4 w-4 text-red-700" /><AlertDescription className="text-red-900"><strong>{contratosVencidos.length} contrato(s) vencido(s)</strong><div className="mt-2 space-y-1">{vencidosResumo.visibleItems.map(contrato => <div key={contrato.id} className="text-sm">{contrato.contrato} <span className="text-red-700">· {contrato.sec}</span></div>)}{vencidosResumo.hiddenCount > 0 && <p className="pt-1 text-xs font-medium text-red-700">+ {vencidosResumo.hiddenCount} contrato(s) na tabela abaixo.</p>}</div></AlertDescription></Alert>}
+    {contratosProximos.length > 0 && <Alert className="border-amber-200 bg-amber-50/80"><Clock className="h-4 w-4 text-amber-700" /><AlertDescription className="text-amber-900"><strong>{contratosProximos.length} contrato(s) vencendo nos próximos {diasAlerta} dias</strong><div className="mt-2 space-y-1">{proximosResumo.visibleItems.map(contrato => <div key={contrato.id} className="flex items-center gap-2 text-sm"><Calendar className="h-3.5 w-3.5" />{contrato.contrato} <span className="text-amber-700">· {contrato.sec} · {daysUntilBrazilianDate(contrato.dataVencimento!, hoje)} dias</span></div>)}{proximosResumo.hiddenCount > 0 && <p className="pt-1 text-xs font-medium text-amber-700">+ {proximosResumo.hiddenCount} contrato(s) na tabela abaixo.</p>}</div></AlertDescription></Alert>}
+  </div>;
 }

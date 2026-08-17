@@ -1,0 +1,100 @@
+[
+  {
+    "route": "/",
+    "text": "GESTÃO DE CONTRATOS\n\nINFORMAÇÃO PARA DECISÃO\n\nGestão pública com leitura clara, base confiável e ação responsável.\n\nUma visão integrada dos contratos, colaboradores e custos para apoiar o acompanhamento institucional.\n\nAbrir visão executiva\nAtualizar dados\n\n116\n\nCOLABORADORES\n\n74\n\nCONTRATOS ATIVOS\n\n",
+    "rootChildren": 2,
+    "failure": false,
+    "errors": []
+  },
+  {
+    "route": "/dashboard",
+    "text": "PAINEL EXECUTIVO\n\nGestão de contratos\n\nLeitura consolidada da base vigente de contratos, despesas e colaboradores.\n\nExportar relatório\nDESPESA MENSAL\nR$ 1.679.117,18\n\nBase consolidada atual\n\nCONTRATOS ATIVOS\n74\n\n30 despesa(s) sem contrato\n\nCOLABORADORES\n116\n\n26 SECs na base\n\nDESPESA ANUAL\nR$ 20.494.",
+    "rootChildren": 2,
+    "failure": false,
+    "errors": []
+  },
+  {
+    "route": "/contratos",
+    "text": "Contratos\n\nGestão e análise de todos os contratos vigentes\n\nFiltrar por vencimento\nSelecionar Período\nFiltrar por SEC\nTodas as SECs\nFiltrar por Objeto\nTodos os Objetos\nTOTAL DE CONTRATOS\n74\nDESPESA MENSAL\nR$ 1.456.388,73\nDESPESA ANUAL\nR$ 17.821.864,72\n23 contrato(s) vencido(s)\nCONTRATO nº 1/2021 SEC",
+    "rootChildren": 2,
+    "failure": false,
+    "errors": []
+  },
+  {
+    "route": "/colaboradores",
+    "text": "Colaboradores\n\nDistribuição de colaboradores por posto e SEC\n\nTOTAL DE COLABORADORES\n116\nPOSTOS DIFERENTES\n6\nSECS GERENCIADAS\n26\nDistribuição por Posto\nApoio Administrativo\nVigilante Diurno 12 x 36h\nRecepção\n0\n15\n30\n45\n60\nDistribuição por SEC\n10\n9\n9\n8\n6\n6\n5\n63\nFiltrar por SEC\nTodos os SECs\nLista de ",
+    "rootChildren": 2,
+    "failure": false,
+    "errors": []
+  },
+  {
+    "route": "/demonstrativo",
+    "text": "Demonstrativo Total\n\nVisão consolidada de todas as despesas\n\nDESPESA MENSAL TOTAL\nR$ 1.679.117,18\nDESPESA ANUAL TOTAL\nR$ 20.494.606,21\nCONTRATOS ATIVOS\n74\nComparação: Com vs Sem Contrato\nCom Contrato\nSem Contrato\n0\n4500000\n9000000\n13500000\n18000000\nMensalAnual\nConsolidado\n\nCom Contrato\n\n86.7% do tot",
+    "rootChildren": 2,
+    "failure": false,
+    "errors": []
+  },
+  {
+    "route": "/despesas-com-contrato",
+    "text": "Despesas com Contrato\n\nAnálise de despesas controladas por contrato\n\nFiltrar por SEC\nTodas as SECs\nTOTAL DE CONTRATOS\n74\nDESPESA MENSAL\nR$ 1.456.388,73\nDESPESA ANUAL\nR$ 17.821.864,72\nTop 10 Fornecedores\nSEC-RJ\nSEC-SP\nSEC-PB\nSEC-PA\nSEC-AL\nSEC-RR\nSEC-ES\nSEC-AM\nSEC-RO\nSEC-MA\n0\n75000\n150000\n225000\n30000",
+    "rootChildren": 2,
+    "failure": false,
+    "errors": []
+  },
+  {
+    "route": "/despesas-sem-contrato",
+    "text": "Despesas sem Contrato\n\nAnálise de despesas não controladas por contrato\n\nFiltrar por SEC\nTodas as SECs\nTOTAL DE DESPESAS\n30\nDESPESA MENSAL\nR$ 222.728,46\nDESPESA ANUAL\nR$ 2.672.741,49\nDespesas por Serviço\nCondomínio/Energia\nEnergia\nMotorista\nÁgua\nSeguro veicular\nColeta de lixo\n0\n20000\n40000\n60000\n800",
+    "rootChildren": 2,
+    "failure": false,
+    "errors": []
+  },
+  {
+    "route": "/custos-por-secretaria",
+    "text": "Custos por Secretaria\n\nAnálise detalhada de custos de todas as secretarias dos estados\n\nCusto Total\nR$ 20.369.908,18\n\nTodas as secretarias\n\nTotal de Servidores\n457\n\nDomiciliados\n\nCusto Médio/Servidor\nR$ 44.573,10\n\nPor servidor\n\nÁrea Total\n19996.70 m²\n\nEspaço ocupado\n\nOrdenar por SEC\nOrdenar por Cust",
+    "rootChildren": 2,
+    "failure": false,
+    "errors": []
+  },
+  {
+    "route": "/custo-por-area",
+    "text": "Análise de Custo por Área\n\nCusto por metro quadrado (R$/m²) de cada secretaria\n\nTotal Geral\nR$ 39.218,89\n\nSoma de todos os custos/m²\n\nCusto Médio por Área\nR$ 1.508,42/m²\n\nMédia de todas as SECs\n\nMaior Custo/Área\nR$ 5.179,30/m²\n\nSEC-MA\n\nMenor Custo/Área\nR$ 430,54/m²\n\nSEC-RS\n\nCusto por Área - Todas as",
+    "rootChildren": 2,
+    "failure": false,
+    "errors": []
+  },
+  {
+    "route": "/custos-total",
+    "text": "Custos Totais por Secretaria\n\nAnálise completa de custos anuais de todas as secretarias\n\nCusto Total Geral\nR$ 20.302.301,26\n\nTodas as SECs\n\nCusto Médio\nR$ 780.857,74\n\nPor secretaria\n\nMaior Custo\nR$ 1.758.646,29\n\nSEC-RJ\n\nMenor Custo\nR$ 185.163,71\n\nSEC-PR\n\nCustos Totais - Todas as Secretarias\nSEC-PB\nS",
+    "rootChildren": 2,
+    "failure": false,
+    "errors": []
+  },
+  {
+    "route": "/eficiencia-servidor",
+    "text": "Eficiência por Servidor\n\nAnálise de custo e área por servidor em cada secretaria\n\nTotal Geral\nR$ 1.574.834,09\n\nSoma de todos os custos/servidor\n\nCusto Médio/Servidor\nR$ 60.570,54\n\nMédia de todas as SECs\n\nÁrea Média/Servidor\n62.00 m²\n\nEspaço por servidor\n\nMaior Custo/Servidor\nR$ 162.510,80\n\nSEC-RR\n\nM",
+    "rootChildren": 2,
+    "failure": false,
+    "errors": []
+  },
+  {
+    "route": "/custo-servidor",
+    "text": "Custos por Servidor\n\nAnálise de custo por servidor domiciliado em cada secretaria\n\nTotal Geral\nR$ 1.574.834,09\n\nSoma de todos os custos/servidor\n\nCusto Médio/Servidor\nR$ 60.570,54\n\nMédia de todas as SECs\n\nMaior Custo/Servidor\nR$ 162.510,80\n\nSEC-RR\n\nMenor Custo/Servidor\nR$ 7.715,15\n\nSEC-PR\n\nDiferença",
+    "rootChildren": 2,
+    "failure": false,
+    "errors": []
+  },
+  {
+    "route": "/quantidade-servidores",
+    "text": "Quantidade de Servidores\n\nDistribuição de servidores domiciliados por secretaria\n\nTotal de Servidores\n457\n\nDomiciliados em todas as SECs\n\nMédia por Secretaria\n17.6\n\nServidores por SEC\n\nMaior Quantidade\n59\n\nSEC-RJ\n\nMenor Quantidade\n4\n\nSEC-AC\n\nQuantidade de Servidores - Todas as Secretarias\nSEC-SP\nSEC",
+    "rootChildren": 2,
+    "failure": false,
+    "errors": []
+  },
+  {
+    "route": "/atualizar-dados",
+    "text": "Central de dados do dashboard\nAtualizar dados com segurança\n\nEnvie uma versão atualizada do Excel. O sistema valida os registros, preserva o que não mudou e aplica as alterações válidas imediatamente.\n\nAtualização validada e direta\n\nArquivos com erro não alteram a versão vigente.\n\nEnviar planilha\nAr",
+    "rootChildren": 2,
+    "failure": false,
+    "errors": []
+  }
+]

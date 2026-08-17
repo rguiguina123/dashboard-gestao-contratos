@@ -1,254 +1,58 @@
-import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
-import { KPICard } from "@/components/dashboard/KPICard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
+import { MetricCard } from "@/components/dashboard/MetricCard";
 import { useDashboardData } from "@/contexts/DashboardDataContext";
-import {
-  LineChart,
-  Line,
-  AreaChart,
-  Area,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
-import {
-  TrendingUp,
-  Users,
-  FileText,
-  DollarSign,
-  AlertCircle,
-  CheckCircle,
-} from "lucide-react";
+import { AlertCircle, ArrowUpRight, FileText, Landmark, Users } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { generateGenericReportPDF } from "@/lib/generateProfessionalPDF";
 
-// Padrão PDF: relatório institucional conciso, com resumo executivo e série mensal.
-
 export default function Dashboard() {
   const { contratos, colaboradores, despesasSemContrato, secs, totalMensal, totalMensalComContrato, totalMensalSemContrato, totalAnual, totalAnualComContrato, totalAnualSemContrato } = useDashboardData();
-  // Dados de tendência mensal
-  const monthlyTrend = [
-    { month: "Jan", com: 1200000, sem: 450000 },
-    { month: "Fev", com: 1350000, sem: 480000 },
-    { month: "Mar", com: 1280000, sem: 520000 },
-    { month: "Abr", com: 1420000, sem: 510000 },
-    { month: "Mai", com: 1550000, sem: 580000 },
-    { month: "Jun", com: totalMensalComContrato, sem: totalMensalSemContrato },
-  ];
+  const shareComContrato = totalMensal ? (totalMensalComContrato / totalMensal) * 100 : 0;
+  const shareSemContrato = totalMensal ? (totalMensalSemContrato / totalMensal) * 100 : 0;
+  const safeDivision = (value: number, divisor: number) => divisor ? value / divisor : 0;
 
-  return (
-    <DashboardLayout>
-      <div className="space-y-8">
-        {/* Header */}
-        <div className="animate-slide-in-up flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-          <div>
-            <h1 className="text-4xl font-bold text-foreground font-poppins mb-2">
-              Gestão de Contratos 2026
-            </h1>
-            <p className="text-muted-foreground">
-              Visão geral dos principais indicadores de gestão
-            </p>
-          </div>
-          <button
-            onClick={() => {
-              const metrics = [
-                { label: 'Despesa Mensal Total', value: `R$ ${formatCurrency(totalMensal)}` },
-                { label: 'Despesa Anual Total', value: `R$ ${formatCurrency(totalAnual)}` },
-                { label: 'Contratos Ativos', value: contratos.length },
-                { label: 'Colaboradores', value: colaboradores.length },
-                { label: 'SECs Gerenciadas', value: secs.length },
-              ];
-              const tableData = monthlyTrend.map(item => [
-                item.month,
-                formatCurrency(item.com),
-                formatCurrency(item.sem),
-                formatCurrency(item.com + item.sem),
-              ]);
-              generateGenericReportPDF(
-                'Relatório Executivo do Dashboard',
-                metrics,
-                ['Mês', 'Com Contrato', 'Sem Contrato', 'Total Mensal'],
-                tableData,
-                'Relatorio_Executivo_Dashboard'
-              );
-            }}
-            className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all flex items-center gap-2 shrink-0"
-          >
-            <FileText className="w-4 h-4" />
-            Exportar Relatório
-          </button>
-        </div>
-
-        {/* KPI Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 animate-stagger">
-          <KPICard
-            title="Despesa Mensal Total"
-            value={formatCurrency(totalMensal)}
-            icon={<DollarSign className="w-5 h-5 text-primary" />}
-            trend="up"
-            trendValue="+12.5% vs mês anterior"
-            color="primary"
-            delay={0}
-          />
-          <KPICard
-            title="Contratos Ativos"
-            value={contratos.length.toString()}
-            icon={<FileText className="w-5 h-5 text-blue-600" />}
-            trend="neutral"
-            trendValue="Sem alterações"
-            color="primary"
-            delay={0.1}
-          />
-          <KPICard
-            title="Colaboradores"
-            value={colaboradores.length.toString()}
-            icon={<Users className="w-5 h-5 text-emerald-600" />}
-            trend="up"
-            trendValue="+5 novos"
-            color="success"
-            delay={0.2}
-          />
-          <KPICard
-            title="SECs Gerenciadas"
-            value={secs.length.toString()}
-            icon={<TrendingUp className="w-5 h-5 text-amber-600" />}
-            trend="neutral"
-            trendValue="Estável"
-            color="warning"
-            delay={0.3}
-          />
-        </div>
-
-        {/* Gráficos */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Gráfico de Tendência */}
-          <Card className="border-0 shadow-lg">
-            <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b">
-              <CardTitle className="text-purple-900">Tendência Mensal</CardTitle>
-            </CardHeader>
-            <CardContent className="p-6">
-              <ResponsiveContainer width="100%" height={300}>
-                <AreaChart data={monthlyTrend}>
-                  <defs>
-                    <linearGradient id="colorCom" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#7c3aed" stopOpacity={0.8} />
-                      <stop offset="95%" stopColor="#7c3aed" stopOpacity={0} />
-                    </linearGradient>
-                    <linearGradient id="colorSem" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.8} />
-                      <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
-                    </linearGradient>
-                  </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                  <XAxis dataKey="month" />
-                  <YAxis />
-                  <Tooltip formatter={(value) => formatCurrency(value as number)} />
-                  <Legend />
-                  <Area
-                    type="monotone"
-                    dataKey="com"
-                    stroke="#7c3aed"
-                    fillOpacity={1}
-                    fill="url(#colorCom)"
-                    name="Com Contrato"
-                  />
-                  <Area
-                    type="monotone"
-                    dataKey="sem"
-                    stroke="#3b82f6"
-                    fillOpacity={1}
-                    fill="url(#colorSem)"
-                    name="Sem Contrato"
-                  />
-                </AreaChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
-
-          {/* Resumo Consolidado */}
-          <Card className="border-0 shadow-lg">
-            <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b">
-              <CardTitle className="text-purple-900">Resumo Consolidado</CardTitle>
-            </CardHeader>
-            <CardContent className="p-6">
-              <div className="space-y-6">
-                <div className="flex justify-between items-center p-4 bg-purple-50 rounded-lg border border-purple-100">
-                  <div>
-                    <p className="text-sm text-purple-600 font-medium">Com Contrato</p>
-                    <p className="text-2xl font-bold text-purple-900">{formatCurrency(totalMensalComContrato)}</p>
-                    <p className="text-xs text-purple-600 mt-1">{formatCurrency(totalAnualComContrato)}/ano</p>
-                  </div>
-                  <CheckCircle className="w-8 h-8 text-purple-600" />
-                </div>
-                <div className="flex justify-between items-center p-4 bg-blue-50 rounded-lg border border-blue-100">
-                  <div>
-                    <p className="text-sm text-blue-600 font-medium">Sem Contrato</p>
-                    <p className="text-2xl font-bold text-blue-900">{formatCurrency(totalMensalSemContrato)}</p>
-                    <p className="text-xs text-blue-600 mt-1">{formatCurrency(totalAnualSemContrato)}/ano</p>
-                  </div>
-                  <AlertCircle className="w-8 h-8 text-blue-600" />
-                </div>
-                <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg border border-gray-200">
-                  <div>
-                    <p className="text-sm text-gray-600 font-medium">Total Geral</p>
-                    <p className="text-2xl font-bold text-gray-900">{formatCurrency(totalMensal)}</p>
-                    <p className="text-xs text-gray-600 mt-1">{formatCurrency(totalAnual)}/ano</p>
-                  </div>
-                  <TrendingUp className="w-8 h-8 text-gray-600" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Indicadores */}
-        <Card className="border-0 shadow-lg">
-          <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b">
-            <CardTitle className="text-purple-900">Indicadores de Gestão</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="p-4 bg-secondary rounded-lg hover-lift">
-                <p className="text-sm text-muted-foreground mb-2">
-                  Ticket Médio
-                </p>
-                <p className="text-xl font-bold text-foreground font-poppins">
-                  {formatCurrency(totalMensal / contratos.length)}
-                </p>
-              </div>
-              <div className="p-4 bg-secondary rounded-lg hover-lift">
-                <p className="text-sm text-muted-foreground mb-2">
-                  Contratos/SEC
-                </p>
-                <p className="text-xl font-bold text-foreground font-poppins">
-                  {(contratos.length / secs.length).toFixed(1)}
-                </p>
-              </div>
-              <div className="p-4 bg-secondary rounded-lg hover-lift">
-                <p className="text-sm text-muted-foreground mb-2">
-                  Colaboradores/SEC
-                </p>
-                <p className="text-xl font-bold text-foreground font-poppins">
-                  {(colaboradores.length / secs.length).toFixed(1)}
-                </p>
-              </div>
-              <div className="p-4 bg-secondary rounded-lg hover-lift">
-                <p className="text-sm text-muted-foreground mb-2">
-                  Custo/Colaborador
-                </p>
-                <p className="text-xl font-bold text-foreground font-poppins">
-                  {formatCurrency(totalMensal / colaboradores.length)}
-                </p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    </DashboardLayout>
+  const exportReport = () => generateGenericReportPDF(
+    "Relatório executivo de gestão de contratos",
+    [
+      { label: "Despesa mensal", value: formatCurrency(totalMensal) },
+      { label: "Despesa anual", value: formatCurrency(totalAnual) },
+      { label: "Contratos ativos", value: contratos.length },
+      { label: "Colaboradores", value: colaboradores.length },
+      { label: "SECs gerenciadas", value: secs.length },
+    ],
+    ["Referência", "Com contrato", "Sem contrato", "Total"],
+    [["Base atual", formatCurrency(totalMensalComContrato), formatCurrency(totalMensalSemContrato), formatCurrency(totalMensal)]],
+    "Relatorio_Executivo_Dashboard",
   );
+
+  return <DashboardLayout><div className="space-y-7">
+    <header className="flex flex-col justify-between gap-5 border-b border-slate-200 pb-6 lg:flex-row lg:items-end">
+      <div><p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#587047]">Painel executivo</p><h1 className="mt-2 text-3xl font-semibold tracking-tight text-[#172033] sm:text-4xl">Gestão de contratos</h1><p className="mt-2 max-w-xl text-sm leading-6 text-slate-600">Leitura consolidada da base vigente de contratos, despesas e colaboradores.</p></div>
+      <button onClick={exportReport} className="inline-flex w-fit items-center gap-2 rounded-lg bg-[#172033] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#2a3b5a]"><FileText className="h-4 w-4" />Exportar relatório</button>
+    </header>
+
+    <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <MetricCard title="Despesa mensal" value={formatCurrency(totalMensal)} icon={<Landmark className="h-5 w-5" />} subtitle="Base consolidada atual" />
+      <MetricCard title="Contratos ativos" value={contratos.length} icon={<FileText className="h-5 w-5" />} subtitle={`${despesasSemContrato.length} despesa(s) sem contrato`} />
+      <MetricCard title="Colaboradores" value={colaboradores.length} icon={<Users className="h-5 w-5" />} subtitle={`${secs.length} SECs na base`} />
+      <MetricCard title="Despesa anual" value={formatCurrency(totalAnual)} icon={<ArrowUpRight className="h-5 w-5" />} subtitle="Soma dos valores anuais informados" />
+    </section>
+
+    <section className="grid gap-5 xl:grid-cols-[1.2fr_.8fr]">
+      <Card className="border-slate-200 bg-white shadow-[0_2px_12px_rgba(15,23,42,.04)]"><CardHeader className="border-b border-slate-100 pb-4"><p className="text-[11px] font-bold uppercase tracking-[.14em] text-slate-500">Composição mensal</p><CardTitle className="mt-1 text-xl text-[#172033]">Recursos por modalidade</CardTitle></CardHeader><CardContent className="space-y-7 pt-7">
+        <div><div className="mb-2 flex items-center justify-between text-sm"><span className="font-medium text-slate-700">Despesas com contrato</span><span className="font-semibold text-[#172033]">{formatCurrency(totalMensalComContrato)}</span></div><div className="h-3 overflow-hidden rounded-full bg-[#edf0e8]"><div className="h-full rounded-full bg-[#5f7f47]" style={{ width: `${shareComContrato}%` }} /></div><p className="mt-2 text-xs text-slate-500">{shareComContrato.toFixed(1)}% da despesa mensal informada.</p></div>
+        <div><div className="mb-2 flex items-center justify-between text-sm"><span className="font-medium text-slate-700">Despesas sem contrato</span><span className="font-semibold text-[#172033]">{formatCurrency(totalMensalSemContrato)}</span></div><div className="h-3 overflow-hidden rounded-full bg-[#edf0e8]"><div className="h-full rounded-full bg-[#b6873c]" style={{ width: `${shareSemContrato}%` }} /></div><p className="mt-2 text-xs text-slate-500">{shareSemContrato.toFixed(1)}% da despesa mensal informada.</p></div>
+      </CardContent></Card>
+      <Card className="border-slate-200 bg-[#172033] text-white shadow-[0_2px_12px_rgba(15,23,42,.12)]"><CardHeader className="border-b border-white/10 pb-4"><p className="text-[11px] font-bold uppercase tracking-[.14em] text-[#b6cc7a]">Síntese anual</p><CardTitle className="mt-1 text-xl text-white">Leitura consolidada</CardTitle></CardHeader><CardContent className="space-y-5 pt-6"><div><p className="text-xs text-slate-400">Com contrato</p><p className="mt-1 text-2xl font-semibold">{formatCurrency(totalAnualComContrato)}</p></div><div><p className="text-xs text-slate-400">Sem contrato</p><p className="mt-1 text-2xl font-semibold">{formatCurrency(totalAnualSemContrato)}</p></div><div className="border-t border-white/10 pt-5"><p className="text-xs text-slate-400">Total anual</p><p className="mt-1 text-3xl font-semibold text-[#dbe8bb]">{formatCurrency(totalAnual)}</p></div></CardContent></Card>
+    </section>
+
+    <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{[
+      ["Ticket médio", formatCurrency(safeDivision(totalMensal, contratos.length))],
+      ["Contratos por SEC", safeDivision(contratos.length, secs.length).toFixed(1)],
+      ["Colaboradores por SEC", safeDivision(colaboradores.length, secs.length).toFixed(1)],
+      ["Custo por colaborador", formatCurrency(safeDivision(totalMensal, colaboradores.length))],
+    ].map(([label, value]) => <div key={label} className="border-l-2 border-[#b6cc7a] px-4 py-2"><p className="text-[11px] font-bold uppercase tracking-[.12em] text-slate-500">{label}</p><p className="mt-1 text-lg font-semibold text-[#172033]">{value}</p></div>)}</section>
+    <p className="flex items-center gap-2 text-xs text-slate-500"><AlertCircle className="h-3.5 w-3.5" />Indicadores calculados exclusivamente a partir da versão vigente da base.</p>
+  </div></DashboardLayout>;
 }
