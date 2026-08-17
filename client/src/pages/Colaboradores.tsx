@@ -66,9 +66,9 @@ export default function Colaboradores() {
   // Cores para gráficos
   const COLORS = [
     "#003f5f",
-    "#005f83",
+    "#89ad45",
+    "#f2c94c",
     "#087fa3",
-    "#00a6c7",
     "#4d88a3",
     "#8fb8cc",
     "#2a6e89",
@@ -99,18 +99,21 @@ export default function Colaboradores() {
             value={colaboradores.length.toString()}
             icon={<Users className="w-5 h-5" />}
             trend="up"
+            accent="green"
           />
           <MetricCard
             title="Postos Diferentes"
             value={distribuicaoPosto.length.toString()}
             icon={<Briefcase className="w-5 h-5" />}
             trend="neutral"
+            accent="yellow"
           />
           <MetricCard
             title="SECs Gerenciadas"
             value={new Set(colaboradores.map((c: any) => c.sec).filter(Boolean)).size.toString()}
             icon={<Building2 className="w-5 h-5" />}
             trend="neutral"
+            accent="blue"
           />
         </div>
 
@@ -128,7 +131,7 @@ export default function Colaboradores() {
                   <XAxis dataKey="name" />
                   <YAxis />
                   <Tooltip />
-                  <Bar dataKey="value" fill="#005f83" radius={[2, 2, 0, 0]} />
+                  <Bar dataKey="value" fill="#89ad45" radius={[2, 2, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>

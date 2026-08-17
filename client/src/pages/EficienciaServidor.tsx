@@ -72,7 +72,7 @@ export default function EficienciaServidor() {
           <Card className="border-0 shadow-sm">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-slate-600 flex items-center gap-2">
-                <Activity className="w-4 h-4 text-blue-600" />
+                <Activity className="w-4 h-4 text-[#087fa3]" />
                 Custo Médio/Servidor
               </CardTitle>
             </CardHeader>
@@ -163,8 +163,8 @@ export default function EficienciaServidor() {
                     contentStyle={{ backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}
                   />
                   <Legend />
-                  <Bar yAxisId="left" dataKey="Custo/Servidor" fill="#005f83" radius={[2, 2, 0, 0]} />
-                  <Bar yAxisId="right" dataKey="Área/Servidor" fill="#00a6c7" radius={[2, 2, 0, 0]} />
+                  <Bar yAxisId="left" dataKey="Custo/Servidor" fill="#89ad45" radius={[2, 2, 0, 0]} />
+                  <Bar yAxisId="right" dataKey="Área/Servidor" fill="#f2c94c" radius={[2, 2, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>

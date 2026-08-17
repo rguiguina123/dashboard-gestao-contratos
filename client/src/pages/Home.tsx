@@ -9,10 +9,10 @@ const logoUrl = "https://d2xsxph8kpxj0f.cloudfront.net/310419663029089241/WJWhmX
 export default function Home() {
   const { colaboradores, contratos, secs, totalMensal } = useDashboardData();
   const modules = [
-    { title: "Visão executiva", href: "/dashboard", icon: BarChart3 },
-    { title: "Contratos", href: "/contratos", icon: FileText },
-    { title: "Colaboradores", href: "/colaboradores", icon: Users },
-    { title: "Custos", href: "/custos-total", icon: Landmark },
+    { title: "Visão executiva", href: "/dashboard", icon: BarChart3, accent: "text-[#8fd2e6] border-t-[#00a6c7]" },
+    { title: "Contratos", href: "/contratos", icon: FileText, accent: "text-[#f6da73] border-t-[#f2c94c]" },
+    { title: "Colaboradores", href: "/colaboradores", icon: Users, accent: "text-[#cbe59b] border-t-[#89ad45]" },
+    { title: "Custos", href: "/custos-total", icon: Landmark, accent: "text-[#f6da73] border-t-[#f2c94c]" },
   ];
   const metrics = [[colaboradores.length, "colaboradores"], [contratos.length, "contratos"], [secs.length, "SECs"], [formatCurrency(totalMensal), "por mês"]];
 
@@ -31,16 +31,16 @@ export default function Home() {
           <section className="max-w-xl">
             <h1 className="text-4xl font-semibold leading-none tracking-[-.045em] text-white sm:text-6xl">Gestão de contratos</h1>
             <p className="mt-4 text-base text-[#d9edf3] sm:text-lg">Contratos, colaboradores e custos.</p>
-            <Link href="/dashboard" className="group mt-8 inline-flex items-center gap-2 border-b-2 border-[#00a6c7] pb-2 text-sm font-bold text-white hover:border-white">Abrir painel <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></Link>
+            <Link href="/dashboard" className="group mt-8 inline-flex items-center gap-2 border-b-2 border-[#f2c94c] pb-2 text-sm font-bold text-white hover:border-[#89ad45]">Abrir painel <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></Link>
           </section>
 
           <nav className="grid border-l border-t border-white/20 sm:grid-cols-2" aria-label="Módulos do dashboard">
-            {modules.map(module => { const Icon = module.icon; return <Link key={module.href} href={module.href} className="group flex min-h-[145px] flex-col justify-between border-b border-r border-white/20 bg-[#003f5f]/45 p-5 backdrop-blur-[2px] transition-colors hover:bg-[#005f83]/80"><div className="flex items-start justify-between"><Icon className="h-5 w-5 text-[#8fd2e6]" /><ArrowUpRight className="h-4 w-4 text-[#8fd2e6]/60 group-hover:text-white" /></div><h2 className="text-xl font-semibold text-white">{module.title}</h2></Link>; })}
+            {modules.map(module => { const Icon = module.icon; return <Link key={module.href} href={module.href} className={`group flex min-h-[145px] flex-col justify-between border-b border-r border-t-4 border-white/20 bg-[#003f5f]/45 p-5 backdrop-blur-[2px] transition-colors hover:bg-[#005f83]/80 ${module.accent.split(" ")[1]}`}><div className="flex items-start justify-between"><Icon className={`h-5 w-5 ${module.accent.split(" ")[0]}`} /><ArrowUpRight className={`h-4 w-4 opacity-60 group-hover:opacity-100 ${module.accent.split(" ")[0]}`} /></div><h2 className="text-xl font-semibold text-white">{module.title}</h2></Link>; })}
           </nav>
         </main>
 
         <section className="grid grid-cols-2 border-l border-t border-white/20 sm:grid-cols-4">
-          {metrics.map(([value, label]) => <div key={label} className="border-b border-r border-white/20 bg-[#003f5f]/55 px-4 py-4 backdrop-blur-[2px]"><p className="text-xl font-semibold tracking-tight text-white">{value}</p><p className="mt-1 text-[10px] font-bold uppercase tracking-[.12em] text-[#c2e6f0]">{label}</p></div>)}
+          {metrics.map(([value, label], index) => <div key={label} className={`border-b border-r border-white/20 bg-[#003f5f]/55 px-4 py-4 backdrop-blur-[2px] ${index === 1 ? "border-t-2 border-t-[#f2c94c]" : index === 2 ? "border-t-2 border-t-[#89ad45]" : ""}`}><p className="text-xl font-semibold tracking-tight text-white">{value}</p><p className={`mt-1 text-[10px] font-bold uppercase tracking-[.12em] ${index === 1 ? "text-[#f6da73]" : index === 2 ? "text-[#cbe59b]" : "text-[#c2e6f0]"}`}>{label}</p></div>)}
         </section>
       </div>
     </div>

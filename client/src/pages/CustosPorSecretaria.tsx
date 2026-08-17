@@ -51,7 +51,7 @@ export default function CustosPorSecretaria() {
           <Card className="border-0 shadow-sm">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-slate-600 flex items-center gap-2">
-                <DollarSign className="w-4 h-4 text-emerald-600" />
+                <DollarSign className="w-4 h-4 text-[#55752c]" />
                 Custo Total
               </CardTitle>
             </CardHeader>
@@ -64,7 +64,7 @@ export default function CustosPorSecretaria() {
           <Card className="border-0 shadow-sm">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-slate-600 flex items-center gap-2">
-                <Users className="w-4 h-4 text-blue-600" />
+                <Users className="w-4 h-4 text-[#087fa3]" />
                 Total de Servidores
               </CardTitle>
             </CardHeader>

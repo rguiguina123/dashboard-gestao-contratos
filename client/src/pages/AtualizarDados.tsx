@@ -32,12 +32,12 @@ function Summary({ summary, applied }: { summary: ImportSummary; applied: boolea
   const entries = Object.entries(summary.domains);
   return (
     <div className="space-y-5">
-      <div className="rounded-2xl border border-emerald-100 bg-emerald-50/70 p-4 text-emerald-950">
+      <div className="rounded-2xl border border-[#cbe59b] bg-[#eef4df] p-4 text-[#355224]">
         <div className="flex items-start gap-3">
-          <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-emerald-600" />
+          <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-[#55752c]" />
           <div>
             <p className="font-semibold">{applied ? "Atualização aplicada com sucesso" : "Comparativo pronto"}</p>
-            <p className="mt-1 text-sm text-emerald-800">{applied ? "Confira abaixo tudo o que entrou, mudou, permaneceu ou saiu da base." : "Confira abaixo tudo o que entrará, mudará, permanecerá ou sairá. A atualização será aplicada automaticamente em instantes."}</p>
+            <p className="mt-1 text-sm text-[#55752c]">{applied ? "Confira abaixo tudo o que entrou, mudou, permaneceu ou saiu da base." : "Confira abaixo tudo o que entrará, mudará, permanecerá ou sairá. A atualização será aplicada automaticamente em instantes."}</p>
           </div>
         </div>
       </div>
@@ -46,14 +46,14 @@ function Summary({ summary, applied }: { summary: ImportSummary; applied: boolea
           <div key={domain} className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
             <p className="text-sm font-semibold text-slate-800">{labels[domain] ?? domain}</p>
             <div className="mt-4 grid grid-cols-2 gap-2 text-center text-xs">
-              <div className="rounded-xl bg-emerald-50 px-2 py-2 text-emerald-700"><strong className="block text-lg">{counts.added}</strong>novos</div>
-              <div className="rounded-xl bg-[#eaf3f7] px-2 py-2 text-[#005f83]"><strong className="block text-lg">{counts.updated}</strong>alterados</div>
+              <div className="rounded-xl bg-[#eef4df] px-2 py-2 text-[#55752c]"><strong className="block text-lg">{counts.added}</strong>novos</div>
+              <div className="rounded-xl bg-[#fff8df] px-2 py-2 text-[#9a7514]"><strong className="block text-lg">{counts.updated}</strong>alterados</div>
               <div className="rounded-xl bg-slate-100 px-2 py-2 text-slate-600"><strong className="block text-lg">{counts.unchanged}</strong>mantidos</div>
               <div className="rounded-xl bg-rose-50 px-2 py-2 text-rose-700"><strong className="block text-lg">{counts.removed}</strong>saindo</div>
             </div>
             <div className="mt-3 space-y-1 border-t border-slate-100 pt-3 text-xs text-slate-600">
-              {counts.samples.added.length > 0 && <p><strong className="text-emerald-700">Incluídos:</strong> {counts.samples.added.join(", ")}</p>}
-              {counts.samples.updated.length > 0 && <p><strong className="text-[#005f83]">Alterados:</strong> {counts.samples.updated.join(", ")}</p>}
+              {counts.samples.added.length > 0 && <p><strong className="text-[#55752c]">Incluídos:</strong> {counts.samples.added.join(", ")}</p>}
+              {counts.samples.updated.length > 0 && <p><strong className="text-[#9a7514]">Alterados:</strong> {counts.samples.updated.join(", ")}</p>}
               {counts.samples.unchanged.length > 0 && <p><strong className="text-slate-700">Mantidos:</strong> {counts.samples.unchanged.join(", ")}</p>}
               {counts.samples.removed.length > 0 && <p><strong className="text-rose-700">Saindo:</strong> {counts.samples.removed.join(", ")}</p>}
             </div>
@@ -70,7 +70,7 @@ function Summary({ summary, applied }: { summary: ImportSummary; applied: boolea
         ))}
       </div>
       {summary.warnings.length > 0 && (
-        <div className="rounded-xl border border-[#8fb8cc] bg-[#eaf3f7] p-4 text-sm text-[#003f5f]">
+        <div className="rounded-xl border border-[#f2c94c] bg-[#fff8df] p-4 text-sm text-[#6d5410]">
           {summary.warnings.map(warning => <p key={warning}>{warning}</p>)}
         </div>
       )}
@@ -139,7 +139,7 @@ export default function AtualizarDados() {
   return (
     <DashboardLayout>
       <div className="mx-auto max-w-none space-y-5 pb-6">
-        <section className="relative overflow-hidden border-b-4 border-[#00a6c7] bg-[#003f5f] px-6 py-6 text-white shadow-[0_12px_26px_rgba(0,63,95,.16)] sm:px-8">
+        <section className="relative overflow-hidden border-b-4 border-[#f2c94c] bg-[#003f5f] px-6 py-6 text-white shadow-[0_12px_26px_rgba(0,63,95,.16)] sm:px-8">
           <div className="relative flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl">
               <div className="mb-2 flex items-center gap-2 text-sm font-medium text-[#8fd2e6]"><Database className="h-4 w-4" /> Dados</div>
@@ -169,8 +169,8 @@ export default function AtualizarDados() {
               </CardContent>
             </Card>
             <Card className="border-slate-200 shadow-sm"><CardHeader className="pb-3"><CardTitle className="text-slate-900">Processo</CardTitle></CardHeader><CardContent className="space-y-3 text-sm text-slate-600">
-              <div className="flex gap-3"><span className="flex h-6 w-6 shrink-0 items-center justify-center bg-[#e4f0f5] font-bold text-[#005f83]">1</span><p>Valida a planilha.</p></div>
-              <div className="flex gap-3"><span className="flex h-6 w-6 shrink-0 items-center justify-center bg-[#c2e6f0] font-bold text-[#005f83]">2</span><p>Mostra as diferenças.</p></div>
+              <div className="flex gap-3"><span className="flex h-6 w-6 shrink-0 items-center justify-center bg-[#eef4df] font-bold text-[#55752c]">1</span><p>Valida a planilha.</p></div>
+              <div className="flex gap-3"><span className="flex h-6 w-6 shrink-0 items-center justify-center bg-[#fff8df] font-bold text-[#9a7514]">2</span><p>Mostra as diferenças.</p></div>
               <div className="flex gap-3"><span className="flex h-6 w-6 shrink-0 items-center justify-center bg-[#005f83] font-bold text-white">3</span><p>Aplica e registra.</p></div>
             </CardContent></Card>
           </div>

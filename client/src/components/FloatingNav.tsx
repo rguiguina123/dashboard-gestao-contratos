@@ -34,9 +34,9 @@ export function FloatingNav() {
       <div className="relative flex items-center justify-between gap-1 border border-[#0a526f] bg-[#003f5f] p-1 shadow-[0_14px_32px_rgba(0,63,95,0.24)] sm:flex-col">
         {primaryItems.map(item => {
           const active = location === item.href;
-          return <Link key={item.href} href={item.href} title={item.label} className={`${controlClass} ${active ? "bg-[#00a6c7] text-[#003f5f]" : "text-[#c2e6f0] hover:bg-[#0c5877] hover:text-white"}`}>{item.icon}<span className="pointer-events-none absolute right-[calc(100%+0.75rem)] hidden whitespace-nowrap border border-[#0a526f] bg-[#003f5f] px-2.5 py-1.5 text-xs font-medium text-white shadow-lg sm:group-hover:block">{item.label}</span></Link>;
+          return <Link key={item.href} href={item.href} title={item.label} className={`${controlClass} ${active ? "bg-[#f2c94c] text-[#003f5f]" : "text-[#c2e6f0] hover:bg-[#55752c] hover:text-white"}`}>{item.icon}<span className="pointer-events-none absolute right-[calc(100%+0.75rem)] hidden whitespace-nowrap border border-[#0a526f] bg-[#003f5f] px-2.5 py-1.5 text-xs font-medium text-white shadow-lg sm:group-hover:block">{item.label}</span></Link>;
         })}
-        <button type="button" onClick={() => setExpanded(value => !value)} title="Todas as análises" className={`${controlClass} ${expanded ? "bg-[#00a6c7] text-[#003f5f]" : "border-l border-[#0a526f] text-[#c2e6f0] hover:bg-[#0c5877] hover:text-white sm:border-l-0 sm:border-t"}`}>
+        <button type="button" onClick={() => setExpanded(value => !value)} title="Todas as análises" className={`${controlClass} ${expanded ? "bg-[#89ad45] text-[#003f5f]" : "border-l border-[#0a526f] text-[#c2e6f0] hover:bg-[#55752c] hover:text-white sm:border-l-0 sm:border-t"}`}>
           {expanded ? <X className="h-5 w-5" /> : <Grid2X2 className="h-5 w-5" />}
         </button>
       </div>

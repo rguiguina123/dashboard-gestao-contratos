@@ -448,8 +448,7 @@ html {
   background: rgba(0, 95, 131, 0.62);
 }
 
-/* Gráficos: uma família azul coerente, em vez de uma paleta multicolorida de template. */
-.recharts-bar-rectangle path { fill: #005f83 !important; }
-.recharts-scatter-symbol { fill: #005f83 !important; }
+/* Gráficos: azul estrutural com verde e amarelo do TCU definidos por cada série. */
+.recharts-scatter-symbol { fill: #89ad45 !important; }
 .recharts-cartesian-grid line { stroke: #d8e7ed !important; }
 .recharts-tooltip-wrapper .recharts-default-tooltip { border-color: #c9dde6 !important; background: #ffffff !important; }

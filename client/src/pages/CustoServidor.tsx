@@ -117,7 +117,7 @@ export default function CustoServidor() {
                   formatter={(value: any) => formatCurrency(Number(value))}
                   contentStyle={{ backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}
                 />
-                <Bar dataKey="Custo/Servidor" fill="#005f83" radius={[2, 2, 0, 0]} />
+                <Bar dataKey="Custo/Servidor" fill="#89ad45" radius={[2, 2, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </CardContent>

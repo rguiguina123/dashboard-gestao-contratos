@@ -99,7 +99,7 @@ export default function CustoPorArea() {
                   formatter={(value: any) => `${formatCurrency(Number(value))}/m²`}
                   contentStyle={{ backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}
                 />
-                <Bar dataKey="Custo/Área" fill="#005f83" radius={[2, 2, 0, 0]} />
+                <Bar dataKey="Custo/Área" fill="#f2c94c" radius={[2, 2, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </CardContent>

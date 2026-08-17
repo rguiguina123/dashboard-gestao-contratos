@@ -33,16 +33,16 @@ export default function Dashboard() {
     </header>
 
     <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-      <MetricCard title="Mensal" value={formatCurrency(totalMensal)} icon={<Landmark className="h-5 w-5" />} />
-      <MetricCard title="Contratos" value={contratos.length} icon={<FileText className="h-5 w-5" />} subtitle={`${despesasSemContrato.length} sem contrato`} />
-      <MetricCard title="Colaboradores" value={colaboradores.length} icon={<Users className="h-5 w-5" />} subtitle={`${secs.length} SECs`} />
-      <MetricCard title="Anual" value={formatCurrency(totalAnual)} icon={<ArrowUpRight className="h-5 w-5" />} />
+      <MetricCard title="Mensal" value={formatCurrency(totalMensal)} icon={<Landmark className="h-5 w-5" />} accent="blue" />
+      <MetricCard title="Contratos" value={contratos.length} icon={<FileText className="h-5 w-5" />} subtitle={`${despesasSemContrato.length} sem contrato`} accent="yellow" />
+      <MetricCard title="Colaboradores" value={colaboradores.length} icon={<Users className="h-5 w-5" />} subtitle={`${secs.length} SECs`} accent="green" />
+      <MetricCard title="Anual" value={formatCurrency(totalAnual)} icon={<ArrowUpRight className="h-5 w-5" />} accent="blue" />
     </section>
 
     <section className="grid gap-5 xl:grid-cols-[1.2fr_.8fr]">
       <Card className="flex min-h-[400px] flex-col border-[#c9dde6] bg-white shadow-[0_2px_12px_rgba(0,63,95,.05)]"><CardHeader className="border-b border-[#e4edf1] pb-3"><CardTitle className="text-lg text-[#003f5f]">Mensal</CardTitle></CardHeader><CardContent className="flex flex-1 flex-col space-y-5 pt-5">
-        <div><div className="mb-2 flex items-center justify-between text-sm"><span className="font-medium text-[#365869]">Com contrato</span><span className="font-semibold text-[#003f5f]">{formatCurrency(totalMensalComContrato)} · {shareComContrato.toFixed(1)}%</span></div><div className="h-2 overflow-hidden bg-[#e4f0f5]"><div className="h-full bg-[#005f83]" style={{ width: `${shareComContrato}%` }} /></div></div>
-        <div><div className="mb-2 flex items-center justify-between text-sm"><span className="font-medium text-[#365869]">Sem contrato</span><span className="font-semibold text-[#003f5f]">{formatCurrency(totalMensalSemContrato)} · {shareSemContrato.toFixed(1)}%</span></div><div className="h-2 overflow-hidden bg-[#e4f0f5]"><div className="h-full bg-[#00a6c7]" style={{ width: `${shareSemContrato}%` }} /></div></div>
+        <div><div className="mb-2 flex items-center justify-between text-sm"><span className="font-medium text-[#365869]">Com contrato</span><span className="font-semibold text-[#55752c]">{formatCurrency(totalMensalComContrato)} · {shareComContrato.toFixed(1)}%</span></div><div className="h-2 overflow-hidden bg-[#e4f0f5]"><div className="h-full bg-[#89ad45]" style={{ width: `${shareComContrato}%` }} /></div></div>
+        <div><div className="mb-2 flex items-center justify-between text-sm"><span className="font-medium text-[#365869]">Sem contrato</span><span className="font-semibold text-[#9a7514]">{formatCurrency(totalMensalSemContrato)} · {shareSemContrato.toFixed(1)}%</span></div><div className="h-2 overflow-hidden bg-[#e4f0f5]"><div className="h-full bg-[#f2c94c]" style={{ width: `${shareSemContrato}%` }} /></div></div>
         <div className="mt-auto grid grid-cols-2 gap-x-5 gap-y-4 border-t border-[#e4edf1] pt-5">{[
           ["Ticket médio", formatCurrency(safeDivision(totalMensal, contratos.length))],
           ["Contratos por SEC", safeDivision(contratos.length, secs.length).toFixed(1)],
@@ -50,7 +50,7 @@ export default function Dashboard() {
           ["Custo por colaborador", formatCurrency(safeDivision(totalMensal, colaboradores.length))],
         ].map(([label, value]) => <div key={label}><p className="text-[10px] font-bold uppercase tracking-[.12em] text-[#547182]">{label}</p><p className="mt-1 text-base font-semibold text-[#003f5f]">{value}</p></div>)}</div>
       </CardContent></Card>
-      <Card className="flex min-h-[400px] flex-col border-[#003f5f] bg-[#003f5f] text-white shadow-[0_2px_12px_rgba(0,63,95,.16)]"><CardHeader className="border-b border-white/15 pb-3"><CardTitle className="text-lg text-white">Anual</CardTitle></CardHeader><CardContent className="flex flex-1 flex-col space-y-5 pt-5"><div><p className="text-xs text-[#c2e6f0]">Com contrato</p><p className="mt-1 text-2xl font-semibold">{formatCurrency(totalAnualComContrato)}</p></div><div><p className="text-xs text-[#c2e6f0]">Sem contrato</p><p className="mt-1 text-2xl font-semibold">{formatCurrency(totalAnualSemContrato)}</p></div><div className="mt-auto border-t border-white/15 pt-5"><p className="text-xs text-[#c2e6f0]">Total</p><p className="mt-1 text-3xl font-semibold text-[#8fd2e6]">{formatCurrency(totalAnual)}</p></div></CardContent></Card>
+      <Card className="flex min-h-[400px] flex-col border-[#003f5f] bg-[#003f5f] text-white shadow-[0_2px_12px_rgba(0,63,95,.16)]"><CardHeader className="border-b border-white/15 pb-3"><CardTitle className="text-lg text-white">Anual</CardTitle></CardHeader><CardContent className="flex flex-1 flex-col space-y-5 pt-5"><div><p className="text-xs text-[#c2e6f0]">Com contrato</p><p className="mt-1 text-2xl font-semibold text-[#cbe59b]">{formatCurrency(totalAnualComContrato)}</p></div><div><p className="text-xs text-[#c2e6f0]">Sem contrato</p><p className="mt-1 text-2xl font-semibold text-[#f6da73]">{formatCurrency(totalAnualSemContrato)}</p></div><div className="mt-auto border-t border-white/15 pt-5"><p className="text-xs text-[#c2e6f0]">Total</p><p className="mt-1 text-3xl font-semibold text-[#8fd2e6]">{formatCurrency(totalAnual)}</p></div></CardContent></Card>
     </section>
 
   </div></DashboardLayout>;
