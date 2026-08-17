@@ -110,7 +110,6 @@ export default function DespesasContrato() {
         {/* Header */}
         <div>
           <h1 className="text-4xl font-bold font-poppins text-gray-900">Despesas com Contrato</h1>
-          <p className="text-gray-600 mt-2">Análise de despesas controladas por contrato</p>
         </div>
 
         {/* Filtro */}

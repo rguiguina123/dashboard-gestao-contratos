@@ -38,7 +38,7 @@ export default function CustoPorArea() {
       <div className="space-y-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-slate-900 mb-2">Análise de Custo por Área</h1>
+          <h1 className="text-4xl font-bold text-slate-900 mb-2">Custo por área</h1>
           <p className="text-slate-600">Custo por metro quadrado (R$/m²) de cada secretaria</p>
         </div>
 

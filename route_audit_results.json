@@ -1,21 +1,21 @@
 [
   {
     "route": "/",
-    "text": "TRIBUNAL DE CONTAS DA UNIÃO\nGESTÃO DE CONTRATOS\n\nAcompanhamento institucional com dados claros para decisões de gestão.\n\nINFORMAÇÃO PARA DECISÃO\n\nGestão pública com leitura clara, base confiável e ação responsável.\n\nContratos, colaboradores e custos em uma visão de trabalho direta — feita para acomp",
+    "text": "GESTÃO DE CONTRATOS\nAtualizar dados\nGestão de contratos\n\nContratos, colaboradores e custos.\n\nAbrir painel\nVisão executiva\nContratos\nColaboradores\nCustos\n\n116\n\nCOLABORADORES\n\n74\n\nCONTRATOS\n\n26\n\nSECS\n\nR$ 1.679.117,18\n\nPOR MÊS",
     "rootChildren": 2,
     "failure": false,
     "errors": []
   },
   {
     "route": "/dashboard",
-    "text": "PAINEL EXECUTIVO\n\nGestão de contratos\n\nLeitura consolidada da base vigente de contratos, despesas e colaboradores.\n\nExportar relatório\nDESPESA MENSAL\nR$ 1.679.117,18\n\nBase consolidada atual\n\nCONTRATOS ATIVOS\n74\n\n30 despesa(s) sem contrato\n\nCOLABORADORES\n116\n\n26 SECs na base\n\nDESPESA ANUAL\nR$ 20.494.",
+    "text": "RESUMO\n\nGestão de contratos\nExportar relatório\nMENSAL\nR$ 1.679.117,18\nCONTRATOS\n74\n\n30 sem contrato\n\nCOLABORADORES\n116\n\n26 SECs\n\nANUAL\nR$ 20.494.606,21\nMensal\nCom contrato\nR$ 1.456.388,73 · 86.7%\nSem contrato\nR$ 222.728,46 · 13.3%\n\nTICKET MÉDIO\n\nR$ 22.690,77\n\nCONTRATOS POR SEC\n\n2.8\n\nCOLABORADORES PO",
     "rootChildren": 2,
     "failure": false,
     "errors": []
   },
   {
     "route": "/contratos",
-    "text": "ACOMPANHAMENTO CONTRATUAL\n\nContratos\n\nGestão e análise de vigências, fornecedores e valores da base vigente.\n\nFiltrar por vencimento\nSelecionar Período\nFiltrar por SEC\nTodas as SECs\nFiltrar por objeto\nTodos os Objetos\nTOTAL DE CONTRATOS\n74\nDESPESA MENSAL\nR$ 1.456.388,73\nDESPESA ANUAL\nR$ 17.821.864,7",
+    "text": "Contratos\nVENCIMENTO\nSelecionar Período\nSEC\nTodas as SECs\nOBJETO\nTodos os Objetos\nTOTAL DE CONTRATOS\n74\nDESPESA MENSAL\nR$ 1.456.388,73\nDESPESA ANUAL\nR$ 17.821.864,72\n23 contrato(s) vencido(s)\nCONTRATO nº 1/2021 SEC-AL · SEC-AL\nCONTRATO nº 2/2025 SEC-RR · SEC-RR\nCONTRATO nº 1/2020 SEC-RN · SEC-RN\nCON",
     "rootChildren": 2,
     "failure": false,
     "errors": []
@@ -29,56 +29,56 @@
   },
   {
     "route": "/demonstrativo",
-    "text": "Demonstrativo Total\n\nVisão consolidada de todas as despesas\n\nDESPESA MENSAL TOTAL\nR$ 1.679.117,18\nDESPESA ANUAL TOTAL\nR$ 20.494.606,21\nCONTRATOS ATIVOS\n74\nComparação: Com vs Sem Contrato\nCom Contrato\nSem Contrato\n0\n4500000\n9000000\n13500000\n18000000\nMensalAnual\nConsolidado\n\nCom Contrato\n\n86.7% do tot",
+    "text": "Demonstrativo Total\nDESPESA MENSAL TOTAL\nR$ 1.679.117,18\nDESPESA ANUAL TOTAL\nR$ 20.494.606,21\nCONTRATOS ATIVOS\n74\nComparação: Com vs Sem Contrato\nCom Contrato\nSem Contrato\n0\n4500000\n9000000\n13500000\n18000000\nMensalAnual\nConsolidado\n\nCom Contrato\n\n86.7% do total\n\nR$ 1.456.388,73\n\nR$ 17.821.864,72/ano",
     "rootChildren": 2,
     "failure": false,
     "errors": []
   },
   {
     "route": "/despesas-com-contrato",
-    "text": "Despesas com Contrato\n\nAnálise de despesas controladas por contrato\n\nFiltrar por SEC\nTodas as SECs\nTOTAL DE CONTRATOS\n74\nDESPESA MENSAL\nR$ 1.456.388,73\nDESPESA ANUAL\nR$ 17.821.864,72\nTop 10 Fornecedores\nSEC-RJ\nSEC-SP\nSEC-PB\nSEC-PA\nSEC-AL\nSEC-RR\nSEC-ES\nSEC-AM\nSEC-RO\nSEC-MA\n0\n75000\n150000\n225000\n30000",
+    "text": "Despesas com Contrato\nFiltrar por SEC\nTodas as SECs\nTOTAL DE CONTRATOS\n74\nDESPESA MENSAL\nR$ 1.456.388,73\nDESPESA ANUAL\nR$ 17.821.864,72\nTop 10 Fornecedores\nSEC-RJ\nSEC-SP\nSEC-PB\nSEC-PA\nSEC-AL\nSEC-RR\nSEC-ES\nSEC-AM\nSEC-RO\nSEC-MA\n0\n75000\n150000\n225000\n300000\nTop 10 SECs por Despesa\nSEC-RJ: R$ 286.520,39",
     "rootChildren": 2,
     "failure": false,
     "errors": []
   },
   {
     "route": "/despesas-sem-contrato",
-    "text": "Despesas sem Contrato\n\nAnálise de despesas não controladas por contrato\n\nFiltrar por SEC\nTodas as SECs\nTOTAL DE DESPESAS\n30\nDESPESA MENSAL\nR$ 222.728,46\nDESPESA ANUAL\nR$ 2.672.741,49\nDespesas por Serviço\nCondomínio/Energia\nEnergia\nMotorista\nÁgua\nSeguro veicular\nColeta de lixo\n0\n20000\n40000\n60000\n800",
+    "text": "Despesas sem Contrato\nFiltrar por SEC\nTodas as SECs\nTOTAL DE DESPESAS\n30\nDESPESA MENSAL\nR$ 222.728,46\nDESPESA ANUAL\nR$ 2.672.741,49\nDespesas por Serviço\nCondomínio/Energia\nEnergia\nMotorista\nÁgua\nSeguro veicular\nColeta de lixo\n0\n20000\n40000\n60000\n80000\nTop 10 SECs por Despesa\nSP: R$ 47.533,13\nRS: R$ ",
     "rootChildren": 2,
     "failure": false,
     "errors": []
   },
   {
     "route": "/custos-por-secretaria",
-    "text": "COMPOSIÇÃO DE CUSTOS\n\nCustos por secretaria\n\nLeitura detalhada dos custos informados para as secretarias dos estados.\n\nCusto Total\nR$ 20.369.908,18\n\nTodas as secretarias\n\nTotal de Servidores\n457\n\nDomiciliados\n\nCusto Médio/Servidor\nR$ 44.573,10\n\nPor servidor\n\nÁrea Total\n19996.70 m²\n\nEspaço ocupado\n\nO",
+    "text": "COMPOSIÇÃO DE CUSTOS\n\nCustos por secretaria\nCusto Total\nR$ 20.369.908,18\n\nTodas as secretarias\n\nTotal de Servidores\n457\n\nDomiciliados\n\nCusto Médio/Servidor\nR$ 44.573,10\n\nPor servidor\n\nÁrea Total\n19996.70 m²\n\nEspaço ocupado\n\nOrdenar por SEC\nOrdenar por Custo Total\nOrdenar por Custo/Servidor\nDados por",
     "rootChildren": 2,
     "failure": false,
     "errors": []
   },
   {
     "route": "/custo-por-area",
-    "text": "Análise de Custo por Área\n\nCusto por metro quadrado (R$/m²) de cada secretaria\n\nTotal Geral\nR$ 39.218,89\n\nSoma de todos os custos/m²\n\nCusto Médio por Área\nR$ 1.508,42/m²\n\nMédia de todas as SECs\n\nMaior Custo/Área\nR$ 5.179,30/m²\n\nSEC-MA\n\nMenor Custo/Área\nR$ 430,54/m²\n\nSEC-RS\n\nCusto por Área - Todas as",
+    "text": "Custo por área\n\nCusto por metro quadrado (R$/m²) de cada secretaria\n\nTotal Geral\nR$ 39.218,89\n\nSoma de todos os custos/m²\n\nCusto Médio por Área\nR$ 1.508,42/m²\n\nMédia de todas as SECs\n\nMaior Custo/Área\nR$ 5.179,30/m²\n\nSEC-MA\n\nMenor Custo/Área\nR$ 430,54/m²\n\nSEC-RS\n\nCusto por Área - Todas as Secretaria",
     "rootChildren": 2,
     "failure": false,
     "errors": []
   },
   {
     "route": "/custos-total",
-    "text": "Custos Totais por Secretaria\n\nAnálise completa de custos anuais de todas as secretarias\n\nCusto Total Geral\nR$ 20.302.301,26\n\nTodas as SECs\n\nCusto Médio\nR$ 780.857,74\n\nPor secretaria\n\nMaior Custo\nR$ 1.758.646,29\n\nSEC-RJ\n\nMenor Custo\nR$ 185.163,71\n\nSEC-PR\n\nCustos Totais - Todas as Secretarias\nSEC-PB\nS",
+    "text": "Custos Totais por Secretaria\nCusto Total Geral\nR$ 20.302.301,26\n\nTodas as SECs\n\nCusto Médio\nR$ 780.857,74\n\nPor secretaria\n\nMaior Custo\nR$ 1.758.646,29\n\nSEC-RJ\n\nMenor Custo\nR$ 185.163,71\n\nSEC-PR\n\nCustos Totais - Todas as Secretarias\nSEC-PB\nSEC-SP\nSEC-PE\nSEC-BA\nSEC-AM\nSEC-MG\nSEC-PI\nSEC-MS\nSEC-PR\n0\n450",
     "rootChildren": 2,
     "failure": false,
     "errors": []
   },
   {
     "route": "/eficiencia-servidor",
-    "text": "Eficiência por Servidor\n\nAnálise de custo e área por servidor em cada secretaria\n\nTotal Geral\nR$ 1.574.834,09\n\nSoma de todos os custos/servidor\n\nCusto Médio/Servidor\nR$ 60.570,54\n\nMédia de todas as SECs\n\nÁrea Média/Servidor\n62.00 m²\n\nEspaço por servidor\n\nMaior Custo/Servidor\nR$ 162.510,80\n\nSEC-RR\n\nM",
+    "text": "Eficiência por Servidor\n\nPor secretaria\n\nTotal Geral\nR$ 1.574.834,09\n\nSoma de todos os custos/servidor\n\nCusto Médio/Servidor\nR$ 60.570,54\n\nMédia de todas as SECs\n\nÁrea Média/Servidor\n62.00 m²\n\nEspaço por servidor\n\nMaior Custo/Servidor\nR$ 162.510,80\n\nSEC-RR\n\nMenor Custo/Servidor\nR$ 7.715,15\n\nSEC-PR\n\n",
     "rootChildren": 2,
     "failure": false,
     "errors": []
   },
   {
     "route": "/custo-servidor",
-    "text": "Custos por Servidor\n\nAnálise de custo por servidor domiciliado em cada secretaria\n\nTotal Geral\nR$ 1.574.834,09\n\nSoma de todos os custos/servidor\n\nCusto Médio/Servidor\nR$ 60.570,54\n\nMédia de todas as SECs\n\nMaior Custo/Servidor\nR$ 162.510,80\n\nSEC-RR\n\nMenor Custo/Servidor\nR$ 7.715,15\n\nSEC-PR\n\nDiferença",
+    "text": "Custos por Servidor\n\nPor secretaria\n\nTotal Geral\nR$ 1.574.834,09\n\nSoma de todos os custos/servidor\n\nCusto Médio/Servidor\nR$ 60.570,54\n\nMédia de todas as SECs\n\nMaior Custo/Servidor\nR$ 162.510,80\n\nSEC-RR\n\nMenor Custo/Servidor\nR$ 7.715,15\n\nSEC-PR\n\nDiferença\nR$ 154.795,64\n\nEntre maior e menor\n\nCusto por",
     "rootChildren": 2,
     "failure": false,
     "errors": []
@@ -92,7 +92,7 @@
   },
   {
     "route": "/atualizar-dados",
-    "text": "Central de dados do dashboard\nAtualizar dados com segurança\n\nEnvie uma versão atualizada do Excel. O sistema valida os registros, preserva o que não mudou e aplica as alterações válidas imediatamente.\n\nAtualização validada e direta\n\nArquivos com erro não alteram a versão vigente.\n\nEnviar planilha\nAr",
+    "text": "Dados\nAtualizar base\n\nEnvie uma planilha Excel.\n\nArquivo inválido não altera a base.\n\nEnviar planilha\nExcel oficial · até 5 MB\nClique para escolher uma planilha .xlsx\n.xlsx · até 5 MB\nValidar e atualizar\nProcesso\n1\n\nValida a planilha.\n\n2\n\nMostra as diferenças.\n\n3\n\nAplica e registra.\n\nHistórico\n\nDado",
     "rootChildren": 2,
     "failure": false,
     "errors": []

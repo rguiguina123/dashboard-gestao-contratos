@@ -54,7 +54,7 @@ export default function EficienciaServidor() {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-slate-900 mb-2">Eficiência por Servidor</h1>
-          <p className="text-slate-600">Análise de custo e área por servidor em cada secretaria</p>
+          <p className="text-slate-600">Por secretaria</p>
         </div>
 
         {/* Métricas */}

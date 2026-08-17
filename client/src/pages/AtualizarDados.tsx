@@ -138,30 +138,29 @@ export default function AtualizarDados() {
 
   return (
     <DashboardLayout>
-      <div className="mx-auto max-w-6xl space-y-7 pb-12">
-        <section className="relative overflow-hidden border-b-4 border-[#00a6c7] bg-[#003f5f] px-6 py-8 text-white shadow-[0_12px_26px_rgba(0,63,95,.16)] sm:px-9">
-          <div className="relative flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+      <div className="mx-auto max-w-none space-y-5 pb-6">
+        <section className="relative overflow-hidden border-b-4 border-[#00a6c7] bg-[#003f5f] px-6 py-6 text-white shadow-[0_12px_26px_rgba(0,63,95,.16)] sm:px-8">
+          <div className="relative flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl">
-              <div className="mb-4 flex items-center gap-2 text-sm font-medium text-[#8fd2e6]"><Database className="h-4 w-4" /> Central de dados do dashboard</div>
-              <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Atualizar dados com segurança</h1>
-              <p className="mt-3 text-sm leading-6 text-slate-300 sm:text-base">Envie uma versão atualizada do Excel. O sistema valida os registros, preserva o que não mudou e aplica as alterações válidas imediatamente.</p>
+              <div className="mb-2 flex items-center gap-2 text-sm font-medium text-[#8fd2e6]"><Database className="h-4 w-4" /> Dados</div>
+              <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Atualizar base</h1>
+              <p className="mt-2 text-sm text-slate-300">Envie uma planilha Excel.</p>
             </div>
             <div className="rounded-2xl border border-white/15 bg-white/10 px-4 py-3 text-sm text-slate-200 backdrop-blur">
-              <p className="font-semibold text-white">Atualização validada e direta</p>
-              <p className="mt-1 text-xs text-slate-300">Arquivos com erro não alteram a versão vigente.</p>
+              <p className="font-semibold text-white">Arquivo inválido não altera a base.</p>
             </div>
           </div>
         </section>
 
         <>
-          <div className="grid gap-7 lg:grid-cols-[1.1fr_.9fr]">
+          <div className="grid gap-5 lg:grid-cols-[1.25fr_.75fr]">
             <Card className="border-slate-200 shadow-sm">
-              <CardHeader><CardTitle className="flex items-center gap-2 text-[#003f5f]"><UploadCloud className="h-5 w-5 text-[#087fa3]" /> Enviar planilha</CardTitle><CardDescription>Arquivos aceitos: Dados de Colaboradores, Gestão de Contratos, Siglas das Secretarias e <strong>Custos compilados por estado2.xlsx</strong> para custos.</CardDescription></CardHeader>
-              <CardContent className="space-y-5">
-                <label className="group flex min-h-48 cursor-pointer flex-col items-center justify-center border-2 border-dashed border-[#8fb8cc] bg-[#f6f9fa] px-5 text-center transition hover:border-[#087fa3] hover:bg-[#eaf3f7]">
+              <CardHeader className="pb-3"><CardTitle className="flex items-center gap-2 text-[#003f5f]"><UploadCloud className="h-5 w-5 text-[#087fa3]" /> Enviar planilha</CardTitle><CardDescription>Excel oficial · até 5 MB</CardDescription></CardHeader>
+              <CardContent className="space-y-4">
+                <label className="group flex min-h-40 cursor-pointer flex-col items-center justify-center border-2 border-dashed border-[#8fb8cc] bg-[#f6f9fa] px-5 text-center transition hover:border-[#087fa3] hover:bg-[#eaf3f7]">
                   <FileSpreadsheet className="h-10 w-10 text-[#087fa3] transition group-hover:scale-110" />
                   <span className="mt-4 text-sm font-semibold text-slate-800">{file ? file.name : "Clique para escolher uma planilha .xlsx"}</span>
-                  <span className="mt-1 text-xs text-slate-500">Limite de 5 MB. Nenhuma atualização é aplicada nesta etapa.</span>
+                  <span className="mt-1 text-xs text-slate-500">.xlsx · até 5 MB</span>
                   <input className="sr-only" type="file" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onChange={event => { setFile(event.target.files?.[0] ?? null); setPrepared(null); setValidationErrors([]); setWasApplied(false); }} />
                 </label>
                 <Button className="w-full gap-2 bg-[#005f83] hover:bg-[#003f5f]" disabled={!file || prepare.isPending} onClick={handlePrepare}>
@@ -169,10 +168,10 @@ export default function AtualizarDados() {
                 </Button>
               </CardContent>
             </Card>
-            <Card className="border-slate-200 shadow-sm"><CardHeader><CardTitle className="text-slate-900">Como a comparação funciona</CardTitle></CardHeader><CardContent className="space-y-4 text-sm text-slate-600">
-              <div className="flex gap-3"><span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center bg-[#e4f0f5] font-bold text-[#005f83]">1</span><p><strong className="text-slate-800">Validação:</strong> confere abas, colunas obrigatórias e campos essenciais.</p></div>
-              <div className="flex gap-3"><span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center bg-[#c2e6f0] font-bold text-[#005f83]">2</span><p><strong className="text-slate-800">Comparação:</strong> mostra o que entra, muda, permanece e sai da base.</p></div>
-              <div className="flex gap-3"><span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center bg-[#005f83] font-bold text-white">3</span><p><strong className="text-slate-800">Atualização:</strong> aplica uma planilha válida e guarda uma cópia no histórico.</p></div>
+            <Card className="border-slate-200 shadow-sm"><CardHeader className="pb-3"><CardTitle className="text-slate-900">Processo</CardTitle></CardHeader><CardContent className="space-y-3 text-sm text-slate-600">
+              <div className="flex gap-3"><span className="flex h-6 w-6 shrink-0 items-center justify-center bg-[#e4f0f5] font-bold text-[#005f83]">1</span><p>Valida a planilha.</p></div>
+              <div className="flex gap-3"><span className="flex h-6 w-6 shrink-0 items-center justify-center bg-[#c2e6f0] font-bold text-[#005f83]">2</span><p>Mostra as diferenças.</p></div>
+              <div className="flex gap-3"><span className="flex h-6 w-6 shrink-0 items-center justify-center bg-[#005f83] font-bold text-white">3</span><p>Aplica e registra.</p></div>
             </CardContent></Card>
           </div>
 
@@ -180,7 +179,7 @@ export default function AtualizarDados() {
 
           {prepared && <Card className="border-[#8fb8cc] shadow-sm"><CardHeader><CardTitle className="flex items-center gap-2 text-[#003f5f]"><CheckCircle2 className="h-5 w-5 text-[#087fa3]" /> {wasApplied ? "Atualização aplicada" : "Comparativo da atualização"}</CardTitle><CardDescription>{wasApplied ? `Arquivo: ${prepared.summary.fileName}. Confira abaixo o resumo da alteração realizada.` : "A atualização será aplicada automaticamente após a exibição deste comparativo."}</CardDescription></CardHeader><CardContent className="space-y-6"><Summary summary={prepared.summary} applied={wasApplied} />{isApplying && <div className="flex items-center gap-2 rounded-xl bg-[#eaf3f7] px-4 py-3 text-sm font-medium text-[#003f5f]"><RefreshCcw className="h-4 w-4 animate-spin" /> Aplicando a atualização...</div>}<div className="flex justify-end"><Button variant="outline" disabled={isApplying} onClick={() => setPrepared(null)}>Fechar resumo</Button></div></CardContent></Card>}
 
-          <Card className="border-slate-200 shadow-sm"><CardHeader><CardTitle className="flex items-center gap-2 text-slate-900"><History className="h-5 w-5 text-slate-500" /> Histórico recente</CardTitle><CardDescription>Versões aplicadas preservam a continuidade do dashboard.</CardDescription></CardHeader><CardContent>
+          <Card className="border-slate-200 shadow-sm"><CardHeader className="pb-3"><CardTitle className="flex items-center gap-2 text-slate-900"><History className="h-5 w-5 text-slate-500" /> Histórico</CardTitle></CardHeader><CardContent>
             {history.isLoading ? <p className="text-sm text-slate-500">Carregando histórico...</p> : (history.data?.length ?? 0) === 0 ? <p className="text-sm text-slate-500">Ainda não há importações registradas.</p> : <div className="space-y-3">{history.data?.map(item => {
               const status = importStatusPresentation(item.status);
               return <div key={item.id} className="flex flex-col gap-2 rounded-xl border border-slate-100 bg-slate-50 p-4 sm:flex-row sm:items-center sm:justify-between"><div><p className="font-medium text-slate-800">{item.fileName}</p><p className="mt-1 text-xs text-slate-500">{new Date(item.createdAt).toLocaleString("pt-BR")}</p></div><span className={`inline-flex w-fit rounded-full px-3 py-1 text-xs font-semibold ${status.className}`}>{status.label}</span></div>;

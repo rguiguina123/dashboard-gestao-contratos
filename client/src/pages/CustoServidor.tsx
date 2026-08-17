@@ -40,7 +40,7 @@ export default function CustoServidor() {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-slate-900 mb-2">Custos por Servidor</h1>
-          <p className="text-slate-600">Análise de custo por servidor domiciliado em cada secretaria</p>
+          <p className="text-slate-600">Por secretaria</p>
         </div>
 
         {/* Métricas */}

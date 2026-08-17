@@ -79,7 +79,6 @@ export default function Demonstrativo() {
         {/* Header */}
         <div>
           <h1 className="text-4xl font-bold font-poppins text-gray-900">Demonstrativo Total</h1>
-          <p className="text-gray-600 mt-2">Visão consolidada de todas as despesas</p>
         </div>
 
         {/* Métricas */}

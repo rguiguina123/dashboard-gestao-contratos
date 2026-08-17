@@ -122,3 +122,11 @@
 - [x] Reforçar a linguagem editorial e institucional da página inicial e da navegação
 - [x] Fazer uma varredura final de estilos legados e consolidar a hierarquia editorial das páginas de dados
 - [x] Executar validação visual final nas rotas prioritárias antes do checkpoint
+
+# Densidade e linguagem direta
+- [x] Mapear textos institucionais redundantes e espaços visuais sem função
+- [x] Reestruturar a home para concentrar conteúdo e aproveitar melhor a altura da primeira tela
+- [x] Compactar explicitamente a página de contratos sem perder filtros, alertas e tabela
+- [x] Simplificar a redação da atualização de dados e das áreas de custos
+- [x] Validar visualmente Home, Dashboard, Contratos e Atualizar Dados em celular, tablet e desktop
+- [x] Confirmar em celular que a navegação inferior não sobrepõe Dashboard e Atualizar Dados

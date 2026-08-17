@@ -44,7 +44,6 @@ export default function CustosPorSecretaria() {
         <div className="mb-8 border-b border-[#c9dde6] pb-6">
           <p className="text-[11px] font-bold uppercase tracking-[.18em] text-[#087fa3]">Composição de custos</p>
           <h1 className="mt-2 text-3xl font-semibold tracking-tight text-[#003f5f] sm:text-4xl">Custos por secretaria</h1>
-          <p className="mt-2 text-sm leading-6 text-[#547182]">Leitura detalhada dos custos informados para as secretarias dos estados.</p>
         </div>
 
         {/* Métricas */}

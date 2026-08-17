@@ -45,7 +45,6 @@ export default function CustosTotal() {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-slate-900 mb-2">Custos Totais por Secretaria</h1>
-          <p className="text-slate-600">Análise completa de custos anuais de todas as secretarias</p>
         </div>
 
         {/* Métricas */}
