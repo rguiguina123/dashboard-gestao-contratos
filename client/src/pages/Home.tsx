@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { ArrowRight, BarChart3, FileText, Landmark, Upload, Users } from "lucide-react";
+import { ArrowUpRight, BarChart3, FileText, Landmark, Upload, Users } from "lucide-react";
 import { useDashboardData } from "@/contexts/DashboardDataContext";
 import { formatCurrency } from "@/lib/utils";
 
@@ -9,19 +9,112 @@ const logoUrl = "https://d2xsxph8kpxj0f.cloudfront.net/310419663029089241/WJWhmX
 export default function Home() {
   const { colaboradores, contratos, secs, totalMensal } = useDashboardData();
   const modules = [
-    { title: "Visão executiva", text: "Indicadores consolidados e composição das despesas.", href: "/dashboard", icon: BarChart3 },
-    { title: "Contratos", text: "Acompanhamento de vigências, fornecedores e valores.", href: "/contratos", icon: FileText },
-    { title: "Colaboradores", text: "Distribuição por SEC, posto e identificação.", href: "/colaboradores", icon: Users },
-    { title: "Custos", text: "Análises por secretaria, área e servidor.", href: "/custos-total", icon: Landmark },
+    { number: "01", title: "Visão executiva", text: "Leitura consolidada de contratos, despesas e pessoas.", href: "/dashboard", icon: BarChart3 },
+    { number: "02", title: "Contratos", text: "Vigências, fornecedores, valores e alertas de vencimento.", href: "/contratos", icon: FileText },
+    { number: "03", title: "Colaboradores", text: "Distribuição por SEC, posto e identificação da base.", href: "/colaboradores", icon: Users },
+    { number: "04", title: "Custos", text: "Recortes por secretaria, área e composição de despesa.", href: "/custos-total", icon: Landmark },
   ];
-  return <div className="min-h-dvh bg-[#f4f5f2] text-[#172033]">
-    <section className="relative isolate min-h-[680px] overflow-hidden bg-[#172033]" style={{ backgroundImage: `linear-gradient(90deg, rgba(14,23,40,.92) 0%, rgba(14,23,40,.76) 45%, rgba(14,23,40,.25) 100%), url(${backgroundUrl})`, backgroundSize: "cover", backgroundPosition: "center" }}>
-      <div className="mx-auto flex min-h-[680px] max-w-[1500px] flex-col justify-between px-6 py-8 pr-24 sm:px-10 sm:pr-28 lg:px-16 lg:py-12 lg:pr-32">
-        <div className="flex items-center justify-between"><img src={logoUrl} alt="Tribunal de Contas da União" className="h-12 w-auto rounded-md bg-white/95 p-1.5 shadow-sm" /><span className="border border-white/20 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[.16em] text-slate-200">Gestão de contratos</span></div>
-        <div className="max-w-3xl pb-10"><p className="text-xs font-bold uppercase tracking-[.2em] text-[#dbe8bb]">Informação para decisão</p><h1 className="mt-5 text-4xl font-semibold leading-[1.04] tracking-tight text-white sm:text-6xl">Gestão pública com leitura clara, base confiável e ação responsável.</h1><p className="mt-6 max-w-xl text-base leading-7 text-slate-200 sm:text-lg">Uma visão integrada dos contratos, colaboradores e custos para apoiar o acompanhamento institucional.</p><div className="mt-8 flex flex-wrap gap-3"><Link href="/dashboard" className="inline-flex items-center gap-2 rounded-lg bg-[#dbe8bb] px-5 py-3 text-sm font-bold text-[#172033] transition-colors hover:bg-white">Abrir visão executiva <ArrowRight className="h-4 w-4" /></Link><Link href="/atualizar-dados" className="inline-flex items-center gap-2 rounded-lg border border-white/25 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"><Upload className="h-4 w-4" />Atualizar dados</Link></div></div>
-      </div>
-    </section>
-    <section className="border-b border-slate-200 bg-white"><div className="mx-auto grid max-w-[1500px] grid-cols-2 gap-y-6 px-6 py-8 pr-24 sm:grid-cols-4 sm:px-10 sm:pr-28 lg:px-16 lg:pr-32">{[[colaboradores.length,"colaboradores"],[contratos.length,"contratos ativos"],[secs.length,"SECs na base"],[formatCurrency(totalMensal),"despesa mensal"]].map(([value,label]) => <div key={label} className="border-l border-slate-200 px-4 first:border-l-0"><p className="text-2xl font-semibold tracking-tight text-[#172033]">{value}</p><p className="mt-1 text-xs font-bold uppercase tracking-[.12em] text-slate-500">{label}</p></div>)}</div></section>
-    <main className="mx-auto max-w-[1500px] px-6 py-16 pr-24 sm:px-10 sm:pr-28 lg:px-16 lg:pr-32"><div className="flex flex-col justify-between gap-4 border-b border-slate-200 pb-6 sm:flex-row sm:items-end"><div><p className="text-[11px] font-bold uppercase tracking-[.16em] text-[#587047]">Ambientes de trabalho</p><h2 className="mt-2 text-3xl font-semibold tracking-tight">Acesse pelo que precisa decidir.</h2></div><p className="max-w-md text-sm leading-6 text-slate-600">Cada módulo mantém indicadores, filtros e relatórios organizados em torno de uma pergunta de gestão.</p></div><div className="mt-8 grid gap-px overflow-hidden rounded-2xl border border-slate-200 bg-slate-200 md:grid-cols-2">{modules.map(module => { const Icon = module.icon; return <Link key={module.href} href={module.href} className="group bg-[#f9faf8] p-7 transition-colors hover:bg-white"><div className="flex items-start justify-between"><div className="grid h-10 w-10 place-items-center rounded-lg bg-[#eaf0da] text-[#355224]"><Icon className="h-5 w-5" /></div><ArrowRight className="h-5 w-5 text-slate-400 transition-transform group-hover:translate-x-1 group-hover:text-[#355224]" /></div><h3 className="mt-10 text-xl font-semibold">{module.title}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{module.text}</p></Link>; })}</div></main>
-  </div>;
+
+  const metrics = [
+    [colaboradores.length, "colaboradores"],
+    [contratos.length, "contratos ativos"],
+    [secs.length, "SECs na base"],
+    [formatCurrency(totalMensal), "despesa mensal"],
+  ];
+
+  return (
+    <div className="min-h-dvh bg-[#f6f9fa] text-[#102f40]">
+      <section
+        className="relative isolate overflow-hidden bg-[#003f5f]"
+        style={{
+          backgroundImage: `linear-gradient(90deg, rgba(0,47,72,.97) 0%, rgba(0,63,95,.91) 45%, rgba(0,63,95,.30) 100%), url(${backgroundUrl})`,
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+        }}
+      >
+        <div className="absolute inset-y-0 left-[7%] hidden w-px bg-white/20 lg:block" />
+        <div className="absolute bottom-0 left-0 h-1 w-[42%] bg-[#00a6c7]" />
+        <div className="mx-auto flex min-h-[680px] max-w-[1500px] flex-col justify-between px-6 py-7 pr-24 sm:px-10 sm:pr-28 lg:px-16 lg:py-10 lg:pr-32">
+          <header className="flex items-start justify-between gap-6 border-b border-white/20 pb-5">
+            <div className="flex items-center gap-4">
+              <img src={logoUrl} alt="Tribunal de Contas da União" className="h-11 w-auto bg-white p-1.5 shadow-sm" />
+              <div className="border-l border-white/35 pl-4 text-[10px] font-semibold uppercase tracking-[.17em] text-[#c2e6f0]">
+                Tribunal de Contas da União
+                <span className="mt-1 block text-white">Gestão de contratos</span>
+              </div>
+            </div>
+            <p className="hidden max-w-xs text-right text-xs leading-5 text-[#d9edf3] sm:block">
+              Acompanhamento institucional com dados claros para decisões de gestão.
+            </p>
+          </header>
+
+          <div className="max-w-3xl py-16 sm:py-20">
+            <p className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[.21em] text-[#8fd2e6]">
+              <span className="h-px w-8 bg-[#00a6c7]" /> Informação para decisão
+            </p>
+            <h1 className="mt-6 text-4xl font-semibold leading-[1.05] tracking-[-.035em] text-white sm:text-6xl">
+              Gestão pública com leitura clara, base confiável e ação responsável.
+            </h1>
+            <p className="mt-6 max-w-xl text-base leading-7 text-[#d9edf3] sm:text-lg">
+              Contratos, colaboradores e custos em uma visão de trabalho direta — feita para acompanhar o que importa, sem ruído.
+            </p>
+            <div className="mt-9 flex flex-wrap gap-5">
+              <Link href="/dashboard" className="group inline-flex items-center gap-3 border-b-2 border-[#00a6c7] pb-2 text-sm font-bold text-white transition-colors hover:border-white hover:text-[#8fd2e6]">
+                Abrir visão executiva <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </Link>
+              <Link href="/atualizar-dados" className="inline-flex items-center gap-2 text-sm font-semibold text-[#d9edf3] transition-colors hover:text-white">
+                <Upload className="h-4 w-4" /> Atualizar dados
+              </Link>
+            </div>
+          </div>
+
+          <p className="max-w-sm border-l-2 border-[#00a6c7] pl-4 text-xs leading-5 text-[#c2e6f0]">
+            Painel interno de acompanhamento. As informações exibidas refletem a última base de dados validada.
+          </p>
+        </div>
+      </section>
+
+      <section className="border-b border-[#c9dde6] bg-white">
+        <div className="mx-auto grid max-w-[1500px] grid-cols-2 px-6 pr-24 sm:grid-cols-4 sm:px-10 sm:pr-28 lg:px-16 lg:pr-32">
+          {metrics.map(([value, label], index) => (
+            <div key={label} className={`border-[#c9dde6] px-4 py-7 ${index > 0 ? "border-l" : ""} ${index > 1 ? "border-t sm:border-t-0" : ""}`}>
+              <p className="text-2xl font-semibold tracking-tight text-[#003f5f]">{value}</p>
+              <p className="mt-1 text-[10px] font-bold uppercase tracking-[.13em] text-[#547182]">{label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <main className="mx-auto max-w-[1500px] px-6 py-16 pr-24 sm:px-10 sm:pr-28 lg:px-16 lg:pr-32">
+        <div className="grid gap-8 border-b border-[#c9dde6] pb-8 lg:grid-cols-[220px_1fr] lg:gap-16">
+          <div>
+            <p className="text-[11px] font-bold uppercase tracking-[.17em] text-[#087fa3]">Áreas de trabalho</p>
+            <h2 className="mt-3 text-3xl font-semibold tracking-[-.03em] text-[#102f40]">Acesse pelo que precisa decidir.</h2>
+          </div>
+          <p className="max-w-xl self-end text-sm leading-6 text-[#547182]">
+            Cada módulo organiza o acompanhamento a partir de uma pergunta de gestão. Não é uma vitrine de indicadores: é uma base de trabalho para a equipe.
+          </p>
+        </div>
+
+        <div className="mt-1 grid border-l border-t border-[#c9dde6] md:grid-cols-2">
+          {modules.map(module => {
+            const Icon = module.icon;
+            return (
+              <Link key={module.href} href={module.href} className="group relative min-h-[260px] border-b border-r border-[#c9dde6] bg-[#f6f9fa] p-7 transition-colors hover:bg-[#eaf3f7] sm:p-8">
+                <div className="flex items-start justify-between">
+                  <span className="text-sm font-semibold tracking-[.12em] text-[#087fa3]">{module.number}</span>
+                  <Icon className="h-5 w-5 text-[#4d88a3] transition-colors group-hover:text-[#003f5f]" />
+                </div>
+                <div className="absolute bottom-8 left-7 right-7 sm:left-8 sm:right-8">
+                  <h3 className="text-2xl font-semibold tracking-[-.025em] text-[#003f5f]">{module.title}</h3>
+                  <p className="mt-3 max-w-sm text-sm leading-6 text-[#547182]">{module.text}</p>
+                  <span className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[.13em] text-[#005f83]">Acessar módulo <ArrowUpRight className="h-3.5 w-3.5" /></span>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      </main>
+    </div>
+  );
 }

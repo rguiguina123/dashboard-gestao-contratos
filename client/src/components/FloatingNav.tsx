@@ -27,22 +27,22 @@ const analysisItems = [
 export function FloatingNav() {
   const [location] = useLocation();
   const [expanded, setExpanded] = useState(false);
-  const controlClass = "group relative grid h-10 w-10 place-items-center rounded-xl border transition-all duration-200";
+  const controlClass = "group relative grid h-10 w-10 place-items-center border border-transparent transition-colors duration-150";
 
   return (
     <nav className="fixed right-4 top-1/2 z-50 -translate-y-1/2 sm:right-6" aria-label="Navegação principal">
-      <div className="relative flex flex-col gap-1.5 rounded-2xl border border-slate-800 bg-[#172033] p-1.5 shadow-[0_18px_42px_rgba(15,23,42,0.24)]">
+      <div className="relative flex flex-col gap-1 border border-[#0a526f] bg-[#003f5f] p-1 shadow-[0_14px_32px_rgba(0,63,95,0.24)]">
         {primaryItems.map(item => {
           const active = location === item.href;
-          return <Link key={item.href} href={item.href} title={item.label} className={`${controlClass} ${active ? "border-[#b6cc7a] bg-[#b6cc7a] text-[#172033]" : "border-transparent text-slate-300 hover:border-slate-700 hover:bg-slate-800 hover:text-white"}`}>{item.icon}<span className="pointer-events-none absolute right-[calc(100%+0.75rem)] hidden whitespace-nowrap rounded-md bg-[#172033] px-2.5 py-1.5 text-xs font-medium text-white shadow-lg group-hover:block">{item.label}</span></Link>;
+          return <Link key={item.href} href={item.href} title={item.label} className={`${controlClass} ${active ? "bg-[#00a6c7] text-[#003f5f]" : "text-[#c2e6f0] hover:bg-[#0c5877] hover:text-white"}`}>{item.icon}<span className="pointer-events-none absolute right-[calc(100%+0.75rem)] hidden whitespace-nowrap border border-[#0a526f] bg-[#003f5f] px-2.5 py-1.5 text-xs font-medium text-white shadow-lg group-hover:block">{item.label}</span></Link>;
         })}
-        <button type="button" onClick={() => setExpanded(value => !value)} title="Todas as análises" className={`${controlClass} ${expanded ? "border-[#b6cc7a] bg-[#b6cc7a] text-[#172033]" : "border-t border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white"}`}>
+        <button type="button" onClick={() => setExpanded(value => !value)} title="Todas as análises" className={`${controlClass} ${expanded ? "bg-[#00a6c7] text-[#003f5f]" : "border-t border-[#0a526f] text-[#c2e6f0] hover:bg-[#0c5877] hover:text-white"}`}>
           {expanded ? <X className="h-5 w-5" /> : <Grid2X2 className="h-5 w-5" />}
         </button>
       </div>
-      {expanded && <div className="absolute right-[calc(100%+0.75rem)] top-1/2 w-64 -translate-y-1/2 rounded-2xl border border-slate-200 bg-white p-3 shadow-2xl">
-        <p className="px-2 pb-2 text-[10px] font-bold uppercase tracking-[0.16em] text-slate-500">Análises detalhadas</p>
-        <div className="space-y-0.5">{analysisItems.map(item => <Link key={item.href} href={item.href} onClick={() => setExpanded(false)} className={`block rounded-lg px-3 py-2 text-sm transition-colors ${location === item.href ? "bg-[#edf1de] font-semibold text-[#355224]" : "text-slate-700 hover:bg-slate-100"}`}>{item.label}</Link>)}</div>
+      {expanded && <div className="absolute right-[calc(100%+0.75rem)] top-1/2 w-64 -translate-y-1/2 border border-[#c9dde6] bg-white p-3 shadow-[0_16px_38px_rgba(0,63,95,.18)]">
+        <p className="border-b border-[#c9dde6] px-2 pb-2 text-[10px] font-bold uppercase tracking-[0.16em] text-[#547182]">Análises detalhadas</p>
+        <div className="pt-1">{analysisItems.map(item => <Link key={item.href} href={item.href} onClick={() => setExpanded(false)} className={`block border-l-2 px-3 py-2 text-sm transition-colors ${location === item.href ? "border-[#00a6c7] bg-[#eaf3f7] font-semibold text-[#003f5f]" : "border-transparent text-[#365869] hover:border-[#8fd2e6] hover:bg-[#f6f9fa]"}`}>{item.label}</Link>)}</div>
       </div>}
     </nav>
   );

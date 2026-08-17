@@ -110,3 +110,15 @@
 - [x] Validar novamente a comparação, aplicação, bloqueio e histórico em Atualizar Dados
 - [x] Resumir alertas extensos de vencimento para preservar a leitura da página de contratos
 - [x] Cobrir com teste o resumo de itens exibidos nos alertas de vencimento
+
+# Paleta institucional TCU
+- [x] Mapear cores atuais e usos explícitos que destoam da identidade do TCU
+- [x] Aplicar tokens de cor institucionais do TCU à base visual compartilhada
+- [x] Substituir no código-fonte os gradientes e cores explícitas antigas por tokens TCU, sem depender de compatibilidade global
+- [x] Validar contraste, rotas, tipagem, testes e build após a alteração visual
+
+# Linguagem visual mais autoral
+- [x] Concluir a refatoração de custos por secretaria e demais páginas analíticas parcialmente genéricas
+- [x] Reforçar a linguagem editorial e institucional da página inicial e da navegação
+- [x] Fazer uma varredura final de estilos legados e consolidar a hierarquia editorial das páginas de dados
+- [x] Executar validação visual final nas rotas prioritárias antes do checkpoint

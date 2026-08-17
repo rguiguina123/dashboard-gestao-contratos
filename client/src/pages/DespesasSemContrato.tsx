@@ -38,7 +38,7 @@ interface DespesaDisplay {
   anual: number;
 }
 
-const COLORS = ["#7c3aed", "#3b82f6", "#06b6d4", "#10b981", "#f59e0b", "#ef4444"];
+const COLORS = ["#003f5f", "#005f83", "#087fa3", "#00a6c7", "#4d88a3", "#8fb8cc"];
 
 export default function DespesasSemContrato() {
   const { despesasSemContrato, secs: allSecs } = useDashboardData();
@@ -159,8 +159,8 @@ export default function DespesasSemContrato() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Gráfico de Despesas por Serviço */}
           <Card className="border-0 shadow-lg">
-            <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b">
-              <CardTitle className="text-purple-900">Despesas por Serviço</CardTitle>
+            <CardHeader className="border-b border-[#c9dde6] bg-[#eaf3f7]">
+              <CardTitle className="text-[#003f5f]">Despesas por Serviço</CardTitle>
             </CardHeader>
             <CardContent className="p-6">
               <ResponsiveContainer width="100%" height={300}>
@@ -169,7 +169,7 @@ export default function DespesasSemContrato() {
                   <XAxis dataKey="servico" angle={-45} textAnchor="end" height={100} />
                   <YAxis />
                   <Tooltip formatter={(value) => formatCurrency(value as number)} />
-                  <Bar dataKey="valor" fill="#7c3aed" radius={[8, 8, 0, 0]} />
+                  <Bar dataKey="valor" fill="#005f83" radius={[2, 2, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -177,8 +177,8 @@ export default function DespesasSemContrato() {
 
           {/* Gráfico de Despesas por SEC */}
           <Card className="border-0 shadow-lg">
-            <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b">
-              <CardTitle className="text-purple-900">Top 10 SECs por Despesa</CardTitle>
+            <CardHeader className="border-b border-[#c9dde6] bg-[#eaf3f7]">
+              <CardTitle className="text-[#003f5f]">Top 10 SECs por Despesa</CardTitle>
             </CardHeader>
             <CardContent className="p-6">
               <ResponsiveContainer width="100%" height={300}>
@@ -208,8 +208,8 @@ export default function DespesasSemContrato() {
 
         {/* Tabela */}
         <Card className="border-0 shadow-lg">
-          <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b flex items-center justify-between">
-            <CardTitle className="text-purple-900">Detalhes das Despesas</CardTitle>
+          <CardHeader className="flex items-center justify-between border-b border-[#c9dde6] bg-[#eaf3f7]">
+            <CardTitle className="text-[#003f5f]">Detalhes das despesas</CardTitle>
             <button
               onClick={() => {
                 const metrics = [
@@ -232,7 +232,7 @@ export default function DespesasSemContrato() {
                   'Relatorio_Despesas_Sem_Contrato'
                 );
               }}
-              className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all flex items-center gap-2"
+              className="flex items-center gap-2 border-b-2 border-[#00a6c7] bg-[#003f5f] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#005f83]"
             >
               <FileText className="w-4 h-4" />
               Exportar Relatório

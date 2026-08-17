@@ -1,7 +1,7 @@
 [
   {
     "route": "/",
-    "text": "GESTÃO DE CONTRATOS\n\nINFORMAÇÃO PARA DECISÃO\n\nGestão pública com leitura clara, base confiável e ação responsável.\n\nUma visão integrada dos contratos, colaboradores e custos para apoiar o acompanhamento institucional.\n\nAbrir visão executiva\nAtualizar dados\n\n116\n\nCOLABORADORES\n\n74\n\nCONTRATOS ATIVOS\n\n",
+    "text": "TRIBUNAL DE CONTAS DA UNIÃO\nGESTÃO DE CONTRATOS\n\nAcompanhamento institucional com dados claros para decisões de gestão.\n\nINFORMAÇÃO PARA DECISÃO\n\nGestão pública com leitura clara, base confiável e ação responsável.\n\nContratos, colaboradores e custos em uma visão de trabalho direta — feita para acomp",
     "rootChildren": 2,
     "failure": false,
     "errors": []
@@ -15,7 +15,7 @@
   },
   {
     "route": "/contratos",
-    "text": "Contratos\n\nGestão e análise de todos os contratos vigentes\n\nFiltrar por vencimento\nSelecionar Período\nFiltrar por SEC\nTodas as SECs\nFiltrar por Objeto\nTodos os Objetos\nTOTAL DE CONTRATOS\n74\nDESPESA MENSAL\nR$ 1.456.388,73\nDESPESA ANUAL\nR$ 17.821.864,72\n23 contrato(s) vencido(s)\nCONTRATO nº 1/2021 SEC",
+    "text": "ACOMPANHAMENTO CONTRATUAL\n\nContratos\n\nGestão e análise de vigências, fornecedores e valores da base vigente.\n\nFiltrar por vencimento\nSelecionar Período\nFiltrar por SEC\nTodas as SECs\nFiltrar por objeto\nTodos os Objetos\nTOTAL DE CONTRATOS\n74\nDESPESA MENSAL\nR$ 1.456.388,73\nDESPESA ANUAL\nR$ 17.821.864,7",
     "rootChildren": 2,
     "failure": false,
     "errors": []
@@ -50,7 +50,7 @@
   },
   {
     "route": "/custos-por-secretaria",
-    "text": "Custos por Secretaria\n\nAnálise detalhada de custos de todas as secretarias dos estados\n\nCusto Total\nR$ 20.369.908,18\n\nTodas as secretarias\n\nTotal de Servidores\n457\n\nDomiciliados\n\nCusto Médio/Servidor\nR$ 44.573,10\n\nPor servidor\n\nÁrea Total\n19996.70 m²\n\nEspaço ocupado\n\nOrdenar por SEC\nOrdenar por Cust",
+    "text": "COMPOSIÇÃO DE CUSTOS\n\nCustos por secretaria\n\nLeitura detalhada dos custos informados para as secretarias dos estados.\n\nCusto Total\nR$ 20.369.908,18\n\nTodas as secretarias\n\nTotal de Servidores\n457\n\nDomiciliados\n\nCusto Médio/Servidor\nR$ 44.573,10\n\nPor servidor\n\nÁrea Total\n19996.70 m²\n\nEspaço ocupado\n\nO",
     "rootChildren": 2,
     "failure": false,
     "errors": []

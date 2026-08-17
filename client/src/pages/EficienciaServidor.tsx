@@ -85,7 +85,7 @@ export default function EficienciaServidor() {
           <Card className="border-0 shadow-sm">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-slate-600 flex items-center gap-2">
-                <Zap className="w-4 h-4 text-amber-600" />
+                <Zap className="w-4 h-4 text-[#087fa3]" />
                 Área Média/Servidor
               </CardTitle>
             </CardHeader>
@@ -110,7 +110,7 @@ export default function EficienciaServidor() {
               <CardTitle className="text-sm font-medium text-slate-600">Menor Custo/Servidor</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-green-600">{formatCurrency(menorCustoServidor)}</div>
+              <div className="text-2xl font-bold text-[#087fa3]">{formatCurrency(menorCustoServidor)}</div>
               <p className="text-xs text-slate-500 mt-1">{sortedByCusto[sortedByCusto.length - 1]?.SEC}</p>
             </CardContent>
           </Card>
@@ -137,7 +137,7 @@ export default function EficienciaServidor() {
                     }}
                     contentStyle={{ backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}
                   />
-                  <Scatter name="SECs" data={scatterData} fill="#3b82f6" />
+                  <Scatter name="SECs" data={scatterData} fill="#005f83" />
                 </ScatterChart>
               </ResponsiveContainer>
             </CardContent>
@@ -163,8 +163,8 @@ export default function EficienciaServidor() {
                     contentStyle={{ backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}
                   />
                   <Legend />
-                  <Bar yAxisId="left" dataKey="Custo/Servidor" fill="#ef4444" radius={[8, 8, 0, 0]} />
-                  <Bar yAxisId="right" dataKey="Área/Servidor" fill="#10b981" radius={[8, 8, 0, 0]} />
+                  <Bar yAxisId="left" dataKey="Custo/Servidor" fill="#005f83" radius={[2, 2, 0, 0]} />
+                  <Bar yAxisId="right" dataKey="Área/Servidor" fill="#00a6c7" radius={[2, 2, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -207,7 +207,7 @@ export default function EficienciaServidor() {
                 {sortedByArea.slice(0, 10).map((item, index) => (
                   <div key={item.SEC} className="flex items-center justify-between pb-3 border-b border-slate-200 last:border-0">
                     <div className="flex items-center gap-3 flex-1">
-                      <div className="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center text-sm font-semibold text-amber-600">
+                      <div className="w-8 h-8 rounded-full bg-[#eaf3f7] flex items-center justify-center text-sm font-semibold text-[#087fa3]">
                         {index + 1}
                       </div>
                       <div className="flex-1">
@@ -215,7 +215,7 @@ export default function EficienciaServidor() {
                         <p className="text-xs text-slate-500">{formatCurrency(item['Custo/Servidor'] || 0)}/servidor</p>
                       </div>
                     </div>
-                    <p className="font-semibold text-amber-600 text-right">{(item['Área/Servidor'] || 0).toFixed(2)} m²</p>
+                    <p className="font-semibold text-[#087fa3] text-right">{(item['Área/Servidor'] || 0).toFixed(2)} m²</p>
                   </div>
                 ))}
               </div>
@@ -225,7 +225,7 @@ export default function EficienciaServidor() {
 
         {/* Tabela Completa */}
         <Card className="mt-8 border-0 shadow-sm overflow-hidden">
-          <CardHeader className="flex items-center justify-between bg-gradient-to-r from-purple-50 to-blue-50 border-b">
+          <CardHeader className="flex items-center justify-between border-b border-[#c9dde6] bg-[#eaf3f7]">
             <CardTitle>Tabela Completa - Eficiência por Servidor</CardTitle>
             <button
               onClick={() => {
@@ -257,7 +257,7 @@ export default function EficienciaServidor() {
                   'Relatorio_Eficiencia_por_Servidor'
                 );
               }}
-              className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all flex items-center gap-2"
+              className="flex items-center gap-2 border-b-2 border-[#00a6c7] bg-[#003f5f] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#005f83]"
             >
               <FileText className="w-4 h-4" />
               Exportar Relatório
@@ -290,12 +290,12 @@ export default function EficienciaServidor() {
                       <td className="px-6 py-4 text-sm text-slate-600">{(item['Área/Servidor'] || 0).toFixed(2)} m²</td>
                       <td className="px-6 py-4 text-sm font-semibold text-slate-900">{formatCurrency(item['Custo/Servidor'] || 0)}</td>
                       <td className="px-6 py-4 text-sm">
-                        <span className={diferençaCusto > 0 ? 'text-red-600 font-semibold' : 'text-green-600 font-semibold'}>
+                        <span className={diferençaCusto > 0 ? 'text-red-600 font-semibold' : 'text-[#087fa3] font-semibold'}>
                           {diferençaCusto > 0 ? '+' : ''}{formatCurrency(diferençaCusto)}
                         </span>
                       </td>
                       <td className="px-6 py-4 text-sm">
-                        <span className={diferençaArea > 0 ? 'text-amber-600 font-semibold' : 'text-blue-600 font-semibold'}>
+                        <span className={diferençaArea > 0 ? 'text-[#005f83] font-semibold' : 'text-[#087fa3] font-semibold'}>
                           {diferençaArea > 0 ? '+' : ''}{diferençaArea.toFixed(2)} m²
                         </span>
                       </td>

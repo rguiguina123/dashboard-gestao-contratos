@@ -43,76 +43,84 @@
 }
 
 :root {
-  /* Identidade Visual TCU - Roxo Institucional + Azul Profundo */
-  --primary: #172033;
+  /* Identidade visual TCU — azuis institucionais do manual de marca. */
+  --tcu-blue-deep: #003f5f;
+  --tcu-blue: #005f83;
+  --tcu-blue-bright: #087fa3;
+  --tcu-blue-soft: #8fb8cc;
+  --tcu-blue-pale: #e4f0f5;
+  --tcu-ink: #102f40;
+  --tcu-paper: #f6f9fa;
+  --tcu-signal: #00a6c7;
+  --primary: #005f83;
   --primary-foreground: #ffffff;
-  --sidebar-primary: #6b21a8;
+  --sidebar-primary: #005f83;
   --sidebar-primary-foreground: #ffffff;
-  --chart-1: #5f7f47;
-  --chart-2: #b6873c;
-  --chart-3: #3e668b;
-  --chart-4: #72547f;
-  --chart-5: #172033;
+  --chart-1: #005f83;
+  --chart-2: #087fa3;
+  --chart-3: #4d88a3;
+  --chart-4: #8fb8cc;
+  --chart-5: #003f5f;
   --radius: 0.85rem;
-  --background: #f4f5f2;
-  --foreground: #172033;
+  --background: #f6f9fa;
+  --foreground: #102f40;
   --card: #ffffff;
-  --card-foreground: #0f172a;
+  --card-foreground: #102f40;
   --popover: #ffffff;
-  --popover-foreground: #0f172a;
-  --secondary: #f6f7f4;
-  --secondary-foreground: #1e293b; /* Cinza escuro */
-  --muted: #e2e8f0; /* Cinza claro */
-  --muted-foreground: #64748b; /* Cinza médio */
-  --accent: #5f7f47;
+  --popover-foreground: #102f40;
+  --secondary: #eaf3f7;
+  --secondary-foreground: #164256;
+  --muted: #e4edf1;
+  --muted-foreground: #547182;
+  --accent: #087fa3;
   --accent-foreground: #ffffff;
-  --destructive: #dc2626; /* Vermelho para erros */
+  --destructive: #b42336;
   --destructive-foreground: #ffffff;
-  --border: #dbe0d7;
-  --input: #f1f5f9; /* Cinza muito claro para inputs */
-  --ring: #9333ea; /* Roxo para focus rings */
+  --border: #c9dde6;
+  --input: #f4f8fa;
+  --ring: #00a6c7;
   --sidebar: #ffffff;
-  --sidebar-foreground: #0f172a;
-  --sidebar-accent: #f1f5f9;
-  --sidebar-accent-foreground: #6b21a8;
-  --sidebar-border: #e2e8f0;
-  --sidebar-ring: #9333ea;
+  --sidebar-foreground: #102f40;
+  --sidebar-accent: #eaf3f7;
+  --sidebar-accent-foreground: #005f83;
+  --sidebar-border: #c9dde6;
+  --sidebar-ring: #00a6c7;
 }
 
 .dark {
   /* Modo escuro - não será usado neste projeto */
-  --primary: #1e40af;
+  --primary: #56b6d3;
   --primary-foreground: #ffffff;
-  --sidebar-primary: #2563eb;
+  --sidebar-primary: #56b6d3;
   --sidebar-primary-foreground: #ffffff;
-  --background: #0f172a;
-  --foreground: #f1f5f9;
-  --card: #1e293b;
-  --card-foreground: #f1f5f9;
-  --popover: #1e293b;
-  --popover-foreground: #f1f5f9;
-  --secondary: #334155;
-  --secondary-foreground: #e2e8f0;
-  --muted: #475569;
-  --muted-foreground: #cbd5e1;
-  --accent: #f59e0b;
-  --accent-foreground: #ffffff;
+  --background: #062c42;
+  --foreground: #eff8fb;
+  --card: #0c4058;
+  --card-foreground: #eff8fb;
+  --popover: #0c4058;
+  --popover-foreground: #eff8fb;
+  --secondary: #164f68;
+  --secondary-foreground: #dbeef5;
+  --muted: #205c74;
+  --muted-foreground: #b7d5e1;
+  --accent: #00a6c7;
+  --accent-foreground: #062c42;
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
-  --border: #334155;
-  --input: #1e293b;
-  --ring: #3b82f6;
-  --chart-1: #dbeafe;
-  --chart-2: #3b82f6;
-  --chart-3: #2563eb;
-  --chart-4: #1e40af;
-  --chart-5: #1e3a8a;
-  --sidebar: #1e293b;
-  --sidebar-foreground: #f1f5f9;
-  --sidebar-accent: #334155;
+  --border: #2d6981;
+  --input: #0c4058;
+  --ring: #00a6c7;
+  --chart-1: #8fd2e6;
+  --chart-2: #56b6d3;
+  --chart-3: #087fa3;
+  --chart-4: #005f83;
+  --chart-5: #003f5f;
+  --sidebar: #0c4058;
+  --sidebar-foreground: #eff8fb;
+  --sidebar-accent: #164f68;
   --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #334155;
-  --sidebar-ring: #3b82f6;
+  --sidebar-border: #2d6981;
+  --sidebar-ring: #00a6c7;
 }
 
 @layer base {
@@ -184,12 +192,12 @@
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 32px 0 rgba(107, 33, 168, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 95, 131, 0.12);
 }
 
 /* Gradient Text */
 .gradient-text {
-  background: linear-gradient(135deg, #6b21a8 0%, #9333ea 100%);
+  background: linear-gradient(135deg, #003f5f 0%, #087fa3 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -197,14 +205,14 @@
 
 /* Elevated Card with Premium Shadow */
 .card-elevated {
-  box-shadow: 0 10px 40px rgba(107, 33, 168, 0.15),
-              0 0 1px rgba(107, 33, 168, 0.1);
+  box-shadow: 0 10px 40px rgba(0, 95, 131, 0.14),
+              0 0 1px rgba(0, 95, 131, 0.1);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .card-elevated:hover {
-  box-shadow: 0 20px 60px rgba(107, 33, 168, 0.25),
-              0 0 1px rgba(107, 33, 168, 0.1);
+  box-shadow: 0 20px 60px rgba(0, 95, 131, 0.22),
+              0 0 1px rgba(0, 95, 131, 0.1);
   transform: translateY(-4px);
 }
 
@@ -253,10 +261,10 @@
 
 @keyframes pulse-glow {
   0%, 100% {
-    box-shadow: 0 0 0 0 rgba(107, 33, 168, 0.7);
+    box-shadow: 0 0 0 0 rgba(0, 166, 199, 0.65);
   }
   50% {
-    box-shadow: 0 0 0 10px rgba(107, 33, 168, 0);
+    box-shadow: 0 0 0 10px rgba(0, 166, 199, 0);
   }
 }
 
@@ -307,8 +315,8 @@
   border-radius: 9999px;
   font-size: 0.75rem;
   font-weight: 600;
-  background-color: rgba(107, 33, 168, 0.1);
-  color: #6b21a8;
+  background-color: rgba(0, 95, 131, 0.1);
+  color: #005f83;
 }
 
 .badge-success {
@@ -357,7 +365,7 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #6b21a8, #9333ea);
+  background: linear-gradient(90deg, #003f5f, #00a6c7);
 }
 
 /* Staggered Animation for List Items */
@@ -379,7 +387,7 @@
 button:focus-visible,
 a:focus-visible,
 input:focus-visible {
-  outline: 2px solid #9333ea;
+  outline: 2px solid #00a6c7;
   outline-offset: 2px;
 }
 
@@ -406,7 +414,7 @@ input:focus-visible {
 }
 
 .interactive-row:hover {
-  background-color: rgba(147, 51, 234, 0.05);
+  background-color: rgba(0, 95, 131, 0.05);
   transform: translateX(4px);
 }
 
@@ -417,7 +425,7 @@ html {
 
 /* Selection Color */
 ::selection {
-  background-color: rgba(107, 33, 168, 0.2);
+  background-color: rgba(0, 166, 199, 0.22);
   color: inherit;
 }
 
@@ -428,14 +436,20 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(107, 33, 168, 0.05);
+  background: rgba(0, 95, 131, 0.05);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(107, 33, 168, 0.3);
+  background: rgba(0, 95, 131, 0.35);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(107, 33, 168, 0.5);
+  background: rgba(0, 95, 131, 0.62);
 }
+
+/* Gráficos: uma família azul coerente, em vez de uma paleta multicolorida de template. */
+.recharts-bar-rectangle path { fill: #005f83 !important; }
+.recharts-scatter-symbol { fill: #005f83 !important; }
+.recharts-cartesian-grid line { stroke: #d8e7ed !important; }
+.recharts-tooltip-wrapper .recharts-default-tooltip { border-color: #c9dde6 !important; background: #ffffff !important; }
