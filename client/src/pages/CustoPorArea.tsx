@@ -38,7 +38,7 @@ export default function CustoPorArea() {
       <div className="space-y-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-slate-900 mb-2">Custo por área</h1>
+          <h1 className="text-4xl font-bold text-slate-900 mb-2">Análise de Custo por Área</h1>
           <p className="text-slate-600">Custo por metro quadrado (R$/m²) de cada secretaria</p>
         </div>
 
@@ -78,7 +78,7 @@ export default function CustoPorArea() {
               <CardTitle className="text-sm font-medium text-slate-600">Menor Custo/Área</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-[#087fa3]">{formatCurrency(sortedData[sortedData.length - 1]?.['Custo/Área'] || 0)}/m²</div>
+              <div className="text-2xl font-bold text-green-600">{formatCurrency(sortedData[sortedData.length - 1]?.['Custo/Área'] || 0)}/m²</div>
               <p className="text-xs text-slate-500 mt-1">{sortedData[sortedData.length - 1]?.SEC}</p>
             </CardContent>
           </Card>
@@ -99,7 +99,7 @@ export default function CustoPorArea() {
                   formatter={(value: any) => `${formatCurrency(Number(value))}/m²`}
                   contentStyle={{ backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}
                 />
-                <Bar dataKey="Custo/Área" fill="#005f83" radius={[2, 2, 0, 0]} />
+                <Bar dataKey="Custo/Área" fill="#3b82f6" radius={[8, 8, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </CardContent>
@@ -138,7 +138,7 @@ export default function CustoPorArea() {
           <Card className="border-0 shadow-sm">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <TrendingDown className="w-5 h-5 text-[#087fa3]" />
+                <TrendingDown className="w-5 h-5 text-green-600" />
                 Top 10 - Menor Custo por Área
               </CardTitle>
             </CardHeader>
@@ -147,14 +147,14 @@ export default function CustoPorArea() {
                 {bottom10.map((item, index) => (
                   <div key={item.SEC} className="flex items-center justify-between pb-3 border-b border-slate-200 last:border-0">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-[#eaf3f7] flex items-center justify-center text-sm font-semibold text-[#087fa3]">
+                      <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-sm font-semibold text-green-600">
                         {index + 1}
                       </div>
                       <div>
                         <p className="font-medium text-slate-900">{item.SEC}</p>
                       </div>
                     </div>
-                    <p className="font-semibold text-[#087fa3]">{formatCurrency(item['Custo/Área'] || 0)}/m²</p>
+                    <p className="font-semibold text-green-600">{formatCurrency(item['Custo/Área'] || 0)}/m²</p>
                   </div>
                 ))}
               </div>
@@ -164,7 +164,7 @@ export default function CustoPorArea() {
 
         {/* Tabela Completa */}
         <Card className="mt-8 border-0 shadow-sm overflow-hidden">
-          <CardHeader className="flex items-center justify-between border-b border-[#c9dde6] bg-[#eaf3f7]">
+          <CardHeader className="flex items-center justify-between bg-gradient-to-r from-purple-50 to-blue-50 border-b">
             <CardTitle>Tabela Completa - Custo por Área</CardTitle>
             <button
               onClick={() => {
@@ -193,7 +193,7 @@ export default function CustoPorArea() {
                   'Relatorio_Custo_por_Area'
                 );
               }}
-              className="flex items-center gap-2 border-b-2 border-[#00a6c7] bg-[#003f5f] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#005f83]"
+              className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all flex items-center gap-2"
             >
               <FileText className="w-4 h-4" />
               Exportar Relatório
@@ -225,7 +225,7 @@ export default function CustoPorArea() {
                       <td className="px-6 py-4 text-sm font-medium text-slate-900">{item.SEC}</td>
                       <td className="px-6 py-4 text-sm font-semibold text-slate-900">{formatCurrency(item['Custo/Área'] || 0)}/m²</td>
                       <td className="px-6 py-4 text-sm">
-                        <span className={diferenca > 0 ? 'text-red-600 font-semibold' : 'text-[#087fa3] font-semibold'}>
+                        <span className={diferenca > 0 ? 'text-red-600 font-semibold' : 'text-green-600 font-semibold'}>
                           {diferenca > 0 ? '+' : ''}{formatCurrency(diferenca)}/m² ({percentual.toFixed(1)}%)
                         </span>
                       </td>

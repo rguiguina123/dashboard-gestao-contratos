@@ -145,23 +145,24 @@ export default function Contratos() {
         onClose={() => setSelectedContract(null)}
       />
 
-      <div className="space-y-5">
+      <div className="space-y-6 animate-fadeIn">
         {/* Header */}
         <div>
-          <h1 className="text-3xl font-semibold tracking-tight text-[#003f5f] sm:text-4xl">Contratos</h1>
+          <h1 className="text-4xl font-bold font-poppins text-gray-900">Contratos</h1>
+          <p className="text-gray-600 mt-2">Gestão e análise de todos os contratos vigentes</p>
         </div>
 
         {/* Filtros */}
-        <div className="grid items-end gap-3 md:grid-cols-[260px_1fr_1fr]">
-          <div>
-            <label className="mb-1.5 block text-xs font-bold uppercase tracking-[.12em] text-[#547182]">Vencimento</label>
+        <div className="flex gap-4 items-end flex-wrap">
+          <div className="min-w-64">
+            <label className="text-sm font-medium text-gray-700 mb-2 block">Filtrar por vencimento</label>
             <DateRangeFilter
               onDateRangeChange={(startDate, endDate) => setDateRange({ startDate, endDate })}
               onReset={() => setDateRange(null)}
             />
           </div>
-          <div>
-            <label className="mb-1.5 block text-xs font-bold uppercase tracking-[.12em] text-[#547182]">SEC</label>
+          <div className="flex-1 min-w-xs">
+            <label className="text-sm font-medium text-gray-700 mb-2 block">Filtrar por SEC</label>
             <Select value={selectedSEC} onValueChange={setSelectedSEC}>
               <SelectTrigger>
                 <SelectValue />
@@ -177,8 +178,8 @@ export default function Contratos() {
             </Select>
           </div>
           
-          <div>
-            <label className="mb-1.5 block text-xs font-bold uppercase tracking-[.12em] text-[#547182]">Objeto</label>
+          <div className="flex-1 min-w-xs">
+            <label className="text-sm font-medium text-gray-700 mb-2 block">Filtrar por Objeto</label>
             <Select value={selectedObjeto} onValueChange={setSelectedObjeto}>
               <SelectTrigger>
                 <SelectValue />
@@ -196,7 +197,7 @@ export default function Contratos() {
         </div>
 
         {/* Métricas */}
-        <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <MetricCard
             title="Total de Contratos"
             value={filteredContratos.length.toString()}
@@ -221,9 +222,9 @@ export default function Contratos() {
         <VencimentoAlerts contratos={contratosComDias} diasAlerta={30} />
 
         {/* Tabela */}
-        <Card className="border-[#c9dde6] shadow-[0_2px_12px_rgba(0,63,95,.05)]">
-          <CardHeader className="flex items-center justify-between border-b border-[#c9dde6] bg-[#eaf3f7] py-4">
-            <CardTitle className="text-[#003f5f]">Detalhes dos contratos</CardTitle>
+        <Card className="border-0 shadow-lg">
+          <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b flex items-center justify-between">
+            <CardTitle className="text-purple-900">Detalhes dos Contratos</CardTitle>
             <button
               onClick={() => {
                 const metricas = {
@@ -236,7 +237,7 @@ export default function Contratos() {
                 };
                 generateContractsPDFProfessional(contratosComDias, metricas);
               }}
-              className="border-b-2 border-[#00a6c7] bg-[#003f5f] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#005f83]"
+              className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all"
             >
               Exportar Relatório
             </button>

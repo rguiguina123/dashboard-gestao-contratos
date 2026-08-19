@@ -41,9 +41,9 @@ export default function CustosPorSecretaria() {
     <DashboardLayout>
       <div className="space-y-8">
         {/* Header */}
-        <div className="mb-8 border-b border-[#c9dde6] pb-6">
-          <p className="text-[11px] font-bold uppercase tracking-[.18em] text-[#087fa3]">Composição de custos</p>
-          <h1 className="mt-2 text-3xl font-semibold tracking-tight text-[#003f5f] sm:text-4xl">Custos por secretaria</h1>
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold text-slate-900 mb-2">Custos por Secretaria</h1>
+          <p className="text-slate-600">Análise detalhada de custos de todas as secretarias dos estados</p>
         </div>
 
         {/* Métricas */}
@@ -77,7 +77,7 @@ export default function CustosPorSecretaria() {
           <Card className="border-0 shadow-sm">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-slate-600 flex items-center gap-2">
-                <TrendingUp className="w-4 h-4 text-[#087fa3]" />
+                <TrendingUp className="w-4 h-4 text-amber-600" />
                 Custo Médio/Servidor
               </CardTitle>
             </CardHeader>
@@ -90,7 +90,7 @@ export default function CustosPorSecretaria() {
           <Card className="border-0 shadow-sm">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-slate-600 flex items-center gap-2">
-                <Zap className="w-4 h-4 text-[#087fa3]" />
+                <Zap className="w-4 h-4 text-purple-600" />
                 Área Total
               </CardTitle>
             </CardHeader>
@@ -127,9 +127,9 @@ export default function CustosPorSecretaria() {
         </div>
 
         {/* Tabela */}
-        <Card className="overflow-hidden border-[#c9dde6] shadow-[0_2px_12px_rgba(0,63,95,.05)]">
-          <CardHeader className="flex items-center justify-between border-b border-[#c9dde6] bg-[#eaf3f7]">
-            <CardTitle className="text-[#003f5f]">Dados por secretaria</CardTitle>
+        <Card className="border-0 shadow-sm overflow-hidden">
+          <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b flex items-center justify-between">
+            <CardTitle className="text-purple-900">Dados por Secretaria</CardTitle>
             <button
               onClick={() => {
                 const metrics = [
@@ -153,7 +153,7 @@ export default function CustosPorSecretaria() {
                   'Relatorio_Custos_Secretaria'
                 );
               }}
-              className="flex items-center gap-2 border-b-2 border-[#00a6c7] bg-[#003f5f] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#005f83]"
+              className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all flex items-center gap-2"
             >
               <FileText className="w-4 h-4" />
               Exportar Relatório
@@ -183,7 +183,7 @@ export default function CustosPorSecretaria() {
                       index % 2 === 0 ? 'bg-white' : 'bg-slate-50'
                     } hover:bg-slate-100 transition-colors`}
                   >
-                    <td className="px-6 py-4 text-sm font-medium text-[#003f5f]">{item.SEC}</td>
+                    <td className="px-6 py-4 text-sm font-medium text-slate-900">{item.SEC}</td>
                     <td className="px-6 py-4 text-sm text-slate-600">{formatCurrency(item['Energia Elétrica'] || 0)}</td>
                     <td className="px-6 py-4 text-sm text-slate-600">{formatCurrency(item['Água e Esgoto'] || 0)}</td>
                     <td className="px-6 py-4 text-sm text-slate-600">{formatCurrency(item['Locação Imóvel'] || 0)}</td>
@@ -191,10 +191,10 @@ export default function CustosPorSecretaria() {
                     <td className="px-6 py-4 text-sm text-slate-600">
                       {formatCurrency(item['Apoio Adm + Copeiragem + Limpeza + Recepção (Mão de obra e materiais)'] || 0)}
                     </td>
-                    <td className="px-6 py-4 text-sm font-semibold text-[#005f83]">{formatCurrency(item.Total || 0)}</td>
+                    <td className="px-6 py-4 text-sm font-semibold text-emerald-600">{formatCurrency(item.Total || 0)}</td>
                     <td className="px-6 py-4 text-sm text-slate-600">{(item['Área da Sec (m2)'] || 0).toFixed(2)}</td>
                     <td className="px-6 py-4 text-sm text-slate-600 text-center">{item['Qtd de servidores']}</td>
-                    <td className="px-6 py-4 text-sm font-semibold text-[#087fa3]">{formatCurrency(item['Custo/Servidor'] || 0)}</td>
+                    <td className="px-6 py-4 text-sm font-semibold text-blue-600">{formatCurrency(item['Custo/Servidor'] || 0)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -203,7 +203,7 @@ export default function CustosPorSecretaria() {
         </Card>
 
         {/* Resumo */}
-        <Card className="mt-8 border-[#c9dde6] shadow-[0_2px_12px_rgba(0,63,95,.05)]">
+        <Card className="mt-8 border-0 shadow-sm">
           <CardHeader>
             <CardTitle>Resumo Executivo</CardTitle>
           </CardHeader>
