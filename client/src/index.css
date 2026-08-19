@@ -44,31 +44,31 @@
 
 :root {
   /* Identidade Visual TCU - Roxo Institucional + Azul Profundo */
-  --primary: #172033;
+  --primary: #6b21a8; /* Roxo TCU - Autoridade Institucional */
   --primary-foreground: #ffffff;
   --sidebar-primary: #6b21a8;
   --sidebar-primary-foreground: #ffffff;
-  --chart-1: #5f7f47;
-  --chart-2: #b6873c;
-  --chart-3: #3e668b;
-  --chart-4: #72547f;
-  --chart-5: #172033;
-  --radius: 0.85rem;
-  --background: #f4f5f2;
-  --foreground: #172033;
+  --chart-1: #ddd6fe; /* Roxo muito claro */
+  --chart-2: #a855f7; /* Roxo médio */
+  --chart-3: #9333ea; /* Roxo vibrante */
+  --chart-4: #7e22ce; /* Roxo escuro */
+  --chart-5: #6b21a8; /* Roxo muito escuro */
+  --radius: 0.65rem;
+  --background: #ffffff;
+  --foreground: #0f172a; /* Cinza muito escuro */
   --card: #ffffff;
   --card-foreground: #0f172a;
   --popover: #ffffff;
   --popover-foreground: #0f172a;
-  --secondary: #f6f7f4;
+  --secondary: #f8fafc; /* Cinza muito claro */
   --secondary-foreground: #1e293b; /* Cinza escuro */
   --muted: #e2e8f0; /* Cinza claro */
   --muted-foreground: #64748b; /* Cinza médio */
-  --accent: #5f7f47;
+  --accent: #7e22ce; /* Roxo para destaque */
   --accent-foreground: #ffffff;
   --destructive: #dc2626; /* Vermelho para erros */
   --destructive-foreground: #ffffff;
-  --border: #dbe0d7;
+  --border: #cbd5e1; /* Cinza para bordas */
   --input: #f1f5f9; /* Cinza muito claro para inputs */
   --ring: #9333ea; /* Roxo para focus rings */
   --sidebar: #ffffff;
@@ -373,7 +373,9 @@
 .animate-stagger > *:nth-child(6) { animation-delay: 0.6s; }
 
 /* Smooth Transitions */
-  * { transition: color .16s ease, background-color .16s ease, border-color .16s ease, box-shadow .16s ease; }
+* {
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
 
 /* Focus Styles */
 button:focus-visible,
