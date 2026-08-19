@@ -130,3 +130,7 @@
 - [x] Simplificar a redação da atualização de dados e das áreas de custos
 - [x] Validar visualmente Home, Dashboard, Contratos e Atualizar Dados em celular, tablet e desktop
 - [x] Confirmar em celular que a navegação inferior não sobrepõe Dashboard e Atualizar Dados
+
+# Restauração visual solicitada
+- [x] Restaurar a versão anterior à paleta tricolor, preservando densidade, responsividade e correções funcionais
+- [x] Validar rotas, filtros, importação, PDFs e qualidade técnica após a restauração
