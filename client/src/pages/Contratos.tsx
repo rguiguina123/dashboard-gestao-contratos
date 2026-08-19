@@ -236,7 +236,7 @@ export default function Contratos() {
                 };
                 generateContractsPDFProfessional(contratosComDias, metricas);
               }}
-              className="border-b-2 border-[#f2c94c] bg-[#003f5f] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#55752c]"
+              className="border-b-2 border-[#00a6c7] bg-[#003f5f] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#005f83]"
             >
               Exportar Relatório
             </button>

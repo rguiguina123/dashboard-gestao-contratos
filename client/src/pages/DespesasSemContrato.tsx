@@ -38,7 +38,7 @@ interface DespesaDisplay {
   anual: number;
 }
 
-const COLORS = ["#003f5f", "#f2c94c", "#89ad45", "#087fa3", "#d7a622", "#55752c"];
+const COLORS = ["#003f5f", "#005f83", "#087fa3", "#00a6c7", "#4d88a3", "#8fb8cc"];
 
 export default function DespesasSemContrato() {
   const { despesasSemContrato, secs: allSecs } = useDashboardData();
@@ -168,7 +168,7 @@ export default function DespesasSemContrato() {
                   <XAxis dataKey="servico" angle={-45} textAnchor="end" height={100} />
                   <YAxis />
                   <Tooltip formatter={(value) => formatCurrency(value as number)} />
-                  <Bar dataKey="valor" fill="#f2c94c" radius={[2, 2, 0, 0]} />
+                  <Bar dataKey="valor" fill="#005f83" radius={[2, 2, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>

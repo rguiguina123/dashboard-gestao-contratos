@@ -130,9 +130,3 @@
 - [x] Simplificar a redação da atualização de dados e das áreas de custos
 - [x] Validar visualmente Home, Dashboard, Contratos e Atualizar Dados em celular, tablet e desktop
 - [x] Confirmar em celular que a navegação inferior não sobrepõe Dashboard e Atualizar Dados
-
-# Paleta tricolor TCU
-- [x] Mapear os pontos excessivamente azul-e-branco e definir papéis para azul, verde e amarelo
-- [x] Aplicar verde e amarelo na home, navegação e indicadores compartilhados
-- [x] Executar varredura literal de fills, classes e hexadecimais em todas as páginas analíticas
-- [x] Confirmar no documento o registro persistido das capturas de Colaboradores e Custos Totais

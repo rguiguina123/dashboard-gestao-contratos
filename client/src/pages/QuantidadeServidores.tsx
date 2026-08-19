@@ -7,7 +7,7 @@ import { generateGenericReportPDF } from '@/lib/generateProfessionalPDF';
 
 // Padrão PDF: relatório institucional conciso, com métricas, tabela ordenada e paginação.
 
-const COLORS = ['#003f5f', '#89ad45', '#f2c94c', '#087fa3', '#55752c', '#d7a622', '#4d88a3', '#8fb8cc'];
+const COLORS = ['#003f5f', '#005f83', '#087fa3', '#00a6c7', '#4d88a3', '#8fb8cc', '#2a6e89', '#c2e6f0'];
 
 export default function QuantidadeServidores() {
   const { custos: dadosCustos } = useDashboardData();
@@ -52,7 +52,7 @@ export default function QuantidadeServidores() {
           <Card className="border-0 shadow-sm">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-slate-600 flex items-center gap-2">
-                <Users className="w-4 h-4 text-[#087fa3]" />
+                <Users className="w-4 h-4 text-blue-600" />
                 Total de Servidores
               </CardTitle>
             </CardHeader>
@@ -112,7 +112,7 @@ export default function QuantidadeServidores() {
                   <Tooltip 
                     contentStyle={{ backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}
                   />
-                  <Bar dataKey="Qtd Servidores" fill="#89ad45" radius={[2, 2, 0, 0]} />
+                  <Bar dataKey="Qtd Servidores" fill="#005f83" radius={[2, 2, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -133,7 +133,7 @@ export default function QuantidadeServidores() {
                     labelLine={false}
                     label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
                     outerRadius={120}
-                    fill="#f2c94c"
+                    fill="#087fa3"
                     dataKey="value"
                   >
                     {pieData.map((entry, index) => (

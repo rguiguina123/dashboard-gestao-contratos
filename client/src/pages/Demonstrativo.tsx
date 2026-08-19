@@ -118,8 +118,8 @@ export default function Demonstrativo() {
                   <YAxis />
                   <Tooltip formatter={(value) => formatCurrency(value as number)} />
                   <Legend />
-                  <Bar dataKey="Mensal" fill="#89ad45" radius={[2, 2, 0, 0]} />
-                  <Bar dataKey="Anual" fill="#f2c94c" radius={[2, 2, 0, 0]} />
+                  <Bar dataKey="Mensal" fill="#005f83" radius={[2, 2, 0, 0]} />
+                  <Bar dataKey="Anual" fill="#00a6c7" radius={[2, 2, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -171,7 +171,7 @@ export default function Demonstrativo() {
                 <XAxis dataKey="sec" />
                 <YAxis />
                 <Tooltip formatter={(value) => formatCurrency(value as number)} />
-                <Bar dataKey="total_mensal" fill="#89ad45" radius={[2, 2, 0, 0]} />
+                <Bar dataKey="total_mensal" fill="#005f83" radius={[2, 2, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </CardContent>
