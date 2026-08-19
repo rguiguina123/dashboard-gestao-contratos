@@ -35,12 +35,12 @@ const newsItems: NewsItem[] = [
 
 export function NewsSection() {
   return (
-    <section className="py-16 bg-gradient-to-br from-purple-50 to-blue-50">
+    <section className="bg-gradient-to-br from-[#eaf3f7] to-[#f4f5f2] py-16">
       <div className="max-w-6xl mx-auto px-4 md:px-8">
         {/* Header */}
         <div className="mb-12">
           <div className="flex items-center gap-3 mb-4">
-            <Bell className="w-6 h-6 text-purple-700" />
+            <Bell className="h-6 w-6 text-[#003f5f]" />
             <h2 className="text-3xl md:text-4xl font-bold text-foreground">
               Notícias e Comunicados
             </h2>
@@ -59,7 +59,7 @@ export function NewsSection() {
             >
               <CardHeader>
                 <div className="flex items-start justify-between mb-3">
-                  <span className="inline-block px-3 py-1 bg-purple-100 text-purple-700 text-xs font-semibold rounded-full">
+                  <span className="inline-block rounded-full bg-[#c2e6f0] px-3 py-1 text-xs font-semibold text-[#003f5f]">
                     {item.category}
                   </span>
                 </div>
@@ -76,7 +76,7 @@ export function NewsSection() {
                     <Calendar className="w-4 h-4" />
                     <span>{item.date}</span>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-purple-700 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="h-4 w-4 text-[#003f5f] transition-transform group-hover:translate-x-1" />
                 </div>
               </CardContent>
             </Card>
@@ -85,7 +85,7 @@ export function NewsSection() {
 
         {/* View All Button */}
         <div className="mt-12 text-center">
-          <button className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-700 to-purple-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105">
+          <button className="inline-flex items-center gap-2 rounded-lg bg-[#003f5f] px-6 py-3 font-semibold text-white transition-all duration-300 hover:scale-105 hover:bg-[#087fa3] hover:shadow-lg">
             Ver Todos os Comunicados
             <ArrowRight className="w-4 h-4" />
           </button>

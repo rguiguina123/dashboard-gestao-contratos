@@ -44,16 +44,16 @@ export function ContractDetailModal({
     <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4 animate-fade-in">
       <div className="bg-white rounded-lg shadow-2xl max-w-2xl w-full max-h-96 overflow-y-auto animate-scale-in">
         {/* Header */}
-        <div className="sticky top-0 bg-gradient-to-r from-purple-700 to-purple-600 text-white p-6 flex items-center justify-between">
+        <div className="sticky top-0 flex items-center justify-between bg-[#003f5f] p-6 text-white">
           <div>
             <h2 className="text-2xl font-bold font-poppins">
               {contract.contrato}
             </h2>
-            <p className="text-purple-100 text-sm mt-1">{contract.fornecedor}</p>
+            <p className="mt-1 text-sm text-[#c2e6f0]">{contract.fornecedor}</p>
           </div>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-purple-500 rounded-lg transition-colors"
+            className="rounded-lg p-2 transition-colors hover:bg-[#087fa3]"
           >
             <X className="w-6 h-6" />
           </button>
@@ -88,21 +88,21 @@ export function ContractDetailModal({
           </div>
 
           {/* Valores */}
-          <div className="bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg p-4">
+          <div className="rounded-lg bg-[#eaf3f7] p-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-semibold text-purple-900">
+                <label className="text-sm font-semibold text-[#003f5f]">
                   Valor Mensal
                 </label>
-                <p className="text-2xl font-bold text-purple-700 mt-1">
+                <p className="mt-1 text-2xl font-bold text-[#003f5f]">
                   {formatCurrency(contract.mensal)}
                 </p>
               </div>
               <div>
-                <label className="text-sm font-semibold text-purple-900">
+                <label className="text-sm font-semibold text-[#003f5f]">
                   Valor Anual
                 </label>
-                <p className="text-2xl font-bold text-purple-700 mt-1">
+                <p className="mt-1 text-2xl font-bold text-[#003f5f]">
                   {formatCurrency(contract.anual)}
                 </p>
               </div>
@@ -163,7 +163,7 @@ export function ContractDetailModal({
           </Button>
           <Button
             onClick={handleExport}
-            className="bg-gradient-to-r from-purple-700 to-purple-600 hover:from-purple-800 hover:to-purple-700"
+            className="bg-[#003f5f] hover:bg-[#087fa3]"
           >
             <Download className="w-4 h-4 mr-2" />
             Exportar

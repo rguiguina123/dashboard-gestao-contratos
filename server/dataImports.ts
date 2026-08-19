@@ -25,6 +25,7 @@ export type ChangeCounts = {
 export type ChangeDetail = { label: string; before?: Record<string, string>; after: Record<string, string> };
 export type ImportSummary = {
   fileName: string;
+  responsibleName?: string;
   domains: Partial<Record<keyof DashboardData, ChangeCounts>>;
   warnings: string[];
 };
@@ -350,9 +351,11 @@ export async function getCurrentDashboardData(): Promise<DashboardData> {
   try { return JSON.parse(current[0].payload) as DashboardData; } catch { return defaultData(); }
 }
 
-export async function prepareImport(fileName: string, buffer: Buffer, userId: number) {
+export async function prepareImport(fileName: string, buffer: Buffer, userId: number, responsibleName: string) {
   const baseline = await getCurrentDashboardData();
   const { candidate, summary } = buildCandidateData(baseline, buffer, fileName);
+  const normalizedResponsibleName = responsibleName.trim().replace(/\s+/g, " ");
+  summary.responsibleName = normalizedResponsibleName;
   const rawFile = await storagePut(`imports/${userId}/${Date.now()}-${fileName}`, buffer, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
   const db = await getDb();
   if (!db) throw new Error("A base de dados não está disponível para registrar a importação.");
@@ -363,6 +366,7 @@ export async function prepareImport(fileName: string, buffer: Buffer, userId: nu
     payload: JSON.stringify(candidate),
     summary: JSON.stringify(summary),
     createdBy: userId,
+    responsibleName: normalizedResponsibleName,
   });
   return { importId: Number(created[0].insertId), summary };
 }
@@ -383,6 +387,6 @@ export async function approveImport(importId: number, userId: number) {
 export async function listImportHistory() {
   const db = await getDb();
   if (!db) return [];
-  const records = await db.select({ id: dataImports.id, fileName: dataImports.fileName, status: dataImports.status, summary: dataImports.summary, createdAt: dataImports.createdAt, approvedAt: dataImports.approvedAt }).from(dataImports).orderBy(desc(dataImports.id)).limit(10);
+  const records = await db.select({ id: dataImports.id, fileName: dataImports.fileName, status: dataImports.status, summary: dataImports.summary, responsibleName: dataImports.responsibleName, createdAt: dataImports.createdAt, approvedAt: dataImports.approvedAt }).from(dataImports).orderBy(desc(dataImports.id)).limit(10);
   return records.map(record => ({ ...record, summary: JSON.parse(record.summary) as ImportSummary }));
 }

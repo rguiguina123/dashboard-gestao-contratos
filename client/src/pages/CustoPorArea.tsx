@@ -92,14 +92,14 @@ export default function CustoPorArea() {
           <CardContent>
             <ResponsiveContainer width="100%" height={400}>
               <BarChart data={chartData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#c9dde6" />
                 <XAxis dataKey="SEC" angle={-45} textAnchor="end" height={80} />
                 <YAxis />
                 <Tooltip 
                   formatter={(value: any) => `${formatCurrency(Number(value))}/m²`}
-                  contentStyle={{ backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}
+                  contentStyle={{ backgroundColor: '#ffffff', border: '1px solid #c9dde6' }}
                 />
-                <Bar dataKey="Custo/Área" fill="#3b82f6" radius={[8, 8, 0, 0]} />
+                <Bar dataKey="Custo/Área" fill="#087fa3" radius={[8, 8, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </CardContent>
@@ -164,7 +164,7 @@ export default function CustoPorArea() {
 
         {/* Tabela Completa */}
         <Card className="mt-8 border-0 shadow-sm overflow-hidden">
-          <CardHeader className="flex items-center justify-between bg-gradient-to-r from-purple-50 to-blue-50 border-b">
+          <CardHeader className="flex items-center justify-between border-b border-[#c9dde6] bg-[#eaf3f7]">
             <CardTitle>Tabela Completa - Custo por Área</CardTitle>
             <button
               onClick={() => {
@@ -193,7 +193,7 @@ export default function CustoPorArea() {
                   'Relatorio_Custo_por_Area'
                 );
               }}
-              className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all flex items-center gap-2"
+              className="flex items-center gap-2 rounded-lg bg-[#003f5f] px-4 py-2 font-semibold text-white transition-all hover:bg-[#087fa3] hover:shadow-lg"
             >
               <FileText className="w-4 h-4" />
               Exportar Relatório

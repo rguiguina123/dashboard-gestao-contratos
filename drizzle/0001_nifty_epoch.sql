@@ -1,0 +1,1 @@
+ALTER TABLE `data_imports` ADD `responsible_name` varchar(100) DEFAULT 'Não informado' NOT NULL;

@@ -53,7 +53,7 @@ export function DateRangeFilter({ onDateRangeChange, onReset }: DateRangeFilterP
                 type="date"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
-                className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full rounded-md border border-border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#087fa3]"
               />
             </div>
 
@@ -65,14 +65,14 @@ export function DateRangeFilter({ onDateRangeChange, onReset }: DateRangeFilterP
                 type="date"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
-                className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full rounded-md border border-border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#087fa3]"
               />
             </div>
 
             <div className="flex gap-2">
               <Button
                 onClick={handleApply}
-                className="flex-1 bg-purple-700 hover:bg-purple-600"
+                className="flex-1 bg-[#003f5f] hover:bg-[#087fa3]"
                 disabled={!startDate || !endDate}
               >
                 Aplicar

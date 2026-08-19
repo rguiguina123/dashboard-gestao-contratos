@@ -22,7 +22,7 @@ export function KPICard({
   delay = 0,
 }: KPICardProps) {
   const colorClasses = {
-    primary: "from-purple-100/50 to-purple-50/50 border-purple-200",
+    primary: "from-[#c2e6f0]/70 to-[#eaf3f7]/70 border-[#8fd2e6]",
     success: "from-green-100/50 to-green-50/50 border-green-200",
     warning: "from-amber-100/50 to-amber-50/50 border-amber-200",
     danger: "from-red-100/50 to-red-50/50 border-red-200",
@@ -53,7 +53,7 @@ export function KPICard({
               </p>
             </div>
             {icon && (
-              <div className="p-3 rounded-lg bg-purple-100">{icon}</div>
+              <div className="rounded-lg bg-[#c2e6f0] p-3">{icon}</div>
             )}
           </div>
 

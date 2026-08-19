@@ -34,7 +34,7 @@ export function MetricCard({
             {title}
           </CardTitle>
           {icon && (
-            <div className="text-purple-700 p-2 bg-purple-100 rounded-lg">
+            <div className="rounded-lg bg-[#c2e6f0] p-2 text-[#003f5f]">
               {icon}
             </div>
           )}

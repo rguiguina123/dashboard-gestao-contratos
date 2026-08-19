@@ -1,354 +1,100 @@
 import { Link } from "wouter";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  FileText,
-  Users,
-  BarChart3,
-  DollarSign,
-  ArrowRight,
-  Building2,
-  TrendingUp,
-  Activity,
-  Zap,
-} from "lucide-react";
+import { ArrowUpRight, BarChart3, Building2, DollarSign, FileText, Users } from "lucide-react";
 import { useDashboardData } from "@/contexts/DashboardDataContext";
 import { formatCurrency } from "@/lib/utils";
-import { NewsSection } from "@/components/NewsSection";
 
-const moduleIcons = {
-  dashboard: BarChart3,
-  contratos: FileText,
-  colaboradores: Users,
-  demonstrativo: BarChart3,
-  despesasComContrato: DollarSign,
-  despesasSemContrato: Building2,
-  custosPorSecretaria: TrendingUp,
-  custoPorArea: Activity,
-  custosTotal: DollarSign,
-  eficienciaServidor: Zap,
-  custoServidor: BarChart3,
-  quantidadeServidores: Users,
-};
+const blueprintUrl = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663029089241/EfhvJQgUIbupmRzf.jpg";
+const logoUrl = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663029089241/mFnIBTOhrAWwXLqZ.png";
+
+const accessModules = [
+  { label: "Visão executiva", href: "/dashboard", icon: BarChart3, accent: "border-t-[#087fa3] text-[#8fd2e6]" },
+  { label: "Contratos", href: "/contratos", icon: FileText, accent: "border-t-[#f2c94c] text-[#f6da73]" },
+  { label: "Colaboradores", href: "/colaboradores", icon: Users, accent: "border-t-[#89ad45] text-[#cbe59b]" },
+  { label: "Custos", href: "/custos-total", icon: Building2, accent: "border-t-[#087fa3] text-[#8fd2e6]" },
+];
+
+const analysisModules = [
+  { label: "Demonstrativo", href: "/demonstrativo", icon: BarChart3 },
+  { label: "Com contrato", href: "/despesas-com-contrato", icon: DollarSign },
+  { label: "Sem contrato", href: "/despesas-sem-contrato", icon: FileText },
+  { label: "Por secretaria", href: "/custos-por-secretaria", icon: Building2 },
+  { label: "Por área", href: "/custo-por-area", icon: BarChart3 },
+  { label: "Por servidor", href: "/custo-servidor", icon: Users },
+  { label: "Eficiência", href: "/eficiencia-servidor", icon: DollarSign },
+  { label: "Quantidade", href: "/quantidade-servidores", icon: Users },
+];
 
 export default function Home() {
-  const { colaboradores, contratos, despesasSemContrato, totalMensal, totalAnual } = useDashboardData();
-  const totalSECsComColaboradores = new Set(colaboradores.map((colaborador: any) => colaborador.sec).filter(Boolean)).size;
-  const heroImageUrl =
-    "https://files.manuscdn.com/user_upload_by_module/session_file/310419663029089241/zHHepfmHYTYxyROd.jpg";
+  const { colaboradores, contratos, totalMensal } = useDashboardData();
+  const totalSecs = new Set(colaboradores.map((item: { sec?: string }) => item.sec).filter(Boolean)).size;
 
-  const modules = [
-    {
-      title: "Dashboard Executivo",
-      description: "Visão geral dos principais indicadores",
-      href: "/dashboard",
-      icon: "dashboard",
-      color: "text-emerald-600",
-      metric: "KPIs em tempo real",
-    },
-    {
-      title: "Contratos",
-      description: "Gestão completa de contratos controlados",
-      href: "/contratos",
-      icon: "contratos",
-      color: "text-primary",
-      metric: `${contratos.length} contratos`,
-    },
-    {
-      title: "Colaboradores",
-      description: "Visualize todos os colaboradores por posto e SEC",
-      href: "/colaboradores",
-      icon: "colaboradores",
-      color: "text-blue-600",
-      metric: `${colaboradores.length} colaboradores`,
-    },
-    {
-      title: "Demonstrativo Total",
-      description: "Visão consolidada de todas as despesas",
-      href: "/demonstrativo",
-      icon: "demonstrativo",
-      color: "text-emerald-600",
-      metric: formatCurrency(totalAnual),
-    },
-    {
-      title: "Despesas com Contrato",
-      description: "Análise de despesas controladas",
-      href: "/despesas-com-contrato",
-      icon: "despesasComContrato",
-      color: "text-amber-600",
-      metric: formatCurrency(contratos.reduce((sum, c) => sum + c.anual, 0)),
-    },
-    {
-      title: "Despesas sem Contrato",
-      description: "Análise de despesas não controladas",
-      href: "/despesas-sem-contrato",
-      icon: "despesasSemContrato",
-      color: "text-orange-600",
-      metric: formatCurrency(despesasSemContrato.reduce((sum, d) => sum + d.anual, 0)),
-    },
-    {
-      title: "Custos por Secretaria",
-      description: "Análise detalhada de custos por secretaria",
-      href: "/custos-por-secretaria",
-      icon: "custosPorSecretaria",
-      color: "text-purple-600",
-      metric: `${totalSECsComColaboradores} SECs`,
-    },
-    {
-      title: "Custo por Área",
-      description: "Custo por metro quadrado de cada secretaria",
-      href: "/custo-por-area",
-      icon: "custoPorArea",
-      color: "text-cyan-600",
-      metric: "R$/m²",
-    },
-    {
-      title: "Custos Totais",
-      description: "Ranking de custos totais por secretaria",
-      href: "/custos-total",
-      icon: "custosTotal",
-      color: "text-rose-600",
-      metric: "Análise completa",
-    },
-    {
-      title: "Eficiência por Servidor",
-      description: "Análise de custo e área por servidor",
-      href: "/eficiencia-servidor",
-      icon: "eficienciaServidor",
-      color: "text-indigo-600",
-      metric: "Correlação",
-    },
-    {
-      title: "Custo por Servidor",
-      description: "Ranking de custo por servidor domiciliado",
-      href: "/custo-servidor",
-      icon: "custoServidor",
-      color: "text-teal-600",
-      metric: "R$/servidor",
-    },
-    {
-      title: "Quantidade de Servidores",
-      description: "Distribuição de servidores por secretaria",
-      href: "/quantidade-servidores",
-      icon: "quantidadeServidores",
-      color: "text-lime-600",
-      metric: `${totalSECsComColaboradores} SECs`,
-    },
+  const metrics = [
+    { value: colaboradores.length, label: "colaboradores", accent: "text-[#cbe59b]" },
+    { value: contratos.length, label: "contratos", accent: "text-[#f6da73]" },
+    { value: totalSecs, label: "SECs", accent: "text-[#8fd2e6]" },
+    { value: formatCurrency(totalMensal), label: "por mês", accent: "text-white" },
   ];
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <section className="relative w-full min-h-screen md:h-screen overflow-hidden flex items-center justify-center" style={{
-        backgroundImage: 'url(https://files.manuscdn.com/user_upload_by_module/session_file/310419663029089241/EfhvJQgUIbupmRzf.jpg)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed'
-      }}>
-        {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-black/30"></div>
-        
-        {/* Animated Background Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          {/* Floating Circle 1 */}
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-400/10 rounded-full blur-3xl animate-pulse"></div>
-          {/* Floating Circle 2 */}
-          <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-teal-400/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
-        </div>
+    <main className="min-h-screen bg-[#f4f5f2] text-[#003f5f]">
+      <section
+        className="relative min-h-[760px] overflow-hidden bg-[#003f5f] lg:min-h-screen"
+        style={{ backgroundImage: `url(${blueprintUrl})`, backgroundSize: "cover", backgroundPosition: "center" }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-[#003f5f]/95 via-[#003f5f]/82 to-[#003f5f]/20" />
+        <div className="absolute inset-x-0 top-0 h-1 bg-[#f2c94c]" />
 
-        {/* Logo Corner */}
-        <div className="absolute top-8 left-8 z-20 w-20 h-20 md:w-24 md:h-24">
-          <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663029089241/mFnIBTOhrAWwXLqZ.png" alt="TCU Logo" className="w-full h-full object-contain" style={{ filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.4))' }} />
-        </div>
+        <header className="relative z-10 mx-auto flex max-w-[1440px] items-center justify-between px-6 py-6 lg:px-12">
+          <img src={logoUrl} alt="Tribunal de Contas da União" className="h-12 w-12 rounded-md bg-white object-contain p-1.5" />
+          <Link href="/atualizar-dados" className="inline-flex items-center gap-2 text-sm font-semibold text-white/90 transition hover:text-[#f6da73]">
+            Atualizar dados <ArrowUpRight className="h-4 w-4" />
+          </Link>
+        </header>
 
-        {/* Content */}
-        <div className="relative z-10 max-w-6xl mx-auto px-4 py-20 flex flex-col items-center justify-center text-center">
-          {/* Apenas espaço vazio - sem texto no meio */}
+        <div className="relative z-10 mx-auto grid max-w-[1440px] items-center gap-12 px-6 pb-10 pt-16 lg:grid-cols-[.9fr_1.1fr] lg:px-12 lg:pb-36 lg:pt-24">
+          <div className="max-w-xl">
+            <p className="mb-5 text-xs font-bold uppercase tracking-[.22em] text-[#cbe59b]">Gestão de contratos</p>
+            <h1 className="max-w-lg text-5xl font-semibold leading-[.98] tracking-tight text-white sm:text-6xl lg:text-7xl">Gestão de<br />contratos</h1>
+            <p className="mt-6 max-w-md text-base leading-7 text-white/75">Contratos, colaboradores e custos em uma visão de trabalho direta.</p>
+            <Link href="/dashboard" className="mt-8 inline-flex items-center gap-2 border-b-2 border-[#f2c94c] pb-1 text-sm font-bold text-white transition hover:text-[#f6da73]">
+              Abrir painel <ArrowUpRight className="h-4 w-4" />
+            </Link>
+          </div>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <button onClick={() => window.location.href = '/dashboard'} className="px-8 py-4 bg-white text-blue-900 font-semibold rounded-lg hover:bg-blue-50 transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 inline-block cursor-pointer">
-              Explorar Dashboard
-            </button>
-            <button onClick={() => window.location.href = '/contratos'} className="px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-lg hover:bg-white/10 transition-all duration-300 inline-block cursor-pointer">
-              Ver Contratos
-            </button>
+          <div className="grid overflow-hidden border border-white/25 bg-[#003f5f]/45 backdrop-blur-sm sm:grid-cols-2">
+            {accessModules.map(({ label, href, icon: Icon, accent }) => (
+              <Link key={href} href={href} className={`group min-h-40 border-t-4 border-r border-white/20 p-5 transition hover:bg-white/10 ${accent}`}>
+                <div className="flex items-start justify-between"><Icon className="h-5 w-5" /><ArrowUpRight className="h-4 w-4 text-white/55 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /></div>
+                <span className="mt-12 block text-lg font-semibold text-white">{label}</span>
+              </Link>
+            ))}
           </div>
         </div>
 
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
-          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
+        <div className="relative z-10 mx-auto grid max-w-[1440px] border-y border-white/20 bg-[#003f5f]/70 px-6 backdrop-blur-sm sm:grid-cols-4 lg:absolute lg:bottom-8 lg:left-1/2 lg:w-[calc(100%-6rem)] lg:-translate-x-1/2 lg:px-0">
+          {metrics.map((metric) => (
+            <div key={metric.label} className="border-b border-white/15 px-5 py-5 last:border-b-0 sm:border-b-0 sm:border-r sm:last:border-r-0 lg:px-7">
+              <p className={`text-2xl font-semibold tracking-tight ${metric.accent}`}>{metric.value}</p>
+              <p className="mt-1 text-[10px] font-bold uppercase tracking-[.16em] text-white/65">{metric.label}</p>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* Metrics Section */}
-      <section className="bg-secondary py-12">
-        <div className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div className="text-center">
-              <p className="text-4xl font-bold text-primary font-poppins">
-                {colaboradores.length}
-              </p>
-              <p className="text-muted-foreground mt-2">Colaboradores</p>
-            </div>
-            <div className="text-center">
-              <p className="text-4xl font-bold text-primary font-poppins">
-                {contratos.length}
-              </p>
-              <p className="text-muted-foreground mt-2">Contratos</p>
-            </div>
-            <div className="text-center">
-              <p className="text-4xl font-bold text-primary font-poppins">
-                {totalSECsComColaboradores}
-              </p>
-              <p className="text-muted-foreground mt-2">SECs</p>
-            </div>
-            <div className="text-center">
-              <p className="text-2xl font-bold text-primary font-poppins">
-                {formatCurrency(totalMensal)}
-              </p>
-              <p className="text-muted-foreground mt-2">Mensal</p>
-            </div>
-          </div>
+      <section className="mx-auto max-w-[1440px] px-6 py-14 lg:px-12">
+        <div className="mb-8 flex flex-col justify-between gap-4 border-b border-[#c9dde6] pb-5 sm:flex-row sm:items-end">
+          <div><p className="text-xs font-bold uppercase tracking-[.18em] text-[#55752c]">Análises</p><h2 className="mt-2 text-3xl font-semibold tracking-tight">Acesse pelo que precisa decidir.</h2></div>
+          <p className="max-w-sm text-sm leading-6 text-[#547182]">Indicadores, filtros e relatórios organizados por assunto.</p>
+        </div>
+        <div className="grid gap-px bg-[#c9dde6] sm:grid-cols-2 lg:grid-cols-4">
+          {analysisModules.map(({ label, href, icon: Icon }, index) => (
+            <Link key={href} href={href} className="group flex min-h-32 flex-col justify-between bg-[#f4f5f2] p-5 transition hover:bg-white">
+              <Icon className={`h-5 w-5 ${index % 3 === 0 ? "text-[#087fa3]" : index % 3 === 1 ? "text-[#55752c]" : "text-[#b6873c]"}`} />
+              <div className="flex items-center justify-between gap-3"><span className="font-semibold text-[#003f5f]">{label}</span><ArrowUpRight className="h-4 w-4 text-[#547182] transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /></div>
+            </Link>
+          ))}
         </div>
       </section>
-
-      {/* Modules Section */}
-      <section className="py-16">
-        <div className="container mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-foreground font-poppins mb-4">
-              Módulos do Dashboard
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Acesse os diferentes módulos para gerenciar e analisar dados de
-              contratos, colaboradores e despesas
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {modules.map((module) => {
-              const IconComponent = moduleIcons[module.icon as keyof typeof moduleIcons];
-              return (
-                <div key={module.href} onClick={() => window.location.href = module.href} className="block cursor-pointer">
-                  <Card className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer border-t-4 border-t-primary hover:scale-105 hover:border-t-8">
-                    <CardHeader>
-                      <div className="flex items-start justify-between mb-4">
-                        <div className={`${module.color}`}>
-                          <IconComponent className="w-8 h-8" />
-                        </div>
-                      </div>
-                      <CardTitle className="text-xl font-poppins">
-                        {module.title}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                      <p className="text-sm text-muted-foreground">
-                        {module.description}
-                      </p>
-                      <div className="flex items-center justify-between pt-4 border-t border-border">
-                        <span className="text-sm font-semibold text-primary">
-                          {module.metric}
-                        </span>
-                        <ArrowRight className="w-4 h-4 text-primary" />
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* News Section */}
-      <NewsSection />
-
-      {/* Info Section */}
-      <section className="bg-secondary py-16">
-        <div className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div>
-              <h3 className="text-2xl font-bold text-foreground font-poppins mb-4">
-                Dados Consolidados
-              </h3>
-              <ul className="space-y-3 text-muted-foreground">
-                <li className="flex items-center gap-3">
-                  <span className="w-2 h-2 bg-primary rounded-full"></span>
-                  Contratos: {contratos.length}
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="w-2 h-2 bg-primary rounded-full"></span>
-                  Despesas sem contrato: {despesasSemContrato.length}
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="w-2 h-2 bg-primary rounded-full"></span>
-                  Despesa mensal total: {formatCurrency(totalMensal)}
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="w-2 h-2 bg-primary rounded-full"></span>
-                  Despesa anual total: {formatCurrency(totalAnual)}
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-2xl font-bold text-foreground font-poppins mb-4">
-                Recursos Disponíveis
-              </h3>
-              <ul className="space-y-3 text-muted-foreground">
-                <li className="flex items-center gap-3">
-                  <span className="w-2 h-2 bg-primary rounded-full"></span>
-                  Filtros interativos por SEC/UF
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="w-2 h-2 bg-primary rounded-full"></span>
-                  Gráficos de análise em tempo real
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="w-2 h-2 bg-primary rounded-full"></span>
-                  Tabelas com busca e ordenação
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="w-2 h-2 bg-primary rounded-full"></span>
-                  Métricas consolidadas por categoria
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16">
-        <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-bold text-foreground font-poppins mb-6">
-            Comece a Explorar os Dados
-          </h2>
-          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Navegue pelos módulos acima para visualizar e analisar os dados de
-            contratos, colaboradores e despesas
-          </p>
-          <Button size="lg" className="bg-primary hover:bg-primary/90" onClick={() => window.location.href = '/contratos'}>
-            Acessar Contratos
-            <ArrowRight className="ml-2 w-4 h-4" />
-          </Button>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-foreground text-white py-8 mt-16">
-        <div className="container mx-auto text-center">
-          <p className="text-sm">
-            Dashboard de Gestão de Contratos e Colaboradores v1.0
-          </p>
-          <p className="text-xs text-white/60 mt-2">
-            Tribunal de Contas da União - TCU
-          </p>
-        </div>
-      </footer>
-    </div>
+    </main>
   );
 }

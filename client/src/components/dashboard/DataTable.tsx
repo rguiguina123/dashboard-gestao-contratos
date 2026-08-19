@@ -103,14 +103,14 @@ export function DataTable<T extends Record<string, any>>({
       )}
       <div className="rounded-lg border border-border overflow-hidden card-elevated">
         <Table>
-          <TableHeader className="bg-gradient-to-r from-purple-100/50 to-purple-50/50 border-b border-border">
-            <TableRow className="hover:bg-purple-50/50">
+          <TableHeader className="border-b border-border bg-gradient-to-r from-[#eaf3f7] to-[#f4f5f2]">
+            <TableRow className="hover:bg-[#eaf3f7]/70">
               {columns.map((column) => (
                 <TableHead
                   key={String(column.key)}
                   className={`text-foreground font-semibold ${
                     column.sortable !== false
-                      ? "cursor-pointer hover:bg-purple-100 transition-colors"
+                      ? "cursor-pointer transition-colors hover:bg-[#c2e6f0]/60"
                       : ""
                   }`}
                   style={{ width: column.width }}
@@ -121,7 +121,7 @@ export function DataTable<T extends Record<string, any>>({
                   <div className="flex items-center gap-2">
                     <span>{column.label}</span>
                     {sortKey === column.key && (
-                      <span className="text-purple-700 animate-fade-in">
+                      <span className="animate-fade-in text-[#003f5f]">
                         {sortOrder === "asc" ? (
                           <ChevronUp className="w-4 h-4" />
                         ) : (
@@ -139,7 +139,7 @@ export function DataTable<T extends Record<string, any>>({
               sortedData.map((row, idx) => (
                 <TableRow
                   key={idx}
-                  className="hover:bg-purple-100 transition-all duration-200 animate-fade-in cursor-pointer hover:shadow-md hover:scale-x-100"
+                  className="cursor-pointer animate-fade-in transition-all duration-200 hover:scale-x-100 hover:bg-[#eaf3f7] hover:shadow-md"
                   style={{ animationDelay: `${idx * 0.05}s` }}
                   onClick={() => onRowClick?.(row)}
                 >

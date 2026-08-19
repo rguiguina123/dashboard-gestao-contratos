@@ -126,7 +126,7 @@ export default function EficienciaServidor() {
             <CardContent>
               <ResponsiveContainer width="100%" height={400}>
                 <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#c9dde6" />
                   <XAxis dataKey="Área/Servidor" name="Área/Servidor (m²)" />
                   <YAxis dataKey="Custo/Servidor" name="Custo/Servidor (R$)" />
                   <Tooltip 
@@ -135,9 +135,9 @@ export default function EficienciaServidor() {
                       const numValue = Number(value);
                       return isNaN(numValue) ? value : numValue > 100 ? formatCurrency(numValue) : numValue.toFixed(2);
                     }}
-                    contentStyle={{ backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}
+                    contentStyle={{ backgroundColor: '#ffffff', border: '1px solid #c9dde6' }}
                   />
-                  <Scatter name="SECs" data={scatterData} fill="#3b82f6" />
+                  <Scatter name="SECs" data={scatterData} fill="#087fa3" />
                 </ScatterChart>
               </ResponsiveContainer>
             </CardContent>
@@ -151,7 +151,7 @@ export default function EficienciaServidor() {
             <CardContent>
               <ResponsiveContainer width="100%" height={400}>
                 <BarChart data={barData.slice(0, 15)}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#c9dde6" />
                   <XAxis dataKey="SEC" angle={-45} textAnchor="end" height={80} />
                   <YAxis yAxisId="left" />
                   <YAxis yAxisId="right" orientation="right" />
@@ -160,11 +160,11 @@ export default function EficienciaServidor() {
                       const numValue = Number(value);
                       return isNaN(numValue) ? value : numValue > 100 ? formatCurrency(numValue) : numValue.toFixed(2);
                     }}
-                    contentStyle={{ backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}
+                    contentStyle={{ backgroundColor: '#ffffff', border: '1px solid #c9dde6' }}
                   />
                   <Legend />
                   <Bar yAxisId="left" dataKey="Custo/Servidor" fill="#ef4444" radius={[8, 8, 0, 0]} />
-                  <Bar yAxisId="right" dataKey="Área/Servidor" fill="#10b981" radius={[8, 8, 0, 0]} />
+                  <Bar yAxisId="right" dataKey="Área/Servidor" fill="#89ad45" radius={[8, 8, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -225,7 +225,7 @@ export default function EficienciaServidor() {
 
         {/* Tabela Completa */}
         <Card className="mt-8 border-0 shadow-sm overflow-hidden">
-          <CardHeader className="flex items-center justify-between bg-gradient-to-r from-purple-50 to-blue-50 border-b">
+          <CardHeader className="flex items-center justify-between border-b border-[#c9dde6] bg-[#eaf3f7]">
             <CardTitle>Tabela Completa - Eficiência por Servidor</CardTitle>
             <button
               onClick={() => {
@@ -257,7 +257,7 @@ export default function EficienciaServidor() {
                   'Relatorio_Eficiencia_por_Servidor'
                 );
               }}
-              className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all flex items-center gap-2"
+              className="flex items-center gap-2 rounded-lg bg-[#003f5f] px-4 py-2 font-semibold text-white transition-all hover:bg-[#087fa3] hover:shadow-lg"
             >
               <FileText className="w-4 h-4" />
               Exportar Relatório

@@ -44,23 +44,23 @@ export function ProfessionalReportPDFv2({
       const margin = 20;
       let yPosition = margin;
 
-      // Cores do modelo: Gradiente roxo/magenta
-      const colorPrimary = [147, 51, 234]; // Purple-600
-      const colorSecondary = [236, 72, 153]; // Pink-500
+      // Paleta institucional TCU
+      const colorPrimary = [0, 63, 95];
+      const colorSecondary = [137, 173, 69];
       const colorDark = [30, 30, 30];
       const colorLight = [100, 100, 100];
       const colorBorder = [220, 220, 220];
 
       // ===== PÁGINA 1: CAPA =====
       // Background gradiente (simulado com retângulos)
-      doc.setFillColor(147, 51, 234);
+      doc.setFillColor(colorPrimary[0], colorPrimary[1], colorPrimary[2]);
       doc.rect(0, 0, pageWidth, pageHeight / 2, "F");
 
-      doc.setFillColor(236, 72, 153);
+      doc.setFillColor(242, 201, 76);
       doc.rect(0, pageHeight / 2, pageWidth, pageHeight / 2, "F");
 
       // Forma geométrica 3D (triângulo)
-      doc.setFillColor(200, 100, 200);
+      doc.setFillColor(137, 173, 69);
       doc.triangle(
         pageWidth * 0.7,
         0,
@@ -116,7 +116,7 @@ export function ProfessionalReportPDFv2({
           const y = yPosition + row * metricHeight;
 
           // Box com background gradiente
-          doc.setFillColor(240, 230, 255);
+          doc.setFillColor(234, 243, 247);
           doc.setDrawColor(colorPrimary[0], colorPrimary[1], colorPrimary[2]);
           doc.setLineWidth(1);
           doc.rect(x, y, metricWidth - 3, metricHeight - 2, "FD");
@@ -173,7 +173,7 @@ export function ProfessionalReportPDFv2({
               yPosition += 5;
             });
           } else if (section.type === "highlight") {
-            doc.setFillColor(255, 240, 245);
+            doc.setFillColor(255, 248, 219);
             doc.rect(margin, yPosition - 3, pageWidth - 2 * margin, 20, "F");
             doc.setTextColor(colorSecondary[0], colorSecondary[1], colorSecondary[2]);
             doc.setFont("", "bold");
@@ -255,7 +255,7 @@ export function ProfessionalReportPDFv2({
 
           // Cor de fundo alternada
           if (rowCount % 2 === 0) {
-            doc.setFillColor(245, 240, 250);
+            doc.setFillColor(244, 245, 242);
             doc.rect(margin, yPosition - 3, pageWidth - 2 * margin, 4, "F");
           }
 
@@ -317,7 +317,7 @@ export function ProfessionalReportPDFv2({
   return (
     <Button
       onClick={handleExport}
-      className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 text-white transition-all duration-200 hover:shadow-lg"
+      className="flex items-center gap-2 bg-[#003f5f] text-white transition-all duration-200 hover:bg-[#087fa3] hover:shadow-lg"
     >
       <FileDown className="w-4 h-4" />
       Exportar Relatório

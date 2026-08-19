@@ -24,9 +24,10 @@ export const appRouter = router({
     prepare: publicProcedure.input(z.object({
       fileName: z.string().min(5).max(255),
       fileBase64: z.string().min(20).max(8_000_000),
+      responsibleName: z.string().trim().min(2, "Informe seu nome para registrar a atualização.").max(100),
     })).mutation(async ({ ctx, input }) => {
       try {
-        const result = await prepareImport(input.fileName, Buffer.from(input.fileBase64, "base64"), 0);
+        const result = await prepareImport(input.fileName, Buffer.from(input.fileBase64, "base64"), 0, input.responsibleName);
         return { state: "ready" as const, ...result };
       } catch (error) {
         const message = error instanceof Error ? error.message : "A validação da planilha falhou.";

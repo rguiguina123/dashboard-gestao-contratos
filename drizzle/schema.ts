@@ -40,6 +40,7 @@ export const dataImports = mysqlTable("data_imports", {
   payload: longtext("payload").notNull(),
   summary: longtext("summary").notNull(),
   createdBy: int("created_by").notNull(),
+  responsibleName: varchar("responsible_name", { length: 100 }).notNull().default("Não informado"),
   approvedAt: timestamp("approved_at"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });

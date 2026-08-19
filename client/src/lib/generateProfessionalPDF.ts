@@ -1,19 +1,19 @@
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
-// Cores profissionais e elegantes
+// Paleta institucional TCU
 const COLORS = {
-  headerBg: '#1a365d', // Azul escuro profissional
+  headerBg: '#003f5f',
   headerText: '#ffffff',
-  accentPrimary: '#2563eb', // Azul vibrante
-  accentSecondary: '#7c3aed', // Roxo
-  textPrimary: '#1f2937', // Cinza escuro
-  textSecondary: '#6b7280', // Cinza médio
-  success: '#059669', // Verde
-  warning: '#d97706', // Laranja
-  danger: '#dc2626', // Vermelho
-  lightBg: '#f3f4f6', // Cinza claro
-  border: '#d1d5db', // Cinza para bordas
+  accentPrimary: '#087fa3',
+  accentSecondary: '#89ad45',
+  textPrimary: '#003047',
+  textSecondary: '#547182',
+  success: '#55752c',
+  warning: '#b6873c',
+  danger: '#b42318',
+  lightBg: '#f4f5f2',
+  border: '#c9dde6',
   white: '#ffffff',
 };
 

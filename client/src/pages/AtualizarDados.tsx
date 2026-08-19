@@ -9,7 +9,7 @@ import { CheckCircle2, Database, FileSpreadsheet, History, RefreshCcw, ShieldChe
 
 type ChangeDetail = { label: string; before?: Record<string, string>; after: Record<string, string> };
 type ChangeCounts = { added: number; updated: number; unchanged: number; removed: number; samples: { added: string[]; updated: string[]; unchanged: string[]; removed: string[] }; details: { added: ChangeDetail[]; updated: ChangeDetail[]; unchanged: ChangeDetail[]; removed: ChangeDetail[] } };
-type ImportSummary = { fileName: string; domains: Record<string, ChangeCounts>; warnings: string[] };
+type ImportSummary = { fileName: string; responsibleName?: string; domains: Record<string, ChangeCounts>; warnings: string[] };
 
 const labels: Record<string, string> = {
   colaboradores: "Colaboradores",
@@ -38,6 +38,7 @@ function Summary({ summary, applied }: { summary: ImportSummary; applied: boolea
           <div>
             <p className="font-semibold">{applied ? "Atualização aplicada com sucesso" : "Comparativo pronto"}</p>
             <p className="mt-1 text-sm text-emerald-800">{applied ? "Confira abaixo tudo o que entrou, mudou, permaneceu ou saiu da base." : "Confira abaixo tudo o que entrará, mudará, permanecerá ou sairá. A atualização será aplicada automaticamente em instantes."}</p>
+            {summary.responsibleName && <p className="mt-2 text-xs font-semibold text-emerald-900">Responsável: {summary.responsibleName}</p>}
           </div>
         </div>
       </div>
@@ -80,6 +81,7 @@ function Summary({ summary, applied }: { summary: ImportSummary; applied: boolea
 
 export default function AtualizarDados() {
   const [file, setFile] = useState<File | null>(null);
+  const [responsibleName, setResponsibleName] = useState("");
   const [prepared, setPrepared] = useState<{ importId: number; summary: ImportSummary } | null>(null);
   const [isApplying, setIsApplying] = useState(false);
   const [wasApplied, setWasApplied] = useState(false);
@@ -125,12 +127,14 @@ export default function AtualizarDados() {
   }, [approve, isApplying, prepared, wasApplied]);
 
   const handlePrepare = async () => {
+    const normalizedResponsibleName = responsibleName.trim().replace(/\s+/g, " ");
+    if (normalizedResponsibleName.length < 2) return toast.error("Informe seu nome para registrar a atualização.");
     if (!file) return toast.error("Selecione uma planilha Excel antes de continuar.");
     if (!file.name.toLowerCase().endsWith(".xlsx")) return toast.error("Envie um arquivo no formato .xlsx.");
     if (file.size > 5 * 1024 * 1024) return toast.error("O arquivo deve ter no máximo 5 MB.");
     try {
       const fileBase64 = await readAsBase64(file);
-      prepare.mutate({ fileName: file.name, fileBase64 });
+      prepare.mutate({ fileName: file.name, fileBase64, responsibleName: normalizedResponsibleName });
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Não foi possível ler o arquivo.");
     }
@@ -140,7 +144,7 @@ export default function AtualizarDados() {
     <DashboardLayout>
       <div className="mx-auto max-w-6xl space-y-7 pb-12">
         <section className="relative overflow-hidden rounded-3xl bg-slate-950 px-6 py-8 text-white shadow-xl sm:px-9">
-          <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-violet-500/30 blur-3xl" />
+          <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-[#f2c94c]/25 blur-3xl" />
           <div className="absolute -bottom-24 left-1/3 h-48 w-48 rounded-full bg-emerald-400/20 blur-3xl" />
           <div className="relative flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl">
@@ -158,15 +162,20 @@ export default function AtualizarDados() {
         <>
           <div className="grid gap-7 lg:grid-cols-[1.1fr_.9fr]">
             <Card className="border-slate-200 shadow-sm">
-              <CardHeader><CardTitle className="flex items-center gap-2 text-slate-900"><UploadCloud className="h-5 w-5 text-violet-600" /> Enviar planilha</CardTitle><CardDescription>Arquivos aceitos: Dados de Colaboradores, Gestão de Contratos, Siglas das Secretarias e <strong>Custos compilados por estado2.xlsx</strong> para custos.</CardDescription></CardHeader>
+              <CardHeader><CardTitle className="flex items-center gap-2 text-slate-900"><UploadCloud className="h-5 w-5 text-[#087fa3]" /> Enviar planilha</CardTitle><CardDescription>Arquivos aceitos: Dados de Colaboradores, Gestão de Contratos, Siglas das Secretarias e <strong>Custos compilados por estado2.xlsx</strong> para custos.</CardDescription></CardHeader>
               <CardContent className="space-y-5">
-                <label className="group flex min-h-48 cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-violet-200 bg-violet-50/40 px-5 text-center transition hover:border-violet-400 hover:bg-violet-50">
-                  <FileSpreadsheet className="h-10 w-10 text-violet-600 transition group-hover:scale-110" />
+                <div className="space-y-2">
+                  <label htmlFor="responsible-name" className="text-sm font-semibold text-slate-800">Seu nome <span className="text-red-600">*</span></label>
+                  <input id="responsible-name" value={responsibleName} onChange={event => setResponsibleName(event.target.value)} maxLength={100} placeholder="Nome de quem está atualizando" className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 outline-none transition focus:border-[#087fa3] focus:ring-2 focus:ring-[#087fa3]/20" required />
+                  <p className="text-xs text-slate-500">Este nome será registrado no histórico da alteração.</p>
+                </div>
+                <label className="group flex min-h-48 cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-[#f6da73] bg-[#fff8db]/60 px-5 text-center transition hover:border-[#d9ae24] hover:bg-[#fff8db]">
+                  <FileSpreadsheet className="h-10 w-10 text-[#b6873c] transition group-hover:scale-110" />
                   <span className="mt-4 text-sm font-semibold text-slate-800">{file ? file.name : "Clique para escolher uma planilha .xlsx"}</span>
                   <span className="mt-1 text-xs text-slate-500">Limite de 5 MB. Nenhuma atualização é aplicada nesta etapa.</span>
                   <input className="sr-only" type="file" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onChange={event => { setFile(event.target.files?.[0] ?? null); setPrepared(null); setValidationErrors([]); setWasApplied(false); }} />
                 </label>
-                <Button className="w-full gap-2 bg-violet-700 hover:bg-violet-800" disabled={!file || prepare.isPending} onClick={handlePrepare}>
+                <Button className="w-full gap-2 bg-[#003f5f] hover:bg-[#087fa3]" disabled={!file || responsibleName.trim().length < 2 || prepare.isPending} onClick={handlePrepare}>
                   {prepare.isPending ? <RefreshCcw className="h-4 w-4 animate-spin" /> : <RefreshCcw className="h-4 w-4" />} {prepare.isPending ? "Validando e atualizando..." : "Validar e atualizar"}
                 </Button>
               </CardContent>
@@ -174,18 +183,18 @@ export default function AtualizarDados() {
             <Card className="border-slate-200 shadow-sm"><CardHeader><CardTitle className="text-slate-900">Como a comparação funciona</CardTitle></CardHeader><CardContent className="space-y-4 text-sm text-slate-600">
               <div className="flex gap-3"><span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-100 font-bold text-emerald-700">1</span><p><strong className="text-slate-800">Validação:</strong> confere abas, colunas obrigatórias e campos essenciais.</p></div>
               <div className="flex gap-3"><span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-amber-100 font-bold text-amber-700">2</span><p><strong className="text-slate-800">Comparação:</strong> mostra o que entra, muda, permanece e sai da base.</p></div>
-              <div className="flex gap-3"><span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-violet-100 font-bold text-violet-700">3</span><p><strong className="text-slate-800">Atualização:</strong> aplica uma planilha válida e guarda uma cópia no histórico.</p></div>
+              <div className="flex gap-3"><span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#c2e6f0] font-bold text-[#003f5f]">3</span><p><strong className="text-slate-800">Atualização:</strong> aplica uma planilha válida e guarda uma cópia no histórico.</p></div>
             </CardContent></Card>
           </div>
 
           {validationErrors.length > 0 && <Card className="border-red-200 bg-red-50"><CardHeader><CardTitle className="flex items-center gap-2 text-red-900"><XCircle className="h-5 w-5" /> Bloqueios de validação</CardTitle><CardDescription className="text-red-800">Corrija os itens abaixo na planilha antes de tentar novamente.</CardDescription></CardHeader><CardContent><ul className="space-y-2 text-sm text-red-900">{validationErrors.map(error => <li key={error} className="rounded-lg border border-red-200 bg-white/70 p-3">{error}</li>)}</ul></CardContent></Card>}
 
-          {prepared && <Card className="border-emerald-200 shadow-sm"><CardHeader><CardTitle className="flex items-center gap-2 text-slate-900"><CheckCircle2 className="h-5 w-5 text-emerald-600" /> {wasApplied ? "Atualização aplicada" : "Comparativo da atualização"}</CardTitle><CardDescription>{wasApplied ? `Arquivo: ${prepared.summary.fileName}. Confira abaixo o resumo da alteração realizada.` : "A atualização será aplicada automaticamente após a exibição deste comparativo."}</CardDescription></CardHeader><CardContent className="space-y-6"><Summary summary={prepared.summary} applied={wasApplied} />{isApplying && <div className="flex items-center gap-2 rounded-xl bg-violet-50 px-4 py-3 text-sm font-medium text-violet-800"><RefreshCcw className="h-4 w-4 animate-spin" /> Aplicando a atualização...</div>}<div className="flex justify-end"><Button variant="outline" disabled={isApplying} onClick={() => setPrepared(null)}>Fechar resumo</Button></div></CardContent></Card>}
+          {prepared && <Card className="border-emerald-200 shadow-sm"><CardHeader><CardTitle className="flex items-center gap-2 text-slate-900"><CheckCircle2 className="h-5 w-5 text-emerald-600" /> {wasApplied ? "Atualização aplicada" : "Comparativo da atualização"}</CardTitle><CardDescription>{wasApplied ? `Arquivo: ${prepared.summary.fileName}. Confira abaixo o resumo da alteração realizada.` : "A atualização será aplicada automaticamente após a exibição deste comparativo."}</CardDescription></CardHeader><CardContent className="space-y-6"><Summary summary={prepared.summary} applied={wasApplied} />{isApplying && <div className="flex items-center gap-2 rounded-xl bg-[#fff8db] px-4 py-3 text-sm font-medium text-[#003f5f]"><RefreshCcw className="h-4 w-4 animate-spin" /> Aplicando a atualização...</div>}<div className="flex justify-end"><Button variant="outline" disabled={isApplying} onClick={() => setPrepared(null)}>Fechar resumo</Button></div></CardContent></Card>}
 
           <Card className="border-slate-200 shadow-sm"><CardHeader><CardTitle className="flex items-center gap-2 text-slate-900"><History className="h-5 w-5 text-slate-500" /> Histórico recente</CardTitle><CardDescription>Versões aplicadas preservam a continuidade do dashboard.</CardDescription></CardHeader><CardContent>
             {history.isLoading ? <p className="text-sm text-slate-500">Carregando histórico...</p> : (history.data?.length ?? 0) === 0 ? <p className="text-sm text-slate-500">Ainda não há importações registradas.</p> : <div className="space-y-3">{history.data?.map(item => {
               const status = importStatusPresentation(item.status);
-              return <div key={item.id} className="flex flex-col gap-2 rounded-xl border border-slate-100 bg-slate-50 p-4 sm:flex-row sm:items-center sm:justify-between"><div><p className="font-medium text-slate-800">{item.fileName}</p><p className="mt-1 text-xs text-slate-500">{new Date(item.createdAt).toLocaleString("pt-BR")}</p></div><span className={`inline-flex w-fit rounded-full px-3 py-1 text-xs font-semibold ${status.className}`}>{status.label}</span></div>;
+              return <div key={item.id} className="flex flex-col gap-2 rounded-xl border border-slate-100 bg-slate-50 p-4 sm:flex-row sm:items-center sm:justify-between"><div><p className="font-medium text-slate-800">{item.fileName}</p><p className="mt-1 text-xs text-slate-500">{new Date(item.createdAt).toLocaleString("pt-BR")}</p><p className="mt-1 text-xs font-medium text-[#003f5f]">Responsável: {item.responsibleName || "Não informado"}</p></div><span className={`inline-flex w-fit rounded-full px-3 py-1 text-xs font-semibold ${status.className}`}>{status.label}</span></div>;
             })}</div>}
           </CardContent></Card>
         </>

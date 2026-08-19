@@ -223,8 +223,8 @@ export default function Contratos() {
 
         {/* Tabela */}
         <Card className="border-0 shadow-lg">
-          <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b flex items-center justify-between">
-            <CardTitle className="text-purple-900">Detalhes dos Contratos</CardTitle>
+          <CardHeader className="flex items-center justify-between border-b border-[#c9dde6] bg-[#eaf3f7]">
+            <CardTitle className="text-[#003f5f]">Detalhes dos Contratos</CardTitle>
             <button
               onClick={() => {
                 const metricas = {
@@ -237,7 +237,7 @@ export default function Contratos() {
                 };
                 generateContractsPDFProfessional(contratosComDias, metricas);
               }}
-              className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all"
+              className="rounded-lg bg-[#003f5f] px-4 py-2 font-semibold text-white transition-all hover:bg-[#087fa3] hover:shadow-lg"
             >
               Exportar Relatório
             </button>

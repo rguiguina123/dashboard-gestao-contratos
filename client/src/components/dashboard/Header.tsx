@@ -7,7 +7,7 @@ interface HeaderProps {
 
 export function Header({ title, subtitle }: HeaderProps) {
   return (
-    <header className="bg-gradient-to-r from-purple-900 via-purple-800 to-purple-700 text-white shadow-lg">
+    <header className="bg-[#003f5f] text-white shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
@@ -16,17 +16,17 @@ export function Header({ title, subtitle }: HeaderProps) {
               alt="TCU Logo"
               className="h-16 w-auto"
             />
-            <div className="hidden md:block border-l border-purple-400 pl-4 flex-1">
+            <div className="hidden flex-1 border-l border-[#8fd2e6] pl-4 md:block">
               <p className="text-lg font-semibold">{title || "Gestão de Contrato"}</p>
               {subtitle && (
-                <p className="text-sm text-purple-100">{subtitle}</p>
+                <p className="text-sm text-[#c2e6f0]">{subtitle}</p>
               )}
             </div>
             <div className="flex-1 flex justify-center px-4">
               <GlobalSearch />
             </div>
           </div>
-          <div className="text-right text-sm text-purple-100">
+          <div className="text-right text-sm text-[#c2e6f0]">
             <p className="font-semibold">Cuidando do Brasil</p>
             <p>Fiscalizando para Transformar</p>
           </div>

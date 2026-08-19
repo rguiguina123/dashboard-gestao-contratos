@@ -47,9 +47,9 @@ export function ProfessionalReportPDF({
       const margin = 15;
       let yPosition = margin;
 
-      // Cores corporativas
-      const primaryColor = [124, 58, 237]; // Purple
-      const accentColor = [168, 85, 247]; // Light Purple
+      // Cores institucionais TCU
+      const primaryColor = [0, 63, 95];
+      const accentColor = [242, 201, 76];
       const textDark = [30, 30, 30];
       const textLight = [100, 100, 100];
       const borderColor = [200, 200, 200];
@@ -322,7 +322,7 @@ export function ProfessionalReportPDF({
   return (
     <Button
       onClick={handleExport}
-      className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white transition-all duration-200 hover:shadow-lg"
+      className="flex items-center gap-2 bg-[#003f5f] text-white transition-all duration-200 hover:bg-[#087fa3] hover:shadow-lg"
     >
       <FileDown className="w-4 h-4" />
       Exportar Relatório

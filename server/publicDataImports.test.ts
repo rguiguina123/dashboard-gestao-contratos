@@ -31,10 +31,11 @@ describe("atualização pública de dados", () => {
     const result = await caller.dataImports.prepare({
       fileName: "Dados de Colaboradores.xlsx",
       fileBase64: Buffer.from("conteúdo de teste para planilha").toString("base64"),
+      responsibleName: "Ana Silva",
     });
 
     expect(result.state).toBe("ready");
-    expect(mocks.prepareImport).toHaveBeenCalledWith("Dados de Colaboradores.xlsx", expect.any(Buffer), 0);
+    expect(mocks.prepareImport).toHaveBeenCalledWith("Dados de Colaboradores.xlsx", expect.any(Buffer), 0, "Ana Silva");
     expect(mocks.approveImport).not.toHaveBeenCalled();
 
     await expect(caller.dataImports.approve({ importId: 18 })).resolves.toEqual({ ok: true });
@@ -44,5 +45,14 @@ describe("atualização pública de dados", () => {
   it("permite consultar o histórico sem sessão", async () => {
     const caller = appRouter.createCaller(publicContext());
     await expect(caller.dataImports.history()).resolves.toEqual([]);
+  });
+
+  it("bloqueia o envio público quando o responsável não é informado", async () => {
+    const caller = appRouter.createCaller(publicContext());
+    await expect(caller.dataImports.prepare({
+      fileName: "Dados de Colaboradores.xlsx",
+      fileBase64: Buffer.from("conteúdo de teste para planilha").toString("base64"),
+      responsibleName: " ",
+    })).rejects.toThrow("Informe seu nome");
   });
 });

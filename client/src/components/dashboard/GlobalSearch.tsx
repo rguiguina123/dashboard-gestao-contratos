@@ -77,13 +77,13 @@ export function GlobalSearch() {
       {/* Search Trigger */}
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 px-3 py-2 rounded-lg bg-purple-100 hover:bg-purple-200 transition-colors"
+        className="flex items-center gap-2 rounded-lg bg-[#c2e6f0] px-3 py-2 transition-colors hover:bg-[#8fd2e6]"
       >
-        <Search className="w-4 h-4 text-purple-700" />
-        <span className="text-sm text-purple-700 hidden sm:inline">
+        <Search className="h-4 w-4 text-[#003f5f]" />
+        <span className="hidden text-sm text-[#003f5f] sm:inline">
           Buscar...
         </span>
-        <kbd className="hidden md:inline-block ml-auto text-xs px-2 py-1 bg-white rounded border border-purple-200">
+        <kbd className="ml-auto hidden rounded border border-[#8fd2e6] bg-white px-2 py-1 text-xs md:inline-block">
           ⌘K
         </kbd>
       </button>
@@ -124,7 +124,7 @@ export function GlobalSearch() {
                       key={`${result.type}-${result.id}`}
                       href={result.href}
                       onClick={() => setOpen(false)}
-                      className="block p-3 rounded-lg hover:bg-purple-100 transition-all duration-200 hover:scale-x-105 hover:shadow-md cursor-pointer"
+                      className="block cursor-pointer rounded-lg p-3 transition-all duration-200 hover:scale-x-105 hover:bg-[#eaf3f7] hover:shadow-md"
                     >
                       <div className="font-medium text-foreground">
                         {result.title}

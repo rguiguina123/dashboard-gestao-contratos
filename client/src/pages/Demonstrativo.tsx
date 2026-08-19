@@ -108,19 +108,19 @@ export default function Demonstrativo() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Gráfico de Comparação */}
           <Card className="border-0 shadow-lg">
-            <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b">
-              <CardTitle className="text-purple-900">Comparação: Com vs Sem Contrato</CardTitle>
+            <CardHeader className="border-b border-[#c9dde6] bg-[#eaf3f7]">
+              <CardTitle className="text-[#003f5f]">Comparação: Com vs Sem Contrato</CardTitle>
             </CardHeader>
             <CardContent className="p-6">
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={comparisonData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#c9dde6" />
                   <XAxis dataKey="categoria" />
                   <YAxis />
                   <Tooltip formatter={(value) => formatCurrency(value as number)} />
                   <Legend />
-                  <Bar dataKey="Mensal" fill="#7c3aed" radius={[8, 8, 0, 0]} />
-                  <Bar dataKey="Anual" fill="#3b82f6" radius={[8, 8, 0, 0]} />
+                  <Bar dataKey="Mensal" fill="#087fa3" radius={[8, 8, 0, 0]} />
+                  <Bar dataKey="Anual" fill="#89ad45" radius={[8, 8, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -128,8 +128,8 @@ export default function Demonstrativo() {
 
           {/* Tabela Consolidada */}
           <Card className="border-0 shadow-lg">
-            <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b">
-              <CardTitle className="text-purple-900">Consolidado</CardTitle>
+            <CardHeader className="border-b border-[#c9dde6] bg-[#eaf3f7]">
+              <CardTitle className="text-[#003f5f]">Consolidado</CardTitle>
             </CardHeader>
             <CardContent className="p-6">
               <div className="space-y-4">
@@ -140,7 +140,7 @@ export default function Demonstrativo() {
                       <p className="text-sm text-gray-600">{item.percentual}% do total</p>
                     </div>
                     <div className="text-right">
-                      <p className="font-semibold text-purple-900">{formatCurrency(item.mensal)}</p>
+                      <p className="font-semibold text-[#003f5f]">{formatCurrency(item.mensal)}</p>
                       <p className="text-sm text-gray-600">{formatCurrency(item.anual)}/ano</p>
                     </div>
                   </div>
@@ -152,8 +152,8 @@ export default function Demonstrativo() {
 
         {/* Top 5 SECs */}
         <Card className="border-0 shadow-lg">
-          <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b flex items-center justify-between">
-            <CardTitle className="text-purple-900">Top 5 SECs por Despesa Mensal</CardTitle>
+          <CardHeader className="flex items-center justify-between border-b border-[#c9dde6] bg-[#eaf3f7]">
+            <CardTitle className="text-[#003f5f]">Top 5 SECs por Despesa Mensal</CardTitle>
             <ExportPDF
               title="Demonstrativo"
               data={consolidado}
@@ -168,11 +168,11 @@ export default function Demonstrativo() {
           <CardContent className="p-6">
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={top5SECs}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#c9dde6" />
                 <XAxis dataKey="sec" />
                 <YAxis />
                 <Tooltip formatter={(value) => formatCurrency(value as number)} />
-                <Bar dataKey="total_mensal" fill="#7c3aed" radius={[8, 8, 0, 0]} />
+                <Bar dataKey="total_mensal" fill="#f2c94c" radius={[8, 8, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </CardContent>

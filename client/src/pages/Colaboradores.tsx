@@ -65,14 +65,14 @@ export default function Colaboradores() {
 
   // Cores para gráficos
   const COLORS = [
-    "#7c3aed",
-    "#3b82f6",
-    "#06b6d4",
-    "#10b981",
-    "#f59e0b",
-    "#ef4444",
-    "#ec4899",
-    "#8b5cf6",
+    "#087fa3",
+    "#89ad45",
+    "#f2c94c",
+    "#55752c",
+    "#8fd2e6",
+    "#b6873c",
+    "#003f5f",
+    "#cbe59b",
   ];
 
   // Colunas da tabela
@@ -118,17 +118,17 @@ export default function Colaboradores() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Distribuição por Posto */}
           <Card className="border-0 shadow-lg">
-            <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b">
-              <CardTitle className="text-purple-900">Distribuição por Posto</CardTitle>
+            <CardHeader className="border-b border-[#c9dde6] bg-[#eaf3f7]">
+              <CardTitle className="text-[#003f5f]">Distribuição por Posto</CardTitle>
             </CardHeader>
             <CardContent className="p-6">
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={distribuicaoPosto}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#c9dde6" />
                   <XAxis dataKey="name" />
                   <YAxis />
                   <Tooltip />
-                  <Bar dataKey="value" fill="#7c3aed" radius={[8, 8, 0, 0]} />
+                  <Bar dataKey="value" fill="#087fa3" radius={[8, 8, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -136,8 +136,8 @@ export default function Colaboradores() {
 
           {/* Distribuição por SEC */}
           <Card className="border-0 shadow-lg">
-            <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b">
-              <CardTitle className="text-purple-900">Distribuição por SEC</CardTitle>
+            <CardHeader className="border-b border-[#c9dde6] bg-[#eaf3f7]">
+              <CardTitle className="text-[#003f5f]">Distribuição por SEC</CardTitle>
             </CardHeader>
             <CardContent className="p-6">
               <ResponsiveContainer width="100%" height={300}>
@@ -186,8 +186,8 @@ export default function Colaboradores() {
           </div>
 
           <Card className="border-0 shadow-lg">
-            <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b flex items-center justify-between">
-              <CardTitle className="text-purple-900">
+            <CardHeader className="flex items-center justify-between border-b border-[#c9dde6] bg-[#eaf3f7]">
+              <CardTitle className="text-[#003f5f]">
                 Lista de Colaboradores ({filteredColaboradores.length})
               </CardTitle>
               <Button
@@ -200,7 +200,7 @@ export default function Colaboradores() {
                   };
                   generateEmployeesPDFProfessional(filteredColaboradores, metricas);
                 }}
-                className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 text-white"
+                className="flex items-center gap-2 bg-[#003f5f] text-white hover:bg-[#087fa3]"
               >
                 <FileDown className="w-4 h-4" />
                 Exportar Relatório

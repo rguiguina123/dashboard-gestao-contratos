@@ -203,7 +203,7 @@ describe("importação de dados", () => {
     lifecycleState.history = [];
     const file = workbookBuffer("SECs - Colaboradores", [{ NOME: "Pessoa Atualizada", CPF: "12345678901", POSTO: "Analista", SEC: "SEC-DF" }]);
 
-    const prepared = await prepareImport("Dados de Colaboradores.xlsx", file, 9);
+    const prepared = await prepareImport("Dados de Colaboradores.xlsx", file, 9, "Responsável de Teste");
     expect((await getCurrentDashboardData()).colaboradores[0]?.nome).toBe("Pessoa Antiga");
     expect(prepared.summary.domains.colaboradores?.updated).toBe(1);
     expect(lifecycleState.pending?.status).toBe("pending");
@@ -211,6 +211,7 @@ describe("importação de dados", () => {
     await approveImport(prepared.importId, 9);
     expect((await getCurrentDashboardData()).colaboradores[0]?.nome).toBe("Pessoa Atualizada");
     expect((await listImportHistory())[0]?.status).toBe("approved");
+    expect((await listImportHistory())[0]?.responsibleName).toBe("Responsável de Teste");
   });
 
   it("rejeita o arquivo de custos que não é a versão oficial", () => {

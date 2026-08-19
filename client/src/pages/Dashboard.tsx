@@ -77,7 +77,7 @@ export default function Dashboard() {
                 'Relatorio_Executivo_Dashboard'
               );
             }}
-            className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all flex items-center gap-2 shrink-0"
+            className="flex shrink-0 items-center gap-2 rounded-lg bg-[#003f5f] px-4 py-2 font-semibold text-white transition-all hover:bg-[#005f83] hover:shadow-lg"
           >
             <FileText className="w-4 h-4" />
             Exportar Relatório
@@ -128,23 +128,23 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Gráfico de Tendência */}
           <Card className="border-0 shadow-lg">
-            <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b">
-              <CardTitle className="text-purple-900">Tendência Mensal</CardTitle>
+            <CardHeader className="border-b border-[#c9dde6] bg-[#eaf3f7]">
+              <CardTitle className="text-[#003f5f]">Tendência Mensal</CardTitle>
             </CardHeader>
             <CardContent className="p-6">
               <ResponsiveContainer width="100%" height={300}>
                 <AreaChart data={monthlyTrend}>
                   <defs>
                     <linearGradient id="colorCom" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#7c3aed" stopOpacity={0.8} />
-                      <stop offset="95%" stopColor="#7c3aed" stopOpacity={0} />
+                      <stop offset="5%" stopColor="#087fa3" stopOpacity={0.8} />
+                      <stop offset="95%" stopColor="#087fa3" stopOpacity={0} />
                     </linearGradient>
                     <linearGradient id="colorSem" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.8} />
-                      <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
+                      <stop offset="5%" stopColor="#89ad45" stopOpacity={0.8} />
+                      <stop offset="95%" stopColor="#89ad45" stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#c9dde6" />
                   <XAxis dataKey="month" />
                   <YAxis />
                   <Tooltip formatter={(value) => formatCurrency(value as number)} />
@@ -152,7 +152,7 @@ export default function Dashboard() {
                   <Area
                     type="monotone"
                     dataKey="com"
-                    stroke="#7c3aed"
+                    stroke="#087fa3"
                     fillOpacity={1}
                     fill="url(#colorCom)"
                     name="Com Contrato"
@@ -160,7 +160,7 @@ export default function Dashboard() {
                   <Area
                     type="monotone"
                     dataKey="sem"
-                    stroke="#3b82f6"
+                    stroke="#89ad45"
                     fillOpacity={1}
                     fill="url(#colorSem)"
                     name="Sem Contrato"
@@ -172,26 +172,26 @@ export default function Dashboard() {
 
           {/* Resumo Consolidado */}
           <Card className="border-0 shadow-lg">
-            <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b">
-              <CardTitle className="text-purple-900">Resumo Consolidado</CardTitle>
+            <CardHeader className="border-b border-[#c9dde6] bg-[#eaf3f7]">
+              <CardTitle className="text-[#003f5f]">Resumo Consolidado</CardTitle>
             </CardHeader>
             <CardContent className="p-6">
               <div className="space-y-6">
-                <div className="flex justify-between items-center p-4 bg-purple-50 rounded-lg border border-purple-100">
+                <div className="flex items-center justify-between rounded-lg border border-[#cbe59b] bg-[#eef4df] p-4">
                   <div>
-                    <p className="text-sm text-purple-600 font-medium">Com Contrato</p>
-                    <p className="text-2xl font-bold text-purple-900">{formatCurrency(totalMensalComContrato)}</p>
-                    <p className="text-xs text-purple-600 mt-1">{formatCurrency(totalAnualComContrato)}/ano</p>
+                    <p className="text-sm font-medium text-[#55752c]">Com Contrato</p>
+                    <p className="text-2xl font-bold text-[#003f5f]">{formatCurrency(totalMensalComContrato)}</p>
+                    <p className="mt-1 text-xs text-[#55752c]">{formatCurrency(totalAnualComContrato)}/ano</p>
                   </div>
-                  <CheckCircle className="w-8 h-8 text-purple-600" />
+                  <CheckCircle className="h-8 w-8 text-[#89ad45]" />
                 </div>
-                <div className="flex justify-between items-center p-4 bg-blue-50 rounded-lg border border-blue-100">
+                <div className="flex items-center justify-between rounded-lg border border-[#f6da73] bg-[#fff8db] p-4">
                   <div>
-                    <p className="text-sm text-blue-600 font-medium">Sem Contrato</p>
-                    <p className="text-2xl font-bold text-blue-900">{formatCurrency(totalMensalSemContrato)}</p>
-                    <p className="text-xs text-blue-600 mt-1">{formatCurrency(totalAnualSemContrato)}/ano</p>
+                    <p className="text-sm font-medium text-[#b6873c]">Sem Contrato</p>
+                    <p className="text-2xl font-bold text-[#003f5f]">{formatCurrency(totalMensalSemContrato)}</p>
+                    <p className="mt-1 text-xs text-[#b6873c]">{formatCurrency(totalAnualSemContrato)}/ano</p>
                   </div>
-                  <AlertCircle className="w-8 h-8 text-blue-600" />
+                  <AlertCircle className="h-8 w-8 text-[#b6873c]" />
                 </div>
                 <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg border border-gray-200">
                   <div>
@@ -208,8 +208,8 @@ export default function Dashboard() {
 
         {/* Indicadores */}
         <Card className="border-0 shadow-lg">
-          <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b">
-            <CardTitle className="text-purple-900">Indicadores de Gestão</CardTitle>
+            <CardHeader className="border-b border-[#c9dde6] bg-[#eaf3f7]">
+              <CardTitle className="text-[#003f5f]">Indicadores de Gestão</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

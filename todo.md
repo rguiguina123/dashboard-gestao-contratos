@@ -96,3 +96,22 @@
 - [x] Testar na interface uma planilha inválida e confirmar a preservação da versão vigente
 - [x] Corrigir o registro histórico antigo que ainda exibe “Aguardando confirmação”
 - [x] Cobrir os rótulos de status do histórico com teste automatizado
+
+# Paleta tricolor, autoria e validação integral
+- [x] Mapear usos atuais de cor e o fluxo de importação que receberá a identificação do responsável
+- [x] Aplicar amarelo, azul e verde do TCU à home, navegação e componentes compartilhados
+- [x] Exigir o nome do responsável no envio de planilhas e registrar essa informação no histórico
+- [x] Harmonizar gráficos, páginas de dados, controles e estados com a paleta definida
+- [x] Testar rotas, filtros, ordenação, importação, histórico, relatórios PDF e responsividade
+- [x] Executar testes automatizados, tipagem, build e auditorias após as alterações
+
+# Paleta tricolor e validação integral
+- [x] Mapear os usos atuais de cor e a composição de referência para a nova home
+- [x] Aplicar amarelo, azul e verde do TCU na home, navegação e componentes compartilhados
+- [x] Harmonizar gráficos, páginas de dados, controles e estados com a paleta tricolor
+- [x] Testar todas as rotas, filtros, ordenação, atualização de dados, histórico e PDFs
+- [x] Executar testes automatizados, tipagem, build e auditoria responsiva após as alterações
+- [x] Remover todos os resíduos roxos/violetas dos estilos compartilhados e confirmar a consistência final da paleta TCU
+- [x] Executar um teste real de atualização com nome do responsável, comparativo, aplicação automática e histórico registrado
+- [x] Revalidar a ordenação, os filtros e as exportações em PDF nas páginas analíticas após a limpeza final da paleta
+- [x] Validar as rotas principais em larguras mobile, tablet e desktop com uma auditoria responsiva de interface

@@ -50,7 +50,7 @@ export function ExportPDF({ title, data, columns, totals }: ExportPDFProps) {
   return (
     <Button
       onClick={handleExport}
-      className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white transition-all duration-200 hover:shadow-lg"
+      className="flex items-center gap-2 bg-[#003f5f] text-white transition-all duration-200 hover:bg-[#087fa3] hover:shadow-lg"
     >
       <FileDown className="w-4 h-4" />
       Exportar Relatório

@@ -85,7 +85,7 @@ export default function CustosPorSecretaria() {
           <Card className="border-0 shadow-sm">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-slate-600 flex items-center gap-2">
-                <Zap className="w-4 h-4 text-purple-600" />
+                <Zap className="h-4 w-4 text-[#b6873c]" />
                 Área Total
               </CardTitle>
             </CardHeader>
@@ -123,8 +123,8 @@ export default function CustosPorSecretaria() {
 
         {/* Tabela */}
         <Card className="border-0 shadow-sm overflow-hidden">
-          <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 border-b flex items-center justify-between">
-            <CardTitle className="text-purple-900">Dados por Secretaria</CardTitle>
+          <CardHeader className="flex items-center justify-between border-b border-[#c9dde6] bg-[#eaf3f7]">
+            <CardTitle className="text-[#003f5f]">Dados por Secretaria</CardTitle>
             <button
               onClick={() => {
                 const metrics = [
@@ -148,7 +148,7 @@ export default function CustosPorSecretaria() {
                   'Relatorio_Custos_Secretaria'
                 );
               }}
-              className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all flex items-center gap-2"
+              className="flex items-center gap-2 rounded-lg bg-[#003f5f] px-4 py-2 font-semibold text-white transition-all hover:bg-[#087fa3] hover:shadow-lg"
             >
               <FileText className="w-4 h-4" />
               Exportar Relatório

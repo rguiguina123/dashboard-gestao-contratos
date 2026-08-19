@@ -43,40 +43,40 @@
 }
 
 :root {
-  /* Identidade Visual TCU - Roxo Institucional + Azul Profundo */
-  --primary: #6b21a8; /* Roxo TCU - Autoridade Institucional */
+  /* Identidade Visual TCU - Azul, verde e amarelo */
+  --primary: #003f5f;
   --primary-foreground: #ffffff;
-  --sidebar-primary: #6b21a8;
+  --sidebar-primary: #003f5f;
   --sidebar-primary-foreground: #ffffff;
-  --chart-1: #ddd6fe; /* Roxo muito claro */
-  --chart-2: #a855f7; /* Roxo médio */
-  --chart-3: #9333ea; /* Roxo vibrante */
-  --chart-4: #7e22ce; /* Roxo escuro */
-  --chart-5: #6b21a8; /* Roxo muito escuro */
+  --chart-1: #087fa3;
+  --chart-2: #89ad45;
+  --chart-3: #f2c94c;
+  --chart-4: #55752c;
+  --chart-5: #003f5f;
   --radius: 0.65rem;
-  --background: #ffffff;
-  --foreground: #0f172a; /* Cinza muito escuro */
+  --background: #f4f5f2;
+  --foreground: #003047;
   --card: #ffffff;
-  --card-foreground: #0f172a;
+  --card-foreground: #003047;
   --popover: #ffffff;
-  --popover-foreground: #0f172a;
-  --secondary: #f8fafc; /* Cinza muito claro */
-  --secondary-foreground: #1e293b; /* Cinza escuro */
-  --muted: #e2e8f0; /* Cinza claro */
-  --muted-foreground: #64748b; /* Cinza médio */
-  --accent: #7e22ce; /* Roxo para destaque */
-  --accent-foreground: #ffffff;
+  --popover-foreground: #003047;
+  --secondary: #eaf3f7;
+  --secondary-foreground: #003f5f;
+  --muted: #c9dde6;
+  --muted-foreground: #547182;
+  --accent: #f2c94c;
+  --accent-foreground: #003f5f;
   --destructive: #dc2626; /* Vermelho para erros */
   --destructive-foreground: #ffffff;
-  --border: #cbd5e1; /* Cinza para bordas */
-  --input: #f1f5f9; /* Cinza muito claro para inputs */
-  --ring: #9333ea; /* Roxo para focus rings */
+  --border: #c9dde6;
+  --input: #ffffff;
+  --ring: #087fa3;
   --sidebar: #ffffff;
-  --sidebar-foreground: #0f172a;
-  --sidebar-accent: #f1f5f9;
-  --sidebar-accent-foreground: #6b21a8;
+  --sidebar-foreground: #003047;
+  --sidebar-accent: #eaf3f7;
+  --sidebar-accent-foreground: #003f5f;
   --sidebar-border: #e2e8f0;
-  --sidebar-ring: #9333ea;
+  --sidebar-ring: #087fa3;
 }
 
 .dark {
@@ -184,12 +184,12 @@
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 32px 0 rgba(107, 33, 168, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 63, 95, 0.1);
 }
 
 /* Gradient Text */
 .gradient-text {
-  background: linear-gradient(135deg, #6b21a8 0%, #9333ea 100%);
+  background: linear-gradient(135deg, #003f5f 0%, #087fa3 58%, #89ad45 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -197,14 +197,14 @@
 
 /* Elevated Card with Premium Shadow */
 .card-elevated {
-  box-shadow: 0 10px 40px rgba(107, 33, 168, 0.15),
-              0 0 1px rgba(107, 33, 168, 0.1);
+  box-shadow: 0 10px 40px rgba(0, 63, 95, 0.15),
+              0 0 1px rgba(0, 63, 95, 0.1);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .card-elevated:hover {
-  box-shadow: 0 20px 60px rgba(107, 33, 168, 0.25),
-              0 0 1px rgba(107, 33, 168, 0.1);
+  box-shadow: 0 20px 60px rgba(0, 63, 95, 0.25),
+              0 0 1px rgba(0, 63, 95, 0.1);
   transform: translateY(-4px);
 }
 
@@ -253,10 +253,10 @@
 
 @keyframes pulse-glow {
   0%, 100% {
-    box-shadow: 0 0 0 0 rgba(107, 33, 168, 0.7);
+    box-shadow: 0 0 0 0 rgba(242, 201, 76, 0.7);
   }
   50% {
-    box-shadow: 0 0 0 10px rgba(107, 33, 168, 0);
+    box-shadow: 0 0 0 10px rgba(242, 201, 76, 0);
   }
 }
 
@@ -307,8 +307,8 @@
   border-radius: 9999px;
   font-size: 0.75rem;
   font-weight: 600;
-  background-color: rgba(107, 33, 168, 0.1);
-  color: #6b21a8;
+  background-color: rgba(8, 127, 163, 0.1);
+  color: #003f5f;
 }
 
 .badge-success {
@@ -357,7 +357,7 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #6b21a8, #9333ea);
+  background: linear-gradient(90deg, #087fa3, #89ad45, #f2c94c);
 }
 
 /* Staggered Animation for List Items */
@@ -381,7 +381,7 @@
 button:focus-visible,
 a:focus-visible,
 input:focus-visible {
-  outline: 2px solid #9333ea;
+  outline: 2px solid #f2c94c;
   outline-offset: 2px;
 }
 
@@ -408,7 +408,7 @@ input:focus-visible {
 }
 
 .interactive-row:hover {
-  background-color: rgba(147, 51, 234, 0.05);
+  background-color: rgba(8, 127, 163, 0.05);
   transform: translateX(4px);
 }
 
@@ -419,7 +419,7 @@ html {
 
 /* Selection Color */
 ::selection {
-  background-color: rgba(107, 33, 168, 0.2);
+  background-color: rgba(242, 201, 76, 0.25);
   color: inherit;
 }
 
@@ -430,14 +430,14 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(107, 33, 168, 0.05);
+  background: rgba(0, 63, 95, 0.05);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(107, 33, 168, 0.3);
+  background: rgba(8, 127, 163, 0.35);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(107, 33, 168, 0.5);
+  background: rgba(0, 63, 95, 0.55);
 }
