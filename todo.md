@@ -115,3 +115,12 @@
 - [x] Executar um teste real de atualização com nome do responsável, comparativo, aplicação automática e histórico registrado
 - [x] Revalidar a ordenação, os filtros e as exportações em PDF nas páginas analíticas após a limpeza final da paleta
 - [x] Validar as rotas principais em larguras mobile, tablet e desktop com uma auditoria responsiva de interface
+
+# Filtros avançados de contratos
+- [x] Mapear os filtros atuais da tabela de contratos e os dados de fornecedor e vigência disponíveis
+- [x] Adicionar busca específica por fornecedor com opção de limpar o filtro
+- [x] Adicionar período de vigência inicial e final com validação de datas
+- [x] Integrar os novos filtros aos indicadores, à tabela, à ordenação e à exportação PDF
+- [x] Testar fornecedor, vigência, combinação de filtros, responsividade, tipagem e build
+- [x] Bloquear intervalo inválido quando a data final for anterior à inicial e informar o motivo
+- [x] Cobrir e validar o comportamento de intervalo de vigência inválido

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Calendar, X } from "lucide-react";
+import { isValidContractDateRange } from "@/lib/contractFilters";
 
 interface DateRangeFilterProps {
   onDateRangeChange?: (startDate: string, endDate: string) => void;
@@ -12,17 +13,22 @@ export function DateRangeFilter({ onDateRangeChange, onReset }: DateRangeFilterP
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [rangeError, setRangeError] = useState("");
 
   const handleApply = () => {
-    if (startDate && endDate) {
-      onDateRangeChange?.(startDate, endDate);
-      setIsOpen(false);
+    if (!isValidContractDateRange(startDate, endDate)) {
+      setRangeError("A data final deve ser igual ou posterior à data inicial.");
+      return;
     }
+    setRangeError("");
+    onDateRangeChange?.(startDate, endDate);
+    setIsOpen(false);
   };
 
   const handleReset = () => {
     setStartDate("");
     setEndDate("");
+    setRangeError("");
     onReset?.();
   };
 
@@ -52,7 +58,7 @@ export function DateRangeFilter({ onDateRangeChange, onReset }: DateRangeFilterP
               <input
                 type="date"
                 value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
+                onChange={(e) => { setStartDate(e.target.value); setRangeError(""); }}
                 className="w-full rounded-md border border-border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#087fa3]"
               />
             </div>
@@ -64,10 +70,12 @@ export function DateRangeFilter({ onDateRangeChange, onReset }: DateRangeFilterP
               <input
                 type="date"
                 value={endDate}
-                onChange={(e) => setEndDate(e.target.value)}
+                onChange={(e) => { setEndDate(e.target.value); setRangeError(""); }}
                 className="w-full rounded-md border border-border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#087fa3]"
               />
             </div>
+
+            {rangeError && <p role="alert" className="text-xs font-medium text-red-700">{rangeError}</p>}
 
             <div className="flex gap-2">
               <Button

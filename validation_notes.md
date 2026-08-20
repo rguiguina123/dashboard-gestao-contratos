@@ -30,3 +30,11 @@ Após a aplicação, a primeira entrada de **Histórico recente** exibiu o arqui
 A persistência também foi confirmada diretamente na base: a importação de teste ficou com status aprovado e horário de aprovação registrado, associada ao responsável informado.
 
 Os doze relatórios analíticos foram acionados e gerados por auditoria automatizada de exportação: Dashboard, Contratos, Colaboradores, Demonstrativo, despesas, custos, eficiência e quantidade de servidores.
+
+Os filtros avançados de contratos foram verificados com a busca “infinity”: a tabela retornou dois contratos desse fornecedor e recalculou corretamente os três indicadores financeiros.
+
+Ao combinar o fornecedor “infinity” com a vigência de 01/06/2026 a 30/06/2026, a tabela retornou somente o contrato de SEC-PB com vencimento em 30/06/2026, mantendo os indicadores sincronizados.
+
+A ação “Limpar filtros” restaurou corretamente os 74 contratos e os totais originais. A auditoria final confirmou todas as 14 rotas, além de ausência de overflow horizontal em celular, tablet e desktop nas rotas principais.
+
+O período inválido de 30/06/2026 a 01/06/2026 foi bloqueado, exibiu a mensagem “A data final deve ser igual ou posterior à data inicial” e preservou os 74 contratos já mostrados na tabela.

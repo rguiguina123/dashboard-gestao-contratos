@@ -15,9 +15,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { FileText, DollarSign, Calendar } from "lucide-react";
+import { FileText, DollarSign, Calendar, Search, X } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { DateRangeFilter } from "@/components/DateRangeFilter";
+import { isWithinContractRange, matchesSupplier, parseContractDate } from "@/lib/contractFilters";
 
 interface ContratoDisplay {
   id: string;
@@ -35,19 +36,15 @@ export default function Contratos() {
   const { contratos, secs: allSecs } = useDashboardData();
   const [selectedSEC, setSelectedSEC] = useState<string>("all");
   const [selectedObjeto, setSelectedObjeto] = useState<string>("all");
+  const [supplierSearch, setSupplierSearch] = useState("");
   const [selectedContract, setSelectedContract] = useState<ContratoDisplay | null>(null);
   const [dateRange, setDateRange] = useState<{ startDate: string; endDate: string } | null>(null);
-
-  // Função para converter data DD/MM/YYYY em Date
-  const parseDate = (dateStr: string): Date => {
-    const [day, month, year] = dateStr.split("/").map(Number);
-    return new Date(year, month - 1, day);
-  };
+  const [dateFilterKey, setDateFilterKey] = useState(0);
 
   // Função para calcular dias até vencimento usando horário de Brasília
   const calcularDiasParaVencimento = (dataVencimentoStr: string): number => {
     // Criar data de vencimento
-    const vencimento = parseDate(dataVencimentoStr);
+    const vencimento = parseContractDate(dataVencimentoStr);
     vencimento.setHours(0, 0, 0, 0);
 
     // Obter data atual em Brasília (GMT-3)
@@ -69,6 +66,21 @@ export default function Contratos() {
     return Array.from(objetos).sort();
   }, [contratos]);
 
+  const fornecedoresUnicos = useMemo(() => {
+    const fornecedores = new Set(contratos.map((c) => c.fornecedor).filter(Boolean));
+    return Array.from(fornecedores).sort((a, b) => a.localeCompare(b, "pt-BR"));
+  }, [contratos]);
+
+  const hasActiveFilters = selectedSEC !== "all" || selectedObjeto !== "all" || Boolean(supplierSearch.trim()) || Boolean(dateRange);
+
+  const clearFilters = () => {
+    setSelectedSEC("all");
+    setSelectedObjeto("all");
+    setSupplierSearch("");
+    setDateRange(null);
+    setDateFilterKey((current) => current + 1);
+  };
+
   // Filtrar e ordenar contratos por data de vencimento
   const filteredContratos = useMemo(() => {
     let filtered = contratos;
@@ -83,18 +95,12 @@ export default function Contratos() {
       filtered = filtered.filter((c) => c.objeto === selectedObjeto);
     }
 
-    if (dateRange) {
-      const start = new Date(`${dateRange.startDate}T00:00:00`);
-      const end = new Date(`${dateRange.endDate}T23:59:59`);
-      filtered = filtered.filter((c) => {
-        const vencimento = parseDate(c.dataVencimento);
-        return vencimento >= start && vencimento <= end;
-      });
-    }
+    filtered = filtered.filter((c) => matchesSupplier(c.fornecedor, supplierSearch));
+    filtered = filtered.filter((c) => isWithinContractRange(c.dataVencimento, dateRange));
     
     // Ordenar por data de vencimento (mais próximas primeiro)
-    return filtered.sort((a, b) => parseDate(a.dataVencimento).getTime() - parseDate(b.dataVencimento).getTime());
-  }, [selectedSEC, selectedObjeto, dateRange, contratos]);
+    return filtered.sort((a, b) => parseContractDate(a.dataVencimento).getTime() - parseContractDate(b.dataVencimento).getTime());
+  }, [selectedSEC, selectedObjeto, supplierSearch, dateRange, contratos]);
 
   // Calcular totais
   const totais = useMemo(() => {
@@ -153,13 +159,58 @@ export default function Contratos() {
         </div>
 
         {/* Filtros */}
-        <div className="flex gap-4 items-end flex-wrap">
+        <div className="rounded-2xl border border-[#c9dde6] bg-[#eaf3f7]/70 p-4 shadow-sm">
+          <div className="mb-3 flex items-center justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold text-[#003f5f]">Filtros avançados</p>
+              <p className="text-xs text-slate-600">Combine fornecedor, período de vigência, SEC e objeto.</p>
+            </div>
+            {hasActiveFilters && (
+              <button
+                type="button"
+                onClick={clearFilters}
+                className="inline-flex items-center gap-1.5 rounded-lg border border-[#087fa3]/25 bg-white px-3 py-2 text-xs font-semibold text-[#003f5f] transition-colors hover:bg-[#c2e6f0]"
+              >
+                <X className="h-3.5 w-3.5" />
+                Limpar filtros
+              </button>
+            )}
+          </div>
+          <div className="flex gap-4 items-end flex-wrap">
           <div className="min-w-64">
-            <label className="text-sm font-medium text-gray-700 mb-2 block">Filtrar por vencimento</label>
+            <label className="text-sm font-medium text-gray-700 mb-2 block">Período de vigência</label>
             <DateRangeFilter
+              key={dateFilterKey}
               onDateRangeChange={(startDate, endDate) => setDateRange({ startDate, endDate })}
               onReset={() => setDateRange(null)}
             />
+          </div>
+          <div className="min-w-[17rem] flex-1">
+            <label htmlFor="supplier-search" className="mb-2 block text-sm font-medium text-gray-700">Buscar fornecedor</label>
+            <div className="relative">
+              <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#087fa3]" />
+              <input
+                id="supplier-search"
+                list="contract-suppliers"
+                value={supplierSearch}
+                onChange={(event) => setSupplierSearch(event.target.value)}
+                placeholder="Digite o nome do fornecedor"
+                className="h-10 w-full rounded-md border border-[#c9dde6] bg-white py-2 pl-9 pr-9 text-sm text-[#003f5f] outline-none transition-shadow placeholder:text-slate-400 focus:ring-2 focus:ring-[#087fa3]"
+              />
+              {supplierSearch && (
+                <button
+                  type="button"
+                  aria-label="Limpar busca de fornecedor"
+                  onClick={() => setSupplierSearch("")}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 rounded p-1 text-slate-500 hover:bg-[#c2e6f0] hover:text-[#003f5f]"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              )}
+              <datalist id="contract-suppliers">
+                {fornecedoresUnicos.map((fornecedor) => <option key={fornecedor} value={fornecedor} />)}
+              </datalist>
+            </div>
           </div>
           <div className="flex-1 min-w-xs">
             <label className="text-sm font-medium text-gray-700 mb-2 block">Filtrar por SEC</label>
@@ -193,6 +244,7 @@ export default function Contratos() {
                 ))}
               </SelectContent>
             </Select>
+          </div>
           </div>
         </div>
 
