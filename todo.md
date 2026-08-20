@@ -157,3 +157,10 @@
 - [x] Revisar visualmente a página Atualizar Dados após a troca tipográfica
 - [x] Revalidar as telas afetadas por estilos globais para confirmar a ausência de regressões visuais
 - [x] Revisar as páginas analíticas restantes afetadas pela tipografia global e registrar a evidência visual
+
+# Auditoria de cálculos dos gráficos
+- [x] Mapear fontes de dados, fórmulas de agregação e todos os gráficos do dashboard
+- [x] Recalcular totais, médias, percentuais, rankings e séries temporais a partir da base vigente
+- [x] Corrigir qualquer divergência identificada entre dados, indicadores e gráficos
+- [x] Cobrir regras de agregação com testes automatizados e validar a renderização dos gráficos
+- [x] Registrar a evidência da auditoria de cálculos, validar o projeto e salvar checkpoint

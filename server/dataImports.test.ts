@@ -97,6 +97,16 @@ function costsWorkbookWithEmptyTotalSheet() {
   return Buffer.from(XLSX.write(workbook, { type: "buffer", bookType: "xlsx" }));
 }
 
+function costsWorkbookWithConsistentData() {
+  const workbook = XLSX.utils.book_new();
+  const add = (name: string, row: Record<string, unknown>) => XLSX.utils.book_append_sheet(workbook, XLSX.utils.json_to_sheet([row]), name);
+  add("Visão Geral", { SEC: "DF", Total: "1.200,00", "Área da Sec (m2)": "300", "Qtd de servidores": "6" });
+  add("Custo por Área e Servidor", { SEC: "DF", "Área/Servidor": 50, "Custo/Servidor": 200, "Custo/Área": 4 });
+  add("Custo Total", { SEC: "DF", Total: 1200 });
+  add("Quantidade de Servidores", { SEC: "DF", "Qtd Servidores": 6 });
+  return Buffer.from(XLSX.write(workbook, { type: "buffer", bookType: "xlsx" }));
+}
+
 describe("importação de dados", () => {
   it("compara colaboradores pelo CPF e indica os registros que saem da base", () => {
     const baseline = {
@@ -191,6 +201,16 @@ describe("importação de dados", () => {
     const baseline = { colaboradores: [], contratos: [], despesasSemContrato: [], secs: [], custos: {} } as any;
     expect(() => buildCandidateData(baseline, costsWorkbookWithEmptyTotalSheet(), "Custos compilados por estado2.xlsx"))
       .toThrow(/Custo Total.*não há registros válidos/s);
+  });
+
+  it("recalcula as séries auxiliares de custos a partir da visão geral importada", () => {
+    const baseline = { colaboradores: [], contratos: [], despesasSemContrato: [], secs: [], custos: {} } as any;
+    const { candidate } = buildCandidateData(baseline, costsWorkbookWithConsistentData(), "Custos compilados por estado2.xlsx");
+
+    expect(candidate.custos.custo_total).toEqual([{ SEC: "SEC-DF", Total: 1200 }]);
+    expect(candidate.custos.custo_area).toEqual([{ SEC: "SEC-DF", "Custo/Área": 4 }]);
+    expect(candidate.custos.custo_servidor).toEqual([{ SEC: "SEC-DF", "Custo/Servidor": 200 }]);
+    expect(candidate.custos.servidores).toEqual([{ SEC: "SEC-DF", "Qtd Servidores": 6 }]);
   });
 
   it("preserva a versão aprovada até a confirmação e registra o histórico ao concluir a importação", async () => {

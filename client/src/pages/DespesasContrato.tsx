@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/select";
 import { DollarSign, TrendingUp, Award, FileText } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
+import { groupAndSum } from "@/lib/costAnalytics";
 import { generateGenericReportPDF } from "@/lib/generateProfessionalPDF";
 
 interface ContratoDisplay {
@@ -61,21 +62,11 @@ export default function DespesasContrato() {
     );
   }, [filteredContratos]);
 
-  // Dados para gráfico de despesas por SEC
+  // Agrupamento real por fornecedor para o ranking exibido no gráfico.
   const despesasPorFornecedor = useMemo(() => {
-    const grouped = filteredContratos.reduce(
-      (acc, c) => {
-        const existing = acc.find((x) => x.fornecedor === c.sec);
-        if (existing) {
-          existing.valor += c.mensal;
-        } else {
-          acc.push({ fornecedor: c.sec, valor: c.mensal });
-        }
-        return acc;
-      },
-      [] as Array<{ fornecedor: string; valor: number }>
-    );
-    return grouped.sort((a, b) => b.valor - a.valor).slice(0, 10);
+    return groupAndSum(filteredContratos, "fornecedor", "mensal")
+      .slice(0, 10)
+      .map(({ label: fornecedor, value: valor }) => ({ fornecedor, valor }));
   }, [filteredContratos]);
 
   // Dados para gráfico de despesas por SEC

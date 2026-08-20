@@ -5,8 +5,6 @@ import { useDashboardData } from "@/contexts/DashboardDataContext";
 import {
   LineChart,
   Line,
-  AreaChart,
-  Area,
   BarChart,
   Bar,
   XAxis,
@@ -31,14 +29,11 @@ import { generateGenericReportPDF } from "@/lib/generateProfessionalPDF";
 
 export default function Dashboard() {
   const { contratos, colaboradores, despesasSemContrato, secs, totalMensal, totalMensalComContrato, totalMensalSemContrato, totalAnual, totalAnualComContrato, totalAnualSemContrato } = useDashboardData();
-  // Dados de tendência mensal
-  const monthlyTrend = [
-    { month: "Jan", com: 1200000, sem: 450000 },
-    { month: "Fev", com: 1350000, sem: 480000 },
-    { month: "Mar", com: 1280000, sem: 520000 },
-    { month: "Abr", com: 1420000, sem: 510000 },
-    { month: "Mai", com: 1550000, sem: 580000 },
-    { month: "Jun", com: totalMensalComContrato, sem: totalMensalSemContrato },
+  // A base vigente não contém uma série mensal histórica; por isso o gráfico
+  // apresenta somente a composição calculável do mês de referência.
+  const monthlyComposition = [
+    { categoria: "Com contrato", valor: totalMensalComContrato },
+    { categoria: "Sem contrato", valor: totalMensalSemContrato },
   ];
 
   return (
@@ -63,16 +58,14 @@ export default function Dashboard() {
                 { label: 'Colaboradores', value: colaboradores.length },
                 { label: 'SECs Gerenciadas', value: secs.length },
               ];
-              const tableData = monthlyTrend.map(item => [
-                item.month,
-                formatCurrency(item.com),
-                formatCurrency(item.sem),
-                formatCurrency(item.com + item.sem),
+              const tableData = monthlyComposition.map(item => [
+                item.categoria,
+                formatCurrency(item.valor),
               ]);
               generateGenericReportPDF(
                 'Relatório Executivo do Dashboard',
                 metrics,
-                ['Mês', 'Com Contrato', 'Sem Contrato', 'Total Mensal'],
+                ['Composição mensal', 'Valor'],
                 tableData,
                 'Relatorio_Executivo_Dashboard'
               );
@@ -90,8 +83,8 @@ export default function Dashboard() {
             title="Despesa Mensal Total"
             value={formatCurrency(totalMensal)}
             icon={<DollarSign className="w-5 h-5 text-primary" />}
-            trend="up"
-            trendValue="+12.5% vs mês anterior"
+            trend="neutral"
+            trendValue="Base vigente"
             color="primary"
             delay={0}
           />
@@ -108,8 +101,8 @@ export default function Dashboard() {
             title="Colaboradores"
             value={colaboradores.length.toString()}
             icon={<Users className="w-5 h-5 text-emerald-600" />}
-            trend="up"
-            trendValue="+5 novos"
+            trend="neutral"
+            trendValue="Base vigente"
             color="success"
             delay={0.2}
           />
@@ -126,46 +119,20 @@ export default function Dashboard() {
 
         {/* Gráficos */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Gráfico de Tendência */}
+          {/* Composição da despesa mensal */}
           <Card className="border-0 shadow-lg">
             <CardHeader className="border-b border-[#c9dde6] bg-[#eaf3f7]">
-              <CardTitle className="text-[#003f5f]">Tendência Mensal</CardTitle>
+              <CardTitle className="text-[#003f5f]">Composição da Despesa Mensal</CardTitle>
             </CardHeader>
             <CardContent className="p-6">
               <ResponsiveContainer width="100%" height={300}>
-                <AreaChart data={monthlyTrend}>
-                  <defs>
-                    <linearGradient id="colorCom" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#087fa3" stopOpacity={0.8} />
-                      <stop offset="95%" stopColor="#087fa3" stopOpacity={0} />
-                    </linearGradient>
-                    <linearGradient id="colorSem" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#89ad45" stopOpacity={0.8} />
-                      <stop offset="95%" stopColor="#89ad45" stopOpacity={0} />
-                    </linearGradient>
-                  </defs>
+                <BarChart data={monthlyComposition}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#c9dde6" />
-                  <XAxis dataKey="month" />
+                  <XAxis dataKey="categoria" />
                   <YAxis />
                   <Tooltip formatter={(value) => formatCurrency(value as number)} />
-                  <Legend />
-                  <Area
-                    type="monotone"
-                    dataKey="com"
-                    stroke="#087fa3"
-                    fillOpacity={1}
-                    fill="url(#colorCom)"
-                    name="Com Contrato"
-                  />
-                  <Area
-                    type="monotone"
-                    dataKey="sem"
-                    stroke="#89ad45"
-                    fillOpacity={1}
-                    fill="url(#colorSem)"
-                    name="Sem Contrato"
-                  />
-                </AreaChart>
+                  <Bar dataKey="valor" name="Despesa mensal" fill="#087fa3" radius={[8, 8, 0, 0]} />
+                </BarChart>
               </ResponsiveContainer>
             </CardContent>
           </Card>
@@ -218,7 +185,7 @@ export default function Dashboard() {
                   Ticket Médio
                 </p>
                 <p className="text-xl font-bold text-foreground font-poppins">
-                  {formatCurrency(totalMensal / contratos.length)}
+                  {formatCurrency(contratos.length > 0 ? totalMensalComContrato / contratos.length : 0)}
                 </p>
               </div>
               <div className="p-4 bg-secondary rounded-lg hover-lift">

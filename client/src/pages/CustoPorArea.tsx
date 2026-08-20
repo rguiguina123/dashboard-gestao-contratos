@@ -3,6 +3,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 import { formatCurrency } from '@/lib/utils';
 import { DashboardLayout } from '@/components/dashboard/DashboardLayout';
 import { useDashboardData } from '@/contexts/DashboardDataContext';
+import { buildCostAnalytics, sumField } from '@/lib/costAnalytics';
 import { TrendingDown, FileText } from 'lucide-react';
 import { generateGenericReportPDF } from '@/lib/generateProfessionalPDF';
 
@@ -10,7 +11,7 @@ import { generateGenericReportPDF } from '@/lib/generateProfessionalPDF';
 
 export default function CustoPorArea() {
   const { custos: dadosCustos } = useDashboardData();
-  const custoArea = dadosCustos.custo_area || [];
+  const { custoArea, points } = buildCostAnalytics(dadosCustos.visao_geral || []);
   
   // Ordenar do maior para o menor
   const sortedData = [...custoArea].sort((a, b) => (b['Custo/Área'] || 0) - (a['Custo/Área'] || 0));
@@ -19,13 +20,10 @@ export default function CustoPorArea() {
   const top10 = sortedData.slice(0, 10);
   const bottom10 = sortedData.slice(-10).reverse();
   
-  // Média
-  const media = custoArea.length > 0 
-    ? custoArea.reduce((sum, item) => sum + (item['Custo/Área'] || 0), 0) / custoArea.length
-    : 0;
-  
-  // Total Geral (soma de todos os custos por área)
-  const totalGeral = custoArea.reduce((sum, item) => sum + (item['Custo/Área'] || 0), 0);
+  // Média ponderada: custo anual total dividido pela área total ocupada.
+  const totalGeral = sumField(points, 'Total');
+  const areaTotal = sumField(points, 'Área da Sec (m2)');
+  const media = areaTotal > 0 ? totalGeral / areaTotal : 0;
 
   // Dados para gráfico
   const chartData = sortedData.map(item => ({
@@ -46,11 +44,11 @@ export default function CustoPorArea() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
           <Card className="border-0 shadow-sm">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-slate-600">Total Geral</CardTitle>
+              <CardTitle className="text-sm font-medium text-slate-600">Custo Total Anual</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-slate-900">{formatCurrency(totalGeral)}</div>
-              <p className="text-xs text-slate-500 mt-1">Soma de todos os custos/m²</p>
+              <p className="text-xs text-slate-500 mt-1">Todas as secretarias</p>
             </CardContent>
           </Card>
           <Card className="border-0 shadow-sm">
@@ -59,7 +57,7 @@ export default function CustoPorArea() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-slate-900">{formatCurrency(media)}/m²</div>
-              <p className="text-xs text-slate-500 mt-1">Média de todas as SECs</p>
+              <p className="text-xs text-slate-500 mt-1">Média ponderada por área</p>
             </CardContent>
           </Card>
 
@@ -169,7 +167,7 @@ export default function CustoPorArea() {
             <button
               onClick={() => {
                 const metrics = [
-                  { label: 'Total Geral', value: `R$ ${formatCurrency(totalGeral)}` },
+                  { label: 'Custo Total Anual', value: `R$ ${formatCurrency(totalGeral)}` },
                   { label: 'Custo Médio por Área', value: `R$ ${formatCurrency(media)}/m²` },
                   { label: 'Maior Custo/Área', value: `R$ ${formatCurrency(sortedData[0]?.['Custo/Área'] || 0)}/m²` },
                   { label: 'Menor Custo/Área', value: `R$ ${formatCurrency(sortedData[sortedData.length - 1]?.['Custo/Área'] || 0)}/m²` },

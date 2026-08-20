@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
 import { formatCurrency } from '@/lib/utils';
 import { useDashboardData } from '@/contexts/DashboardDataContext';
+import { buildCostAnalytics, sumField } from '@/lib/costAnalytics';
 import { TrendingUp, TrendingDown, FileText } from 'lucide-react';
 import { DashboardLayout } from '@/components/dashboard/DashboardLayout';
 import { generateGenericReportPDF } from '@/lib/generateProfessionalPDF';
@@ -10,7 +11,7 @@ import { generateGenericReportPDF } from '@/lib/generateProfessionalPDF';
 
 export default function CustoServidor() {
   const { custos: dadosCustos } = useDashboardData();
-  const custoServidor = dadosCustos.custo_servidor || [];
+  const { custoServidor, points } = buildCostAnalytics(dadosCustos.visao_geral || []);
   
   // Ordenar do maior para o menor
   const sortedData = [...custoServidor].sort((a, b) => (b['Custo/Servidor'] || 0) - (a['Custo/Servidor'] || 0));
@@ -20,11 +21,9 @@ export default function CustoServidor() {
   const bottom10 = sortedData.slice(-10).reverse();
   
   // Totalizadores
-  const media = custoServidor.length > 0
-    ? custoServidor.reduce((sum, item) => sum + (item['Custo/Servidor'] || 0), 0) / custoServidor.length
-    : 0;
-  
-  const totalGeral = custoServidor.reduce((sum, item) => sum + (item['Custo/Servidor'] || 0), 0);
+  const totalGeral = sumField(points, 'Total');
+  const totalServidores = sumField(points, 'Qtd Servidores');
+  const media = totalServidores > 0 ? totalGeral / totalServidores : 0;
   const maiorCusto = sortedData[0]?.['Custo/Servidor'] || 0;
   const menorCusto = sortedData[sortedData.length - 1]?.['Custo/Servidor'] || 0;
 
@@ -47,11 +46,11 @@ export default function CustoServidor() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <Card className="border-0 shadow-sm">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-slate-600">Total Geral</CardTitle>
+              <CardTitle className="text-sm font-medium text-slate-600">Custo Total Anual</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-slate-900">{formatCurrency(totalGeral)}</div>
-              <p className="text-xs text-slate-500 mt-1">Soma de todos os custos/servidor</p>
+              <p className="text-xs text-slate-500 mt-1">Todas as secretarias</p>
             </CardContent>
           </Card>
 

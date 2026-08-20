@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { formatCurrency } from '@/lib/utils';
 import { useDashboardData } from '@/contexts/DashboardDataContext';
+import { buildCostAnalytics } from '@/lib/costAnalytics';
 import { TrendingUp, TrendingDown, FileText } from 'lucide-react';
 import { DashboardLayout } from '@/components/dashboard/DashboardLayout';
 import { generateGenericReportPDF } from '@/lib/generateProfessionalPDF';
@@ -12,7 +13,7 @@ const COLORS = ['#087fa3', '#89ad45', '#f2c94c', '#55752c', '#8fd2e6', '#b6873c'
 
 export default function CustosTotal() {
   const { custos: dadosCustos } = useDashboardData();
-  const custoTotal = dadosCustos.custo_total || [];
+  const { custoTotal } = buildCostAnalytics(dadosCustos.visao_geral || []);
   
   // Ordenar do maior para o menor
   const sortedData = [...custoTotal].sort((a, b) => (b.Total || 0) - (a.Total || 0));

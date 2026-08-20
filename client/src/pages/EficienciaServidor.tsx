@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Legend } from 'recharts';
 import { formatCurrency } from '@/lib/utils';
 import { useDashboardData } from '@/contexts/DashboardDataContext';
+import { buildCostAnalytics, sumField } from '@/lib/costAnalytics';
 import { Activity, Zap, FileText } from 'lucide-react';
 import { DashboardLayout } from '@/components/dashboard/DashboardLayout';
 import { generateGenericReportPDF } from '@/lib/generateProfessionalPDF';
@@ -10,23 +11,18 @@ import { generateGenericReportPDF } from '@/lib/generateProfessionalPDF';
 
 export default function EficienciaServidor() {
   const { custos: dadosCustos } = useDashboardData();
-  const custoAreaServidor = dadosCustos.custo_area_servidor || [];
+  const { custoAreaServidor, points } = buildCostAnalytics(dadosCustos.visao_geral || []);
   
   // Ordenar por custo/servidor
   const sortedByCusto = [...custoAreaServidor].sort((a, b) => (b['Custo/Servidor'] || 0) - (a['Custo/Servidor'] || 0));
   const sortedByArea = [...custoAreaServidor].sort((a, b) => (b['Área/Servidor'] || 0) - (a['Área/Servidor'] || 0));
   
   // Totalizadores
-  const custoTotalServidor = custoAreaServidor.reduce((sum, item) => sum + (item['Custo/Servidor'] || 0), 0);
-  const areaTotalServidor = custoAreaServidor.reduce((sum, item) => sum + (item['Área/Servidor'] || 0), 0);
-  
-  const custoMedioServidor = custoAreaServidor.length > 0
-    ? custoTotalServidor / custoAreaServidor.length
-    : 0;
-  
-  const areaMedioServidor = custoAreaServidor.length > 0
-    ? areaTotalServidor / custoAreaServidor.length
-    : 0;
+  const custoTotalAnual = sumField(points, 'Total');
+  const totalServidores = sumField(points, 'Qtd Servidores');
+  const areaTotal = sumField(points, 'Área da Sec (m2)');
+  const custoMedioServidor = totalServidores > 0 ? custoTotalAnual / totalServidores : 0;
+  const areaMedioServidor = totalServidores > 0 ? areaTotal / totalServidores : 0;
 
   const maiorCustoServidor = sortedByCusto[0]?.['Custo/Servidor'] || 0;
   const menorCustoServidor = sortedByCusto[sortedByCusto.length - 1]?.['Custo/Servidor'] || 0;
@@ -42,7 +38,7 @@ export default function EficienciaServidor() {
   }));
 
   // Dados para gráfico de barras
-  const barData = custoAreaServidor.map(item => ({
+  const barData = sortedByCusto.map(item => ({
     SEC: item.SEC,
     'Custo/Servidor': Math.round((item['Custo/Servidor'] || 0) * 100) / 100,
     'Área/Servidor': Math.round((item['Área/Servidor'] || 0) * 100) / 100
@@ -61,11 +57,11 @@ export default function EficienciaServidor() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <Card className="border-0 shadow-sm">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-slate-600">Total Geral</CardTitle>
+              <CardTitle className="text-sm font-medium text-slate-600">Custo Total Anual</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-slate-900">{formatCurrency(custoTotalServidor)}</div>
-              <p className="text-xs text-slate-500 mt-1">Soma de todos os custos/servidor</p>
+              <div className="text-2xl font-bold text-slate-900">{formatCurrency(custoTotalAnual)}</div>
+              <p className="text-xs text-slate-500 mt-1">Todas as secretarias</p>
             </CardContent>
           </Card>
 
@@ -230,7 +226,7 @@ export default function EficienciaServidor() {
             <button
               onClick={() => {
                 const metrics = [
-                  { label: 'Total Geral de Custo/Servidor', value: `R$ ${formatCurrency(custoTotalServidor)}` },
+                  { label: 'Custo Total Anual', value: `R$ ${formatCurrency(custoTotalAnual)}` },
                   { label: 'Custo Médio/Servidor', value: `R$ ${formatCurrency(custoMedioServidor)}` },
                   { label: 'Área Média/Servidor', value: `${areaMedioServidor.toFixed(2)} m²` },
                   { label: 'Maior Custo/Servidor', value: `R$ ${formatCurrency(maiorCustoServidor)}` },

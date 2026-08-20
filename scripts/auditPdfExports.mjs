@@ -1,10 +1,11 @@
-import { existsSync, mkdirSync, readdirSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, rmSync } from 'node:fs';
 
 const targetList = await fetch('http://127.0.0.1:9222/json/list').then((response) => response.json());
 const page = targetList.find((target) => target.type === 'page' && target.url.includes('3000-ir422c4oph32cl5njq8hw-44258327'));
 if (!page?.webSocketDebuggerUrl) throw new Error('Página do dashboard não encontrada para a auditoria de PDFs.');
 
 const downloadPath = '/home/ubuntu/Downloads/pdf-audit';
+rmSync(downloadPath, { recursive: true, force: true });
 mkdirSync(downloadPath, { recursive: true });
 const socket = new WebSocket(page.webSocketDebuggerUrl);
 await new Promise((resolve, reject) => {
@@ -39,7 +40,7 @@ const routes = [
 const failures = [];
 for (const route of routes) {
   await command('Page.navigate', { url: `${origin}${route}` });
-  await new Promise((resolve) => setTimeout(resolve, 500));
+  await new Promise((resolve) => setTimeout(resolve, 1200));
   const before = existsSync(downloadPath) ? readdirSync(downloadPath).length : 0;
   const clicked = await command('Runtime.evaluate', {
     expression: `(() => {
@@ -50,8 +51,12 @@ for (const route of routes) {
     })()`,
     returnByValue: true,
   });
-  await new Promise((resolve) => setTimeout(resolve, 800));
-  const after = existsSync(downloadPath) ? readdirSync(downloadPath).length : 0;
+  let after = before;
+  const deadline = Date.now() + 8000;
+  while (after <= before && Date.now() < deadline) {
+    await new Promise((resolve) => setTimeout(resolve, 250));
+    after = existsSync(downloadPath) ? readdirSync(downloadPath).length : 0;
+  }
   const ok = clicked.result.value === true && after > before;
   console.log(`${route}: ${ok ? 'OK' : 'FALHA'} (${before} -> ${after})`);
   if (!ok) failures.push(route);

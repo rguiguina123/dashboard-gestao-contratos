@@ -2,6 +2,7 @@ import { and, desc, eq } from "drizzle-orm";
 import * as XLSX from "xlsx";
 import { colaboradores, contratos, despesasSemContrato, secs } from "../client/src/lib/data";
 import custosPadrao from "../client/src/lib/dadosCustos.json";
+import { buildCostAnalytics, type CostDetailRow } from "../client/src/lib/costAnalytics";
 import { dataImports, dataSnapshots } from "../drizzle/schema";
 import { getDb } from "./db";
 import { storagePut } from "./storage";
@@ -38,6 +39,12 @@ const defaultData = (): DashboardData => structuredClone({
   custos: custosPadrao,
 });
 const OFFICIAL_COSTS_FILE = "CUSTOS COMPILADOS POR ESTADO2.XLSX";
+const COST_NUMERIC_COLUMNS = [
+  "Energia Elétrica", "Água e Esgoto", "Condomínio", "Locação Imóvel", "Manutenção Predial",
+  "Motorista/Segurança pessoal de ministros", "Vigilância",
+  "Apoio Adm + Copeiragem + Limpeza + Recepção (Mão de obra e materiais)", "Rateio", "Taxa de lixo",
+  "Total", "Área da Sec (m2)", "Qtd de servidores",
+] as const;
 
 const clean = (value: unknown) => String(value ?? "").trim();
 const keyText = (value: unknown) => clean(value).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
@@ -54,6 +61,9 @@ function requiredNumber(value: unknown, column: string, line: number, sheet: str
   if (!Number.isFinite(parsed)) throw new Error(`O valor da coluna “${column}” é inválido na linha ${line} da aba “${sheet}”.`);
   return parsed;
 }
+const optionalNumber = (value: unknown) => clean(value)
+  ? requiredNumber(value, "Valor", 0, "Visão Geral")
+  : 0;
 const cpfDigits = (value: unknown) => clean(value).replace(/\D/g, "").padStart(11, "0");
 const formatCpf = (value: unknown) => {
   const digits = cpfDigits(value);
@@ -275,7 +285,7 @@ function parseWorkbook(buffer: Buffer, fileName: string): Partial<DashboardData>
       throw new Error("Para atualizar custos, envie exclusivamente o arquivo oficial “Custos compilados por estado2.xlsx”.");
     }
     const mapping: Array<[keyof typeof custosPadrao, RegExp, string[]]> = [
-      ["visao_geral", /VISAO\s*GERAL/, ["SEC", "Total", "Custo/Servidor", "Custo/Área"]],
+      ["visao_geral", /VISAO\s*GERAL/, ["SEC", "Total", "Área da Sec (m2)", "Qtd de servidores"]],
       ["custo_area_servidor", /AREA.*SERVIDOR|SERVIDOR.*AREA/, ["SEC", "Área/Servidor", "Custo/Servidor"]],
       ["custo_area", /CUSTO.*AREA/, ["SEC", "Custo/Área"]],
       ["custo_servidor", /CUSTO.*SERVIDOR/, ["SEC", "Custo/Servidor"]],
@@ -302,7 +312,26 @@ function parseWorkbook(buffer: Buffer, fileName: string): Partial<DashboardData>
     }
     if (errors.length) throw new Error(errors.join("\n"));
     if (!identified || !updatedCosts.visao_geral.length) throw new Error("Aba “Visão Geral”, linha 2, coluna “Dados”: não há registros válidos para importar.");
-    return { custos: updatedCosts as DashboardData["custos"] };
+    const visaoGeral = (updatedCosts.visao_geral as Record<string, unknown>[]).map((row) => {
+      const normalized = { ...row } as Record<string, unknown>;
+      COST_NUMERIC_COLUMNS.forEach((column) => {
+        if (column in normalized) normalized[column] = optionalNumber(normalized[column]);
+      });
+      normalized.SEC = fullSec(normalized.SEC);
+      return normalized;
+    });
+    const derived = buildCostAnalytics(visaoGeral as CostDetailRow[]);
+    return {
+      custos: {
+        ...updatedCosts,
+        visao_geral: visaoGeral as unknown as typeof updatedCosts.visao_geral,
+        custo_total: derived.custoTotal,
+        custo_area: derived.custoArea,
+        custo_servidor: derived.custoServidor,
+        custo_area_servidor: derived.custoAreaServidor,
+        servidores: derived.servidores,
+      } as DashboardData["custos"],
+    };
   }
 
   throw new Error("Não foi possível identificar o tipo de planilha. Envie um dos arquivos oficiais de colaboradores, contratos, secretarias ou custos.");
