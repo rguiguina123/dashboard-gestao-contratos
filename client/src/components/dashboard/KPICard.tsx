@@ -36,7 +36,7 @@ export function KPICard({
 
   return (
     <Card
-      className={`bg-gradient-to-br ${colorClasses[color]} border card-elevated hover-lift transition-all duration-300 hover:shadow-xl hover:scale-105 cursor-pointer`}
+      className={`bg-gradient-to-br ${colorClasses[color]} border card-elevated transition-shadow duration-200 hover:shadow-xl cursor-default`}
       style={{
         animation: `slideInUp 0.5s ease-out ${delay}s backwards`,
       }}
@@ -45,21 +45,21 @@ export function KPICard({
         <div className="space-y-3">
           <div className="flex items-start justify-between">
             <div>
-              <p className="text-sm font-medium text-muted-foreground mb-1">
+              <p className="type-label text-muted-foreground mb-1.5">
                 {title}
               </p>
-              <p className="text-2xl font-bold text-foreground font-poppins">
+              <p className="text-[1.65rem] leading-none font-bold text-foreground font-poppins tabular-nums">
                 {value}
               </p>
             </div>
             {icon && (
-              <div className="rounded-lg bg-[#c2e6f0] p-3">{icon}</div>
+              <div className="rounded-md border border-white/70 bg-[#c2e6f0]/75 p-2.5">{icon}</div>
             )}
           </div>
 
           {trend && trendValue && (
             <div
-              className={`text-xs font-semibold flex items-center gap-1 ${trendColors[trend]}`}
+              className={`text-[0.6875rem] font-semibold tracking-[0.01em] flex items-center gap-1 ${trendColors[trend]}`}
             >
               {trend === "up" ? (
                 <ArrowUpRight className="w-3 h-3" />

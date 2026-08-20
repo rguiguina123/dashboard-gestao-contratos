@@ -143,3 +143,17 @@
 - [x] Adicionar gráfico de tendência mensal com escala e rótulos legíveis
 - [x] Incluir leitura estatística da evolução mensal no relatório executivo
 - [x] Testar dados, visualização, exportação e build dos PDFs atualizados
+
+# Habilidade reutilizável para dashboards institucionais
+- [x] Estruturar uma habilidade para evolução visual, filtros, atualização de dados e PDFs analíticos
+- [x] Incluir critérios de validação de rotas, responsividade, importação e exportações
+- [x] Validar e entregar a habilidade reutilizável ao usuário
+
+# Refinamento tipográfico institucional
+- [x] Mapear problemas de fonte, peso, escala, espaçamento e contraste nas telas prioritárias
+- [x] Ajustar tipografia global e textos de interface sem alterar a estrutura visual aprovada
+- [x] Revisar a legibilidade em home, dashboard, contratos e atualização de dados
+- [x] Validar tipagem, build e a ausência de regressões visuais
+- [x] Revisar visualmente a página Atualizar Dados após a troca tipográfica
+- [x] Revalidar as telas afetadas por estilos globais para confirmar a ausência de regressões visuais
+- [x] Revisar as páginas analíticas restantes afetadas pela tipografia global e registrar a evidência visual

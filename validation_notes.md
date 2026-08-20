@@ -48,3 +48,17 @@ Na atualização analítica dos PDFs, o relatório executivo passou a ter págin
 Também foram validados os relatórios de contratos e colaboradores: os alertas de vigência ficaram legíveis sem caracteres especiais incompatíveis, o ranking de fornecedores mostra os cinco maiores valores anuais e a distribuição por função evidencia a composição operacional. Os doze PDFs foram regenerados com sucesso após a revisão.
 
 O relatório executivo recebeu a página “Tendência Mensal”, com linha de evolução de janeiro a junho, escala financeira, pontos mensais, valores inicial e final, variação percentual e leitura temporal. A página foi inspecionada visualmente, e os doze PDFs continuaram a ser gerados com sucesso.
+
+No refinamento tipográfico, a interface passou a usar IBM Plex Sans, com numerais tabulares, espaçamento de leitura mais controlado e pesos mais sóbrios. A home, o dashboard e contratos foram inspecionados visualmente; os alertas de vencimento passaram a mostrar somente cinco itens e um resumo do restante. O console permaneceu sem erros após os ajustes.
+
+A central de Atualizar Dados também foi inspecionada após a troca tipográfica: cabeçalho, formulário de responsável, área de planilha, etapas de comparação e histórico permaneceram legíveis e sem regressões visuais.
+
+As páginas Colaboradores e Demonstrativo Total também foram revisadas após a troca tipográfica. Indicadores, gráficos, filtros e tabelas mantiveram hierarquia legível e a nova fonte trouxe maior sobriedade aos títulos e valores numéricos.
+
+As páginas Demonstrativo Total e Despesas com Contrato foram confirmadas com títulos, valores, filtros, gráficos e tabelas legíveis após a troca tipográfica global, sem sobreposição ou corte de texto no primeiro viewport.
+
+Também foram revisadas Despesas sem Contrato, Custos por Secretaria e Custo por Área. As páginas preservaram a leitura de rankings, gráficos, controles de ordenação e tabelas extensas com a nova tipografia e sem regressões visuais no primeiro viewport.
+
+As análises Custos Totais por Secretaria e Eficiência por Servidor foram revisadas na sequência. Cartões de indicadores, gráficos comparativos, rankings e tabelas preservaram contraste, alinhamento e leitura adequada após a alteração tipográfica.
+
+As páginas finais da auditoria, Custos por Servidor e Quantidade de Servidores, foram revisadas visualmente. Indicadores, gráficos, rankings, tabelas e o acesso à exportação de relatório permaneceram claros, alinhados e sem recorte de texto no primeiro viewport.
