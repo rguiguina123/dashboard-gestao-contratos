@@ -38,3 +38,7 @@ Ao combinar o fornecedor “infinity” com a vigência de 01/06/2026 a 30/06/20
 A ação “Limpar filtros” restaurou corretamente os 74 contratos e os totais originais. A auditoria final confirmou todas as 14 rotas, além de ausência de overflow horizontal em celular, tablet e desktop nas rotas principais.
 
 O período inválido de 30/06/2026 a 01/06/2026 foi bloqueado, exibiu a mensagem “A data final deve ser igual ou posterior à data inicial” e preservou os 74 contratos já mostrados na tabela.
+
+Na revisão funcional, o filtro de colaboradores por SEC foi aplicado em AL e a tabela passou a exibir os oito registros correspondentes, preservando gráficos e indicadores na página.
+
+A revisão integral confirmou 22 testes automatizados, tipagem e build aprovados, 14 rotas auditadas, 12 relatórios PDF gerados, auditoria de responsividade em celular, tablet e desktop e ausência de erros no console. A central pública de atualização também exibiu o responsável e o histórico da importação de verificação aplicada.

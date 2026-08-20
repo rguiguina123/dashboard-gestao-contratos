@@ -124,3 +124,10 @@
 - [x] Testar fornecedor, vigência, combinação de filtros, responsividade, tipagem e build
 - [x] Bloquear intervalo inválido quando a data final for anterior à inicial e informar o motivo
 - [x] Cobrir e validar o comportamento de intervalo de vigência inválido
+
+# Revisão funcional completa
+- [x] Mapear todas as rotas e os fluxos de uso críticos do dashboard
+- [x] Executar testes automatizados, tipagem, build e auditorias de rotas e responsividade
+- [x] Validar filtros, ordenação, tabelas, navegação e relatórios PDF no navegador
+- [x] Testar a atualização pública de dados, o comparativo, a aplicação e o histórico
+- [x] Corrigir e revalidar quaisquer falhas reproduzíveis encontradas
