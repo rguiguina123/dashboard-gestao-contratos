@@ -131,3 +131,9 @@
 - [x] Validar filtros, ordenação, tabelas, navegação e relatórios PDF no navegador
 - [x] Testar a atualização pública de dados, o comparativo, a aplicação e o histórico
 - [x] Corrigir e revalidar quaisquer falhas reproduzíveis encontradas
+
+# Relatórios PDF analíticos
+- [x] Mapear geradores, páginas exportadoras e dados disponíveis para os relatórios
+- [x] Definir estatísticas e gráficos de resumo para contratos, colaboradores, custos e despesas
+- [x] Implementar composição analítica institucional e gráficos legíveis nos PDFs
+- [x] Validar a geração, o conteúdo e a leitura dos relatórios aprimorados

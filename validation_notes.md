@@ -42,3 +42,7 @@ O período inválido de 30/06/2026 a 01/06/2026 foi bloqueado, exibiu a mensagem
 Na revisão funcional, o filtro de colaboradores por SEC foi aplicado em AL e a tabela passou a exibir os oito registros correspondentes, preservando gráficos e indicadores na página.
 
 A revisão integral confirmou 22 testes automatizados, tipagem e build aprovados, 14 rotas auditadas, 12 relatórios PDF gerados, auditoria de responsividade em celular, tablet e desktop e ausência de erros no console. A central pública de atualização também exibiu o responsável e o histórico da importação de verificação aplicada.
+
+Na atualização analítica dos PDFs, o relatório executivo passou a ter página própria de análise com indicadores, ranking gráfico e leitura gerencial. A validação visual confirmou a identificação correta dos meses no ranking e a legibilidade da composição institucional.
+
+Também foram validados os relatórios de contratos e colaboradores: os alertas de vigência ficaram legíveis sem caracteres especiais incompatíveis, o ranking de fornecedores mostra os cinco maiores valores anuais e a distribuição por função evidencia a composição operacional. Os doze PDFs foram regenerados com sucesso após a revisão.

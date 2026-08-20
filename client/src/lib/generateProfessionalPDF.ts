@@ -33,6 +33,8 @@ interface EmployeeMetrics {
   postos: number;
 }
 
+type ChartDatum = { label: string; value: number };
+
 export const generateContractsPDFProfessional = async (
   contracts: any[],
   metrics: ContractMetrics
@@ -99,18 +101,18 @@ export const generateContractsPDFProfessional = async (
 
   // Box de contratos vencidos
   if (metrics.vencidos > 0) {
-    drawAlertBox(doc, margin, yPosition, contentWidth, 12, `⚠️ ${metrics.vencidos} contrato(s) VENCIDO(S)`, COLORS.danger);
+    drawAlertBox(doc, margin, yPosition, contentWidth, 12, `ATENÇÃO: ${metrics.vencidos} contrato(s) VENCIDO(S)`, COLORS.danger);
     yPosition += 16;
   }
 
   // Box de contratos vencendo
   if (metrics.breve > 0) {
-    drawAlertBox(doc, margin, yPosition, contentWidth, 12, `⏰ ${metrics.breve} contrato(s) vencendo em breve (até 30 dias)`, COLORS.warning);
+    drawAlertBox(doc, margin, yPosition, contentWidth, 12, `PRAZO: ${metrics.breve} contrato(s) vencendo em breve (até 30 dias)`, COLORS.warning);
     yPosition += 16;
   }
 
   // Box de contratos ativos
-  drawAlertBox(doc, margin, yPosition, contentWidth, 12, `✓ ${metrics.ativos} contrato(s) ATIVO(S)`, COLORS.success);
+  drawAlertBox(doc, margin, yPosition, contentWidth, 12, `SITUAÇÃO: ${metrics.ativos} contrato(s) ATIVO(S)`, COLORS.success);
   yPosition += 18;
 
   // ============ TABELA DE CONTRATOS ============
@@ -215,6 +217,14 @@ export const generateContractsPDFProfessional = async (
     },
   });
 
+  yPosition = (doc as any).lastAutoTable.finalY + 12;
+  const fornecedores = buildDistribution(contracts, 'fornecedor', 'anual').slice(0, 5);
+  if (fornecedores.length > 0 && yPosition < pageHeight - 78) {
+    drawSectionTitle(doc, margin, yPosition, 'CONCENTRAÇÃO POR FORNECEDOR');
+    yPosition += 7;
+    drawHorizontalBarChart(doc, margin, yPosition, contentWidth, 58, fornecedores, 'Despesa anual', COLORS.accentPrimary);
+  }
+
   // Footer
   const totalPages = (doc as any).internal.pages.length - 1;
   for (let i = 1; i <= totalPages; i++) {
@@ -279,6 +289,16 @@ export const generateEmployeesPDFProfessional = async (
   drawMetricBox(doc, margin + 120, yPosition, 35, 18, 'Postos', metrics.postos.toString(), COLORS.accentSecondary);
 
   yPosition += 28;
+
+  const funcoes = buildDistribution(employees, 'funcao').slice(0, 5);
+  if (funcoes.length > 0) {
+    drawSectionTitle(doc, margin, yPosition, 'DISTRIBUIÇÃO POR FUNÇÃO');
+    yPosition += 7;
+    drawHorizontalBarChart(doc, margin, yPosition, 120, 52, funcoes, 'Colaboradores', COLORS.accentSecondary);
+    const principalFuncao = funcoes[0];
+    drawInsightNote(doc, 145, yPosition, contentWidth - 145, 52, 'DESTAQUE OPERACIONAL', principalFuncao ? `${principalFuncao.label}: ${principalFuncao.value} colaboradores` : 'Sem dados para análise');
+    yPosition += 62;
+  }
 
   // ============ TABELA DE COLABORADORES ============
   doc.setFontSize(11);
@@ -400,6 +420,126 @@ function drawAlertBox(
   doc.text(text, x + 4, y + height / 2 + 2);
 }
 
+function drawSectionTitle(doc: jsPDF, x: number, y: number, title: string) {
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(10);
+  doc.setTextColor(0, 63, 95);
+  doc.text(title, x, y);
+  doc.setDrawColor(137, 173, 69);
+  doc.setLineWidth(0.8);
+  doc.line(x, y + 2.5, x + 38, y + 2.5);
+}
+
+function drawReportHeader(doc: jsPDF, pageWidth: number, margin: number, title: string, subtitle: string) {
+  doc.setFillColor(0, 63, 95);
+  doc.rect(0, 0, pageWidth, 35, 'F');
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(16);
+  doc.text(title, margin, 18);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(194, 230, 240);
+  doc.setFontSize(8);
+  doc.text(subtitle, margin, 27);
+}
+
+function drawHorizontalBarChart(doc: jsPDF, x: number, y: number, width: number, height: number, series: ChartDatum[], measure: string, color: string) {
+  const max = Math.max(...series.map((item) => item.value), 1);
+  const rowHeight = height / Math.max(series.length, 1);
+  const labelWidth = Math.min(width * 0.34, 58);
+  const valueWidth = 27;
+  const barWidth = width - labelWidth - valueWidth - 8;
+  const rgb = hexToRgb(color);
+
+  series.forEach((item, index) => {
+    const rowY = y + index * rowHeight;
+    const barY = rowY + 4;
+    const label = item.label.length > 27 ? `${item.label.slice(0, 26)}…` : item.label;
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7.5);
+    doc.setTextColor(48, 71, 85);
+    doc.text(label, x, barY + 3.2);
+    doc.setFillColor(226, 237, 240);
+    doc.roundedRect(x + labelWidth, barY, barWidth, 5, 1.5, 1.5, 'F');
+    doc.setFillColor(rgb.r, rgb.g, rgb.b);
+    doc.roundedRect(x + labelWidth, barY, Math.max(2, barWidth * item.value / max), 5, 1.5, 1.5, 'F');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(7.5);
+    doc.setTextColor(0, 63, 95);
+    doc.text(formatChartValue(item.value, measure), x + labelWidth + barWidth + 4, barY + 3.2);
+  });
+}
+
+function drawInsightNote(doc: jsPDF, x: number, y: number, width: number, height: number, label: string, text: string) {
+  doc.setFillColor(244, 245, 242);
+  doc.setDrawColor(201, 221, 230);
+  doc.roundedRect(x, y, width, height, 2, 2, 'FD');
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(8, 127, 163);
+  doc.setFontSize(7.5);
+  doc.text(label, x + 4, y + 7);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(0, 48, 71);
+  doc.setFontSize(8.5);
+  doc.text(doc.splitTextToSize(text, width - 8).slice(0, 3), x + 4, y + 14);
+}
+
+function buildDistribution(rows: any[], labelKey: string, valueKey?: string): ChartDatum[] {
+  const totals = new Map<string, number>();
+  rows.forEach((row) => {
+    const label = String(row?.[labelKey] || 'Não informado');
+    const value = valueKey ? Number(row?.[valueKey] || 0) : 1;
+    totals.set(label, (totals.get(label) || 0) + (Number.isFinite(value) ? value : 0));
+  });
+  return Array.from(totals.entries())
+    .map(([label, value]) => ({ label, value }))
+    .sort((left, right) => right.value - left.value);
+}
+
+function formatChartValue(value: number, measure: string): string {
+  const formatted = value.toLocaleString('pt-BR', { maximumFractionDigits: 2, minimumFractionDigits: 0 });
+  if (/R\$|custo|valor|despesa|mensal|anual|total/i.test(measure)) return `R$ ${formatted}`;
+  if (/%/.test(measure)) return `${formatted}%`;
+  return formatted;
+}
+
+function parsePdfNumber(value: unknown): number | null {
+  if (typeof value === 'number' && Number.isFinite(value)) return value;
+  const raw = String(value ?? '').replace(/R\$|\s|%/g, '').trim();
+  if (!raw) return null;
+  const normalized = raw.includes(',') ? raw.replace(/\./g, '').replace(',', '.') : raw.replace(/,/g, '');
+  const parsed = Number(normalized);
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+export function buildGenericAnalytics(headers: string[], rows: any[][]) {
+  const candidates = headers
+    .map((header, index) => ({ header, index, values: rows.map((row) => parsePdfNumber(row[index])).filter((value): value is number => value !== null) }))
+    .filter((candidate) => candidate.values.length >= Math.max(1, Math.ceil(rows.length * 0.6)))
+    .sort((left, right) => right.values.reduce((sum, value) => sum + Math.abs(value), 0) - left.values.reduce((sum, value) => sum + Math.abs(value), 0));
+  const selected = candidates[0] || { header: 'Valor', index: 1, values: [] as number[] };
+  const series = rows
+    .map((row) => ({ label: getCategoryLabel(row, selected.index), value: parsePdfNumber(row[selected.index]) ?? 0 }))
+    .filter((item) => item.value > 0)
+    .sort((left, right) => right.value - left.value)
+    .slice(0, 5);
+  const total = selected.values.reduce((sum, value) => sum + value, 0);
+  const average = selected.values.length ? total / selected.values.length : 0;
+  const top = series[0];
+  return {
+    series,
+    measureLabel: selected.header,
+    maxValueLabel: top ? formatChartValue(top.value, selected.header) : '—',
+    averageValueLabel: formatChartValue(average, selected.header),
+    insight: top ? `${top.label} representa o maior valor observado em ${selected.header}, com ${formatChartValue(top.value, selected.header)}.` : 'Não há valores numéricos suficientes para compor o gráfico de resumo.',
+  };
+}
+
+function getCategoryLabel(row: any[], metricIndex: number): string {
+  const category = row.find((value, index) => index !== metricIndex && parsePdfNumber(value) === null);
+  return String(category ?? row[0] ?? 'Registro');
+}
+
 function formatCurrency(value: number): string {
   return value.toLocaleString('pt-BR', {
     minimumFractionDigits: 2,
@@ -468,7 +608,7 @@ export const generateGenericReportPDF = (
     doc.text('MÉTRICAS PRINCIPAIS', margin, yPosition);
     yPosition += 8;
 
-    const metricsData = metrics.map(m => [m.label, String(m.value)]);
+    const metricsData = metrics.map(m => [m.label, String(m.value).replace(/^(R\$\s*){2}/, 'R$ ')]);
 
     autoTable(doc, {
       body: metricsData,
@@ -489,8 +629,28 @@ export const generateGenericReportPDF = (
     yPosition = (doc as any).lastAutoTable.finalY + 10;
   }
 
-  // ============ TABELA DE DADOS ============
+  // ============ ANÁLISE EXECUTIVA ==========
+  const analytics = buildGenericAnalytics(tableHeaders, tableData);
+  if (analytics.series.length > 0) {
+    doc.addPage();
+    drawReportHeader(doc, pageWidth, margin, 'ANÁLISE EXECUTIVA', 'Síntese estatística dos dados exportados');
+    yPosition = 45;
+    drawMetricBox(doc, margin, yPosition, 52, 20, 'Registros analisados', String(tableData.length), COLORS.accentPrimary);
+    drawMetricBox(doc, margin + 58, yPosition, 52, 20, `Maior ${analytics.measureLabel}`, analytics.maxValueLabel, COLORS.accentSecondary);
+    drawMetricBox(doc, margin + 116, yPosition, 52, 20, `Média ${analytics.measureLabel}`, analytics.averageValueLabel, COLORS.warning);
+    yPosition += 31;
+    drawSectionTitle(doc, margin, yPosition, `TOP 5 POR ${analytics.measureLabel.toUpperCase()}`);
+    yPosition += 7;
+    drawHorizontalBarChart(doc, margin, yPosition, pageWidth - 2 * margin, 72, analytics.series, analytics.measureLabel, COLORS.accentPrimary);
+    yPosition += 82;
+    drawInsightNote(doc, margin, yPosition, pageWidth - 2 * margin, 29, 'LEITURA GERENCIAL', analytics.insight);
+  }
+
+  // ============ TABELA DE DADOS ==========
   if (tableData && tableData.length > 0) {
+    doc.addPage();
+    drawReportHeader(doc, pageWidth, margin, 'DETALHAMENTO DOS DADOS', `Base exportada: ${tableData.length} registro(s)`);
+    yPosition = 45;
     doc.setFontSize(11);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(COLORS.textPrimary);
