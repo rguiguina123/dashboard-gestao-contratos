@@ -46,3 +46,5 @@ A revisão integral confirmou 22 testes automatizados, tipagem e build aprovados
 Na atualização analítica dos PDFs, o relatório executivo passou a ter página própria de análise com indicadores, ranking gráfico e leitura gerencial. A validação visual confirmou a identificação correta dos meses no ranking e a legibilidade da composição institucional.
 
 Também foram validados os relatórios de contratos e colaboradores: os alertas de vigência ficaram legíveis sem caracteres especiais incompatíveis, o ranking de fornecedores mostra os cinco maiores valores anuais e a distribuição por função evidencia a composição operacional. Os doze PDFs foram regenerados com sucesso após a revisão.
+
+O relatório executivo recebeu a página “Tendência Mensal”, com linha de evolução de janeiro a junho, escala financeira, pontos mensais, valores inicial e final, variação percentual e leitura temporal. A página foi inspecionada visualmente, e os doze PDFs continuaram a ser gerados com sucesso.

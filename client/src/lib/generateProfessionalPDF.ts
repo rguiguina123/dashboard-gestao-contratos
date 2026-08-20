@@ -34,6 +34,7 @@ interface EmployeeMetrics {
 }
 
 type ChartDatum = { label: string; value: number };
+type MonthlyTrend = { labels: string[]; values: number[]; measureLabel: string; variation: number };
 
 export const generateContractsPDFProfessional = async (
   contracts: any[],
@@ -470,6 +471,45 @@ function drawHorizontalBarChart(doc: jsPDF, x: number, y: number, width: number,
   });
 }
 
+function drawMonthlyTrendChart(doc: jsPDF, x: number, y: number, width: number, height: number, trend: MonthlyTrend) {
+  const left = x + 20;
+  const top = y + 7;
+  const chartWidth = width - 26;
+  const chartHeight = height - 24;
+  const max = Math.max(...trend.values, 1);
+  const min = Math.min(...trend.values, 0);
+  const range = Math.max(max - min, max * 0.12, 1);
+
+  doc.setFillColor(244, 245, 242);
+  doc.roundedRect(x, y, width, height, 2, 2, 'F');
+  [0, 0.5, 1].forEach((step) => {
+    const lineY = top + chartHeight * step;
+    doc.setDrawColor(201, 221, 230);
+    doc.setLineWidth(0.3);
+    doc.line(left, lineY, left + chartWidth, lineY);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(6.5);
+    doc.setTextColor(84, 113, 130);
+    doc.text(formatChartValue(max - range * step, trend.measureLabel), x + 1, lineY + 2);
+  });
+
+  const points = trend.values.map((value, index) => ({
+    x: left + (trend.values.length === 1 ? chartWidth / 2 : chartWidth * index / (trend.values.length - 1)),
+    y: top + ((max - value) / range) * chartHeight,
+  }));
+  doc.setDrawColor(8, 127, 163);
+  doc.setLineWidth(1.4);
+  points.slice(1).forEach((point, index) => doc.line(points[index].x, points[index].y, point.x, point.y));
+  points.forEach((point, index) => {
+    doc.setFillColor(137, 173, 69);
+    doc.circle(point.x, point.y, 1.9, 'F');
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7);
+    doc.setTextColor(0, 63, 95);
+    doc.text(trend.labels[index], point.x, y + height - 5, { align: 'center' });
+  });
+}
+
 function drawInsightNote(doc: jsPDF, x: number, y: number, width: number, height: number, label: string, text: string) {
   doc.setFillColor(244, 245, 242);
   doc.setDrawColor(201, 221, 230);
@@ -532,6 +572,25 @@ export function buildGenericAnalytics(headers: string[], rows: any[][]) {
     maxValueLabel: top ? formatChartValue(top.value, selected.header) : '—',
     averageValueLabel: formatChartValue(average, selected.header),
     insight: top ? `${top.label} representa o maior valor observado em ${selected.header}, com ${formatChartValue(top.value, selected.header)}.` : 'Não há valores numéricos suficientes para compor o gráfico de resumo.',
+  };
+}
+
+export function buildMonthlyTrend(headers: string[], rows: any[][]): MonthlyTrend | null {
+  if (!/m[eê]s/i.test(headers[0] || '') || rows.length < 2) return null;
+  const numericColumns = headers
+    .map((header, index) => ({ header, index, values: rows.map((row) => parsePdfNumber(row[index])).filter((value): value is number => value !== null) }))
+    .filter((candidate) => candidate.values.length === rows.length)
+    .sort((left, right) => right.values.reduce((sum, value) => sum + Math.abs(value), 0) - left.values.reduce((sum, value) => sum + Math.abs(value), 0));
+  const selected = numericColumns[0];
+  if (!selected) return null;
+  const values = rows.map((row) => parsePdfNumber(row[selected.index]) ?? 0);
+  const first = values[0] || 0;
+  const last = values[values.length - 1] || 0;
+  return {
+    labels: rows.map((row) => String(row[0] ?? '—')),
+    values,
+    measureLabel: selected.header,
+    variation: first === 0 ? 0 : ((last - first) / first) * 100,
   };
 }
 
@@ -627,6 +686,26 @@ export const generateGenericReportPDF = (
     });
 
     yPosition = (doc as any).lastAutoTable.finalY + 10;
+  }
+
+  // ============ TENDÊNCIA MENSAL ==========
+  const monthlyTrend = buildMonthlyTrend(tableHeaders, tableData);
+  if (monthlyTrend) {
+    doc.addPage();
+    drawReportHeader(doc, pageWidth, margin, 'TENDÊNCIA MENSAL', `Evolução de ${monthlyTrend.measureLabel.toLowerCase()} no período exportado`);
+    yPosition = 45;
+    const firstValue = monthlyTrend.values[0];
+    const lastValue = monthlyTrend.values[monthlyTrend.values.length - 1];
+    drawMetricBox(doc, margin, yPosition, 52, 20, `Início (${monthlyTrend.labels[0]})`, formatChartValue(firstValue, monthlyTrend.measureLabel), COLORS.accentPrimary);
+    drawMetricBox(doc, margin + 58, yPosition, 52, 20, `Final (${monthlyTrend.labels[monthlyTrend.labels.length - 1]})`, formatChartValue(lastValue, monthlyTrend.measureLabel), COLORS.accentSecondary);
+    drawMetricBox(doc, margin + 116, yPosition, 52, 20, 'Variação no período', `${monthlyTrend.variation >= 0 ? '+' : ''}${monthlyTrend.variation.toFixed(1)}%`, monthlyTrend.variation >= 0 ? COLORS.accentSecondary : COLORS.danger);
+    yPosition += 32;
+    drawSectionTitle(doc, margin, yPosition, `EVOLUÇÃO DE ${monthlyTrend.measureLabel.toUpperCase()}`);
+    yPosition += 7;
+    drawMonthlyTrendChart(doc, margin, yPosition, pageWidth - 2 * margin, 86, monthlyTrend);
+    yPosition += 96;
+    const direction = monthlyTrend.variation >= 0 ? 'crescimento' : 'redução';
+    drawInsightNote(doc, margin, yPosition, pageWidth - 2 * margin, 29, 'LEITURA TEMPORAL', `O período encerra em ${monthlyTrend.labels[monthlyTrend.labels.length - 1]} com ${formatChartValue(lastValue, monthlyTrend.measureLabel)}, representando ${direction} de ${Math.abs(monthlyTrend.variation).toFixed(1)}% frente ao início da série.`);
   }
 
   // ============ ANÁLISE EXECUTIVA ==========

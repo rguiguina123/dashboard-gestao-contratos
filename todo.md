@@ -137,3 +137,9 @@
 - [x] Definir estatísticas e gráficos de resumo para contratos, colaboradores, custos e despesas
 - [x] Implementar composição analítica institucional e gráficos legíveis nos PDFs
 - [x] Validar a geração, o conteúdo e a leitura dos relatórios aprimorados
+
+# Tendência mensal nos relatórios PDF
+- [x] Mapear séries mensais e relatórios elegíveis para visualização temporal
+- [x] Adicionar gráfico de tendência mensal com escala e rótulos legíveis
+- [x] Incluir leitura estatística da evolução mensal no relatório executivo
+- [x] Testar dados, visualização, exportação e build dos PDFs atualizados
